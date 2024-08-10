@@ -1,10 +1,20 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
+import { GlobalSettings, UserContext } from "../../Utils/Context/UserContext";
 
 const textInputs = 200
 const buttonInputs = 100
 const thirdPartyProviderFontSize = 12
 
 export default function SignInScreen(){
+    const {settings, setSettings} = useContext(UserContext) as GlobalSettings
+
+    if (settings == null && setSettings == null)
+        throw new Error("Global context is null")
+
+    useEffect(() => {
+        setSettings({...settings, isInStartupScreen: true})
+    }, [])
+
     return (
         <main className="d-flex w-100 h-100 justify-content-center align-items-center bg-dark">
             
@@ -19,11 +29,9 @@ export default function SignInScreen(){
             
             </div>
 
-
             <div className="btn-group btn-group-sm d-flex flex-column mt-4 mb-3">
                 <button className="btn btn-light " style={{width: buttonInputs}}>Sign In</button>
             </div>     
-            
 
             <hr className="border border-light opacity-25 w-100 mt-3" />
 

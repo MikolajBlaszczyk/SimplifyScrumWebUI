@@ -1,25 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, useRouteError } from 'react-router-dom';
 import './index.css';
 import LoginScreen from './components/Login/LoginScreen';
 import App from './App';
 import SignInScreen from './components/Login/SignInScreen';
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { UserProvider } from './Utils/Context/UserContext';
+
+function ErrorBoundary() {
+  let error = useRouteError();
+  console.error(error);
+
+  // Uncaught ReferenceError: path is not defined
+  return <div>Dang!</div>;
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
+    errorElement: <ErrorBoundary/>,
     children: [
       {
-        path: "/",
+        path: "",
         element: <LoginScreen/>
       },
       {
-        path: "/signin/",
+        path: "signin/",
         element: <SignInScreen/>
       }
     ]
@@ -31,7 +41,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    
+      <UserProvider>
+        <RouterProvider router={router}/>
+      </UserProvider>
   </React.StrictMode>
 );
 

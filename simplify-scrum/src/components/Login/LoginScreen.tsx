@@ -1,12 +1,22 @@
-import React from "react";
-import { useNavigate } from 'react-router-dom';
+import React, {useContext, useEffect} from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { GlobalSettings, UserContext } from "../../Utils/Context/UserContext";
+import  {SimplifySettings}  from "../../Utils/Context/UserContext";
 
 const textInputs = 200
 const buttonInputs = 100
 const thirdPartyProviderFontSize = 12
 
 export default function LoginScreen(){
-    const navigate = useNavigate();
+    const {settings, setSettings} = useContext(UserContext) as GlobalSettings 
+    const navigate = useNavigate()
+
+    if(settings == null && setSettings == null)
+        throw new Error("User context is empty");
+
+    useEffect(() => {
+        setSettings({...settings, isInStartupScreen: true })
+    }, [])
 
     const navigateToSignIn = () => {
         navigate("/signin/")
@@ -14,13 +24,11 @@ export default function LoginScreen(){
 
     return (
         <main className="d-flex w-100 h-100 justify-content-center align-items-center bg-dark">
-            
             <form className="d-flex flex-column align-items-center border p-4 rounded shadow ">
                 <label className="form-label text-light fs-2">Welcome</label>
 
                 <div className="input-group input-group-sm mt-2 w-100">
                     <input className="form-control" type="text" style={{width: textInputs}} placeholder="email or login"/>
-                
                 </div>
                 <div className="input-group input-group-sm mt-2 w-100">
                     <input className="form-control" type="password" style={{width: textInputs}} placeholder="password"/>
@@ -43,7 +51,14 @@ export default function LoginScreen(){
                     </button>
                 </div>
 
-                <p onClick={navigateToSignIn} className=" text-secondary mt-3" style={{fontSize: 10}}>Create account</p>
+                <p className="mt-3">
+                    <Link
+                        className=" link-opacity-25 link-light link-opacity-75-hover link-underline-opacity-0"
+                        style={{ fontSize: 10 }} 
+                        to={"signin"}>
+                        Create account
+                    </Link>
+                </p>
 
             </form>
         </main>
