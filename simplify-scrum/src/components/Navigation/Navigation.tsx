@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { GlobalSettings, UserContext } from "../../Utils/Context/UserContext";
+import { GlobalSettings, UserContext } from "../../Context/UserContext";
 import { useNavigate, useLocation } from "react-router-dom";
 
 

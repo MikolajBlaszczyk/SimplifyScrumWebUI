@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, useRouteError } from 'react-router-dom';
 import './index.css';
-import LoginScreen from './components/Login/LoginScreen';
+import LoginScreen from './Components/Login/LoginScreen';
 import App from './App';
-import SignInScreen from './components/Login/SignInScreen';
+import SignInScreen from './Components/Login/SignInScreen';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { UserProvider } from './Utils/Context/UserContext';
+import { UserProvider } from './Context/UserContext';
+import MainDashboard from './Components/Dashboard/MainDashboard';
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "signin/",
         element: <SignInScreen/>
+      },
+      {
+        path: "main/",
+        element: <MainDashboard/>
       }
     ]
   }
