@@ -1,0 +1,31 @@
+
+$green: #187d18;
+$blue: #2c2c8b;
+$purple: #3f176f;
+$white: #f4e9e9;
+$orange: #e8961c;
+
+.bg-dark-darker{
+    background-color: var(--bs-dark-darker) !important;
+}
+
+
+.meeting-indication-retrospective {
+    color: $blue;
+}
+
+.meeting-indication-planning {
+    color: $green;
+}
+
+.meeting-indication-refinement {
+    color: $purple;
+}
+
+.meeting-indication-daily { 
+    color: $white;
+}
+
+.meeting-indication-custom {
+    color: $orange;
+}

@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { GlobalSettings, UserContext } from "../../Context/UserContext";
 import {  useLogin } from "../../Services/ApiService"
-import { STATUS_CODES } from "http";
 
 const textInputs = 200
 const buttonInputs = 100
@@ -14,9 +13,6 @@ export default function LoginScreen(){
     const {settings, setSettings} = useContext(UserContext) as GlobalSettings 
     const navigate = useNavigate()
     const { result, loginToService } = useLogin();
-
-    if(settings == null && setSettings == null)
-        throw new Error("User context is empty");
 
     useEffect(() => {
         setSettings({...settings, isInStartupScreen: true })

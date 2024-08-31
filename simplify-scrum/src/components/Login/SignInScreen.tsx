@@ -16,9 +16,6 @@ export default function SignInScreen(){
     const { result, signInToSerivce} = useSignIn()
 
 
-    if (settings == null && setSettings == null)
-        throw new Error("Global context is null")
-
     useEffect(() => {
         setSettings({...settings, isInStartupScreen: true})
     }, [])

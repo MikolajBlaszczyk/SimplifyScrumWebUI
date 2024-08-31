@@ -1,3 +1,7 @@
+:root{
+  --bs-dark-darker: #121416;
+}
+
 html{
   display: flex;
   min-width: 100%;

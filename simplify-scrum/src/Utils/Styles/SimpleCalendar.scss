@@ -1,0 +1,73 @@
+
+
+.react-calendar{
+    display: flex;
+    width: 80%;
+    height: 60%;
+    padding: 4%;
+    flex-direction: column;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    margin: 2% 0%;
+}
+
+.react-calendar__viewContainer{
+    padding: 1%;
+}
+
+.react-calendar__month-view__days button{
+    background-color: var(--bs-dark);
+    border: none;
+    color: var(--bs-white);
+    border-right: 0.5px solid var(--bs-dark-darker);
+    border-left: 0.5px solid var(--bs-dark-darker);
+}
+
+.react-calendar__month-view__weekdays__weekday{
+    text-align: center;
+    font-size: 1.1rem;
+    text-decoration:solid;
+}
+
+
+.react-calendar__navigation button{
+    text-align: center;
+    background-color: var(--bs-dark-darker);
+    border: 0.5px solid var(--bs-white);
+    color: var(--bs-white)  !important;
+}
+
+.react-calendar__navigation__prev2-button{
+    display: none;
+}
+
+.react-calendar__navigation__next2-button{
+    display:none;
+}
+
+.react-calendar__month-view__weekdays{
+    color: white;       
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--bs-dark-darker);
+}
+
+.react-calendar__tile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr{
+    text-decoration: none;
+}
+
+.react-calendar__month-view__weekdays :hover{
+    cursor: auto;      
+}

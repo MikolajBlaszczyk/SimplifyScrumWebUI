@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import { GlobalSettings, UserContext } from "../../Context/UserContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../../Utils/Styles/CustomColors.scss";
 
 
 export default function NavigationBar(){
@@ -15,7 +16,7 @@ export default function NavigationBar(){
         throw new Error("Global settings are not set")
 
     return(
-        <nav className="navbar bg-dark">
+        <nav className="navbar bg-dark bg-dark-darker">
             <div className=" container-fluid">
                 <button onClick={() => {navigateToPreviousPage()}} className="btn text-light">
                     <i className="bi bi-arrow-left"></i>

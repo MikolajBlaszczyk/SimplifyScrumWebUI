@@ -2,7 +2,6 @@ import React, { createContext, useMemo, useState } from "react";
 
 export type SimplifySettings = {
     isInStartupScreen: boolean,
-    previousLocation?: string
 }
 
 export interface GlobalSettings{
@@ -11,7 +10,7 @@ export interface GlobalSettings{
 }
 
 export const UserContext = createContext<GlobalSettings>({
-    settings: {isInStartupScreen: false, previousLocation: "null"},
+    settings: {isInStartupScreen: false},
     setSettings: () => null
 })
 
@@ -19,7 +18,6 @@ export const UserProvider = ( {children, } : React.PropsWithChildren<{}> )=> {
     const [settings, setSettings] = useState<SimplifySettings>(
         {
             isInStartupScreen: false,
-            previousLocation: ""
         }
     )
 
