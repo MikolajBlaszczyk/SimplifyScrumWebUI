@@ -1,27 +1,28 @@
 import React from "react";
-import {MeetingApi, MeetingType} from "../Models/Scheduling"
-import '../Styles/CustomColors.scss'
+import { MeetingModel } from "../Models/Scheduling/MeetingModel";
+import { MeetingType } from "../Models/Scheduling/MeetingType";
+import '../Styles/Custom.scss'
 
 
 interface MeetingIndicatorProps {
-    meetings: MeetingApi[] 
+    meetings: MeetingModel[] 
 }
 
 const MeetingColor = {
     [MeetingType.daily]: () => {
-        return "meeting-indication-daily"
+        return "badge rounded-pill text-bg-primary"
     },
     [MeetingType.refinement]: () => {
-        return "meeting-indication-refinement"
+        return "badge rounded-pill text-bg-light"
     },
     [MeetingType.retrospective]: () => {
-        return "meeting-indication-retrospective"
+        return "badge rounded-pill text-bg-success"
     },
     [MeetingType.planning]: () => {
-        return "meeting-indication-planning"
+        return "badge rounded-pill text-bg-info"
     },
     [MeetingType.custom]: () => {
-        return "meeting-indication-custom"
+        return "badge rounded-pill text-bg-secondary"
     },
     default: () => {
         return ""
@@ -31,12 +32,12 @@ const MeetingColor = {
 export default function MeetingIndicator(props: MeetingIndicatorProps){
     
     return(
-        <div className="d-flex">
+        <div className="d-flex flex-column fs-12">
             {
                 props.meetings?.map(m => {
                     const indication = MeetingColor[m.type]() || MeetingColor.default()
 
-                    return <rect className={indication}>{m.name}</rect>
+                    return <span className={indication}>{m.name}</span>
                 })
             }
         </div>

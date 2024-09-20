@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import { GlobalSettings, UserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import "../../Utils/Styles/CustomColors.scss";
+import "../../Utils/Styles/Custom.scss";
 
 
 export default function NavigationBar(){
