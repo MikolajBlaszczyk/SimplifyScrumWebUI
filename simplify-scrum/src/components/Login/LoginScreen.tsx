@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { GlobalSettings, UserContext } from "../../Context/UserContext";
-import {  useLogin } from "../../Services/ApiService"
+import { Global, UserContext } from "../../Context/UserContext";
+import {  ApiService } from "../../Services/ApiService"
+import { Destination, destinationPaths } from "../Navigation/Destination";
 
 const textInputs = 200
 const buttonInputs = 100
@@ -10,29 +11,28 @@ const thirdPartyProviderFontSize = 12
 export default function LoginScreen(){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-    const {settings, setSettings} = useContext(UserContext) as GlobalSettings 
+    const {settings, setSettings} = useContext(UserContext) as Global 
     const navigate = useNavigate()
-    const { result, loginToService } = useLogin();
 
     useEffect(() => {
         setSettings({...settings, isInStartupScreen: true })
     }, [])
 
 
-    const loginToSimlify = () => {
-        loginToService(login, password)
-            .then(() => {
-                if(result.data?.status == 200){
-                    console.log(result.data)
-                    navigate("main/")
-                } else {
-                    console.log(result.error)
-                }
-            })
-            .catch(() => {
-                console.log(result.error)
-            })
+    const loginToSimplify = async () => {
+        const loginService = ApiService.Api.loginService;
+        
+        try {
+            const response = await loginService.login(login, password)
+            if(response.status == 200){
+                const path = destinationPaths[Destination.Main]
+                navigate(path)
+            }
 
+        } catch(error) {
+            console.log(error)
+            throw error
+        }
     }
 
     return (
@@ -49,7 +49,7 @@ export default function LoginScreen(){
 
 
                 <div className="btn-group btn-group-sm d-flex flex-column mt-4 mb-3">
-                    <button onClick={loginToSimlify} className="btn btn-light " style={{width: buttonInputs}}>Login</button>
+                    <button onClick={loginToSimplify} className="btn btn-light " style={{width: buttonInputs}}>Login</button>
                 </div>     
                 
 

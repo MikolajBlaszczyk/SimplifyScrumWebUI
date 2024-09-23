@@ -22,7 +22,7 @@ export default function SimpleModal(props: SimpleModalProps){
                         {props.body}
                     </div>
                     
-                    <div className="modal-footer">
+                    <div className="modal-footer justify-content-start">
                         <button className="btn btn-primary" onClick={props.onSave}>Save</button>
                     </div>
                 </div>

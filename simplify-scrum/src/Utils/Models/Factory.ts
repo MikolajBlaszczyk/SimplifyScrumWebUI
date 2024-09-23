@@ -1,9 +1,9 @@
-import {User} from "./User"
+import {SimpleUserModel} from "./UserModel"
 
-export const createUserToLogin = (login: string, password: string) => {
-    return new User(login, password)
+export const createLoginUser = (login: string, password: string) => {
+    return new SimpleUserModel(login, password)
 }
 
-export const createUserToSignIn = (login: string, password: string, email: string, nickname: string, role: number)  => {
-    return new User(login, password, email, nickname, role)
+export const createSignInUser = (login: string, password: string, email: string, nickname: string, role: number)  => {
+    return new SimpleUserModel(login, password, email, nickname, role)
 }

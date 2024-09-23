@@ -1,15 +1,23 @@
 import React, {useContext} from "react";
-import { GlobalSettings, UserContext } from "../../Context/UserContext";
+import { Global, UserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "../../Utils/Styles/Custom.scss";
+import { Destination, destinationPaths } from './Destination';
+
+
 
 
 export default function NavigationBar(){
-    const { settings } = useContext(UserContext) as GlobalSettings
+    const { settings } = useContext(UserContext) as Global
     const navigate = useNavigate()
 
     const navigateToPreviousPage = () => {
         navigate(-1)
+    }
+    
+    const navigateTo = (destination: Destination) => {
+        const path = destinationPaths[destination]
+        navigate(path)
     }
 
     if(settings == null)
@@ -36,9 +44,17 @@ export default function NavigationBar(){
                     <div className="offcanvas offcanvas-end  text-bg-dark" tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div className="offcanvas-header d-flex justify-content-between">
                             <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Scrum</h5>
-                            <button type="button" className="btn text-light" data-bs-dismiss="offcanvas">
-                                <i className="bi bi-x-lg"></i>
-                            </button>
+                            <button type="button" className="btn btn-close text-light" data-bs-dismiss="offcanvas"></button>
+                        </div>
+                
+                        <div className="offcanvas-body">
+                            <div className=" container">
+                                    <div className="row">
+                                        <button onClick={() => navigateTo(Destination.UserSettings)} className="btn btn-secondary">
+                                            <i className="bi bi-person"></i>
+                                        </button>
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 }

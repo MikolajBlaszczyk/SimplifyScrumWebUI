@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { GlobalSettings, UserContext } from "../../Context/UserContext";
+import { Global, UserContext } from "../../Context/UserContext";
 import { MockSchedule } from "../../Utils/Mocks/SchedulingMock";
 import SimpleModal from "../../Utils/Reusable/SimpleModal";
 import "../../Utils/Styles/Modal.scss";
-import SimpleCalendar from "../../Utils/Reusable/SimpleCalendar";
+import SimpleCalendar from "../../Utils/Reusable/Calendar/SimpleCalendar";
 import SimpleDayInfo from "../../Utils/Reusable/SimpleDayInfo";
 import { MeetingModel } from '../../Utils/Models/Scheduling/MeetingModel';
 import { DayModel } from "../../Utils/Models/DayModel";
@@ -18,7 +18,7 @@ export default function MainDashboard(){
     const [dayState, setSelectedDay] = useState<SelectedDayState>(
         {showModal: false, selectedDay: null}
     )
-    const {settings, setSettings} = useContext(UserContext) as GlobalSettings   
+    const {settings, setSettings} = useContext(UserContext) as Global   
     
     const currentDate = new Date()
     const schedule = MockSchedule

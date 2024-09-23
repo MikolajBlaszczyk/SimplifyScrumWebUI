@@ -34,6 +34,8 @@ $buttonMinHeight: 50px;
     border-left: 0.5px solid var(--bs-dark-darker);
     min-width: $buttonMinWidth;
     min-height: $buttonMinHeight;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .react-calendar__month-view__weekdays__weekday{

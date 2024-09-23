@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import { GlobalSettings, UserContext } from "../../Context/UserContext";
-import { useSignIn } from "../../Services/ApiService";
+import { Global, UserContext } from "../../Context/UserContext";
+import { ApiService } from "../../Services/ApiService";
 
 const textInputs = 200
 const buttonInputs = 100
@@ -12,18 +12,19 @@ export default function SignInScreen(){
     const [nickname, setNickname] = useState('')
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-    const {settings, setSettings} = useContext(UserContext) as GlobalSettings
-    const { result, signInToSerivce} = useSignIn()
-
+    const {settings, setSettings} = useContext(UserContext) as Global
+    const service = ApiService.Api.loginService
 
     useEffect(() => {
         setSettings({...settings, isInStartupScreen: true})
     }, [])
 
-    const signInToSimplify = () => {
+    const signInToSimplify = async () => {
         // confirm email handling
 
-        signInToSerivce(login, password, email, nickname, 0)
+       
+        
+        service.signIn(login, password, email, nickname, 0)
     }
 
     return (

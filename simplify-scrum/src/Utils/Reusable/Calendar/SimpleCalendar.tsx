@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
-import "../Styles/SimpleCalendar.scss"
-import { ScheduleModel } from "../Models/Scheduling/ScheduleModel";
-import { DayModel } from "../Models/DayModel";
+import "../../Styles/SimpleCalendar.scss"
+import { ScheduleModel } from "../../Models/Scheduling/ScheduleModel";
+import { DayModel } from "../../Models/DayModel";
 import MeetingIndicator from "./MeetingIndicator";
 
 interface SimpleCalendarProps {

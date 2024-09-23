@@ -10,6 +10,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { UserProvider } from './Context/UserContext';
 import MainDashboard from './components/Dashboard/MainDashboard';
+import UserScreen from './components/User/UserScreen';
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "main/",
         element: <MainDashboard/>
+      },
+      {
+        path: "user/",
+        element: <UserScreen/>
       }
     ]
   }

@@ -1,62 +1,43 @@
 import { useState } from 'react'
-import { createUserToLogin, createUserToSignIn } from '../Utils/Models/Factory'
 import axios, { Axios, AxiosResponse } from 'axios'
 import { Http2ServerResponse } from 'http2'
+import { SimpleUserModel } from '../Utils/Models/UserModel'
+import { LoginService } from './LoginService'
+import { UserService } from './UserService'
 
 export interface UserServiceResult {
     data: AxiosResponse | null
     loading: boolean
     error: string  | null
+    user: SimpleUserModel | null
 }
 
-export const useLogin = () => {
-    const [data, setData] = useState<AxiosResponse | null>(null)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>(null)
+export class ApiService{
+    private static _api: ApiService | null;
 
-    const loginToService = async (login: string, password: string) => {
-        setLoading(true)
-        setError(null)
+    private _loginService: LoginService | null = null
+    private _userService: UserService | null = null
 
-        const body = createUserToLogin(login, password)
+    private constructor() {}
 
-        try {
-            const response = await axios.post(`${process.env.REACT_APP_SIMPLIFY_API}/login`, body)
-            setData(response)
-        } catch (err) {
-            setError((err as Error).message)
-        } finally {
-            setLoading(false)
-        }
+    public static get Api(){
+        if(this._api == null)
+            this._api = new ApiService()
+
+        return this._api
     }
 
-    const result: UserServiceResult = {data, loading ,error}
+    public get loginService(){
+        if(this._loginService == null)
+            this._loginService = new LoginService()
 
-    return { result , loginToService }
-}
-
-
-export const useSignIn = () => {
-    const [data, setData] = useState<any>(null)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>(null)
-
-    const signInToSerivce = async (login: string, password: string, email: string, nickname: string, role: number) => {
-        setLoading(true)
-        setError(null)
-
-        const body = createUserToSignIn(login, password, email, nickname, role)
-
-        try {
-            const response = await axios.post(`${process.env.REACT_APP_SIMPLIFY_API}/signin`, body)
-            setData(response)
-        } catch (err) {
-            setError((err as Error).message)
-        } finally {
-            setLoading(false)
-        }
+        return this._loginService
     }
 
-    const result: UserServiceResult = {data, loading ,error}
-    return { result, signInToSerivce }
+    public get userService(){
+        if(this._userService == null)
+            this._userService = new UserService()
+
+        return this._userService
+    }
 }

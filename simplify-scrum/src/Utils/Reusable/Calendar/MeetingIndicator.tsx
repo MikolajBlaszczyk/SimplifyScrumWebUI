@@ -1,7 +1,7 @@
 import React from "react";
-import { MeetingModel } from "../Models/Scheduling/MeetingModel";
-import { MeetingType } from "../Models/Scheduling/MeetingType";
-import '../Styles/Custom.scss'
+import { MeetingModel } from "../../Models/Scheduling/MeetingModel";
+import { MeetingType } from "../../Models/Scheduling/MeetingType";
+import '../../Styles/Custom.scss'
 
 
 interface MeetingIndicatorProps {
