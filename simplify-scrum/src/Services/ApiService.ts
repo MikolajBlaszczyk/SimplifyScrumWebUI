@@ -4,6 +4,7 @@ import { Http2ServerResponse } from 'http2'
 import { SimpleUserModel } from '../Utils/Models/UserModel'
 import { LoginService } from './LoginService'
 import { UserService } from './UserService'
+import { MeetingSerivce } from './MeetingService'
 
 export interface UserServiceResult {
     data: AxiosResponse | null
@@ -17,6 +18,8 @@ export class ApiService{
 
     private _loginService: LoginService | null = null
     private _userService: UserService | null = null
+    private _meetingService: MeetingSerivce | null = null
+
 
     private constructor() {}
 
@@ -39,5 +42,12 @@ export class ApiService{
             this._userService = new UserService()
 
         return this._userService
+    }
+
+    public get meetingService(){
+        if(this._meetingService == null)
+            this._meetingService = new MeetingSerivce()
+
+        return this._meetingService
     }
 }
