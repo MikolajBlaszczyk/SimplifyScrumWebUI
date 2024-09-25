@@ -1,8 +1,9 @@
+import { DayModel } from "../Models/Scheduling/DayModel"
 
 
 interface SimpleModalProps{
-    title: string
     body: React.ReactNode
+    day: DayModel
     onClose: () => void
     onSave: () => void
 }
@@ -14,7 +15,7 @@ export default function SimpleModal(props: SimpleModalProps){
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title ">{props.title}</h5>
+                        <h5 className="modal-title ">{props.day.date.toDateString()}</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={props.onClose}></button>
                     </div>
 

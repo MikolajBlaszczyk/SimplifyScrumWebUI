@@ -2,7 +2,7 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import "../../Styles/SimpleCalendar.scss"
 import { ScheduleModel } from "../../Models/Scheduling/ScheduleModel";
-import { DayModel } from "../../Models/DayModel";
+import { DayModel } from "../../Models/Scheduling/DayModel";
 import MeetingIndicator from "./MeetingIndicator";
 
 interface SimpleCalendarProps {
@@ -47,7 +47,7 @@ export default function SimpleCalendar(props: SimpleCalendarProps) {
             value={value}
             tileContent={(args) => renderDescription(args.date, date.getMonth())}
             onClickDay={onDayClick}
-            className={className}
+            className={className} 
         /> 
     )
 }

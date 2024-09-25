@@ -1,39 +1,36 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import DatePicker from "react-datepicker";
-import { MeetingModel } from "../Models/Scheduling/MeetingModel"
+import { MeetingFactory, MeetingModel } from "../Models/Scheduling/MeetingModel"
 import { MeetingType } from '../Models/Scheduling/MeetingType';
 import { type } from "@testing-library/user-event/dist/type";
 
 interface properties{
-    meeting: MeetingModel
-}
-
-interface state{
-    name: string,
-    description: string,
-    date: Date,
-    duration: Date,
+    initialMeeting: MeetingModel
+    setInitialMeeting: React.Dispatch<React.SetStateAction<MeetingModel>>
+    add: () => void
+    remove: () => void
 }
 
 
 export default function SimpleMeetingForm(props: properties){
-    const {meeting} = props
-    const initialValue: state = {
-        name: meeting.name ?? "",
-        description: meeting.description ?? "",
-        date: meeting.start ?? new Date(),
-        duration: meeting.start ?? new Date(0, 0, 0, 0, 30)
-    }
+    const {initialMeeting, setInitialMeeting, add, remove} = props
 
-    const [meetingState, setMeetingState] = useState(initialValue)
-    
-    let enumValues = []
-    for(let type in MeetingType){
-        if(isNaN(Number(type))){
-            enumValues.push(type)
+    const [editedMeeting, setEditedMeeting] = useState<MeetingModel>(
+        MeetingFactory.copy(initialMeeting
+
+        ))
+
+
+    let enumValues = useMemo(() => {
+        let values = []
+        for(let type in MeetingType){
+            if(isNaN(Number(type))){
+                values.push(type)
+            }
         }
-    }
-
+        return values;
+    },[])
+   
 
     return (
         <div className="d-flex flex-column">
@@ -43,8 +40,8 @@ export default function SimpleMeetingForm(props: properties){
                         type="text"
                         placeholder="Name" 
                         className="form-control"
-                        value={meetingState.name} 
-                        onChange={(e) => setMeetingState({...meetingState, name: e.target.value})}/>
+                        value={editedMeeting.name} 
+                        onChange={(e) => setEditedMeeting({...editedMeeting, name: e.target.value})}/>
                 </div>
                 <div className="input-group input-group-sm mt-2">
                     <label className="input-group-text">Description</label>
@@ -52,8 +49,8 @@ export default function SimpleMeetingForm(props: properties){
                         type="text"
                         placeholder="Description"
                         className="form-control"
-                        value={meetingState.description}
-                        onChange={(e) => setMeetingState({...meetingState, description: e.target.value})}/>
+                        value={editedMeeting.description}
+                        onChange={(e) => setEditedMeeting({...editedMeeting, description: e.target.value})}/>
                 </div>
                 <div className="input-group input-group-sm mt-2">
                     <label className="input-group-text">Leaders</label>
@@ -83,8 +80,15 @@ export default function SimpleMeetingForm(props: properties){
 
                 {/* We should have a picker for type here */}
                 <div className="mt-2 d-flex justify-content-end">
-                        <button className="btn me-2">Remove</button>
-                        <button className="btn">Add</button>
+                        <button 
+                            onClick={remove} 
+                            className="btn me-2">Remove</button>
+                        <button 
+                            onClick={() => {
+                                setInitialMeeting(editedMeeting)
+                                add()
+                            }} 
+                            className="btn">Add</button>
                 </div>
                 
         </div>

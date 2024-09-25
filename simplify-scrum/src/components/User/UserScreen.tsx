@@ -3,7 +3,7 @@ import "../../Utils/Styles/Custom.scss"
 import { Global, UserContext } from "../../Context/UserContext"
 import { set } from "react-datepicker/dist/date_utils"
 import { SimpleUserModel } from "../../Utils/Models/UserModel"
-import { ApiService } from "../../Services/ApiService"
+import { Api } from "../../Services/ApiService"
 import { error } from "console"
 
 
@@ -11,7 +11,7 @@ import { error } from "console"
 export default function UserScreen(){ 
     const [user, setUser] = useState<SimpleUserModel | null>(null)
 
-    const userSerivce = ApiService.Api.userService
+    const userSerivce = Api.Gateway.userService
 
     useEffect(() => {
         userSerivce

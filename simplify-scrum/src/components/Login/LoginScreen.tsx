@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Global, UserContext } from "../../Context/UserContext";
-import {  ApiService } from "../../Services/ApiService"
+import {  Api } from "../../Services/ApiService"
 import { Destination, destinationPaths } from "../Navigation/Destination";
 
 const textInputs = 200
@@ -20,7 +20,7 @@ export default function LoginScreen(){
 
 
     const loginToSimplify = async () => {
-        const loginService = ApiService.Api.loginService;
+        const loginService = Api.Gateway.loginService;
         
         try {
             const response = await loginService.login(login, password)

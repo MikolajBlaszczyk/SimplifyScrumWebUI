@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import axios, { Axios, AxiosResponse } from 'axios'
-import { Http2ServerResponse } from 'http2'
 import { SimpleUserModel } from '../Utils/Models/UserModel'
 import { LoginService } from './LoginService'
 import { UserService } from './UserService'
@@ -13,8 +11,8 @@ export interface UserServiceResult {
     user: SimpleUserModel | null
 }
 
-export class ApiService{
-    private static _api: ApiService | null;
+export class Api{
+    private static _api: Api | null;
 
     private _loginService: LoginService | null = null
     private _userService: UserService | null = null
@@ -23,9 +21,9 @@ export class ApiService{
 
     private constructor() {}
 
-    public static get Api(){
+    public static get Gateway(){
         if(this._api == null)
-            this._api = new ApiService()
+            this._api = new Api()
 
         return this._api
     }

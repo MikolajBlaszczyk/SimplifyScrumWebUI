@@ -1,15 +1,16 @@
 import { useState } from "react"
 import { MeetingModel } from "../Models/Scheduling/MeetingModel"
 import SimpleMeetingForm from './SimpleMeetingForm';
-import { MockSchedule } from "../Mocks/SchedulingMock"
 
 interface properties {
     meetings: MeetingModel[]
     startMeeting: MeetingModel
+    addMeeting: (meeting: MeetingModel) => void
+    removeMeeting: (meeting: MeetingModel) => void
 }
 
 export default function SimpleDayInfo(props: properties){
-    const {startMeeting, meetings} = props
+    const {startMeeting, meetings, addMeeting, removeMeeting} = props
 
     const [selectedMeeting, setSelectedMeeting] = useState(startMeeting)
 
@@ -22,13 +23,22 @@ export default function SimpleDayInfo(props: properties){
                     { 
                         meetings.map(meeting => {
                             return (
-                            <li className="list-group-item list-group-item-info">{meeting.name}</li>)
+                            <li onClick={() => setSelectedMeeting(meeting)} className="list-group-item list-group-item-info">{meeting.name}</li>)
                         })
                     }
                 </ul>
             </div>
             <div className="col">
-                    <SimpleMeetingForm meeting={startMeeting}/>
+                    <SimpleMeetingForm
+                        initialMeeting={selectedMeeting}
+                        setInitialMeeting={setSelectedMeeting}
+                        add={() => {
+                            addMeeting(selectedMeeting)
+                        }} 
+                        remove={() => {
+                            removeMeeting(selectedMeeting)
+                        }}
+                        />
                                      
             </div>
         </div>

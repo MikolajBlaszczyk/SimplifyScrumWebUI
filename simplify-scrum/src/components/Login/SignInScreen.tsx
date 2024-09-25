@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import { Global, UserContext } from "../../Context/UserContext";
-import { ApiService } from "../../Services/ApiService";
+import { Api } from "../../Services/ApiService";
 
 const textInputs = 200
 const buttonInputs = 100
@@ -13,7 +13,7 @@ export default function SignInScreen(){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const {settings, setSettings} = useContext(UserContext) as Global
-    const service = ApiService.Api.loginService
+    const service = Api.Gateway.loginService
 
     useEffect(() => {
         setSettings({...settings, isInStartupScreen: true})

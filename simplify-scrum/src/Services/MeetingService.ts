@@ -8,18 +8,22 @@ const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings`
 
 export class MeetingSerivce extends TokenAppender{
 
-    public async GetMeetings(){
-        try {
-            const url = meetingApiUrl + "/current"
-            const response = await axios.get<ScheduleModel>(meetingApiUrl)
+    public async GetMeetings(): Promise<ScheduleModel>{
+        this.AppendToken()
 
+        const url = meetingApiUrl + "/current"
+        const response = await axios.get<ScheduleModel>(meetingApiUrl)
+        
+        if(response.status == HttpStatusCode.Ok)
             return response.data
-        } catch(error) { 
-            console.log(error)
-        }
+
+        throw new Error()
+       
     }
 
     public async AddMeeting(model: MeetingModel){
+        this.AppendToken()
+
         try {
             const url = meetingApiUrl + "/add"
             const response = await axios.post(url, model);
@@ -32,6 +36,8 @@ export class MeetingSerivce extends TokenAppender{
     }
 
     public async UpdateMeeting(model: MeetingModel){
+        this.AppendToken()
+        
         try {
             const url = meetingApiUrl + "/update"
             const response = await axios.post(url, model);
@@ -42,4 +48,15 @@ export class MeetingSerivce extends TokenAppender{
         }
     }
 
+    public async DeleteMeeting(model: MeetingModel){
+        this.AppendToken()
+        
+        try {
+            const url = meetingApiUrl + "/delete"
+            const response = await axios.delete(url, { data: model})
+
+        } catch(error) { 
+            console.log(error)
+        }
+    }
 } 
