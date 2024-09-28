@@ -1,8 +1,8 @@
 import React, { createContext, useMemo, useState } from "react";
-import { SimpleUserModel } from "../Utils/Models/UserModel";
 
 export type SimplifySettings = {
     isInStartupScreen: boolean
+    
 }
 
 export interface Global{
@@ -17,7 +17,7 @@ export const UserContext = createContext<Global>({
     setSettings: () => null
 })
 
-export const UserProvider = ( {children, } : React.PropsWithChildren<{}> )=> {
+export const UserProvider = ( {children } : React.PropsWithChildren<{}> )=> {
     const [settings, setSettings] = useState<SimplifySettings>(
         {
             isInStartupScreen: false

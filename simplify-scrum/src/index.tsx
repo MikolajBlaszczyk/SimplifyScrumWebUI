@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, useRouteError } from 'react-router-dom';
 import './index.css';
-import LoginScreen from './components/Login/LoginScreen';
 import App from './App';
-import SignInScreen from './components/Login/SignInScreen';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { UserProvider } from './Context/UserContext';
-import MainDashboard from './components/Dashboard/MainDashboard';
-import UserScreen from './components/User/UserScreen';
+import { UserProvider } from './context/UserContext';
+import { Start, InfoCenter, Settings } from "./pages/PagesIndex"
+import { LoadingProvider } from './context/LoadingContext';
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -28,19 +26,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <LoginScreen/>
-      },
-      {
-        path: "signin/",
-        element: <SignInScreen/>
+        element: <Start/>
       },
       {
         path: "main/",
-        element: <MainDashboard/>
+        element: <InfoCenter/>
       },
       {
-        path: "user/",
-        element: <UserScreen/>
+        path: "settings/",
+        element: <Settings/>
       }
     ]
   }
@@ -51,10 +45,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    
+    <LoadingProvider>
       <UserProvider>
         <RouterProvider router={router}/>
       </UserProvider>
+    </LoadingProvider>
   </React.StrictMode>
 );
 

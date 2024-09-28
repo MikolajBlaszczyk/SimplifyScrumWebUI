@@ -1,5 +1,5 @@
-import './App.scss';
-import NavigationBar from './components/Navigation/NavigationBar';
+import './assets/App.scss';
+import NavigationBar from './components/NavigationBar';
 import { Outlet } from 'react-router-dom'
 
 
