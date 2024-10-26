@@ -1,3 +1,7 @@
 export function Settings(){
-    return (<div></div>)
+    return (
+        <main className="d-flex w-100 h-100 bg-dark justify-content-center">
+            
+        </main>
+    )
 }

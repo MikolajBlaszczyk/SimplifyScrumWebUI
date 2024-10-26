@@ -1,5 +1,5 @@
 import { MouseEvent } from "react"
-import { StateEnumService } from "../../service/StateEnumService"
+import { EnumService } from "../../../../services/enum/StateEnumService"
 import { Button, Fonts, SimpleButton } from "../../../../components/ComponentsIndex"
 import { Feature } from "../../data/Feature"
 
@@ -16,7 +16,7 @@ export function FeatureListItem({feature}:Props){
                     <h6 className="m-0">{title}</h6>
                 </div>
                 <div className="col-5 d-flex justify-content-between align-items-center ">
-                    <small className="m-0 w-100 ">{StateEnumService.convertExtendedStatusToString(state)}</small>
+                    <small className="m-0 w-100 ">{EnumService.convertExtendedStatusToString(state)}</small>
                     <small className="m-0">{points}</small>
                 </div>
                 <div className="col-4 d-flex justify-content-end">

@@ -1,2 +1,2 @@
 export * from './BacklogService'
-export * from './StateEnumService'
+export * from '../../../services/enum/StateEnumService'

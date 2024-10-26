@@ -1,2 +1,2 @@
-export * from "../../common-data/User"
+export * from "../../../data/User"
 export * from "./Props"

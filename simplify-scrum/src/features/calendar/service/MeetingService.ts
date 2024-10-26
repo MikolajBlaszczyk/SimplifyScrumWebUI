@@ -1,5 +1,5 @@
 import axios, { HttpStatusCode } from "axios";
-import { TokenAppender } from "../../../services/Auth/TokenAppender";
+import { TokenAppender } from "../../../services/auth/TokenAppender";
 import { DayModel, Meeting, ScheduleModel } from '../data/ModelsIndex';
 import { DateConverter } from "../../../utils/Index"
 

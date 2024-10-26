@@ -1,5 +1,5 @@
 import { ExtendedStatus, Feature, Project, SimpleStatus, StandardStatus, Task } from "../data/DataIndex";
-import { Team, User } from '../../common-data/DataIndex'
+import { Team, User } from '../../../data/DataIndex'
 
 export class BacklogService{
     

@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import NoteBoard from "../features/backlog/components/board/NoteBoard";
 import { Feature } from "../features/backlog/data/Feature";
 import { ExtendedStatus } from "../features/backlog/data/State";
-import { StateEnumService } from "../features/backlog/service/StateEnumService";
+import { EnumService } from "../services/enum/StateEnumService";
 import { Board, BoardType } from "../features/backlog/components/board/Board";
 import { FeatureListItem } from "../features/backlog/components/board/FeatureListItem";
 

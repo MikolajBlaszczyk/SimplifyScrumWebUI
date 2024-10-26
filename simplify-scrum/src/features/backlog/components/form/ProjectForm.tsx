@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import { StandardStatus } from "../../data/State"
-import { Team } from "../../../common-data/DataIndex";
+import { Team } from "../../../../data/DataIndex";
 import { SelectItem, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex";
 import { BacklogService } from '../../service/BacklogService';
-import { StateEnumService } from '../../service/StateEnumService';
+import { EnumService } from '../../../../services/enum/StateEnumService';
 
 
 
@@ -23,7 +23,7 @@ export default function ProjectForm() {
         setDescription(e.target.value)
     }
     const setNewState = (stateAsString: string) => {
-        setState(StateEnumService.convertStringToStandardStatus(stateAsString))
+        setState(EnumService.convertStringToStandardStatus(stateAsString))
     } 
     const setNewTeam = (guid: string) => {
         const selectedTeam = teamOptions 
@@ -37,8 +37,8 @@ export default function ProjectForm() {
             .getStandardState()
             .map( state => {
                 const item: SelectItem<string> = {
-                    value: StateEnumService.convertStandardStatusToString(state as StandardStatus),
-                    description: StateEnumService.convertStandardStatusToString(state as StandardStatus)
+                    value: EnumService.convertStandardStatusToString(state as StandardStatus),
+                    description: EnumService.convertStandardStatusToString(state as StandardStatus)
                 }
                 return item
             })
@@ -63,7 +63,7 @@ export default function ProjectForm() {
                 value={description} 
                 onChange={setNewDescription} />
             <SimpleSelectionInput 
-                selectedValue={StateEnumService.convertStandardStatusToString(state)}
+                selectedValue={EnumService.convertStandardStatusToString(state)}
                 onSelectedValueChange={setNewState}
                 options={stateOptions} /> 
             <SimpleSelectionInput 

@@ -6,3 +6,4 @@ export * from "./form/SimpleDateInput"
 export * from "./common/SimpleCard"
 export * from "./common/SimpleButton"
 export * from './form/SimpleMultiLineTextInput'
+export * from "./form/SimpleSwitch"

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Project,ExtendedStatus } from "../../data/DataIndex"
 import { SelectItem, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
-import { StateEnumService } from "../../service/StateEnumService"
+import { EnumService } from "../../../../services/enum/StateEnumService"
 import { BacklogService } from "../../service/BacklogService"
 
 export default function FeatureForm() {
@@ -16,7 +16,7 @@ export default function FeatureForm() {
     let projectOptions: SelectItem<Project>[] = []
 
     const setNewState = (stateAsString: string) => {
-        setState(StateEnumService.convertStringToExtendedStatus(stateAsString))
+        setState(EnumService.convertStringToExtendedStatus(stateAsString))
     }
     const setNewPoints = (numberAsString: string) => {
         setPoints(parseInt(numberAsString))
@@ -35,8 +35,8 @@ export default function FeatureForm() {
             .getExtendedState()
             .map( state => {
                 const item: SelectItem<string> = {
-                    value: StateEnumService.convertExtendedStatusToString(state as ExtendedStatus),
-                    description: StateEnumService.convertExtendedStatusToString(state as ExtendedStatus)
+                    value: EnumService.convertExtendedStatusToString(state as ExtendedStatus),
+                    description: EnumService.convertExtendedStatusToString(state as ExtendedStatus)
                 }
                 return item
             })
@@ -71,7 +71,7 @@ export default function FeatureForm() {
                 value={description} 
                 onChange={e => setDescription(e.target.value)} />
             <SimpleSelectionInput
-                selectedValue={StateEnumService.convertExtendedStatusToString(state)}
+                selectedValue={EnumService.convertExtendedStatusToString(state)}
                 onSelectedValueChange={setNewState}
                 options={stateOptions} />
             <SimpleSelectionInput 

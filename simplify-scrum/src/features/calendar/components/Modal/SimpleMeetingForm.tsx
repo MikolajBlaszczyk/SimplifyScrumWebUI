@@ -2,8 +2,8 @@ import { ChangeEventHandler, useEffect, useMemo, useState } from "react"
 import { MeetingFactory, Meeting, MeetingType } from "../../data/ModelsIndex"
 import { MeetingSerivce } from "../../service/MeetingService"
 import { useLoading } from "../../../../hooks/SimpleContexts"
-import { UserService } from "../../../account-settings/service/UserService"
-import { User } from "../../../common-data/User"
+import { AccountService } from "../../../account-settings/service/AccountService"
+import { User } from "../../../../data/User"
 import { SimpleDateInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
 import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
 import { DateConverter } from '../../../../utils/DateConverter';
@@ -46,7 +46,7 @@ export default function SimpleMeetingForm(props: properties){
     )
 
     const getAllUsers = async () => {
-        await UserService.getUsers()
+        await AccountService.getUsers()
         .then(data => {
             setLeaders(data)
         })
@@ -57,7 +57,7 @@ export default function SimpleMeetingForm(props: properties){
     }, [])
 
     const addMeeting = () => { 
-        UserService.getInfo()
+        AccountService.getInfo()
             .then(data => {
                 const newValue =  {...editedMeeting, userIdentifiers: [...editedMeeting.userIdentifiers, data.id ]}
 

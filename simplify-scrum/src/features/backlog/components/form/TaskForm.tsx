@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react"
 import { SelectItem, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
 import { SimpleStatus } from "../../data/State"
-import { BacklogService, StateEnumService } from "../../service/ServiceIndex"
+import { BacklogService, EnumService } from "../../service/ServiceIndex"
 import { Feature } from "../../data/DataIndex"
-import { User } from "../../../common-data/DataIndex"
+import { User } from "../../../../data/DataIndex"
 
 
 export default function TaskForm() {
     const [name, setName] = useState<string>('')
     const [status, setStatus] = useState<SimpleStatus>(SimpleStatus.ToBeDone)
     const [feature, setFeature] = useState<Feature>(Feature.Default())
-    const [assigne, setAssigne] = useState<User>(User.Default())
+    const [assigne, setAssigne] = useState<User>(User.default())
 
     let statusOptions: SelectItem<string>[] = []
     let featureOptions: SelectItem<Feature>[] = []
     let assigneOptions: SelectItem<User>[] = []
 
     const setNewStatusValue = (stringValue: string) => {
-        const newState = StateEnumService.convertStringToSimpleStatus(stringValue)
+        const newState = EnumService.convertStringToSimpleStatus(stringValue)
         setStatus(newState)
     }
     const setNewFeatureValue = (guid: string) => {
@@ -40,8 +40,8 @@ export default function TaskForm() {
             .getSimpleState()
             .map( state => {
                 const item: SelectItem<string> = {
-                    value: StateEnumService.convertSimpleStatusToString(state as SimpleStatus),
-                    description: StateEnumService.convertSimpleStatusToString(state as SimpleStatus)
+                    value: EnumService.convertSimpleStatusToString(state as SimpleStatus),
+                    description: EnumService.convertSimpleStatusToString(state as SimpleStatus)
                 }
 
                 return item
@@ -75,7 +75,7 @@ export default function TaskForm() {
                 value={name}
                 changeValue={e => setName(e.target.value)} />
             <SimpleSelectionInput 
-                selectedValue={StateEnumService.convertSimpleStatusToString(status)}
+                selectedValue={EnumService.convertSimpleStatusToString(status)}
                 onSelectedValueChange={setNewStatusValue} 
                 options={statusOptions}/>
             <SimpleSelectionInput 
