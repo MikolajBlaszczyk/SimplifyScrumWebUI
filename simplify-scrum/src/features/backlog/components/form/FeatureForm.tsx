@@ -9,7 +9,7 @@ export default function FeatureForm() {
     const [description, setDescription] = useState<string>('')
     const [state, setState] = useState<ExtendedStatus>(ExtendedStatus.New)
     const [points, setPoints] = useState<number>(0)
-    const [project, setProject] = useState<Project>()
+    const [project, setProject] = useState<Project>(Project.default())
    
     let stateOptions: SelectItem<string>[] = []
     let pointOptions: SelectItem<string>[] = []

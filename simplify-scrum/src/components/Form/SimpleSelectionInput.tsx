@@ -8,7 +8,7 @@ export interface SelectItem<T extends Object> {
 interface Props<T extends Object> {
     label?: string
     selectedValue: T
-    onSelectedValueChange: (value: any) => void
+    onSelectedValueChange: (value: string) => void
     options: SelectItem<T>[]
 }
 

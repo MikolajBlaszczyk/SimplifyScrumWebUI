@@ -1,13 +1,14 @@
-import {Board, BoardType} from "../features/backlog/components/Board";
+
 import { Button, SimpleCard } from "../components/ComponentsIndex";
 import type { Meta, StoryObj } from '@storybook/react';
 import { useArgTypes } from '@storybook/api';
 import { useMemo } from "react";
 import NoteBoard from "../features/backlog/components/board/NoteBoard";
-import { FeatureListItem } from "../features/backlog/components/FeatureListItem";
 import { Feature } from "../features/backlog/data/Feature";
 import { ExtendedStatus } from "../features/backlog/data/State";
 import { StateEnumService } from "../features/backlog/service/StateEnumService";
+import { Board, BoardType } from "../features/backlog/components/board/Board";
+import { FeatureListItem } from "../features/backlog/components/board/FeatureListItem";
 
 type BoardPropsAndCustomArgs = React.ComponentProps<typeof Board> & { numberOfChildren: number }
 

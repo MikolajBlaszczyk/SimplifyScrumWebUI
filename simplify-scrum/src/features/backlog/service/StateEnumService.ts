@@ -28,6 +28,7 @@ const extendadStateString = {
 }
 
 export class StateEnumService {
+
     static convertSimpleStatusToString = (state: SimpleStatus) => {
         return simpleStateString[state]
     }
@@ -49,12 +50,12 @@ export class StateEnumService {
     }
 
     static convertExtendedStatusToString = (state: ExtendedStatus) => {
-        return simpleStateString[state]
+        return extendadStateString[state]
     }
 
     static convertStringToExtendedStatus = (stringValue: string) => {
         const keys = Object.keys(simpleStateString) as Array<keyof typeof ExtendedStatus>
 
-        return keys.find(key => simpleStateString[(key as unknown as ExtendedStatus)] == stringValue)![0] as unknown as ExtendedStatus
+        return keys.find(key => extendadStateString[(key as unknown as ExtendedStatus)] == stringValue)![0] as unknown as ExtendedStatus
     }
 }
