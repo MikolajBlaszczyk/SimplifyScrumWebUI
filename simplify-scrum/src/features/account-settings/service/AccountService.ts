@@ -28,7 +28,7 @@ export class AccountService{
             const url = userApiUrl + "/users"
             const response = await axios.get(url)
             console.log(response.data)
-            return response.data
+            return response.data as User[]
         } catch (error) {
             console.log(error)
             throw error

@@ -1,4 +1,4 @@
-import './assets/App.scss';
+import './assets/styles/StyleIndex.scss';
 import NavigationBar from './components/navigation/NavigationBar';
 import { Navigate, Outlet } from 'react-router-dom'
 

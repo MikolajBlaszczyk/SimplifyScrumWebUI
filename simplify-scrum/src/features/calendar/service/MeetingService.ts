@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import { TokenAppender } from "../../../services/auth/TokenAppender";
-import { DayModel, Meeting, ScheduleModel } from '../data/ModelsIndex';
+import { DayModel, Meeting, MeetingType, ScheduleModel } from '../data/ModelsIndex';
 import { DateConverter } from "../../../utils/Index"
 
 const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings` 
@@ -23,6 +23,10 @@ export class MeetingSerivce{
         }
 
         throw new Error()
+    }
+
+    static GetAllMeetingTypes() {
+        return Object.values(MeetingType) 
     }
 
     public static async Add(model: Meeting){

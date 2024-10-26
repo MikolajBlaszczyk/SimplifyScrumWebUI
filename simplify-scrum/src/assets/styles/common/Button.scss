@@ -1,7 +1,8 @@
 @import "./Utils";
-.s-button{ 
-    &:hover{
-        background-color: $s-accent;
-    }
+
+
+.s-button-underlined{
+    color: lighten($s-text, 10%) !important;
+    text-decoration: underline !important;
 }
 

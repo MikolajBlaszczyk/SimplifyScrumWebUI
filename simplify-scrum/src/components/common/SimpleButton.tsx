@@ -5,7 +5,9 @@ export enum Button{
     Danger,
     Warning,
     Info,
-    Transparent
+    Transparent,
+    Underlined,
+    Dark
 }
 
 export enum Fonts {
@@ -19,11 +21,20 @@ export enum Fonts {
     Small
 }
 
+export enum Color{ 
+    Dark,
+    Light
+}
+
+
+
 interface Props {
     type: Button,  
     minWidth?: string,
     title: string,
     icon?: string
+    iconOnTheRight?: boolean
+    fontColor?: Color
     font?: Fonts,
     onClick: React.MouseEventHandler<HTMLButtonElement>  
 }
@@ -35,7 +46,15 @@ const typeClasses = {
     [Button.Danger]: "btn-danger",
     [Button.Warning]: "btn-warning",
     [Button.Info]: "btn-info",
-    [Button.Transparent]: "btn-outline-dark"
+    [Button.Transparent]: "btn-outline-dark",
+    [Button.Dark]: 's-bg-text',
+    [Button.Underlined]: 's-button-underlined'
+    
+}
+
+const colorClasses = {
+    [Color.Dark]: "s-color",
+    [Color.Light]: "s-color-background"
 }
 
 const fontClasses = {
@@ -49,17 +68,22 @@ const fontClasses = {
     [Fonts.Small]: "s-small"
 }
 
-export function SimpleButton({title, icon, onClick, type, font, minWidth}: Props){
-   
+export function SimpleButton({title, icon, iconOnTheRight, onClick, type, font, fontColor, minWidth}: Props){
+    if(iconOnTheRight == undefined){
+        iconOnTheRight = true
+    }
+
+    
     
     return(
-        <button 
+        <button
             type="button"
-            className={`btn ${typeClasses[type]} ${fontClasses[font!] ?? 'h6'}`} 
+            className={`btn ${typeClasses[type]} ${colorClasses[fontColor!] ?? 's-color'} ${fontClasses[font!] ?? 'h6'} s-button`} 
             onClick={onClick}
             style={{minWidth: minWidth ?? ''}}>
+            {!iconOnTheRight && icon != null && (<i className={`bi ${icon} me-2`}></i>)}
             {title} 
-            {icon != null && (<i className={`bi ${icon}`}></i>)}
+            {iconOnTheRight && icon != null && (<i className={`bi ${icon}`}></i>)}
         </button>
     )
 }

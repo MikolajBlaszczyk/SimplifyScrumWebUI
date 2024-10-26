@@ -35,5 +35,5 @@ export default function NoteBoard({children}: Props){
         )
     }
 
-    return(renderedGrid)
+    return(<>{renderedGrid}</>)
 }

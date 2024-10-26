@@ -6,6 +6,7 @@ import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './assets/styles/StyleIndex.scss'
 import { UserProvider } from './context/UserContext';
 import { Start, InfoCenter, Settings } from "./pages/PagesIndex"
 import { LoadingProvider } from './context/LoadingContext';
@@ -25,25 +26,6 @@ const isAuthenticated = () => {
 };
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: <App/>,
-  //   errorElement: <ErrorBoundary/>,
-  //   children: [
-  //     {
-  //       path: "login/",
-  //       element: <Start/>
-  //     },
-  //     {
-  //       path: "main/",
-  //       element: <InfoCenter/>
-  //     },
-  //     {
-  //       path: "settings/",
-  //       element: <Settings/>
-  //     }
-  //   ]
-  // }
   {
     path: "/",
     element: <Start/>,

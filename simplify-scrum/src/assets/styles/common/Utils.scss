@@ -31,6 +31,10 @@ $common-heading-fs: 28.43px;
     background-color: $primary !important;
 }
 
+.s-bg-text {
+    background-color: $s-text !important;
+}
+
 .s-bg-form {
     background-color: $s-form !important;
 }
@@ -41,4 +45,12 @@ $common-heading-fs: 28.43px;
 
 .common-header{
     font-size: $common-heading-fs;
+}
+
+.s-color {
+    color: $s-text !important;
+}
+
+.s-color-background {
+    color: $s-background !important;
 }

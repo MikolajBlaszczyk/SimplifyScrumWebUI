@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import "../../../assets/SimpleCalendar.scss";
+import '../../../assets/styles/StyleIndex.scss'
 import { DayModel, Meeting, ScheduleModel } from "../data/ModelsIndex";
 import MeetingIndicator from "./MeetingIndicator";
 import SimpleModal from "./Modal/SimpleModal";

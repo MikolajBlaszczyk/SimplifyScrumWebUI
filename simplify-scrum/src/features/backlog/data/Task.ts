@@ -1,10 +1,10 @@
 import { SimpleStatus } from "./DataIndex"
 
 export class Task {
-    id: number,
-    name: string,
-    state: SimpleStatus,
-    featureGuid: string,
+    id: number
+    name: string
+    state: SimpleStatus
+    featureGuid: string
     assigneGuid: string
     
     constructor(

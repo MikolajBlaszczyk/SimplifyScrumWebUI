@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import { Global, UserContext } from "../../../context/Index";
 import { AuthProperties } from "../data/Index";
 import { LoginService } from "../services/LoginService"
+import { Button, Color, Fonts, SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
 
 const textInputs = 200
 const buttonInputs = 100
@@ -27,33 +28,59 @@ export default function SignInForm(props: AuthProperties){
     }
 
     return (
-        <form onSubmit={e => {e.preventDefault()}} className="d-flex flex-column align-items-center border p-4 rounded shadow ">
-            <label className="form-label text-light fs-2">Account Info</label>
-
-            <div className="d-flex flex-column input-group-sm mt-2 w-100">
-                <input className="form-control" value={email} onChange={e => setEmail(e.target.value)} type="email" style={{width: textInputs}} placeholder="email"/>
-                <input className="form-control mt-1" value={confirmEmail} onChange={e => setConfirmEmail(e.target.value)} type="email" style={{width: textInputs}} placeholder="confirm email"/>
-                <input className="form-control mt-1" value={nickname} onChange={e => setNickname(e.target.value)} type="text" style={{width: textInputs}} placeholder="nickname"/>
-                <input className="form-control mt-1" value={login} onChange={e => setLogin(e.target.value)} type="text" style={{width: textInputs}} placeholder="login"/>
-                <input className="form-control mt-1" value={password} onChange={e => setPassword(e.target.value)} type="password" style={{width: textInputs}} placeholder="password"/>
-            
+        <form onSubmit={e => {e.preventDefault()}} className="d-flex flex-column w-100 h-100  ps-2 pe-2 s-form-transition" style={{padding: 50}}>
+            <div className="pb-3">
+                <SimpleTextInput 
+                    label="Email"
+                    placeholder="example@3ds.com"
+                    value={email} 
+                    type={TextType.Email}
+                    changeValue={e => setEmail(e.target.value)}/>
+            </div>  
+        
+            <div className="pb-3">
+                <SimpleTextInput
+                    label="Nickname"
+                    placeholder="user48"
+                    value={nickname}
+                    changeValue={e => setNickname(nickname)}/>
             </div>
-
-            <div className="btn-group btn-group-sm d-flex flex-column mt-4 mb-3">
-                <button className="btn btn-light" onClick={signInToSimplify} style={{width: buttonInputs}}>Sign In</button>
-            </div>     
-
-            <hr className="border border-light opacity-25 w-100 mt-3" />
-
-            <div className="d-flex flex-row w-100 justify-content-center mt-2 ">
-                <button className="btn btn-outline-light me-3" style={{fontSize: thirdPartyProviderFontSize}}>
-                    <i className="bi bi-google"></i>
-                </button>
-                <button className="btn btn-outline-light ms-3" style={{fontSize: thirdPartyProviderFontSize}}>
-                    <i className="bi bi-apple"></i>    
-                </button>
+           
+            <div className="pb-3">
+                <SimpleTextInput 
+                    label="Username"
+                    placeholder="UserLogin48"
+                    value={login}
+                    changeValue={e => setLogin(e.target.value)}/>
             </div>
-
+          
+            <div className="pb-3">
+                <SimpleTextInput 
+                    label="Password"
+                    placeholder="**********"
+                    value={password}
+                    changeValue={e => setPassword(e.target.value)}/>
+            </div>
+          
+            <div className="d-flex w-100 justify-content-center pt-3">
+                <SimpleButton 
+                    type={Button.Dark} 
+                    fontColor={Color.Light}
+                    font={Fonts.P}
+                    title={"Create"} 
+                    iconOnTheRight={false}
+                    icon="bi-plus-lg"
+                    onClick={e => signInToSimplify()}/>
+            </div>
+           
+            <div className="pt-3 d-flex w-100 justify-content-center">
+                <SimpleButton 
+                    type={Button.Underlined}
+                    title=""
+                    icon="bi-arrow-left"
+                    font={Fonts.H6}
+                    onClick={(e => {props.setDisplayLogin(true)})}/>
+            </div>
 
         </form>
     )

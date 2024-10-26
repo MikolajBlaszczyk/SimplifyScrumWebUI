@@ -20,6 +20,21 @@ $orange: #e8961c;
     }
 }
 
+.s-input {
+    width: 65%  !important;
+    color: $s-text !important;
+    &::placeholder{
+        color: lighten($s-form, 15%) !important;
+    }
+    &:focus{
+        outline: none !important;
+        box-shadow:none !important;
+    }
+}
 
+.s-input-label{ 
+    width: 35%;;
+    color: $s-text !important;
+}
 
 @import "./Font";

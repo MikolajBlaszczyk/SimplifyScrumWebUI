@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
+import SecureLogin from "../../../assets/img/secure_login.svg"
 import { Link, useNavigate } from 'react-router-dom';
 import { Global, UserContext } from "../../../context/Index";
 import { Destination, destinationPaths } from "../../../utils/Index";
 import { LoginService } from "../services/LoginService"
 import { AuthProperties } from "../data/Index"
+import { Button, Color, Fonts, SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
 
 const textInputs = 200
 const buttonInputs = 100
@@ -41,41 +43,44 @@ export default function LoginForm(props: AuthProperties){
     }
 
     return (
-        <form onSubmit={e => {e.preventDefault()}} className="d-flex flex-column align-items-center border p-4 rounded shadow ">
-            <label className="form-label text-light fs-2">Welcome</label>
-
-            <div className="input-group input-group-sm mt-2 w-100">
-                <input className="form-control" onChange={e => setLogin(e.target.value)} value={login} type="text" style={{width: textInputs}} placeholder="email or login"/>
+        <form onSubmit={e => {e.preventDefault()}} className="d-flex flex-column w-100 h-100  ps-2 pe-2  s-form-transition" style={{padding: 50}}>
+            <div className="pb-3">
+                <SimpleTextInput 
+                    
+                    label="Login"
+                    placeholder="username"
+                    value={login} 
+                    changeValue={e => {setLogin(e.target.value)}} />
             </div>
-            <div className="input-group input-group-sm mt-2 w-100">
-                <input className="form-control" onChange={e => setPassword(e.target.value)} value={password} type="password" style={{width: textInputs}} placeholder="password"/>
+
+            <div className="pb-3 pt-1">
+                <SimpleTextInput 
+                    label="Password"
+                    type={TextType.Password}
+                    placeholder="**********"
+                    value={password}
+                    changeValue={e => {setPassword(e.target.value)}}
+                    />
             </div>
 
-
-            <div className="btn-group btn-group-sm d-flex flex-column mt-4 mb-3">
-                <button onClick={loginToSimplify} className="btn btn-light " style={{width: buttonInputs}}>Login</button>
-            </div>     
+            <div className="pt-4 d-flex w-100 justify-content-center">
+                <SimpleButton
+                    type={Button.Dark}
+                    fontColor={Color.Light}
+                    font={Fonts.P}
+                    title={"Login"}
+                    icon="bi-arrow-right"
+                    iconOnTheRight={false}
+                    onClick={e => {loginToSimplify()}} />
+            </div>
             
-
-            <hr className="border border-light opacity-25 w-100 mt-3" />
-
-            <div className="d-flex flex-row w-100 justify-content-center mt-2 ">
-                <button className="btn btn-outline-light me-3" style={{fontSize: thirdPartyProviderFontSize}}>
-                    <i className="bi bi-google"></i>
-                </button>
-                <button className="btn btn-outline-light ms-3" style={{fontSize: thirdPartyProviderFontSize}}>
-                    <i className="bi bi-apple"></i>    
-                </button>
+            <div className="pt-3 d-flex w-100 justify-content-center">
+                <SimpleButton 
+                    type={Button.Underlined}
+                    title="Create account"
+                    font={Fonts.Small}
+                    onClick={(e => {props.setDisplayLogin(false)})}/>
             </div>
-
-            <p className="mt-3">
-                <text
-                    className=" link-opacity-25 link-light link-opacity-75-hover link-underline-opacity-0"
-                    style={{ fontSize: 10 }} 
-                    onClick={() => {props.setDisplayLogin(false)}}>
-                    Create account
-                </text>
-            </p>
         </form>
     )
 }

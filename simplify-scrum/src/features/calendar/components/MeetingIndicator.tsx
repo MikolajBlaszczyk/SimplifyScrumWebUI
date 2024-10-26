@@ -1,6 +1,6 @@
 import React from "react";
 import { MeetingType, Meeting } from "../data/ModelsIndex";
-import '../../../assets/Custom.scss'
+import '../../../assets/styles/StyleIndex.scss'
 
 
 interface MeetingIndicatorProps {
