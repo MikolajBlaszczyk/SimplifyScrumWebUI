@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react"
 import "../../assets/Custom.scss"
-import { SimpleUserModel } from "../../authorization/data/User"
+import { User } from "../../common-data/User"
 import { UserService } from "../service/UserService"
 
 
 
 export default function UserScreen(){ 
-    const [user, setUser] = useState<SimpleUserModel | null>(null)
+    const [user, setUser] = useState<User | null>(null)
 
 
     useEffect(() => {

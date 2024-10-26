@@ -8,4 +8,10 @@ export abstract class TokenAppender{
             axios.defaults.headers.common = {'Authorization': `bearer ${token}`}
         } 
     }
+
+    static async RemoveToken(){
+        if(axios.defaults.headers.common['Authorization']){
+            axios.defaults.headers.common.Authorization = ""
+        }
+    }
 }

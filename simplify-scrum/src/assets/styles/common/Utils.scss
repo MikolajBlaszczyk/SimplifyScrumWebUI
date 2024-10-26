@@ -1,0 +1,44 @@
+
+$s-text: #0a0717;
+$s-background: #fafafa;
+$s-form: #A3A9AA;
+$s-primary: #00ff8c;
+$s-secondary: #cafe76;
+$s-accent: #c40e3e;
+$s-note: #FFC700;
+
+$primary: $s-primary;
+$secondary: $s-secondary;
+$success: #376E37;   
+$info: #1BE7FF;
+$warning: #FE9920; 
+$danger: #BA2D0B;
+
+
+$linearPrimarySecondary: linear-gradient(#00ff8c, #cafe76);
+$linearPrimaryAccent: linear-gradient(#00ff8c, #c40e3e);
+$linearSecondaryAccent: linear-gradient(#cafe76, #c40e3e);
+$radialPrimarySecondary: radial-gradient(#00ff8c, #cafe76);
+$radialPrimaryAccent: radial-gradient(#00ff8c, #c40e3e);
+$radialSecondaryAccent: radial-gradient(#cafe76, #c40e3e);
+
+$text-fs: 16px;
+$small-fs: 12px;
+$common-heading-fs: 28.43px;
+
+
+.s-bg-primary {
+    background-color: $primary !important;
+}
+
+.s-bg-form {
+    background-color: $s-form !important;
+}
+
+.s-bg-background {
+    background-color: $s-background !important;
+}
+
+.common-header{
+    font-size: $common-heading-fs;
+}

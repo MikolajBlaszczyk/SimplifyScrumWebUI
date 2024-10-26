@@ -1,6 +1,7 @@
 import axios, { HttpStatusCode } from "axios";
 import { TokenAppender } from "../../../services/Auth/TokenAppender";
-import { DayModel, MeetingModel, ScheduleModel } from '../data/ModelsIndex';
+import { DayModel, Meeting, ScheduleModel } from '../data/ModelsIndex';
+import { DateConverter } from "../../../utils/Index"
 
 const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings` 
 
@@ -24,12 +25,10 @@ export class MeetingSerivce{
         throw new Error()
     }
 
-    public static async Add(model: MeetingModel){
+    public static async Add(model: Meeting){
         TokenAppender.AppendToken()
 
         try {
-            const hours = model.duration.getHours().toString().padStart(2, '0')
-            const minutes = model.duration.getMinutes().toString().padStart(2, '0')
 
             const url = meetingApiUrl + "/add"
             const response = await axios.post(url, {
@@ -38,7 +37,7 @@ export class MeetingSerivce{
                 Description: model.description,
                 LeaderIdentifier: model.leaderId,
                 Start: model.start.toJSON(),
-                Duration: `${hours}:${minutes}:00`,
+                Duration: model.duration,
                 Type: model.type,
                 UserGuids: model.userIdentifiers
             });
@@ -50,12 +49,10 @@ export class MeetingSerivce{
         }
     }
 
-    public static async UpdateMeeting(model: MeetingModel){
+    public static async UpdateMeeting(model: Meeting){
         TokenAppender.AppendToken()
         
         try {
-            const hours = model.duration.getHours().toString().padStart(2, '0')
-            const minutes = model.duration.getMinutes().toString().padStart(2, '0')
 
             const url = meetingApiUrl + "/update"
             const response = await axios.post(url, {
@@ -64,7 +61,7 @@ export class MeetingSerivce{
                 Description: model.description,
                 LeaderIdentifier: model.leaderId,
                 Start: model.start.toJSON(),
-                Duration: `${hours}:${minutes}:00`,
+                Duration: model.duration,
                 Type: model.type,
                 UserGuids: model.userIdentifiers
             });
@@ -75,7 +72,7 @@ export class MeetingSerivce{
         }
     }
 
-    public static async DeleteMeeting(model: MeetingModel){
+    public static async DeleteMeeting(model: Meeting){
         TokenAppender.AppendToken()
         
         try {

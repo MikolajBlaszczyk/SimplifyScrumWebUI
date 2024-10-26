@@ -1,19 +1,19 @@
 import React, { createContext, useMemo, useState } from "react";
 
 interface Loading{
-    isLoading: boolean
-    setIsLoading: (value: boolean)=> void
+    isLoading: number
+    setIsLoading: (value: number)=> void
 }
 
 export const LoadingContext = createContext<Loading>({
-    isLoading: false,
+    isLoading: 0,
     setIsLoading: () => null
 })
 
 export const LoadingProvider = ( {children}: React.PropsWithChildren<{}>) => {
-    const [reload, setReload] = useState<boolean>(false)
+    const [reload, setReload] = useState<number>(0)
 
-    const setReloadValue = (value: boolean) => {
+    const setReloadValue = (value: number) => {
         setReload(value)
     }
 

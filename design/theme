@@ -1,0 +1,16 @@
+$themes: (
+ light: (
+   text: #0c081b,
+   background: #f5f4fb,
+   primary: #6345c4,
+   secondary: #deb496,
+   accent: #bfd06d,
+ ),
+ dark: (
+   text: #e8e4f7,
+   background: #05040b,
+   primary: #583bba,
+   secondary: #693f21,
+   accent: #82922f,
+ ),
+);

@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.display-1, .display-2, .display-3,
+.display-4, .display-5, .display-6 {
+    font-family: "Montserrat", sans-serif ;
+    font-optical-sizing: auto ;
+    font-weight: 400;
+    font-style: normal;
+}
+html, body, .tooltip, .popover {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+code, kbd, pre, samp, .text-monospace {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+button, input, optgroup, select, textarea {
+    font-family: inherit
+}
+
+
+
+h1, .s-h1 {
+    font-size: 89.76px !important;
+}
+
+h2, .s-h2 {
+    font-size: 67.34px !important;
+}
+
+h3, .s-h3 {
+    font-size: 50.52px !important;
+}
+
+h4, .s-h4 {
+    font-size: 37.9px !important;
+}
+
+h5, .s-h5 {
+    font-size: 28.43px !important;
+}
+
+h6, .s-h6 {
+    font-size: 21.33px !important;
+}
+
+p, .s-p {
+    font-size: 16px !important;
+}
+
+small, .s-small{
+    font-size: 12px !important;
+}

@@ -1,0 +1,25 @@
+@import "./Utils";
+
+.s-card {
+    border-top-left-radius: 5%;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    width: fit-content;
+    background-color: $s-background;
+    aspect-ratio: 2 / 2;
+    transition: transform 0.15s ease-in-out;
+
+    &:hover{
+        background-color: darken($s-background, 10%); 
+        transform: scale(1.05) 
+    }
+}   
+.s-card-body {
+    width: 19vw;
+    font-size: $text-fs;
+}
+
+.s-card-addon {
+    font-size: $small-fs !important;
+}

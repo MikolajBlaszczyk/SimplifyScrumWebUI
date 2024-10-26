@@ -1,13 +1,14 @@
+import { DateConverter } from "../../../utils/Index";
 import { MeetingType } from "./MeetingType";
 
 
-export interface MeetingModel {
+export interface Meeting {
     id: string;
     name: string;
     description: string;
     leaderId: string;
     start: Date;
-    duration: Date;
+    duration: string;
     type: MeetingType;
     userIdentifiers: string[]
 }
@@ -15,20 +16,20 @@ export interface MeetingModel {
 export class MeetingFactory {
     private constructor(){}
 
-    static get default(): MeetingModel{
+    static get default(): Meeting{
         return {
             id: "",
             name: "",
             description: "",
             leaderId: "",
             start: new Date(),
-            duration: new Date(0,0,0,0,30),
+            duration: DateConverter.convertDateToTimeString(new Date(0,0,0,0,30)),
             type: MeetingType.daily,
             userIdentifiers: []
         }
     }
 
-    static copy(meeting: MeetingModel): MeetingModel{
+    static copy(meeting: Meeting): Meeting{
         return {
             id: meeting.id,
             name: meeting.name,

@@ -1,9 +1,9 @@
-import { MeetingModel } from "./Meeting";
+import { Meeting } from "./Meeting";
 
 
 export interface DayModel {
     date: Date;
-    meetings: MeetingModel[];
+    meetings: Meeting[];
 }
 
 

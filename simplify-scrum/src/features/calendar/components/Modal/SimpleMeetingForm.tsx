@@ -1,22 +1,48 @@
 import { ChangeEventHandler, useEffect, useMemo, useState } from "react"
-import { MeetingFactory, MeetingModel, MeetingType } from "../../data/ModelsIndex"
+import { MeetingFactory, Meeting, MeetingType } from "../../data/ModelsIndex"
 import { MeetingSerivce } from "../../service/MeetingService"
 import { useLoading } from "../../../../hooks/SimpleContexts"
 import { UserService } from "../../../account-settings/service/UserService"
-import { SimpleUserModel } from "../../../authorization/data/User"
+import { User } from "../../../common-data/User"
+import { SimpleDateInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
+import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
+import { DateConverter } from '../../../../utils/DateConverter';
 
 interface properties{
-    initialMeeting: MeetingModel | null
+    initialMeeting: Meeting | null
+    clickedDay: Date
 }
 
 
 export default function SimpleMeetingForm(props: properties){
-    const {initialMeeting} = props
-    const {setIsLoading} = useLoading()
+    const [leaders, setLeaders] = useState<User[]>([] as User[])
+    
+    const typesDescriptions = useMemo(() => {
+        let values = []
+        for(let type in MeetingType){
+            if(isNaN(Number(type))){
+                values.push(type)
+            }
+        }
+        return values;
+    },[])
+   
+    const typesValues = useMemo(()  => {
+        let values = []
+        for(let type in Object.values(MeetingType)){
+            if(isNaN(Number(type))){
+                values.push(type)
+            }
+        }
+        return values;
+    }, [])
+    
+    const {initialMeeting, clickedDay} = props
+    const {isLoading, setIsLoading} = useLoading()
     const [isNew, setIsNew] = useState(initialMeeting == null)
-    const [leaders, setLeaders] = useState<SimpleUserModel[]>([])
-    const [editedMeeting, setEditedMeeting] = useState<MeetingModel>(
-        MeetingFactory.copy(initialMeeting ?? MeetingFactory.default)
+   
+    const [editedMeeting, setEditedMeeting] = useState<Meeting>(
+        MeetingFactory.copy(initialMeeting ?? {...MeetingFactory.default, start: clickedDay})
     )
 
     const getAllUsers = async () => {
@@ -33,94 +59,101 @@ export default function SimpleMeetingForm(props: properties){
     const addMeeting = () => { 
         UserService.getInfo()
             .then(data => {
-                setEditedMeeting({...editedMeeting, userIdentifiers: [...editedMeeting.userIdentifiers, data.id ]})
-        
+                const newValue =  {...editedMeeting, userIdentifiers: [...editedMeeting.userIdentifiers, data.id ]}
+
                 if(isNew) {
-                    MeetingSerivce.Add(editedMeeting)
-                    setIsLoading(true)
+                    MeetingSerivce
+                        .Add(newValue)
+                        .then(data => {setIsLoading(isLoading + 1)})
                     return
                 }
         
-                MeetingSerivce.UpdateMeeting(editedMeeting)
-                setIsLoading(true)
+                MeetingSerivce
+                    .UpdateMeeting(editedMeeting)
+                    .then(data => {
+                        setIsLoading(isLoading + 1)
+                        setEditedMeeting(editedMeeting)
+                    })
+                
+
             })
     }
 
     const removeMeeting = () => {
-        MeetingSerivce.DeleteMeeting(editedMeeting)
+        MeetingSerivce
+            .DeleteMeeting(editedMeeting)
+            .then(data => {setIsLoading(isLoading + 1)})
 
-        setIsLoading(true)
     }
 
-    const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setEditedMeeting({...editedMeeting, leaderId: event.target.value})
-    }
+    //#region inputs
     
-    const enumValues = useMemo(() => {
-        
-        let values = []
-        for(let type in MeetingType){
-            if(isNaN(Number(type))){
-                values.push(type)
-            }
-        }
-        return values;
-    },[])
-   
+    const changeName = (newValue: string) => {
+        setEditedMeeting(prev => ({...prev, name: newValue}))
+    }
+
+    const changeDescription = (newValue: string) => {
+        setEditedMeeting(prev => ({...prev, description: newValue}))
+    }
+
+    const onLeaderChange = (newValue: string) => {
+        setEditedMeeting(prev => ({...prev, leaderId: newValue}))
+    }
+
+    const onMeetingStartChange = (newValue: string) => {
+        setEditedMeeting(prev => ({...prev, start: new Date(newValue)}))
+    }
+
+    const onMeetingTypeChnage = (newValue: string) => {
+        const newType = MeetingType[newValue as keyof typeof MeetingType]
+        setEditedMeeting(prev => ({...prev, type: newType}))
+    }
+
+    const onDurationChange = (newValue: number) => {
+        const newDuration = DateConverter.convertDateToTimeString(new Date(0, 0, 0,0, newValue))
+        setEditedMeeting(prev => ({...prev, duration: newDuration }))
+    } 
+
+    //#endregion inputs
+    
+  
 
     return (
         <div className="d-flex flex-column">
-                <div className="input-group input-group-sm">
-                    <label className="input-group-text">Meeting Name</label>
-                    <input 
-                        type="text"
-                        placeholder="Name" 
-                        className="form-control"
-                        value={editedMeeting.name} 
-                        onChange={(e) => setEditedMeeting({...editedMeeting, name: e.target.value})}/>
-                </div>
-                <div className="input-group input-group-sm mt-2">
-                    <label className="input-group-text">Description</label>
-                    <input 
-                        type="text"
-                        placeholder="Description"
-                        className="form-control"
-                        value={editedMeeting.description}
-                        onChange={(e) => setEditedMeeting({...editedMeeting, description: e.target.value})}/>
-                </div>
-                <div className="input-group input-group-sm mt-2">
-                    <label className="input-group-text">Leaders</label>
-                    <select className=" form-select" value={(editedMeeting.leaderId)} onChange={onSelectChange}>
-                        {
-                            leaders.map(leader => (<option value={leader.id}>{leader.nickname}</option>))
-                        }
-                    </select>
-                </div>
-                <div className="input-group input-group-sm mt-2">
-                    <label className="input-group-text">Date</label>
-                    <input className=" form-control" type="datetime-local"/>
-                </div>
-                <div className="input-group input-group-sm mt-2">
-                    <label className="input-group-text">Type</label>
-                    <select className=" form-select">
-                        {
-                           enumValues.map(value => (<option>{value}</option>))
-                        }
-                    </select>
-                </div>
-                <div className="mt-2">
-                    <label className="form-label">Duration in minutes</label>
-                    <input type="range" className=" form-range" min={0} max={60}/>
-                </div>
+                <SimpleTextInput 
+                    label="Name"
+                    value={editedMeeting.name}
+                    changeValue={changeName}/>
+                <SimpleTextInput 
+                    label="Description"
+                    value={editedMeeting.description}
+                    changeValue={changeDescription}/>
+                <SimpleSelectionInput 
+                    label="Leader"
+                    selectedValue={editedMeeting.leaderId} 
+                    onSelectedValueChange={ onLeaderChange }
+                    optionsValues={leaders.map(l => l.id)} 
+                    optionsDescriptions={leaders.map(l => l.nickname)}/>
+                <SimpleDateInput 
+                    value={new Date(editedMeeting.start)} 
+                    onValueChange={onMeetingStartChange}/>
+                <SimpleSelectionInput 
+                    label="Meeting Type"
+                    selectedValue={MeetingType[editedMeeting.type]} 
+                    onSelectedValueChange={onMeetingTypeChnage} 
+                    optionsValues={typesValues} 
+                    optionsDescriptions={typesDescriptions}/>
+                <SimpleDurationInput 
+                    minValue={0} 
+                    maxValue={60} 
+                    value={DateConverter.convertTimeStringtoDate(editedMeeting.duration).getMinutes()} 
+                    onValueChange={ onDurationChange }/>
 
                 {/* We should have a picker for type here */}
                 <div className="mt-2 d-flex justify-content-end">
                         <button 
-                            onClick={removeMeeting} 
-                            className="btn me-2">Remove</button>
-                        <button 
                             onClick={addMeeting} 
-                            className="btn">Add</button>
+                            className="btn">Save</button>
                 </div>
                 
         </div>

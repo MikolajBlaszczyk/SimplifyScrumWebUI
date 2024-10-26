@@ -1,10 +1,10 @@
 import React from "react";
-import { MeetingType, MeetingModel } from "../data/ModelsIndex";
+import { MeetingType, Meeting } from "../data/ModelsIndex";
 import '../../../assets/Custom.scss'
 
 
 interface MeetingIndicatorProps {
-    meetings: MeetingModel[] 
+    meetings: Meeting[] 
 }
 
 const MeetingColor = {

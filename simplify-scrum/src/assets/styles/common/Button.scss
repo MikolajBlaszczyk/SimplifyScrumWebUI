@@ -1,0 +1,7 @@
+@import "./Utils";
+.s-button{ 
+    &:hover{
+        background-color: $s-accent;
+    }
+}
+

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { SimpleUserModel } from "../../authorization/data/Index"
+import { User } from "../../authorization/data/Index"
 import { TokenAppender } from "../../../services/Auth/TokenAppender"
 
 const userApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/user` 
@@ -11,7 +11,7 @@ export class UserService{
 
         try {
             const url = userApiUrl + "/info"
-            const response = await axios.get<SimpleUserModel>(url)
+            const response = await axios.get<User>(url)
 
             return response.data
         } catch(error) {
@@ -25,8 +25,8 @@ export class UserService{
 
         try { 
             const url = userApiUrl + "/users"
-            const response = await axios.get<SimpleUserModel[]>(url)
-        
+            const response = await axios.get(url)
+            console.log(response.data)
             return response.data
         } catch (error) {
             console.log(error)

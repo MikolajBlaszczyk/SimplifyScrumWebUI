@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios, { HttpStatusCode } from 'axios';
 import { createLoginUser, createSignInUser } from '../data/Index';
+import { TokenAppender } from '../../../services/Auth/TokenAppender';
 
 const loginApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}`
 
@@ -33,6 +34,24 @@ export class LoginService{
             console.log(error)
             throw error
         }
+    }
+
+    public static async logOut() {
+        try {
+            const response = await axios.get(loginApiUrl + "/logout")
+
+            if(response.status == HttpStatusCode.Ok){
+                localStorage.removeItem("token")
+                TokenAppender.RemoveToken()
+                return
+            }
+
+            throw Error()
+        } catch(error) {
+            console.log(error)
+            throw error
+        }
+
     }
     
 }

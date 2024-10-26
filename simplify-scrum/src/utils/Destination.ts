@@ -6,8 +6,8 @@ export enum Destination{
 }
 
 export const destinationPaths = {
-    [Destination.Auth]: "",
-    [Destination.Main]: "main/",
-    [Destination.UserSettings]: "user/",
+    [Destination.Auth]: "/",
+    [Destination.Main]: "/main/",
+    [Destination.UserSettings]: "/main/settings",
     default: () => ""
 }

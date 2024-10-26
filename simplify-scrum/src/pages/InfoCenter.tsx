@@ -8,7 +8,7 @@ import { useLoading } from "../hooks/SimpleContexts";
 
 export function InfoCenter(){
     const today = new Date()
-    const {isLoading} =  useLoading();
+    const {isLoading, setIsLoading} =  useLoading();
     const [schedule, setSchedule] = useState<ScheduleModel>({
         month: (today.getMonth()) as Month,
         days: DayFactory.createDaysForCurrentMonth(today)
@@ -18,9 +18,11 @@ export function InfoCenter(){
         MeetingSerivce.GetMeetings()
         .then(data => setSchedule(data))
         .catch(error => console.log(error))
+
+        
     }, [isLoading])
 
     return (
-        <ArticleLayout sections={[<SimpleCalendar date={today} schedule={schedule}/>]} />
+        <ArticleLayout sections={[<SimpleCalendar initialDate={today} schedule={schedule}/>]} />
     )
 }
