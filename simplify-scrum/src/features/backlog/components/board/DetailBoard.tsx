@@ -1,4 +1,8 @@
 import { SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
+import { Feature } from "../../data/Feature"
+import FeatureForm from "../form/FeatureForm"
+import ProjectForm from "../form/ProjectForm"
+import TaskForm from "../form/TaskForm"
 
 export enum DetailType {
     Project,
@@ -11,24 +15,15 @@ interface Prop {
 }
 
 export function DetailBoard({type}: Prop){
-    const fields: React.ReactElement[] = []
-    //it needs to be moved to other componnets
+    let form: React.ReactElement = (<div></div>)
+ 
     if(type == DetailType.Project) {
-        fields.push(<SimpleTextInput label="" value={} changeValue={() => {}}/>) // name
-        fields.push(<SimpleMultiLineTextInput />) // description
-        fields.push(<SimpleSelectionInput />) // state
-        fields.push(<SimpleSelectionInput />) // team
+        form = <ProjectForm />
     } else if (type == DetailType.Feature) {
-        fields.push(<SimpleTextInput />) // title
-        fields.push(<SimpleMultiLineTextInput />) //description
-        fields.push(<SimpleSelectionInput />) // state
-        fields.push(<SimpleSelectionInput />) // points
-        fields.push(<SimpleSelectionInput />) // project
+        form = <FeatureForm />
     } else if (type == DetailType.Task) {
-   
+        form = <TaskForm /> 
     }
-    return(
-    <form onSubmit={e => e.preventDefault()}>
-
-    </form>)
+    
+    return(form)
 }
