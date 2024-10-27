@@ -35,7 +35,7 @@ export function SideBySideLayout({rightSide, leftSide, alignment}: SideBySideLay
                 {leftSide}
             </div>
             {alignment != Alignment.Equal && (<div className="col-1"></div>)}
-            <div className={alignmentRightClasses[alignment]}>
+            <div className={`${alignmentRightClasses[alignment]} justify-content-center d-flex flex-column`}>
                 {rightSide}
             </div>
         </div>

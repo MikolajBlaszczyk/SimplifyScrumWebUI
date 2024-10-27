@@ -1,0 +1,48 @@
+
+.s-navbar{
+    background-color: $s-text !important;
+    user-select: none;
+
+    h5{
+        margin-bottom: 0px;
+    }
+    button{
+        background-color: transparent;
+        border: none;
+        font-size: $s-h6;
+        color: $s-background !important; 
+        cursor: pointer;
+        transition: transform 0.1s ease;
+        &:hover{
+            transform: scale(1.2) !important;
+        }
+    }
+    .offcanvas-header{
+        background-color: darken($s-text, 10%);
+    }
+
+    .offcanvas-body{
+        button{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: $s-h5;
+            color: $s-background !important;
+            margin-bottom: 15px;
+           
+            &:hover{
+                transform: scale(1.05) !important;
+            }
+        }
+
+        .s-offcanvas-logout{
+            button{
+                padding-right: 0;
+                justify-content: end;
+                width: 40%;
+                color: $danger !important;
+            }
+        }
+    }
+}
+
