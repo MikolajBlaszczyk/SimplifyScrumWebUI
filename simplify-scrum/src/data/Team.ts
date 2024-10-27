@@ -10,6 +10,6 @@ export class Team {
     }
 
     static default() { 
-        return new Team('', '', '')
+        return new Team('', 'Team', '')
     }
 }

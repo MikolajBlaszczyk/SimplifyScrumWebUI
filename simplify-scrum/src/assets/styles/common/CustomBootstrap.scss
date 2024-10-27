@@ -21,11 +21,14 @@ $orange: #e8961c;
 }
 
 .s-input {
-    width: 65%  !important;
-    color: $s-text !important;
-    &::placeholder{
-        color: darken($s-form, 10%) !important;
+    &:focus{
+        outline: none !important;
+        box-shadow:none !important;
     }
+}
+
+.s-checkbox{
+    border-width: 2px !important;
     &:focus{
         outline: none !important;
         box-shadow:none !important;
@@ -33,8 +36,7 @@ $orange: #e8961c;
 }
 
 .s-input-label{ 
-    width: 35%;;
-    color: $s-text !important;
+    width: 35%;
 }
 
 @import "./Font";

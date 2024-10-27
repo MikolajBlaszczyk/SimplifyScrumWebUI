@@ -32,7 +32,7 @@ export class User extends Object implements UserInfo {
     }   
 
     static default(): User {
-        return new User('', '')
+        return new User('', '', '', 'Test')
     }
 
     public CleanSensitiveData() {

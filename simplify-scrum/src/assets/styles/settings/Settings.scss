@@ -1,0 +1,31 @@
+
+.s-settings-section{
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    border-radius: 15px;
+
+    label{
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    i{
+        font-size: $s-h5 !important;
+    }
+
+    .s-settings-editable{
+        transition: transform 0.1s ease;
+        &:hover{
+            transform: translateX(15px) ;
+        }
+    }
+}
+
+.s-settings-card{
+    width: 60% !important;
+    .card{
+        border-radius: 15px !important;
+        padding: 25px;
+    }
+}

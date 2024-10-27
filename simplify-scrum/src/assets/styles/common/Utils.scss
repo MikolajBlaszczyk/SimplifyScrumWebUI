@@ -55,12 +55,36 @@ $common-heading-fs: 28.43px;
     background-color: $s-text !important;
 }
 
+.s-bg-dark{
+    background-color: #110c27 !important;
+  
+}
+
 .s-bg-form {
     background-color: $s-form !important;
 }
 
 .s-bg-background {
     background-color: $s-background !important;
+   
+}
+
+.s-f-dark{
+    color:  $s-text  !important;
+    &::placeholder{
+        color: ligthen($s-form, 40%) !important;
+    }
+}
+
+.s-f-light{
+    color: $s-background !important;
+    &::placeholder{
+        color: darken($s-form, 10%) !important;
+    }
+}
+
+.s-bg-transparent{
+    background-color: transparent !important;
 }
 
 .common-header{

@@ -1,3 +1,5 @@
+import { fontClasses, Fonts } from "../../utils/Index"
+
 export enum Button{
     Primary,
     Secondary,
@@ -10,16 +12,7 @@ export enum Button{
     Dark
 }
 
-export enum Fonts {
-    H1,
-    H2,
-    H3,
-    H4,
-    H5,
-    H6,
-    P,
-    Small
-}
+
 
 export enum Color{ 
     Dark,
@@ -57,16 +50,7 @@ const colorClasses = {
     [Color.Light]: "s-color-background"
 }
 
-const fontClasses = {
-    [Fonts.H1]: "s-h1",
-    [Fonts.H2]: "s-h2",
-    [Fonts.H3]: "s-h3",
-    [Fonts.H4]: "s-h4",
-    [Fonts.H5]: "s-h5",
-    [Fonts.H6]: "s-h6",
-    [Fonts.P]: "s-p",
-    [Fonts.Small]: "s-small"
-}
+
 
 export function SimpleButton({title, icon, iconOnTheRight, onClick, type, font, fontColor, minWidth}: Props){
     if(iconOnTheRight == undefined){

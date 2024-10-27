@@ -18,9 +18,9 @@ export function NotificationSheet(){
     return (
     <div className="d-flex flex-column w-100 h-100 s-notification-sheet">
         <div className="d-flex mt-2 w-100 s-notification-sheet-label justify-content-center">
-            <h4>
+            <h5>
                 Notifications
-            </h4>
+            </h5>
         </div>
         <div className="d-flex w-100 h-100 justify-content-start flex-column">
             {notificationIndicators}

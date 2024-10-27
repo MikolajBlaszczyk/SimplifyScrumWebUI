@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from "react";
 import SecureLogin from "../../../assets/img/secure_login.svg"
 import { Link, useNavigate } from 'react-router-dom';
 import { Global, UserContext } from "../../../context/Index";
-import { Destination, destinationPaths } from "../../../utils/Index";
+import { Destination, destinationPaths, Fonts } from "../../../utils/Index";
 import { LoginService } from "../services/LoginService"
 import { AuthProperties } from "../data/Index"
-import { Button, Color, Fonts, SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
+import { Button, Color,  SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
 import {useAlert} from "../../../hooks/useAlert";
 import { AlertType } from "../../alerting/components/Alert";
  
@@ -39,7 +39,6 @@ export default function LoginForm(props: AuthProperties){
         <form onSubmit={e => {e.preventDefault()}} className="d-flex flex-column w-100 h-100  ps-2 pe-2  s-form-transition" style={{padding: 50}}>
             <div className="pb-3">
                 <SimpleTextInput 
-                    
                     label="Login"
                     placeholder="username"
                     value={login} 
