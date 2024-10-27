@@ -5,7 +5,7 @@ import { DayModel, Meeting, ScheduleModel } from "../data/ModelsIndex";
 import MeetingIndicator from "./MeetingIndicator";
 import SimpleModal from "./Modal/SimpleModal";
 import SimpleDayInfo from "./Modal/SimpleDayInfo";
-import { useLoading } from '../../../hooks/SimpleContexts';
+import { useLoading } from '../../../hooks/useContexts';
 import { MeetingSerivce } from "../service/MeetingService";
 
 interface SimpleCalendarProps {

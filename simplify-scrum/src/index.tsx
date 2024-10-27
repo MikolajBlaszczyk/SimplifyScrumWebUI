@@ -11,6 +11,7 @@ import { UserProvider } from './context/UserContext';
 import { Start, InfoCenter, Settings } from "./pages/PagesIndex"
 import { LoadingProvider } from './context/LoadingContext';
 import LoginForm from './features/authorization/components/LoginForm';
+import { AlertProvider } from './context/AlertContext';
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -53,11 +54,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <LoadingProvider>
-      <UserProvider>
-        <RouterProvider router={router}/>
-      </UserProvider>
-    </LoadingProvider>
+    <AlertProvider>
+      <LoadingProvider>
+        <UserProvider>
+          <RouterProvider router={router}/>
+        </UserProvider>
+      </LoadingProvider>
+    </AlertProvider>
   </React.StrictMode>
 );
 

@@ -3,7 +3,7 @@ import SimpleCalendar from "../features/calendar/components/SimpleCalendar";
 import { ArticleLayout } from "../layouts/LayoutIndex";
 import { DayFactory, Month, ScheduleModel } from "../features/calendar/data/ModelsIndex";
 import { MeetingSerivce } from "../features/calendar/service/MeetingService";
-import { useLoading } from "../hooks/SimpleContexts";
+import { useLoading } from "../hooks/useContexts";
 
 
 export function InfoCenter(){

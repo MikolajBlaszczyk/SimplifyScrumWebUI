@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useEffect, useMemo, useState } from "react"
 import { MeetingFactory, Meeting, MeetingType } from "../../data/ModelsIndex"
 import { MeetingSerivce } from "../../service/MeetingService"
-import { useLoading } from "../../../../hooks/SimpleContexts"
+import { useLoading } from "../../../../hooks/useContexts"
 import { AccountService } from "../../../account-settings/service/AccountService"
 import { User } from "../../../../data/User"
 import { SelectItem, SimpleDateInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"

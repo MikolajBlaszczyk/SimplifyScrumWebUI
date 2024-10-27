@@ -6,28 +6,22 @@ import { Destination, destinationPaths } from "../../../utils/Index";
 import { LoginService } from "../services/LoginService"
 import { AuthProperties } from "../data/Index"
 import { Button, Color, Fonts, SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
-
-const textInputs = 200
-const buttonInputs = 100
-const thirdPartyProviderFontSize = 12
-
-interface LoginFor { 
-
-}
-
+import {useAlert} from "../../../hooks/useAlert";
+import { AlertType } from "../../alerting/components/Alert";
+ 
 export default function LoginForm(props: AuthProperties){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const {settings, setSettings} = useContext(UserContext) as Global 
     const navigate = useNavigate()
+    const showAlert = useAlert();
 
     useEffect(() => {
         setSettings({...settings, isInStartupScreen: true })
     }, [])
 
 
-    const loginToSimplify = async () => {
-        
+    const loginToSimplify =  async () => {
         
         try {
             const response = await LoginService.login(login, password)
@@ -37,8 +31,7 @@ export default function LoginForm(props: AuthProperties){
             }
 
         } catch(error) {
-            console.log(error)
-            throw error
+            showAlert(AlertType.Danger, (error as Error).message)
         }
     }
 

@@ -17,7 +17,5 @@ export function AuthForm(){
                 <img src={SecureLogin} className=" img-fluid ms-2 me-2"/>
             </section>
         </div>
-
-        
     )
 }

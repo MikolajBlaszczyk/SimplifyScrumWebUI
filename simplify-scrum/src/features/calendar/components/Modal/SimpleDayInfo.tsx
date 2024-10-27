@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Meeting } from "../../data/ModelsIndex"
 import SimpleMeetingForm from './SimpleMeetingForm';
 import { MeetingSerivce } from "../../service/MeetingService";
-import { useLoading } from "../../../../hooks/SimpleContexts";
+import { useLoading } from "../../../../hooks/useContexts";
 
 interface properties {
     meetings: Meeting[]
