@@ -1,0 +1,29 @@
+$paddingAndBorderRadius: 15px;
+
+.s-info-end-sprint{ 
+    padding: $paddingAndBorderRadius 30px;
+    border-radius: $paddingAndBorderRadius;
+    color: $s-text;
+    height: 44%;
+    opacity: 80%;
+}
+
+.s-info-goal-sprint{
+    margin-top: 20px;
+    height: calc(56% - 20px);
+    padding: $paddingAndBorderRadius 30px;
+    border-radius: $paddingAndBorderRadius;
+    color: $s-text;
+    opacity: 80%;
+}
+
+.s-info-incoming-meetings{
+    padding: $paddingAndBorderRadius 30px;
+    border-radius: $paddingAndBorderRadius;
+    color: $s-text;
+    opacity: 80%;
+}
+
+.s-info-image{
+    left: 50%;
+}

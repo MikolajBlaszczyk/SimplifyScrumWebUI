@@ -5,6 +5,7 @@ import { DayFactory, Month, ScheduleModel } from "../features/calendar/data/Mode
 import { MeetingSerivce } from "../features/calendar/service/MeetingService";
 import { useLoading } from "../hooks/useContexts";
 import { NotificationSheet } from "../features/notifications/NotificationIndex";
+import { InfoBoard } from "../features/info-board/InfoBoardIndex";
 
 
 export function InfoCenter(){
@@ -26,6 +27,7 @@ export function InfoCenter(){
     return (
         <ArticleLayout sections={
             [
+            <InfoBoard/>,
             <SideBySideLayout 
                 rightSide={<SimpleCalendar initialDate={today} schedule={schedule}/>} 
                 leftSide={<NotificationSheet />} 
