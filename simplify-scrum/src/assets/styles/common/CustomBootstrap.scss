@@ -24,7 +24,7 @@ $orange: #e8961c;
     width: 65%  !important;
     color: $s-text !important;
     &::placeholder{
-        color: lighten($s-form, 15%) !important;
+        color: darken($s-form, 10%) !important;
     }
     &:focus{
         outline: none !important;

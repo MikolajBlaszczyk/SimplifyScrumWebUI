@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SimpleCalendar from "../features/calendar/components/SimpleCalendar";
-import { ArticleLayout } from "../layouts/LayoutIndex";
+import { Alignment, ArticleLayout, SideBySideLayout } from "../layouts/LayoutIndex";
 import { DayFactory, Month, ScheduleModel } from "../features/calendar/data/ModelsIndex";
 import { MeetingSerivce } from "../features/calendar/service/MeetingService";
 import { useLoading } from "../hooks/useContexts";
@@ -23,6 +23,12 @@ export function InfoCenter(){
     }, [isLoading])
 
     return (
-        <ArticleLayout sections={[<SimpleCalendar initialDate={today} schedule={schedule}/>]} />
+        <ArticleLayout sections={
+            [
+            <SideBySideLayout 
+                rightSide={<SimpleCalendar initialDate={today} schedule={schedule}/>} 
+                leftSide={<></>} 
+                alignment={Alignment.SideItemLeft} />
+        ]} />
     )
 }

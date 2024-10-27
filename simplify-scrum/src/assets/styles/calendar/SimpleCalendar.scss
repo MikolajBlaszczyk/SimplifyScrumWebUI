@@ -1,0 +1,160 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/variables-dark";
+
+
+$buttonMinWidth: 50px;
+$buttonMinHeight: 50px;
+
+.react-calendar{
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 5%;
+    border: $s-text 1px solid;
+    background-color: $s-form;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    align-items: center !important;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 10px !important;
+    button{
+        background-color: transparent;
+    }
+
+    .react-calendar__navigation__prev2-button{
+        display: none;
+    }
+    
+    .react-calendar__navigation__next2-button{
+        display:none;
+    }
+
+    .react-calendar__navigation__label {
+        position: relative;
+        max-width: 300px !important;
+        font-size: $s-h4;
+        left: calc(-50% + 155px);
+        color: $s-text;
+        user-select: none;
+    }
+
+    .react-calendar__navigation__prev-button{
+        position: relative;
+        width: 35px;
+        height: 35px;
+        font-size: $s-h6;
+        left: calc(100% - 10px - 90px);
+        border-radius: 100px;
+        background-color: $s-text;
+        transition: font-size 0.1s ease-in-out;
+        &:hover{
+            background-color: lighten($s-text, 25%);
+        }
+    }
+
+    .react-calendar__navigation__next-button {
+        position: relative;
+        width: 35px;
+        height: 35px;
+        font-size: $s-h6;
+        border-radius: 100px;
+        right: calc( 10px + 10px);
+        background-color: $s-text;
+        &:hover{
+            background-color: lighten($s-text, 25%);
+        }
+    }
+}
+
+
+
+.react-calendar__viewContainer{
+    margin: 0px !important;
+    margin-top: 10px !important;
+    border-top: darken($s-form, 30%) solid 1px;
+
+    .react-calendar__month-view__weekdays{
+        user-select: none;
+      
+        background-color: darken($s-form, 10%);
+        border-bottom: darken($s-form, 30%) solid 1px;
+        .react-calendar__month-view__weekdays__weekday{
+            padding: 10px;
+            color: $s-text;
+            abbr{
+                cursor: auto !important;
+                font-size: $s-p !important; 
+                text-decoration: none !important;
+            }
+        }
+    }
+
+    .react-calendar__month-view__days{
+        button{ 
+            margin: 0px !important;
+            background-color: transparent;
+            color: $s-text !important;
+            border: none;
+            &:hover{ 
+                background-color: darken($s-form, 10%) !important;
+                cursor: auto;
+            }
+        }
+    }
+}
+
+
+
+.react-calendar__month-view__days button{
+    color: var(--bs-white);
+    min-width: $buttonMinWidth;
+    min-height: $buttonMinHeight;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: $s-p !important; 
+}
+
+.react-calendar__month-view__weekdays__weekday{
+    text-align: center;
+    font-size: 1.1rem;
+    text-decoration:solid;
+}
+
+
+.react-calendar__navigation button{
+    text-align: center;
+    border: none;
+}
+
+
+
+.react-calendar__month-view__weekdays{
+    color: white;       
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.react-calendar__tile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.react-calendar__month-view__days__day--neighboringMonth{
+   
+}
+
+.react-calendar__month-view__days .react-calendar__month-view__days__day--neighboringMonth:hover{
+}
