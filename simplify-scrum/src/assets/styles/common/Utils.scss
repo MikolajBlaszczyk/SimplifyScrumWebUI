@@ -31,6 +31,26 @@ $common-heading-fs: 28.43px;
     background-color: $primary !important;
 }
 
+.s-bg-secondary {
+    background-color: $s-secondary !important;
+}
+
+.s-bg-success {
+    background-color: $success !important;
+}
+
+.s-bg-info {
+    background-color: $info !important;
+}
+
+.s-bg-warning {
+    background-color: $warning !important;
+}
+
+.s-bg-danger {
+    background-color: $danger !important;
+}
+
 .s-bg-text {
     background-color: $s-text !important;
 }

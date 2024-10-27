@@ -4,6 +4,7 @@ import { Alignment, ArticleLayout, SideBySideLayout } from "../layouts/LayoutInd
 import { DayFactory, Month, ScheduleModel } from "../features/calendar/data/ModelsIndex";
 import { MeetingSerivce } from "../features/calendar/service/MeetingService";
 import { useLoading } from "../hooks/useContexts";
+import { NotificationSheet } from "../features/notifications/NotificationIndex";
 
 
 export function InfoCenter(){
@@ -27,7 +28,7 @@ export function InfoCenter(){
             [
             <SideBySideLayout 
                 rightSide={<SimpleCalendar initialDate={today} schedule={schedule}/>} 
-                leftSide={<></>} 
+                leftSide={<NotificationSheet />} 
                 alignment={Alignment.SideItemLeft} />
         ]} />
     )
