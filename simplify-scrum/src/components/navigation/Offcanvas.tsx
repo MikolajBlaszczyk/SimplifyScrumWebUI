@@ -36,9 +36,14 @@ export function Offcanvas(){
                         onClick={() => navigateTo(Destination.UserSettings)}/>
 
                     <NavigationButton
+                        icon={"bi-info-circle"} 
+                        title="Info Center"
+                        onClick={() => navigateTo(Destination.Main)}/>   
+
+                    <NavigationButton
                         icon={"bi-calendar-date"} 
-                        title="Calendar"
-                        onClick={() => navigateTo(Destination.UserSettings)}/>
+                        title="Meetings"
+                        onClick={() => navigateTo(Destination.Meetings)}/>
 
                     <NavigationButton
                         icon={"bi-list-columns-reverse"} 

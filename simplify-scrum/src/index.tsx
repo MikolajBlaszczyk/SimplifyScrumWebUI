@@ -12,6 +12,7 @@ import { Start, InfoCenter, Settings } from "./pages/PagesIndex"
 import { LoadingProvider } from './context/LoadingContext';
 import LoginForm from './features/authorization/components/LoginForm';
 import { AlertProvider } from './context/AlertContext';
+import { Meetings } from './pages/Meetings';
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           {
             path: "settings/",
             element: <Settings/>
+          },
+          {
+            path: "meetings/",
+            element: <Meetings />
           }
         ]
   }
