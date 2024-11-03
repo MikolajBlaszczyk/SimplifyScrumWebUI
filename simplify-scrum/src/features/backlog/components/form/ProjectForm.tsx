@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react"
 import { StandardStatus } from "../../data/State"
 import { Team } from "../../../../data/DataIndex";
 import { SelectItem, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex";
-import { BacklogService } from '../../service/BacklogService';
+import { BacklogService } from '../../../../services/BacklogService';
 import { EnumService } from '../../../../services/enum/StateEnumService';
 
 

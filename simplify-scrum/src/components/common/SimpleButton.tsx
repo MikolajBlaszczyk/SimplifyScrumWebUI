@@ -62,7 +62,7 @@ export function SimpleButton({title, icon, iconOnTheRight, onClick, type, font, 
     return(
         <button
             type="button"
-            className={`btn ${typeClasses[type]} ${colorClasses[fontColor!] ?? 's-color'} ${fontClasses[font!] ?? 'h6'} s-button`} 
+            className={`btn m-0 ${typeClasses[type]} ${colorClasses[fontColor!] ?? 's-color'} ${fontClasses[font!] ?? 'h6'} s-button`} 
             onClick={onClick}
             style={{minWidth: minWidth ?? ''}}>
             {!iconOnTheRight && icon != null && (<i className={`bi ${icon} me-2`}></i>)}

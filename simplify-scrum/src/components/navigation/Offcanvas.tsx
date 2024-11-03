@@ -6,10 +6,6 @@ import { NavigationButton } from "./NavigationButton"
 
 export function Offcanvas(){
     const navigate = useNavigate()
-
-    const navigateToPreviousPage = () => {
-        navigate(-1)
-    }
     
     const navigateTo = (destination: Destination) => {
         const path = destinationPaths[destination]
@@ -48,12 +44,12 @@ export function Offcanvas(){
                     <NavigationButton
                         icon={"bi-list-columns-reverse"} 
                         title="Backlog"
-                        onClick={() => navigateTo(Destination.UserSettings)}/>          
+                        onClick={() => navigateTo(Destination.Backlog)}/>          
 
                     <NavigationButton
                         icon={"bi-suit-heart-fill"} 
                         title="Refinement"
-                        onClick={() => navigateTo(Destination.UserSettings)}/>
+                        onClick={() => navigateTo(Destination.Refinement)}/>
 
                     <NavigationButton
                         icon={"bi-download"} 

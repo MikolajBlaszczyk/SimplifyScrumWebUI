@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import "../../../assets/styles/StyleIndex.scss"
+import "../../../../assets/styles/StyleIndex.scss"
 import { SimpleButton, Button } from "../../../../components/ComponentsIndex";
 import NoteBoard from './NoteBoard';
 import { ListBoard } from "./ListBoard";

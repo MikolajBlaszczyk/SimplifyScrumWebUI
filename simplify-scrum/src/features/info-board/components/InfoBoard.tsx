@@ -4,7 +4,7 @@ export function InfoBoard(){
     return (
     <div className="row">
         <div className="col-7">
-            <div className="s-bg-form h-100 me-3  s-info-incoming-meetings">
+            <div className="s-bg-form h-100 me-3 shadow s-info-incoming-meetings">
                 <h3>
                     Incoming meetings for this sprint
                 </h3>
@@ -36,13 +36,13 @@ export function InfoBoard(){
             </div>
         </div>
         <div className="col-5 flex-column justify-content-between">
-            <div className="s-bg-critical s-info-end-sprint ">
+            <div className="s-bg-critical shadow s-info-end-sprint ">
                 <h4>
                     Sprint ends in three days
                 </h4>
             </div>
 
-            <div className="s-bg-daily  s-info-goal-sprint ">
+            <div className="s-bg-daily shadow  s-info-goal-sprint ">
                 <h4>
                     Goal of the sprint is to introduce design for the app
                 </h4>

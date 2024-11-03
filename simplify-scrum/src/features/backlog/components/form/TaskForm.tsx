@@ -9,7 +9,7 @@ import { User } from "../../../../data/DataIndex"
 export default function TaskForm() {
     const [name, setName] = useState<string>('')
     const [status, setStatus] = useState<SimpleStatus>(SimpleStatus.ToBeDone)
-    const [feature, setFeature] = useState<Feature>(Feature.Default())
+    const [feature, setFeature] = useState<Feature>(Feature.default())
     const [assigne, setAssigne] = useState<User>(User.default())
 
     let statusOptions: SelectItem<string>[] = []

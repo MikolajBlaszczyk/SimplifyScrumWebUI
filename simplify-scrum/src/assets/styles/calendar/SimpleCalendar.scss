@@ -10,7 +10,7 @@ $buttonMinHeight: 50px;
 .react-calendar{
     display: flex;
     width: 100%;
-    height: fit-content;
+    aspect-ratio: 16 / 9;
     flex-direction: column;
     border-radius: 10px;
     background-color: $s-form;
@@ -36,9 +36,9 @@ $buttonMinHeight: 50px;
 
     .react-calendar__navigation__label {
         position: relative;
-        max-width: 300px !important;
-        font-size: $s-h4;
-        left: calc(-50% + 155px);
+        max-width: 500px !important;
+        font-size: $s-h3;
+        left: calc(-50% + 185px);
         color: $s-text;
         user-select: none;
     }
@@ -77,7 +77,7 @@ $buttonMinHeight: 50px;
     margin: 0px !important;
     margin-top: 10px !important;
     border-top: darken($s-form, 30%) solid 1px;
-
+    height: 100%;
     .react-calendar__month-view__weekdays{
         user-select: none;
       

@@ -11,11 +11,11 @@ export function Meetings(){
     })
     return(
         <CentralLayout 
-            maxWidthPercantage={80}
             centralComponent={
                 <SimpleCalendar 
                     initialDate={today}
-                    schedule={schedule} />
+                    schedule={schedule} 
+                    maxWidthInPercent={80}/>
                 }/>
     )
 }

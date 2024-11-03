@@ -30,7 +30,7 @@ export class Feature extends Object{
         this.lastUpdate = lastUpdate
     }
 
-    static Default() { 
+    static default() { 
         return new Feature('', '', '', ExtendedStatus.New, 1, '', '', '')
     }
     

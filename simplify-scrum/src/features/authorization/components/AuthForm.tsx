@@ -9,7 +9,7 @@ export function AuthForm(){
     const form = displayLogin == true ? <LoginForm  setDisplayLogin={setDisplayLogin} /> : <SignInForm setDisplayLogin={setDisplayLogin}/>
 
     return(
-        <div className="s-central-form row">
+        <div className="s-central-form row shadow">
             <section className="col s-auth-form">
                 {form}
             </section>

@@ -13,6 +13,7 @@ import { SimpleTextInput } from "../../../components/ComponentsIndex";
 interface SimpleCalendarProps {
     initialDate: Date 
     schedule: ScheduleModel
+    maxWidthInPercent?: number
 }
 
 interface DayClickedEventProps {
@@ -22,8 +23,7 @@ interface DayClickedEventProps {
 }
 
 
-export default function SimpleCalendar(props: SimpleCalendarProps) {
-    const {initialDate, schedule} = props
+export default function SimpleCalendar({initialDate, schedule, maxWidthInPercent}: SimpleCalendarProps) {
     const {isLoading} = useLoading()
     const  showAlert = useAlert()
 
@@ -104,8 +104,10 @@ export default function SimpleCalendar(props: SimpleCalendarProps) {
         )
     }
 
+    const widthPercantage = maxWidthInPercent != undefined ? `${maxWidthInPercent}%` : '100%'
+
     return (
-        <>
+        <div className="d-flex" style={{width: widthPercantage }}>
             <Calendar
             minDetail="month"
             showNeighboringMonth={false}
@@ -114,7 +116,7 @@ export default function SimpleCalendar(props: SimpleCalendarProps) {
             tileContent={(args) => renderDescription(args.date, calendarDate.getMonth())}
             onClickDay={onDayClick}
             className="justify-content-center align-items-center"/>
-
+            
             {
                 clickProps.showModal &&
                 <div>
@@ -125,6 +127,6 @@ export default function SimpleCalendar(props: SimpleCalendarProps) {
                     <div className="modal-backdrop fade show"/> 
                 </div> 
             }
-        </>
+        </div>
     )
 }

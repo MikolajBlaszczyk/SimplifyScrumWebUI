@@ -13,6 +13,8 @@ import { LoadingProvider } from './context/LoadingContext';
 import LoginForm from './features/authorization/components/LoginForm';
 import { AlertProvider } from './context/AlertContext';
 import { Meetings } from './pages/Meetings';
+import { Backlog } from './pages/Backlog';
+import { Refinement } from './pages/Refinement';
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
           {
             path: "meetings/",
             element: <Meetings />
+          },
+          {
+            path: "backlog/",
+            element: <Backlog />
+          },
+          {
+            path: "refinement/",
+            element: <Refinement />
           }
         ]
   }
