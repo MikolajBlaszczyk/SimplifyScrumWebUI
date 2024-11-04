@@ -15,6 +15,9 @@ import { AlertProvider } from './context/AlertContext';
 import { Meetings } from './pages/Meetings';
 import { Backlog } from './pages/Backlog';
 import { Refinement } from './pages/Refinement';
+import { Planning } from './pages/Planning';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -59,6 +62,10 @@ const router = createBrowserRouter([
           {
             path: "refinement/",
             element: <Refinement />
+          },
+          {
+            path: "planning/",
+            element: <Planning />
           }
         ]
   }
@@ -69,13 +76,15 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AlertProvider>
-      <LoadingProvider>
-        <UserProvider>
-          <RouterProvider router={router}/>
-        </UserProvider>
-      </LoadingProvider>
-    </AlertProvider>
+    <DndProvider backend={HTML5Backend}>
+      <AlertProvider>
+        <LoadingProvider>
+          <UserProvider>
+            <RouterProvider router={router}/>
+          </UserProvider>
+        </LoadingProvider>
+      </AlertProvider>
+    </DndProvider>
   </React.StrictMode>
 );
 

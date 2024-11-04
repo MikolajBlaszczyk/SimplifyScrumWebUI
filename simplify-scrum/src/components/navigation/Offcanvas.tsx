@@ -54,7 +54,7 @@ export function Offcanvas(){
                     <NavigationButton
                         icon={"bi-download"} 
                         title="Planning"
-                        onClick={() => navigateTo(Destination.UserSettings)}/>
+                        onClick={() => navigateTo(Destination.Planning)}/>
 
                     <NavigationButton
                         icon={"bi-puzzle"} 

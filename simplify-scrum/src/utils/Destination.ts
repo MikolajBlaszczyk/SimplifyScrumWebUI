@@ -1,4 +1,3 @@
-import { Refinement } from '../pages/Refinement';
 
 export enum Destination{
     Auth,
@@ -6,7 +5,8 @@ export enum Destination{
     UserSettings,
     Meetings,
     Backlog,
-    Refinement
+    Refinement,
+    Planning
 }
 
 export const destinationPaths = {
@@ -16,5 +16,6 @@ export const destinationPaths = {
     [Destination.Meetings]: '/main/meetings',
     [Destination.Backlog]: '/main/backlog',
     [Destination.Refinement]: '/main/refinement',
+    [Destination.Planning]: '/main/planning',
     default: () => ""
 }
