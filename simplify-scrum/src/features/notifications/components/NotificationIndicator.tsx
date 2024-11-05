@@ -19,7 +19,7 @@ export function NotificationIndicator({notification}: Props){
     
 
     return (
-        <div className={`s-notification-indicatorColor border border-1 ${notificationBackground[notification.type]} mt-3 shadow`}>
+        <div className={`s-notification-indicator border border-1 ${notificationBackground[notification.type]} mt-3 shadow`}>
             <p className="ms-4 mb-0">
                 {notification.title}
             </p>

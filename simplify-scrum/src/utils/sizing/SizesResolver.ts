@@ -1,4 +1,4 @@
-import { Fonts } from "../UtilsIndex";
+import { ComponentSize, Fonts } from "../UtilsIndex";
 
 export const fontClasses = {
     [Fonts.H1]: "s-h1",
@@ -10,4 +10,12 @@ export const fontClasses = {
     [Fonts.P]: "s-p",
     [Fonts.Small]: "s-small",
     default: "s-p"
+}
+
+export const componentSize = {
+    [ComponentSize.Large]: 's-size-large',
+    [ComponentSize.Medium]: 's-size-medium',
+    [ComponentSize.Small]: 's-size-small',
+    [ComponentSize.Fit]: 's-size-fit',
+    default: 's-size-medium'
 }

@@ -8,10 +8,12 @@ import { useLoading } from '../../../hooks/HooksIndex';
 import { MeetingSerivce } from "../../../services/CommonServicesIndex";
 import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertType } from "../../alerting/components/Alert";
+import { componentSize, ComponentSize } from "../../../utils/UtilsIndex";
 
 interface SimpleCalendarProps {
     initialDate: Date 
     schedule: ScheduleModel
+    size?: ComponentSize
     maxWidthInPercent?: number
 }
 
@@ -22,7 +24,7 @@ interface DayClickedEventProps {
 }
 
 
-export default function SimpleCalendar({initialDate, schedule, maxWidthInPercent}: SimpleCalendarProps) {
+export default function SimpleCalendar({initialDate, schedule, maxWidthInPercent, size}: SimpleCalendarProps) {
     const {isLoading} = useLoading()
     const  showAlert = useAlert()
 
@@ -106,7 +108,7 @@ export default function SimpleCalendar({initialDate, schedule, maxWidthInPercent
     const widthPercantage = maxWidthInPercent != undefined ? `${maxWidthInPercent}%` : '100%'
 
     return (
-        <div className="d-flex" style={{width: widthPercantage }}>
+        <div className={`d-flex ${componentSize[size!] ?? componentSize.default}`} style={{width: widthPercantage }}>
             <Calendar
             minDetail="month"
             nextLabel={(<h5><i className="bi bi-box-arrow-in-right"></i></h5>)}

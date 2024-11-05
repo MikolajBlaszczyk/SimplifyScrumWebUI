@@ -2,6 +2,7 @@ import { useState } from "react";
 import SimpleCalendar from "../features/calendar/components/SimpleCalendar";
 import { DayFactory, Month, ScheduleModel } from "../data/CommonDataIndex";
 import { CentralLayout } from "../layouts/CentralLayout";
+import { ComponentSize } from "../utils/UtilsIndex";
 
 export function Meetings(){
     const today = new Date()
@@ -14,8 +15,8 @@ export function Meetings(){
             centralComponent={
                 <SimpleCalendar 
                     initialDate={today}
-                    schedule={schedule} 
-                    maxWidthInPercent={80}/>
+                    schedule={schedule}
+                    size={ComponentSize.Large} />
                 }/>
     )
 }

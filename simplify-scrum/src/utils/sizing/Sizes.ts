@@ -1,7 +1,8 @@
 export enum ComponentSize {
     Large,
     Medium,
-    Small
+    Small,
+    Fit
 }
 
 

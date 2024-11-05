@@ -6,6 +6,7 @@ import { MeetingSerivce } from "../services/CommonServicesIndex";
 import { useLoading } from "../hooks/HooksIndex";
 import { NotificationSheet } from "../features/notifications/NotificationIndex";
 import { InfoBoard } from "../features/info-board/InfoBoardIndex";
+import { ComponentSize } from "../utils/UtilsIndex";
 
 
 export function InfoCenter(){
@@ -29,7 +30,7 @@ export function InfoCenter(){
             [
             <InfoBoard/>,
             <SideBySideLayout 
-                rightSide={<SimpleCalendar initialDate={today} schedule={schedule}/>} 
+                rightSide={<SimpleCalendar initialDate={today} schedule={schedule} size={ComponentSize.Fit}/>} 
                 leftSide={<NotificationSheet />} 
                 alignment={Alignment.SideItemLeft} />
         ]} />
