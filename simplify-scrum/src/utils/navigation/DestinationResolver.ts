@@ -1,13 +1,4 @@
-
-export enum Destination{
-    Auth,
-    Main, 
-    UserSettings,
-    Meetings,
-    Backlog,
-    Refinement,
-    Planning
-}
+import { Destination } from "../UtilsIndex";
 
 export const destinationPaths = {
     [Destination.Auth]: "/",
@@ -17,5 +8,6 @@ export const destinationPaths = {
     [Destination.Backlog]: '/main/backlog',
     [Destination.Refinement]: '/main/refinement',
     [Destination.Planning]: '/main/planning',
+    [Destination.Retrospective]: '/main/retrospective',
     default: () => ""
 }

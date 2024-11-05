@@ -1,4 +1,4 @@
-import { DayModel } from "../../data/ModelsIndex"
+import { DayModel } from "../../../../data/CommonDataIndex"
 
 
 interface SimpleModalProps{

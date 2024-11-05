@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
-import { Global, UserContext } from "../../../context/Index";
+import { Global, UserContext } from "../../../context/ContextsIndex";
 import { AuthProperties } from "../data/Index";
 import { LoginService } from "../services/LoginService"
 import { Button, Color, SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
-import { Fonts } from "../../../utils/Index";
+import { Fonts } from "../../../utils/UtilsIndex";
 
 const textInputs = 200
 const buttonInputs = 100

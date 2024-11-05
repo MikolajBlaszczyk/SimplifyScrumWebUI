@@ -13,7 +13,7 @@ $buttonMinHeight: 50px;
     aspect-ratio: 16 / 9;
     flex-direction: column;
     border-radius: 10px;
-    background-color: $s-form;
+    background-color: $dark;
 }
 
 .react-calendar__navigation {
@@ -39,34 +39,63 @@ $buttonMinHeight: 50px;
         max-width: 500px !important;
         font-size: $s-h3;
         left: calc(-50% + 185px);
-        color: $s-text;
+        color: $s-background;
         user-select: none;
     }
 
     .react-calendar__navigation__prev-button{
         position: relative;
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
         font-size: $s-h6;
-        left: calc(100% - 10px - 90px);
+        left: calc(100% - 10px - 95px);
         border-radius: 100px;
-        background-color: $s-text;
-        transition: font-size 0.1s ease-in-out;
+        background-color: darken($dark-bg-subtle-dark, 3%);
+        transition: transform ease 0.2s;
+        h5 {
+            font-size: $s-h6 !important;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            margin-bottom: 0;
+            margin-top: 15px;
+            margin-left: 3.5px;
+        }
+
         &:hover{
-            background-color: lighten($s-text, 25%);
+            background-color: lighten($dark-bg-subtle-dark, 15%);
+            transform: scale(1.08);
         }
     }
 
     .react-calendar__navigation__next-button {
         position: relative;
-        width: 35px;
-        height: 35px;
-        font-size: $s-h6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
         border-radius: 100px;
+        padding: 0px;
+        margin: 0px;
         right: calc( 10px + 10px);
-        background-color: $s-text;
+        background-color: darken($dark-bg-subtle-dark, 3%);
+        transition: transform ease 0.2s;
+        h5 {
+            font-size: $s-h6 !important;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            margin-bottom: 0;
+            margin-top: 15px;
+            margin-left: -3.5px;
+        }
         &:hover{
-            background-color: lighten($s-text, 25%);
+            background-color: lighten($dark-bg-subtle-dark, 15%);
+            transform: scale(1.08);
         }
     }
 }
@@ -81,11 +110,11 @@ $buttonMinHeight: 50px;
     .react-calendar__month-view__weekdays{
         user-select: none;
       
-        background-color: darken($s-form, 10%);
-        border-bottom: darken($s-form, 30%) solid 1px;
+        background-color: darken($dark-bg-subtle-dark, 3%);
+        border-bottom: darken($s-background, 30%) solid 1px;
         .react-calendar__month-view__weekdays__weekday{
             padding: 10px;
-            color: $s-text;
+            color: $s-background;
             abbr{
                 cursor: auto !important;
                 font-size: $s-p !important; 
@@ -98,10 +127,12 @@ $buttonMinHeight: 50px;
         button{ 
             margin: 0px !important;
             background-color: transparent;
-            color: $s-text !important;
+            color: $s-background !important;
             border: none;
+            transition: font-size ease-in-out 0.1s;
             &:hover{ 
-                background-color: darken($s-form, 10%) !important;
+                background-color: lighten($dark-bg-subtle-dark, 15%) !important;
+                font-size: $s-h5 !important;
                 cursor: auto;
             }
         }
@@ -147,12 +178,3 @@ $buttonMinHeight: 50px;
     align-items: center;
 }
 
-
-
-
-.react-calendar__month-view__days__day--neighboringMonth{
-   
-}
-
-.react-calendar__month-view__days .react-calendar__month-view__days__day--neighboringMonth:hover{
-}

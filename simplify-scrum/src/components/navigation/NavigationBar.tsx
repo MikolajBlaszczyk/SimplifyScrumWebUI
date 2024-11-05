@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { Global, UserContext } from "../../context/Index";
+import { Global, UserContext } from "../../context/ContextsIndex";
 import "../../assets/styles/StyleIndex.scss";
 import { NavigationButton } from "./NavigationButton";
 import { Offcanvas } from "./Offcanvas";
@@ -17,7 +17,7 @@ export default function NavigationBar(){
         throw new Error("Global settings are not set")
 
     return(
-        <nav className="navbar s-navbar ">
+        <nav className="navbar s-navbar bg-dark">
             <div className="container-fluid">
                 
                 <h5>

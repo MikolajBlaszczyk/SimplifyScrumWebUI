@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react"
-import { BgColor } from "../../utils/Index"
+import { BgColor } from "../../utils/UtilsIndex"
 
 interface Props {
     label?: string,

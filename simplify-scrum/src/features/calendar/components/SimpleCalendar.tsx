@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import { DayModel, Meeting, ScheduleModel } from "../data/ModelsIndex";
+import { DayModel, ScheduleModel } from "./../../../data/CommonDataIndex";
 import MeetingIndicator from "./MeetingIndicator";
 import SimpleModal from "./Modal/SimpleModal";
 import SimpleDayInfo from "./Modal/SimpleDayInfo";
-import { useLoading } from '../../../hooks/useContexts';
-import { MeetingSerivce } from "../service/MeetingService";
-import { useAlert } from "../../../hooks/useAlert";
+import { useLoading } from '../../../hooks/HooksIndex';
+import { MeetingSerivce } from "../../../services/CommonServicesIndex";
+import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertType } from "../../alerting/components/Alert";
-import { SimpleTextInput } from "../../../components/ComponentsIndex";
 
 interface SimpleCalendarProps {
     initialDate: Date 
@@ -110,6 +109,8 @@ export default function SimpleCalendar({initialDate, schedule, maxWidthInPercent
         <div className="d-flex" style={{width: widthPercantage }}>
             <Calendar
             minDetail="month"
+            nextLabel={(<h5><i className="bi bi-box-arrow-in-right"></i></h5>)}
+            prevLabel={(<h5><i className="bi bi-box-arrow-in-left"></i></h5>)}
             showNeighboringMonth={false}
             onChange={(newValue) => setCalendarDate(newValue as Date)} 
             value={initialDate ?? new Date()}

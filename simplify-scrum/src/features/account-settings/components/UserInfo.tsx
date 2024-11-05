@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react"
-import {  SimpleTextInput } from "../../../components/ComponentsIndex"
-import { User, Team, Role, UserInfo } from "../../../data/DataIndex"
-import { EnumService } from "../../backlog/service/ServiceIndex"
+import { User, Team, Role, UserInfo } from "../../../data/CommonDataIndex"
+import { EnumService } from "../../../services/CommonServicesIndex"
 import { AccountService } from '../service/AccountService';
-import { useAlert } from "../../../hooks/useAlert";
+import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertType } from "../../alerting/components/Alert";
-import { BgColor, Fonts } from "../../../utils/ComponentUtils";
 import { UserSetting } from "./UserSettings";
 
 interface Props {

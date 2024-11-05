@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from "react"
-import { AlertContext, AlertingState } from "../context/Index"
-import { BgColor, bgColorClasses } from "../utils/Index"
+import { AlertContext, AlertingState } from "../context/ContextsIndex"
+import { BgColor, bgColorClasses } from "../utils/UtilsIndex"
 
 
 

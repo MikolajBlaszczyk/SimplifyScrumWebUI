@@ -1,4 +1,4 @@
-import { Role } from "../../data/DataIndex"
+import { Role } from "../../data/CommonDataIndex"
 import { ExtendedStatus, SimpleStatus, StandardStatus } from "../../features/backlog/data/State"
 
 const simpleStateString = {

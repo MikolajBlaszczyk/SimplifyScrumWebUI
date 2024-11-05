@@ -1,5 +1,5 @@
 import { ReactNode, useContext } from "react"
-import { AlertContext, AlertingState } from "../context/Index"
+import { AlertContext, AlertingState } from "../context/ContextsIndex"
 
 interface ArticleLayoutProps{
     sections: ReactNode[]

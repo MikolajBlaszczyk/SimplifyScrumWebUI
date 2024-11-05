@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BacklogService } from "../features/backlog/service/ServiceIndex";
+import { BacklogService } from "../services/CommonServicesIndex";
 import { DragableFeatureBoard } from "../features/planning-dashboard/components/DragableFeatureBoard";
 import { PlannedBoard } from "../features/planning-dashboard/components/PlannedBoard";
 import { Alignment, CentralLayout, SideBySideLayout } from "../layouts/LayoutIndex";

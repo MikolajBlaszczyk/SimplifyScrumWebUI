@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import SecureLogin from "../../../assets/img/secure_login.svg"
 import { Link, useNavigate } from 'react-router-dom';
-import { Global, UserContext } from "../../../context/Index";
-import { Destination, destinationPaths, Fonts } from "../../../utils/Index";
+import { Global, UserContext } from "../../../context/ContextsIndex";
+import { Destination, destinationPaths, Fonts } from "../../../utils/UtilsIndex";
 import { LoginService } from "../services/LoginService"
 import { AuthProperties } from "../data/Index"
 import { Button, Color,  SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
-import {useAlert} from "../../../hooks/useAlert";
+import {useAlert} from "../../../hooks/HooksIndex";
 import { AlertType } from "../../alerting/components/Alert";
  
 export default function LoginForm(props: AuthProperties){
@@ -62,7 +62,7 @@ export default function LoginForm(props: AuthProperties){
                     font={Fonts.P}
                     title={"Login"}
                     icon="bi-arrow-right"
-                    iconOnTheRight={false}
+                    iconOnTheRight={true}
                     onClick={e => {loginToSimplify()}} />
             </div>
             

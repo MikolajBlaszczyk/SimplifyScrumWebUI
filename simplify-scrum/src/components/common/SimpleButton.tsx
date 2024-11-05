@@ -1,4 +1,4 @@
-import { fontClasses, Fonts } from "../../utils/Index"
+import { fontClasses, Fonts } from "../../utils/UtilsIndex"
 
 export enum Button{
     Primary,
@@ -67,7 +67,7 @@ export function SimpleButton({title, icon, iconOnTheRight, onClick, type, font, 
             style={{minWidth: minWidth ?? ''}}>
             {!iconOnTheRight && icon != null && (<i className={`bi ${icon} me-2`}></i>)}
             {title} 
-            {iconOnTheRight && icon != null && (<i className={`bi ${icon}`}></i>)}
+            {iconOnTheRight && icon != null && (<i className={`bi ${icon} ms-2`}></i>)}
         </button>
     )
 }

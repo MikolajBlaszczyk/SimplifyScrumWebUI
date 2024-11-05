@@ -1,11 +1,10 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { AccountService } from "../service/AccountService"
 import UserInformation from "./UserInfo";
-import { User, UserInfo } from "../../authorization/data/Index";
+import { User, UserInfo } from "../../../data/CommonDataIndex";
 import { SimpleTextInput, SimpleSwitch } from "../../../components/ComponentsIndex";
-import { useAlert } from "../../../hooks/useAlert";
+import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertType } from "../../alerting/components/Alert";
-import { BgColor, FontColor } from '../../../utils/ComponentUtils';
 import { UserEditableSettings } from "./UserEditableSettings";
 
 

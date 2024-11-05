@@ -1,5 +1,5 @@
 import { read } from "fs"
-import { BgColor, bgColorClasses, FontColor, fontColorClasses } from "../../utils/Index"
+import { BgColor, bgColorClasses, FontColor, fontColorClasses } from "../../utils/UtilsIndex"
 import exp from "constants"
 
 

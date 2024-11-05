@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react"
-import { BacklogService } from "../../../services/BacklogService"
+import { BacklogService } from "../../../services/CommonServicesIndex"
 import { RefinementItem } from "./RefinementItem"
 
 export function RefinementDashboard(){

@@ -1,7 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
-import { TokenAppender } from "../../../services/auth/TokenAppender";
-import { DayModel, Meeting, MeetingType, ScheduleModel } from '../data/ModelsIndex';
-import { DateConverter } from "../../../utils/Index"
+import { TokenAppender } from "../CommonServicesIndex";
+import { DayModel, Meeting, MeetingType, ScheduleModel } from '../../data/CommonDataIndex';
 
 const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings` 
 

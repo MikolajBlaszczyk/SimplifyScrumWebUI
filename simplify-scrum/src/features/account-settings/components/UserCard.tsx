@@ -1,8 +1,7 @@
 import { useState } from "react"
 import Profile from "../../../assets/img/profile.svg"
-import { User, UserInfo } from "../../authorization/data/Index"
-import { EnumService } from "../../backlog/service/ServiceIndex"
-import { Role } from "../../../data/DataIndex"
+import { EnumService } from "../../../services/CommonServicesIndex"
+import { Role, User, UserInfo  } from "../../../data/CommonDataIndex"
 
 
 

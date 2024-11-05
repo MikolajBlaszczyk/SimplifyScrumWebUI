@@ -8,14 +8,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/styles/StyleIndex.scss'
 import { UserProvider } from './context/UserContext';
-import { Start, InfoCenter, Settings } from "./pages/PagesIndex"
+import { Start, InfoCenter, Settings, Meetings, Backlog, Refinement, Planning, Retrospective } from "./pages/PagesIndex"
 import { LoadingProvider } from './context/LoadingContext';
-import LoginForm from './features/authorization/components/LoginForm';
 import { AlertProvider } from './context/AlertContext';
-import { Meetings } from './pages/Meetings';
-import { Backlog } from './pages/Backlog';
-import { Refinement } from './pages/Refinement';
-import { Planning } from './pages/Planning';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -66,6 +61,10 @@ const router = createBrowserRouter([
           {
             path: "planning/",
             element: <Planning />
+          }, 
+          {
+            path: "retrospective/",
+            element: <Retrospective />
           }
         ]
   }

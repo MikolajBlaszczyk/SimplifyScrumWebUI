@@ -1,7 +1,6 @@
 import axios from "axios"
-import { User } from "../../authorization/data/Index"
 import { TokenAppender } from "../../../services/auth/TokenAppender"
-import { Team } from "../../../data/DataIndex"
+import { Team, User} from "../../../data/CommonDataIndex"
 
 const userApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/user` 
 

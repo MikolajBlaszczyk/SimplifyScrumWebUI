@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { SelectItem, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
 import { SimpleStatus } from "../../data/State"
-import { BacklogService, EnumService } from "../../service/ServiceIndex"
+import { BacklogService, EnumService } from "../../../../services/CommonServicesIndex"
 import { Feature } from "../../data/DataIndex"
-import { User } from "../../../../data/DataIndex"
+import { User } from "../../../../data/CommonDataIndex"
 
 
 export default function TaskForm() {

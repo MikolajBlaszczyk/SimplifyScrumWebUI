@@ -1,5 +1,4 @@
-import React from "react";
-import { MeetingType, Meeting } from "../data/ModelsIndex";
+import { MeetingType, Meeting } from "../../../data/CommonDataIndex";
 import '../../../assets/styles/StyleIndex.scss'
 
 

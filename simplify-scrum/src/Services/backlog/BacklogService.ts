@@ -1,5 +1,5 @@
-import { ExtendedStatus, Feature, Project, SimpleStatus, StandardStatus, Task } from "../features/backlog/data/DataIndex";
-import { Team, User } from '../data/DataIndex'
+import { ExtendedStatus, Feature, Project, SimpleStatus, StandardStatus, Task } from "../../features/backlog/data/DataIndex";
+import { Team, User } from '../../data/CommonDataIndex'
 import { features } from "process";
 
 export class BacklogService{

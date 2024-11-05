@@ -1,5 +1,0 @@
-export * from "./Day"
-export * from "./Meeting"
-export * from "./MeetingType"
-export * from "./Month"
-export * from "./Schedule"

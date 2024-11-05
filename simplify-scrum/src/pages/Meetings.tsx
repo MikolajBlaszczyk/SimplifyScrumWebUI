@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SimpleCalendar from "../features/calendar/components/SimpleCalendar";
-import { DayFactory, Month, ScheduleModel } from "../features/calendar/data/ModelsIndex";
+import { DayFactory, Month, ScheduleModel } from "../data/CommonDataIndex";
 import { CentralLayout } from "../layouts/CentralLayout";
 
 export function Meetings(){

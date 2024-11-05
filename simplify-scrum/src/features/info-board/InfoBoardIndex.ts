@@ -1,3 +1,1 @@
-
-
-export * from "./components/InfoBoard";
+export * from './components/InfoBoard';

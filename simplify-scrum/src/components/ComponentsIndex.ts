@@ -7,3 +7,4 @@ export * from "./common/SimpleCard"
 export * from "./common/SimpleButton"
 export * from './form/SimpleMultiLineTextInput'
 export * from "./form/SimpleSwitch"
+export * from './common/SimpleControlPannel'

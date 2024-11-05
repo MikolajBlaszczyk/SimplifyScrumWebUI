@@ -1,17 +1,17 @@
 import { DummyNotification } from "../NotificationIndex"
-import { indicationClasses, Indicator } from '../../../utils/Index';
+import { indicationClasses, IndicatorColor } from '../../../utils/UtilsIndex';
 
 interface Props {
     notification: DummyNotification
 }
 
 const notificationBackground = {
-    [Indicator.Secondary]: 's-bg-daily',
-    [Indicator.Primary]: 's-bg-daily',
-    [Indicator.Info]: 's-bg-optional',
-    [Indicator.Success]: 's-bg-optional',
-    [Indicator.Danger]: 's-bg-critical',
-    [Indicator.Warning]: 's-bg-critical'
+    [IndicatorColor.Secondary]: 's-bg-daily',
+    [IndicatorColor.Primary]: 's-bg-daily',
+    [IndicatorColor.Info]: 's-bg-optional',
+    [IndicatorColor.Success]: 's-bg-optional',
+    [IndicatorColor.Danger]: 's-bg-critical',
+    [IndicatorColor.Warning]: 's-bg-critical'
 }
 
 export function NotificationIndicator({notification}: Props){
@@ -19,7 +19,7 @@ export function NotificationIndicator({notification}: Props){
     
 
     return (
-        <div className={`s-notification-indicator border border-1 ${notificationBackground[notification.type]} mt-3 shadow`}>
+        <div className={`s-notification-indicatorColor border border-1 ${notificationBackground[notification.type]} mt-3 shadow`}>
             <p className="ms-4 mb-0">
                 {notification.title}
             </p>

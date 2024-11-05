@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { Meeting } from "../../data/ModelsIndex"
+import { Meeting } from "../../../../data/CommonDataIndex"
 import SimpleMeetingForm from './SimpleMeetingForm';
-import { MeetingSerivce } from "../../service/MeetingService";
-import { useLoading } from "../../../../hooks/useContexts";
+import { MeetingSerivce } from "../../../../services/CommonServicesIndex";
+import { useLoading } from "../../../../hooks/HooksIndex";
 
 interface properties {
     meetings: Meeting[]

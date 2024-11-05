@@ -9,11 +9,11 @@ export function AuthForm(){
     const form = displayLogin == true ? <LoginForm  setDisplayLogin={setDisplayLogin} /> : <SignInForm setDisplayLogin={setDisplayLogin}/>
 
     return(
-        <div className="s-central-form row shadow">
-            <section className="col s-auth-form">
+        <div className="s-central-form row ">
+            <section className="col s-auth-form shadow">
                 {form}
             </section>
-            <section className="col s-auth-image d-flex justify-content-center">
+            <section className="col s-auth-image d-flex justify-content-center shadow">
                 <img src={SecureLogin} className=" img-fluid ms-2 me-2"/>
             </section>
         </div>

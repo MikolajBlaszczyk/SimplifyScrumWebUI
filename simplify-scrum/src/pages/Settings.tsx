@@ -2,7 +2,7 @@ import { UserCard } from "../features/account-settings/components/UserCard";
 import UserSettingsForm from "../features/account-settings/components/UserSettingsForm";
 import { FullScreenLayout } from "../layouts/FullScreenLayout";
 import { Alignment, SideBySideLayout } from "../layouts/SideBySideLayout";
-import { BgColor } from "../utils/Index";
+import { BgColor } from "../utils/UtilsIndex";
 
 export function Settings(){
     return (

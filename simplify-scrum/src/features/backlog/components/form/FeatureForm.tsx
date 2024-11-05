@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Project,ExtendedStatus } from "../../data/DataIndex"
 import { SelectItem, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
 import { EnumService } from "../../../../services/enum/StateEnumService"
-import { BacklogService } from "../../../../services/BacklogService"
+import { BacklogService } from "../../../../services/CommonServicesIndex"
 
 export default function FeatureForm() {
     const [title, setTitle] = useState<string>('')

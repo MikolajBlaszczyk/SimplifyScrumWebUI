@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import SimpleCalendar from "../features/calendar/components/SimpleCalendar";
 import { Alignment, ArticleLayout, SideBySideLayout } from "../layouts/LayoutIndex";
-import { DayFactory, Month, ScheduleModel } from "../features/calendar/data/ModelsIndex";
-import { MeetingSerivce } from "../features/calendar/service/MeetingService";
-import { useLoading } from "../hooks/useContexts";
+import { DayFactory, Month, ScheduleModel } from "../data/CommonDataIndex";
+import { MeetingSerivce } from "../services/CommonServicesIndex";
+import { useLoading } from "../hooks/HooksIndex";
 import { NotificationSheet } from "../features/notifications/NotificationIndex";
 import { InfoBoard } from "../features/info-board/InfoBoardIndex";
 

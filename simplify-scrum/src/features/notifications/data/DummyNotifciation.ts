@@ -1,6 +1,6 @@
-import { Indicator } from "../../../utils/Index"
+import { IndicatorColor } from "../../../utils/UtilsIndex"
 
 export interface DummyNotification {
     title: string
-    type: Indicator
+    type: IndicatorColor
 }

@@ -1,5 +1,5 @@
-import { ReactElement, ReactNode, useContext } from "react"
-import { AlertContext, AlertingState } from "../context/Index"
+import { ReactNode, useContext } from "react"
+import { AlertContext, AlertingState } from "../context/ContextsIndex"
 
 interface CentralLayoutProps {
     centralComponent: ReactNode

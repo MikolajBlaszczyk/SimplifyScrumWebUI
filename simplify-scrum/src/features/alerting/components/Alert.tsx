@@ -1,7 +1,7 @@
 import { MouseEvent, useContext } from "react"
 import { Button, SimpleButton } from "../../../components/ComponentsIndex"
-import { useAlerting } from "../../../hooks/useContexts"
-import { Fonts } from "../../../utils/Index"
+import { useAlerting } from "../../../hooks/HooksIndex"
+import { Fonts } from "../../../utils/UtilsIndex"
 
 export enum AlertType{ 
     Primary,

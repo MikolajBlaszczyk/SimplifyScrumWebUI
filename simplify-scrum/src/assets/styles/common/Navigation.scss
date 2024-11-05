@@ -1,6 +1,5 @@
 
 .s-navbar{
-    background-color: $s-text !important;
     user-select: none;
 
     h5{
@@ -11,6 +10,7 @@
         border: none;
         font-size: $s-h6;
         color: $s-background !important; 
+        outline: none;
         cursor: pointer;
         transition: transform 0.1s ease;
         &:hover{
@@ -22,6 +22,7 @@
     }
 
     .offcanvas-body{
+        background-color: $dark;
         button{
             width: 100%;
             display: flex;
@@ -29,9 +30,12 @@
             font-size: $s-h5;
             color: $s-background !important;
             margin-bottom: 15px;
-           
+
+
             &:hover{
                 transform: scale(1.05) !important;
+                background-color: $dark-bg-subtle-dark;
+                border-radius: $border-radius;
             }
         }
 
@@ -39,7 +43,7 @@
             button{
                 padding-right: 0;
                 justify-content: end;
-                width: 40%;
+                width: fit-content;
                 color: $danger !important;
             }
         }

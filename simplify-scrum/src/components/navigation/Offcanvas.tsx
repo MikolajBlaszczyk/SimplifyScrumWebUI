@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Destination, destinationPaths } from "../../utils/Index"
+import { Destination, destinationPaths } from "../../utils/UtilsIndex"
 import { LoginService } from "../../features/authorization/services/LoginService"
 import NavigationBar from "./NavigationBar"
 import { NavigationButton } from "./NavigationButton"
@@ -65,7 +65,7 @@ export function Offcanvas(){
                     <NavigationButton
                         icon={"bi-repeat"} 
                         title="Retrospective"
-                        onClick={() => navigateTo(Destination.UserSettings)}/>
+                        onClick={() => navigateTo(Destination.Retrospective)}/>
 
             </div>
             <div className="d-flex flex-column align-items-end s-offcanvas-logout">

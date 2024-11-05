@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ListBoard } from "../../backlog/components/board/ListBoard";
 import { Feature } from "../../backlog/data/DataIndex";
-import { BacklogService } from "../../backlog/service/ServiceIndex";
 import { DragableFeature, DragableTypes } from "./DragableFeature";
 import { useDrop } from "react-dnd";
 

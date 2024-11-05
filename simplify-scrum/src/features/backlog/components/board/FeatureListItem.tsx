@@ -2,7 +2,7 @@ import { MouseEvent } from "react"
 import { EnumService } from "../../../../services/enum/StateEnumService"
 import { Button,  SimpleButton } from "../../../../components/ComponentsIndex"
 import { Feature } from "../../data/Feature"
-import { Fonts } from "../../../../utils/Index"
+import { Fonts } from "../../../../utils/UtilsIndex"
 
 interface Props{ 
     feature: Feature

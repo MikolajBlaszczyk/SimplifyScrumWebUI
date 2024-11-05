@@ -1,4 +1,4 @@
-import { DateConverter } from "../../../utils/Index";
+import { DateConverter } from "../../utils/UtilsIndex";
 import { MeetingType } from "./MeetingType";
 
 

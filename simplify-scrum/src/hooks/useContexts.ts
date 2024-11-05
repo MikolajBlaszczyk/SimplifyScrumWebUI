@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AlertContext, AlertingState, LoadingContext, UserContext } from "../context/Index"
+import { AlertContext, AlertingState, LoadingContext, UserContext } from "../context/ContextsIndex"
 
 export function useLoading(){
     return useContext(LoadingContext)

@@ -1,13 +1,11 @@
 import { ChangeEventHandler, useEffect, useMemo, useState } from "react"
-import { MeetingFactory, Meeting, MeetingType } from "../../data/ModelsIndex"
-import { MeetingSerivce } from "../../service/MeetingService"
-import { useLoading } from "../../../../hooks/useContexts"
+import { MeetingFactory, Meeting, MeetingType, User } from "../../../../data/CommonDataIndex"
+import { MeetingSerivce } from "../../../../services/CommonServicesIndex"
+import { useLoading } from "../../../../hooks/HooksIndex"
 import { AccountService } from "../../../account-settings/service/AccountService"
-import { User } from "../../../../data/User"
 import { SelectItem, SimpleDateInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
 import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
-import { DateConverter } from '../../../../utils/DateConverter';
-import { EnumService } from "../../../backlog/service/ServiceIndex"
+import { DateConverter } from '../../../../utils/utility-services/DateConverter';
 
 interface properties{
     initialMeeting: Meeting | null

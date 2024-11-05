@@ -1,6 +1,6 @@
 import {  Alignment, SimpleTextInput } from "../../../components/ComponentsIndex";
 import { ChangeEvent } from 'react';
-import { BgColor, FontColor } from '../../../utils/ComponentUtils';
+import { BgColor, FontColor } from '../../../utils/UtilsIndex';
 
 interface Props{
     icon: string

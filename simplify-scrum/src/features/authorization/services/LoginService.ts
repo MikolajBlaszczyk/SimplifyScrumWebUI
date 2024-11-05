@@ -1,5 +1,5 @@
 import axios, { HttpStatusCode } from 'axios';
-import { createLoginUser, createSignInUser } from '../data/Index';
+import { createLoginUser, createSignInUser } from '../../../data/CommonDataIndex';
 import { TokenAppender } from '../../../services/auth/TokenAppender';
 
 const loginApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}`
