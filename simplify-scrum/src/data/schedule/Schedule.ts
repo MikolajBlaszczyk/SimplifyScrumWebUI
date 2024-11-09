@@ -5,3 +5,4 @@ export interface ScheduleModel {
     month: number;
     days: DayModel[];
 }
+

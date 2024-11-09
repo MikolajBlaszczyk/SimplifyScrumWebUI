@@ -25,7 +25,7 @@ export function DragableFeatureBoard({intialFeatures}: Props){
 
 
     return (
-    <div ref={drop} className="d-flex w-100 h-100 bg-dark">
+    <div ref={drop} className="d-flex w-100 h-75 bg-dark">
         <ListBoard >
         {features.map(feature => <DragableFeature feature={feature} setFeatures={setFeatures} />)}
         </ListBoard>

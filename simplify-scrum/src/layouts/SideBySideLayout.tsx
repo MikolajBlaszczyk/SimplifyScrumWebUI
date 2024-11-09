@@ -30,7 +30,7 @@ interface SideBySideLayoutProps{
 
 export function SideBySideLayout({rightSide, leftSide, alignment}: SideBySideLayoutProps){
     return (
-        <div className="row d-flex w-100">
+        <div className="row d-flex w-100 mt-5 mb-5">
             <div className={alignmentLeftClasses[alignment]}>
                 {leftSide}
             </div>

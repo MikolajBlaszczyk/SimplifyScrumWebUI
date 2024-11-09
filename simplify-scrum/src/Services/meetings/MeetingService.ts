@@ -1,49 +1,36 @@
-import axios, { HttpStatusCode } from "axios";
+import axios, { AxiosResponse, HttpStatusCode } from "axios";
 import { TokenAppender } from "../CommonServicesIndex";
 import { DayModel, Meeting, MeetingType, ScheduleModel } from '../../data/CommonDataIndex';
+import { RequestFacotry } from "../api/RequestFactory";
+import { factory } from "typescript";
 
 const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings` 
 
+
+
 export class MeetingSerivce{
 
-    public static async GetMeetings(): Promise<ScheduleModel> {
-        await TokenAppender.AppendToken()
-
+    public static async GetMeetings(): Promise<ScheduleModel>{
+    
         const url = meetingApiUrl + "/current"
-        const response = await axios.get<ScheduleModel>(url)
+        const response = await RequestFacotry.createGetRequest(url)
         
         if(response.status == HttpStatusCode.Ok) {
-            response.data.days = response.data.days.map( (day: DayModel) => ({
-                ...day,
-                date: new Date(day.date)
-            }))
+            response.data.days = response.data.days.map((day:DayModel) => DataMapper.mapDayDate(day))
 
-            return response.data
-        }
-
+            return response.data as ScheduleModel
+        } 
+       
         throw new Error()
     }
 
-    static GetAllMeetingTypes() {
-        return Object.values(MeetingType) 
-    }
+    
 
-    public static async Add(model: Meeting){
-        TokenAppender.AppendToken()
-
+    public static async Add(meeting: Meeting){
         try {
-
             const url = meetingApiUrl + "/add"
-            const response = await axios.post(url, {
-                Identifier: model.id,
-                Name: model.name,
-                Description: model.description,
-                LeaderIdentifier: model.leaderId,
-                Start: model.start.toJSON(),
-                Duration: model.duration,
-                Type: model.type,
-                UserGuids: model.userIdentifiers
-            });
+            const data = DataMapper.createMeetingData(meeting)
+            const response = await RequestFacotry.createPostRequest(url,data )
 
             return response.status == HttpStatusCode.Ok
 
@@ -52,22 +39,11 @@ export class MeetingSerivce{
         }
     }
 
-    public static async UpdateMeeting(model: Meeting){
-        TokenAppender.AppendToken()
-        
+    public static async UpdateMeeting(meeting: Meeting){
         try {
-
             const url = meetingApiUrl + "/update"
-            const response = await axios.post(url, {
-                Identifier: model.id,
-                Name: model.name,
-                Description: model.description,
-                LeaderIdentifier: model.leaderId,
-                Start: model.start.toJSON(),
-                Duration: model.duration,
-                Type: model.type,
-                UserGuids: model.userIdentifiers
-            });
+            const data = DataMapper.createMeetingData(meeting)
+            const response = await RequestFacotry.createPostRequest(url, data)
 
             return response.status == HttpStatusCode.Ok
         } catch(error) {
@@ -75,15 +51,38 @@ export class MeetingSerivce{
         }
     }
 
-    public static async DeleteMeeting(model: Meeting){
+    public static async DeleteMeeting(meeting: Meeting){
         TokenAppender.AppendToken()
         
         try {
             const url = meetingApiUrl + "/delete"
-            const response = await axios.delete(url, { data: model})
+            const response = await RequestFacotry.createDeleteRequest(url, meeting)
 
+            return response.status == HttpStatusCode.Ok
         } catch(error) { 
             console.log(error)
         }
     }
 } 
+
+class DataMapper {
+    static createMeetingData(meeting: Meeting) {
+        return ({
+            Identifier: meeting.id,
+            Name: meeting.name,
+            Description: meeting.description,
+            LeaderIdentifier: meeting.leaderId,
+            Start: meeting.start.toJSON(),
+            Duration: meeting.duration,
+            Type: meeting.type,
+            UserGuids: meeting.userIdentifiers
+        })
+    }
+
+    static mapDayDate = (day: DayModel) => {
+        return ({
+            ...day,
+            date: new Date(day.date)
+        })
+    }
+}

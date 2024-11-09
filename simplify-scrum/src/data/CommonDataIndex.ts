@@ -1,3 +1,5 @@
+export * from './backlog/Sprint'
+
 export * from './schedule/Day';
 export * from './schedule/Meeting';
 export * from './schedule/MeetingType';

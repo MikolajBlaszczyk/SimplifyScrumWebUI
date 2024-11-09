@@ -1,11 +1,11 @@
-import { ChangeEventHandler, useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { MeetingFactory, Meeting, MeetingType, User } from "../../../../data/CommonDataIndex"
-import { MeetingSerivce } from "../../../../services/CommonServicesIndex"
+import { MeetingEnumService, MeetingSerivce } from "../../../../services/CommonServicesIndex"
 import { useLoading } from "../../../../hooks/HooksIndex"
 import { AccountService } from "../../../account-settings/service/AccountService"
 import { SelectItem, SimpleDateInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
 import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
-import { DateConverter } from '../../../../utils/utility-services/DateConverter';
+import { DateConverter } from '../../../../utils/utility-services/DateSerivces';
 
 interface properties{
     initialMeeting: Meeting | null
@@ -39,7 +39,7 @@ export default function SimpleMeetingForm(props: properties){
             }))
         })
 
-        meetingOptions = MeetingSerivce
+        meetingOptions = MeetingEnumService
             .GetAllMeetingTypes()
             .map(type => {
                 const item: SelectItem<MeetingType> = { 

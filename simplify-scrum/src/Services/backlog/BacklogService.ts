@@ -1,9 +1,24 @@
 import { ExtendedStatus, Feature, Project, SimpleStatus, StandardStatus, Task } from "../../features/backlog/data/DataIndex";
-import { Team, User } from '../../data/CommonDataIndex'
+import { SprintModel, Team, User } from '../../data/CommonDataIndex'
 import { features } from "process";
+import { RequestFacotry } from "../api/RequestFactory";
+import { HttpStatusCode } from "axios";
+
+const sprintApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/sprint` 
 
 export class BacklogService{
     
+    static async getSprintInfo(){
+        const url = sprintApiUrl + '/info'
+        const response = await RequestFacotry.createGetRequest(url)
+
+        if(response.status == HttpStatusCode.Ok){
+            response.data = DataMapper.mapDayDate(response.data)
+        }
+        
+        return response.data
+    }
+
     static getFeatures(): Feature[]{
         return [
             new Feature('123','Feature One', '', ExtendedStatus.New,  2, 'Project guid', 'creator', ''),
@@ -38,5 +53,16 @@ export class BacklogService{
 
     static getSimpleState() {
         return Object.values(SimpleStatus) 
+    }
+
+}
+
+
+class DataMapper {
+    static mapDayDate = (sprint: SprintModel) => {
+        return ({
+            ...sprint,
+            date: new Date(sprint.end)
+        })
     }
 }

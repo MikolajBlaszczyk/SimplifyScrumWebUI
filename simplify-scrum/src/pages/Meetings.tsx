@@ -16,7 +16,7 @@ export function Meetings(){
                 <SimpleCalendar 
                     initialDate={today}
                     schedule={schedule}
-                    size={ComponentSize.Large} />
+                    size={ComponentSize.Medium} />
                 }/>
     )
 }

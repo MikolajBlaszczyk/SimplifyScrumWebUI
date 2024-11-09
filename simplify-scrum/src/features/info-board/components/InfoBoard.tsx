@@ -1,9 +1,34 @@
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Omega from "../../../assets/img/omega.svg"
+import { InfoCenterService } from "../services/InfoCenterService"
+import { Meeting, Sprint, SprintModel } from "../../../data/CommonDataIndex"
+import { BacklogService } from "../../../services/CommonServicesIndex"
 
 export function InfoBoard(){ 
-    const [meetings, setMeetings] = useState()
+    const [meetings, setMeetings] = useState<Meeting[]>([])
+    const [sprint, setSprint] = useState<Sprint>(SprintModel.default())
+    const sprintEnd = useMemo(() => {
+        const today = new Date()
+        if(sprint.end.getMonth() == today.getMonth()) {
+            return sprint.end.getDate() - today.getDate()
+        }
+        else  {
+            const lastMonthDays = new Date(sprint.end.getFullYear(), sprint.end.getMonth(), 0).getDate() - today.getDate()
+            return sprint.end.getDate() - lastMonthDays
+        }
+        
+    }, [sprint])
 
+
+    useEffect(() => {
+        InfoCenterService
+            .getTodaysMeetings()
+            .then(data => setMeetings(data))
+
+        BacklogService
+            .getSprintInfo()
+            .then(data => setSprint(data))
+    }, [])
 
     return (
     <div className="row">
@@ -14,26 +39,17 @@ export function InfoBoard(){
                 </h3>
 
                 <ul className="list-group list-group-flush mt-5">
-                    <li className="list-group-item bg-transparent text-black">
-                        <h5>
-                            daily
-                        </h5>
-                    </li>
-                    <li className="list-group-item bg-transparent text-black">
-                        <h5>
-                            refinement
-                        </h5>
-                    </li>
-                    <li className="list-group-item bg-transparent text-black">
-                        <h5>
-                            custom
-                        </h5>
-                    </li>
-                    <li className="list-group-item bg-transparent text-black">
-                        <h5>
-                            custom
-                        </h5>
-                    </li>
+                    {
+                        meetings.map(meeting => {
+                            return(
+                                <li className="list-group-item bg-transparent text-black">
+                                    <h5>
+                                        {meeting.name}
+                                    </h5>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
 
                 <img src={Omega} className=" img-fluid w-50 position-relative s-info-image"/>
@@ -42,13 +58,13 @@ export function InfoBoard(){
         <div className="col-4 flex-column justify-content-between">
             <div className="s-bg-critical shadow s-info-end-sprint ">
                 <h4>
-                    Sprint ends in three days
+                    Sprint ends in {sprintEnd}
                 </h4>
             </div>
 
             <div className="s-bg-daily shadow  s-info-goal-sprint ">
                 <h4>
-                    Goal of the sprint is to introduce design for the app
+                    Goal of the sprint is - {sprint.goal}
                 </h4>
             </div>
         </div>

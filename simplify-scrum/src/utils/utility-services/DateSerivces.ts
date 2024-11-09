@@ -1,6 +1,6 @@
 import { time } from "console"
 
-export abstract class DateConverter{
+export class DateConverter{
     public static convertDateToTimeString(date: Date){
         const hr = date.getHours().toString().padStart(2, '0')
         const min = date.getMinutes().toString().padStart(2, '0')
@@ -18,5 +18,16 @@ export abstract class DateConverter{
         const sec = parseInt(timeStr.substring(6))
 
         return new Date(0,0,0,hr,min,sec)
+    }
+}
+
+export class DateComparer {
+
+    static areTheSameDay(first: Date, second: Date) {
+        return (
+            first.getFullYear() === second.getFullYear() &&
+            first.getMonth() === second.getMonth() &&
+            first.getDate() === second.getDate()
+        )
     }
 }
