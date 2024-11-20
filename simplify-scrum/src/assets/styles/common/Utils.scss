@@ -12,7 +12,8 @@ $secondary: $s-secondary;
 $success: #376E37;   
 $info: #1BE7FF;
 $warning: #FE9920; 
-$danger: #BA2D0B;
+$danger: #feb0b5;
+
 
 
 $linearPrimarySecondary: linear-gradient(#00ff8c, #cafe76);
@@ -97,4 +98,10 @@ $common-heading-fs: 28.43px;
 
 .s-color-background {
     color: $s-background !important;
+}
+
+.s-border-placeholder {
+    border-style: dashed !important;
+    border-color: black;
+    border-width: 1px;
 }

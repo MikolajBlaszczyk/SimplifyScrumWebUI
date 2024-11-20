@@ -1,6 +1,18 @@
 @import "./Utils";
 
+
 .s-card {
+    border-top-left-radius: 5%;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    width: fit-content;
+    aspect-ratio: 2 / 2;
+    transition: transform 0.15s ease-in-out;
+
+}   
+
+.s-card-placeholder {
     border-top-left-radius: 5%;
     border-top-right-radius: 0;
     border-bottom-left-radius: 0;
@@ -8,15 +20,15 @@
     width: fit-content;
     background-color: $s-background;
     aspect-ratio: 2 / 2;
-    transition: transform 0.15s ease-in-out;
+    border-radius: 0px !important;
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
 
-    &:hover{
-        background-color: darken($s-background, 10%); 
-        transform: scale(1.05) 
-    }
-}   
 .s-card-body {
-    width: 19vw;
+    width: 20vw;
     font-size: $text-fs;
 }
 

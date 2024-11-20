@@ -7,6 +7,16 @@ import { PutHandler } from './handlers/PutHandler';
 import { DeleteHandler } from "./handlers/DeleteHandler"
 
 export class RequestFacotry {
+    static async createUnauthorizedGetRequest(url: string) {
+        const get = new GetHandler()
+
+        return await get.handle({
+            instance: axios.create(),
+            url: url,
+            data: null,
+        })
+    }
+
     static async createGetRequest(url: string) { 
         const get = new GetHandler()
         const addToken = new TokenHandler(get)
@@ -18,9 +28,20 @@ export class RequestFacotry {
         })
     }
 
+
+    static async createUnauthorizedPostRequest(url: string, data: any) {
+        const post = new PostHandler()
+
+        return await post.handle({
+            instance: axios.create(),
+            url: url,
+            data: data,
+        })
+    }
+
     static async createPostRequest(url: string, data: any) { 
-        const get = new PostHandler()
-        const addToken = new TokenHandler(get)
+        const post = new PostHandler()
+        const addToken = new TokenHandler(post)
 
         return await addToken.handle({
             instance: axios.create(),

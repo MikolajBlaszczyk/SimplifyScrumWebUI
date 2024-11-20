@@ -1,15 +1,17 @@
 import { ExtendedStatus, Feature, Project, SimpleStatus, StandardStatus, Task } from "../../features/backlog/data/DataIndex";
-import { SprintModel, Team, User } from '../../data/CommonDataIndex'
+import { Sprint, SprintModel, Team, User } from '../../data/CommonDataIndex'
 import { features } from "process";
-import { RequestFacotry } from "../api/RequestFactory";
-import { HttpStatusCode } from "axios";
+import { RequestFacotry } from '../api/RequestFactory';
+import { AxiosResponse, HttpStatusCode } from "axios";
+import { stat } from 'fs';
+import { GenericEnumService } from "../enum/GenericEnumService";
 
-const sprintApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/sprint` 
+const apiUrl = `${process.env.REACT_APP_SIMPLIFY_API}` 
 
 export class BacklogService{
     
-    static async getSprintInfo(){
-        const url = sprintApiUrl + '/info'
+    static async getSprintInfo(): Promise<Sprint>{
+        const url = apiUrl + '/sprint/info'
         const response = await RequestFacotry.createGetRequest(url)
 
         if(response.status == HttpStatusCode.Ok){
@@ -19,40 +21,93 @@ export class BacklogService{
         return response.data
     }
 
-    static getFeatures(): Feature[]{
-        return [
-            new Feature('123','Feature One', '', ExtendedStatus.New,  2, 'Project guid', 'creator', ''),
-            new Feature('234','Feature Two', '', ExtendedStatus.New,  3, 'Project guid', 'creator', ''),
-            new Feature('345','Feature Three', '', ExtendedStatus.New,  5, 'Project guid', 'creator', ''),
-        ]
-    }
-
     static getTeams(): Team[] {
-        throw Error()
+        return []
     }
     
     static getAssignes(): User[] {
         throw Error()
     }
 
-    static getTasks(): Task[]{
-        throw Error()
+    static async getFeaturesForProject(projectGUID: string): Promise<Feature[]>{
+        const url = apiUrl + `/project/features?projectGUID=${projectGUID}`
+        const response = await RequestFacotry.createGetRequest(url)
+        
+        return response.data
     }
 
-    static getProjects(): Project[] {
-        throw Error()
+    static async addFeature(feature: Feature): Promise<boolean> {
+        const url = apiUrl + "/feature/add"
+        const response = await RequestFacotry.createPostRequest(url, feature)
+
+        return response.status == HttpStatusCode.Ok
     }
 
+    static async deleteFeature(featureGUID: string): Promise<boolean> {
+        const url = apiUrl + `/feature/delete?featureGUID=${featureGUID}`
+        const response = await RequestFacotry.createDeleteRequest(url, null)
+
+        return response.status == HttpStatusCode.Ok
+    }
+
+    static async getTasksForFeature(featureGUID: string): Promise<Task[]>{
+        const url = apiUrl + `/feature/tasks?featureGUID=${featureGUID}`
+        const response = await RequestFacotry.createGetRequest(url)
+
+        return response.data
+    }
+
+    static async addTask(task: Task): Promise<boolean> {
+        const url = apiUrl + "/task/add"
+        const response = await RequestFacotry.createPostRequest(url, task)
+
+        return response.status == HttpStatusCode.Ok
+    }
+
+    static async deleteTask(taskID: number): Promise<boolean>{
+        const url = apiUrl + `/task/delete?taskID=${taskID}`
+        const response = await RequestFacotry.createDeleteRequest(url, null)
+
+        return response.status == HttpStatusCode.Ok
+    }
+
+    static async getProjects(): Promise<Project[]> {
+        const url = apiUrl + '/projects'
+        const response = await RequestFacotry.createGetRequest(url)
+
+        return response.data 
+    }
+
+    static async addProject(project: Project): Promise<boolean> {
+        try{
+            const url = apiUrl + "/project/add"
+            const response = await RequestFacotry.createPostRequest(url, project)
+
+            return response.status == HttpStatusCode.Ok
+        } catch(err) {
+            console.log(err)
+            return false
+        }
+        
+    } 
+
+    static async deleteProject(projectGUID: string): Promise<boolean> {
+        const url = apiUrl + `/project/delete?projectGUID=${projectGUID}`
+        const response = await RequestFacotry.createDeleteRequest(url, null)
+
+        return response.status == HttpStatusCode.Ok
+    }
+    
     static getExtendedState() {
-        return Object.values(ExtendedStatus) 
+        return Object.values(ExtendedStatus)
     }
 
     static getStandardState() {
-        return Object.values(StandardStatus) 
+        return Object.keys(StandardStatus).filter(key => isNaN(Number(key)));
     }
 
     static getSimpleState() {
-        return Object.values(SimpleStatus) 
+        return GenericEnumService.getEnumNames(SimpleStatus)
     }
 
 }

@@ -1,13 +1,8 @@
 import axios from "axios"
 
-export abstract class TokenAppender{
+export abstract class TokenHandler{
 
-    static async AppendToken() {
-        if(!axios.defaults.headers.common['Authorization']){
-            const token = localStorage.getItem("token")
-            axios.defaults.headers.common = {'Authorization': `bearer ${token}`}
-        } 
-    }
+
 
     static async RemoveToken(){
         if(axios.defaults.headers.common['Authorization']){

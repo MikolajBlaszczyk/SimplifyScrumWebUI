@@ -11,9 +11,9 @@ export default function FeatureForm() {
     const [points, setPoints] = useState<number>(0)
     const [project, setProject] = useState<Project>(Project.default())
    
-    let stateOptions: SelectItem<string>[] = []
-    let pointOptions: SelectItem<string>[] = []
-    let projectOptions: SelectItem<Project>[] = []
+    let stateOptions: SelectItem[] = []
+    let pointOptions: SelectItem[] = []
+    let projectOptions: SelectItem[] = []
 
     const setNewState = (stateAsString: string) => {
         setState(EnumService.convertStringToExtendedStatus(stateAsString))
@@ -21,20 +21,12 @@ export default function FeatureForm() {
     const setNewPoints = (numberAsString: string) => {
         setPoints(parseInt(numberAsString))
     }
-    const setNewProject = (guid: string) => {
-        const selectedProject =projectOptions
-            .map(item => item.value)
-            .find(project => project.guid == guid)!
-
-        setProject(selectedProject)
-    }
-
 
     useEffect(() => {
         stateOptions = BacklogService
             .getExtendedState()
             .map( state => {
-                const item: SelectItem<string> = {
+                const item: SelectItem = {
                     value: EnumService.convertExtendedStatusToString(state as ExtendedStatus),
                     description: EnumService.convertExtendedStatusToString(state as ExtendedStatus)
                 }
@@ -48,15 +40,17 @@ export default function FeatureForm() {
             {value: '5', description: '5'},
             {value: '8', description: '8'}
         ]
-        projectOptions = BacklogService
+        BacklogService
             .getProjects()
-            .map(project => {
-                const item: SelectItem<Project> = {
-                    value: project,
-                    description: project.name
-                }
-
-                return item
+            .then(projects =>{
+                projectOptions = projects.map(project => {
+                    const item: SelectItem = {
+                        value: project.guid,
+                        description: project.name
+                    }
+    
+                    return item
+                })
             })
     }, [])
     // fields.push(<SimpleSelectionInput />) // points
@@ -68,6 +62,8 @@ export default function FeatureForm() {
                 value={title} 
                 changeValue={e => setTitle(e.target.value)} />
             <SimpleMultiLineTextInput
+                label=""
+                
                 value={description} 
                 onChange={e => setDescription(e.target.value)} />
             <SimpleSelectionInput
@@ -78,10 +74,7 @@ export default function FeatureForm() {
                 selectedValue={points.toString()} 
                 onSelectedValueChange={setNewPoints}
                 options={pointOptions} />
-            <SimpleSelectionInput 
-                selectedValue={project} 
-                onSelectedValueChange={setNewProject}
-                options={projectOptions} />
+            
         </form>
     )
 }

@@ -35,6 +35,14 @@ export class User extends Object implements UserInfo {
         return new User('', '', '', 'Test')
     }
 
+    static createLoginUser = (login: string, password: string) => {
+        return new User(login, password)
+    }
+    
+    static createSignInUser = (login: string, password: string, email: string, nickname: string, role: number)  => {
+        return new User(login, password, email, nickname, role)
+    }
+
     public CleanSensitiveData() {
         this.password = ""
     }
@@ -42,12 +50,5 @@ export class User extends Object implements UserInfo {
     toString() {
         return this.id
     }
-}
-export const createLoginUser = (login: string, password: string) => {
-    return new User(login, password)
-}
-
-export const createSignInUser = (login: string, password: string, email: string, nickname: string, role: number)  => {
-    return new User(login, password, email, nickname, role)
 }
 

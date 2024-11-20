@@ -2,16 +2,21 @@ import { ReactElement, useEffect, useState } from "react"
 import { BacklogService } from "../../../services/CommonServicesIndex"
 import { RefinementItem } from "./RefinementItem"
 
+
 export function RefinementDashboard(){
     const [items, setItems] = useState<ReactElement[]>([])
  
 
     useEffect(() => {
-        const mapped = BacklogService
-            .getFeatures()
-            .map(feature => (<RefinementItem feature={feature} />))
+        BacklogService
+            .getFeaturesForProject('')
+            .then(features => {
+                const mapped =  features.map(feature => (<RefinementItem feature={feature} />))
+                setItems(mapped)
+            })
+            
 
-        setItems(mapped)
+       
     }, [])
 
     return (

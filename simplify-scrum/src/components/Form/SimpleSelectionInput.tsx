@@ -1,32 +1,43 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent, useEffect } from "react"
+import { SimpleIcon } from "../ComponentsIndex"
+import { Fonts } from "../../utils/UtilsIndex"
 
-export interface SelectItem<T extends Object> {
-    value: T,
+export interface SelectItem {
+    value: string,
     description: string
 }
 
-interface Props<T extends Object> {
-    label?: string
-    selectedValue: T
+interface Props {
+    selectedValue: string
     onSelectedValueChange: (value: string) => void
-    options: SelectItem<T>[]
+    options: SelectItem[]
+    label?: string,
+    icon?: string,
 }
 
-export function SimpleSelectionInput<T extends Object>(props: Props<T>){
-    const {label, selectedValue, onSelectedValueChange, options} = props
+export function SimpleSelectionInput({label, icon, selectedValue, onSelectedValueChange, options}: Props){
+
+
 
     return(
-        <div className="input-group input-group-sm mt-2">
-            <label className="input-group-text">{label}</label>
-            <select className=" form-select" value={(selectedValue.toString())} onChange={(e) =>{ onSelectedValueChange(e.target.value)}}>
-                <option value={""}></option>
+        <div className="d-flex align-items-center  mb-1">
+            {icon && <SimpleIcon 
+                icon={icon} 
+                font={Fonts.H5} /> }
+            <div className="ms-2 d-flex justify-content-between w-100 align-items-center s-settings-editable">
+                <h6 className="m-0 mt-2 mb-2 user-select-none me-2">
+                        {label}
+                </h6> 
+                <select  className="s-select border rounded" value={(selectedValue)} onChange={(e) =>{ onSelectedValueChange(e.target.value)}}>
+                <option disabled selected>Choose</option>
                 {
                     options.map(option =>{
 
-                        return (<option value={option.value.toString()}>{option.description}</option>)
+                        return (<option  value={option.value}>{option.description}</option>)
                     })
                 }
             </select>
+            </div>
         </div>
     )
 }

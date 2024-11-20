@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
+import { AlertContext, AlertingState } from "../context/ContextsIndex";
+import { useModalForm } from "../hooks/useContexts";
 
 
 export enum Alignment {
@@ -29,15 +31,23 @@ interface SideBySideLayoutProps{
 
 
 export function SideBySideLayout({rightSide, leftSide, alignment}: SideBySideLayoutProps){
+    const {alerting} = useContext(AlertContext) as AlertingState
+    const {modal} = useModalForm()
+
     return (
-        <div className="row d-flex w-100 mt-5 mb-5">
-            <div className={alignmentLeftClasses[alignment]}>
-                {leftSide}
+        <>
+            {alerting.showAlert && (alerting.alertComponent)}
+            {modal.showModal && (modal.modalComponent)}
+            <div className="row d-flex w-100 mt-5 mb-5">
+                <div className={alignmentLeftClasses[alignment]}>
+                    {leftSide}
+                </div>
+                {alignment != Alignment.Equal && (<div className="col-1"></div>)}
+                <div className={`${alignmentRightClasses[alignment]}  align-items-end d-flex flex-column`}>
+                    {rightSide}
+                </div>
             </div>
-            {alignment != Alignment.Equal && (<div className="col-1"></div>)}
-            <div className={`${alignmentRightClasses[alignment]}  align-items-end d-flex flex-column`}>
-                {rightSide}
-            </div>
-        </div>
+        </>
+        
     )
 }

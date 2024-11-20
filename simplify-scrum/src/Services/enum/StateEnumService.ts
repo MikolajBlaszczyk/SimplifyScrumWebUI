@@ -1,5 +1,6 @@
 import { Role } from "../../data/CommonDataIndex"
 import { ExtendedStatus, SimpleStatus, StandardStatus } from "../../features/backlog/data/State"
+import { GenericEnumService } from "./GenericEnumService"
 
 const simpleStateString = {
     [SimpleStatus.Doing]: 'Doing',
@@ -38,7 +39,7 @@ export class EnumService {
 
     //#region State enums
     static convertSimpleStatusToString = (state: SimpleStatus) => {
-        return simpleStateString[state]
+        return GenericEnumService.getEnumNames(StandardStatus)[state]
     }
 
     static convertStringToSimpleStatus = (stringValue: string) => {
@@ -52,9 +53,9 @@ export class EnumService {
     }
 
     static convertStringToStandardStatus = (stringValue: string) => {
-        const keys = Object.keys(simpleStateString) as Array<keyof typeof StandardStatus>
+        const keys = GenericEnumService.getEnumDictionary(StandardStatus) 
 
-        return keys.find(key => standardStateString[(key as unknown as StandardStatus)] == stringValue)![0] as unknown as StandardStatus
+        return keys[stringValue]  as StandardStatus
     }
 
     static convertExtendedStatusToString = (state: ExtendedStatus) => {

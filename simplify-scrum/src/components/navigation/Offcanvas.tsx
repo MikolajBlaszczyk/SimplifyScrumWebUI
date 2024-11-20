@@ -1,29 +1,31 @@
 import { useNavigate } from "react-router-dom"
 import { Destination, destinationPaths } from "../../utils/UtilsIndex"
 import { LoginService } from "../../features/authorization/services/LoginService"
-import NavigationBar from "./NavigationBar"
 import { NavigationButton } from "./NavigationButton"
+import { useContext } from "react"
+import { UserContext } from "../../context/ContextsIndex";
+import { useCleanup } from "../../hooks/useCleanup"
+import { useNavigateTo } from "../../hooks/HooksIndex"
 
 export function Offcanvas(){
+    const {settings, setSettings} = useContext(UserContext)
+    const cleanup = useCleanup()
     const navigate = useNavigate()
+    const navigateTo = useNavigateTo()
     
-    const navigateTo = (destination: Destination) => {
-        const path = destinationPaths[destination]
-        navigate(path)
-    }
 
     const logOut = () => {
         const path = destinationPaths[Destination.Auth]
 
         LoginService.logOut()
+        cleanup()
+
         navigate(path)
     }
 
 
     return (
     <div className="offcanvas offcanvas-end  s-bg-text" tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      
-
         <div className="offcanvas-body d-flex flex-column justify-content-between">
             <div className="d-flex flex-column align-items-center">
                     <NavigationButton
@@ -66,6 +68,16 @@ export function Offcanvas(){
                         icon={"bi-repeat"} 
                         title="Retrospective"
                         onClick={() => navigateTo(Destination.Retrospective)}/>
+
+                    {
+                        settings.isAdmin == true &&
+                        (
+                        <NavigationButton 
+                            icon={"bi-battery-charging"} 
+                            title="Admin"
+                            onClick={() => navigateTo(Destination.Admin)}/>
+                        )
+                    }
 
             </div>
             <div className="d-flex flex-column align-items-end s-offcanvas-logout">

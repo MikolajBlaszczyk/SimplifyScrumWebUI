@@ -12,9 +12,9 @@ export default function TaskForm() {
     const [feature, setFeature] = useState<Feature>(Feature.default())
     const [assigne, setAssigne] = useState<User>(User.default())
 
-    let statusOptions: SelectItem<string>[] = []
-    let featureOptions: SelectItem<Feature>[] = []
-    let assigneOptions: SelectItem<User>[] = []
+    let statusOptions: SelectItem[] = []
+    let featureOptions: SelectItem[] = []
+    let assigneOptions: SelectItem[] = []
 
     const setNewStatusValue = (stringValue: string) => {
         const newState = EnumService.convertStringToSimpleStatus(stringValue)
@@ -23,49 +23,23 @@ export default function TaskForm() {
     const setNewFeatureValue = (guid: string) => {
         const featureSelected = featureOptions
             .map(item => item.value)
-            .find( feature => feature.guid == guid)!
 
-        setFeature(featureSelected) 
-    }
-    const setNewAssingeValue = (id: string) => { 
-        const assigneSelected = assigneOptions
-            .map(item => item.value)
-            .find( assigne => assigne.id == id)!
-
-        setAssigne(assigneSelected)
     }
 
     useEffect(() => {
         statusOptions = BacklogService
             .getSimpleState()
             .map( state => {
-                const item: SelectItem<string> = {
-                    value: EnumService.convertSimpleStatusToString(state as SimpleStatus),
-                    description: EnumService.convertSimpleStatusToString(state as SimpleStatus)
+                const item: SelectItem = {
+                    value: state ,
+                    description:state 
                 }
 
                 return item
             })
 
-        featureOptions = BacklogService 
-            .getFeatures()
-            .map( feature => {
-                const item: SelectItem<Feature> = {
-                    value: feature,
-                    description: feature.title
-                }
-                return item
-            })
         
-        assigneOptions = BacklogService
-            .getAssignes()
-            .map( assigne => {
-                const item: SelectItem<User> = {
-                    value: assigne,
-                    description: assigne.nickname
-                }
-                return item
-            })
+        
     }, [])
 
   
@@ -78,14 +52,7 @@ export default function TaskForm() {
                 selectedValue={EnumService.convertSimpleStatusToString(status)}
                 onSelectedValueChange={setNewStatusValue} 
                 options={statusOptions}/>
-            <SimpleSelectionInput 
-                selectedValue={feature}
-                onSelectedValueChange={setNewFeatureValue}
-                options={featureOptions}/> 
-            <SimpleSelectionInput
-                selectedValue={assigne}
-                onSelectedValueChange={setNewAssingeValue}
-                options={assigneOptions}/>
+        
         </form>
     )
 }

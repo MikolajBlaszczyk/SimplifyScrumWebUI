@@ -1,8 +1,15 @@
 import React, { createContext, useMemo, useState } from "react";
 
+export const defaultSettings: SimplifySettings = {
+    isInStartupScreen: false,
+    isAdmin: false,
+    showNavbar: true
+}
+
 export type SimplifySettings = {
     isInStartupScreen: boolean
-    
+    isAdmin: boolean
+    showNavbar: boolean
 }
 
 export interface Global{
@@ -11,18 +18,12 @@ export interface Global{
 }
 
 export const UserContext = createContext<Global>({
-    settings: {
-        isInStartupScreen: false
-    },
+    settings: defaultSettings,
     setSettings: () => null
 })
 
 export const UserProvider = ( {children } : React.PropsWithChildren<{}> )=> {
-    const [settings, setSettings] = useState<SimplifySettings>(
-        {
-            isInStartupScreen: false
-        }
-    )
+    const [settings, setSettings] = useState<SimplifySettings>(defaultSettings)
 
     const cachedValue = useMemo<Global>(() => ({settings, setSettings}), [settings])
 

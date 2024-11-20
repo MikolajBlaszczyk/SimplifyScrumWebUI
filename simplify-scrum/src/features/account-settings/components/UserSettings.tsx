@@ -1,10 +1,13 @@
-interface Props{
+import { SelectItem, SimpleSelectionInput } from "../../../components/ComponentsIndex"
+import { Team } from "../../../data/CommonDataIndex"
+
+interface TextProps{
     icon: string,
     label: string,
-    value: string
+    value: string,
 }
+export function UserTextSetting({label, value, icon}:TextProps){
 
-export function UserSetting({label, value, icon}:Props){
     return(
         <div className="d-flex align-items-center mb-1">
             <i className={`bi ${icon} s-h5`}></i>
@@ -19,3 +22,4 @@ export function UserSetting({label, value, icon}:Props){
         </div>
     )
 }
+

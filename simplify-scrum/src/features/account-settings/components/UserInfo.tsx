@@ -4,7 +4,7 @@ import { EnumService } from "../../../services/CommonServicesIndex"
 import { AccountService } from '../service/AccountService';
 import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertType } from "../../alerting/components/Alert";
-import { UserSetting } from "./UserSettings";
+import { UserTextSetting } from "./UserSettings";
 
 interface Props {
     user: UserInfo
@@ -18,8 +18,10 @@ export default function UserInformation({user}: Props) {
 
     useEffect(() =>  { 
         try{
+            
             setManager(AccountService.getManager())
-            setTeam(AccountService.getTeam())
+            AccountService
+                .getTeam(user.teamGuid).then(data => setTeam(data))
             setRole(user.role) 
         } catch(error) { 
             showAlert(AlertType.Danger, '')
@@ -34,17 +36,17 @@ export default function UserInformation({user}: Props) {
             Organization
         </h4> 
 
-        <UserSetting 
+        <UserTextSetting 
             icon={"bi-person-fill-up"} 
             label={"Manager"} 
             value={manager.nickname} />
         
-        <UserSetting 
+        <UserTextSetting 
             icon={"bi-people-fill"} 
             label={"Team"} 
             value={team.name} />
         
-        <UserSetting 
+        <UserTextSetting 
             icon={"bi-person-fill-gear"} 
             label={"Role"} 
             value={EnumService.convertRoleToString(role)} />

@@ -26,10 +26,14 @@ export default function LoginForm(props: AuthProperties){
         try {
             const response = await LoginService.login(login, password)
             if(response.status == 200){
+
+                LoginService.isAdminRole()
+                    .then(data =>  setSettings({...settings, isAdmin: data}));
+                
                 const path = destinationPaths[Destination.Main]
                 navigate(path)
+                
             }
-
         } catch(error) {
             showAlert(AlertType.Danger, (error as Error).message)
         }

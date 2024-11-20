@@ -1,19 +1,16 @@
-import axios from "axios"
-import { TokenAppender } from "../../../services/auth/TokenAppender"
 import { Team, User} from "../../../data/CommonDataIndex"
+import { RequestFacotry as RequestFactory } from "../../../services/api/RequestFactory"
 
-const userApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/user` 
+const apiUrl = `${process.env.REACT_APP_SIMPLIFY_API}` 
 
 
 export class AccountService{
     static async getInfo(){
-        await TokenAppender.AppendToken()
-
         try {
-            const url = userApiUrl + "/info"
-            const response = await axios.get<User>(url)
+            const url = apiUrl + "/user/info"
+            const response = await RequestFactory.createGetRequest(url)
 
-            return response.data
+            return response.data as User
         } catch(error) {
             console.log(error)
             throw error
@@ -21,12 +18,10 @@ export class AccountService{
     }
 
     static async getUsers(){
-        await TokenAppender.AppendToken()
-
         try { 
-            const url = userApiUrl + "/users"
-            const response = await axios.get(url)
-            console.log(response.data)
+            const url = apiUrl + "/user/users"
+            const response = await RequestFactory.createGetRequest(url)
+
             return response.data as User[]
         } catch (error) {
             console.log(error)
@@ -34,11 +29,56 @@ export class AccountService{
         }
     }
 
+    static async getTeams(){
+        try { 
+            const url = apiUrl + "/teams"
+            const response = await RequestFactory.createGetRequest(url)
+
+            return response.data as Team[]
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+
+    static async updateUser(user: User): Promise<User>{
+        try {
+            const url = apiUrl + "/user/update"
+            const response  = await RequestFactory.createPostRequest(url, user)
+
+            return response.data as User
+        } catch(error) { 
+            console.log(error)
+            throw error
+        }
+    }
+
+    static async addTeam(team: Team): Promise<Team> {
+        try{ 
+            const url = apiUrl + "/team/add"
+            const response = await RequestFactory.createPostRequest(url, team)
+
+            return response.data
+        } catch(error) { 
+            console.log(error)
+            throw error
+        }
+    }
+
+
     static getManager(): User { 
         throw Error()
     }
 
-    static getTeam(): Team { 
-        throw Error()
+    static async getTeam(guid: String) { 
+         try{ 
+            const url = apiUrl + `/team?teamGUID=${guid}`
+            const response = await RequestFactory.createGetRequest(url)
+
+            return response.data as Team
+        } catch(error) { 
+            console.log(error)
+            throw error
+        }
     }
 }

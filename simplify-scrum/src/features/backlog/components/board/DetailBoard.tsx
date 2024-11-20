@@ -12,9 +12,10 @@ export enum DetailType {
 
 interface Prop {
     type: DetailType
+    guid: string
 }
 
-export function DetailBoard({type}: Prop){
+export function DetailBoard({type, guid}: Prop){
     let form: React.ReactElement = (<div></div>)
  
     if(type == DetailType.Project) {

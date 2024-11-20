@@ -1,4 +1,6 @@
+import { useState } from "react"
 import "../../assets/styles/StyleIndex.scss"
+import { SimpleSideMenu } from "../../features/backlog/components/utils/SimpleSideMenu"
 
 interface Props {
     title: string
@@ -8,6 +10,7 @@ interface Props {
 }
 
 export function SimpleCard({title, description, footer, ref}: Props){
+
     return (
         <div ref={ref} className="card s-card">
             <div className="card-body s-card-body">

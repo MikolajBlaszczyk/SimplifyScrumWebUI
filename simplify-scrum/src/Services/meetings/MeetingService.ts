@@ -1,8 +1,6 @@
-import axios, { AxiosResponse, HttpStatusCode } from "axios";
-import { TokenAppender } from "../CommonServicesIndex";
-import { DayModel, Meeting, MeetingType, ScheduleModel } from '../../data/CommonDataIndex';
+import { HttpStatusCode } from "axios";
+import { DayModel, Meeting, ScheduleModel } from '../../data/CommonDataIndex';
 import { RequestFacotry } from "../api/RequestFactory";
-import { factory } from "typescript";
 
 const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings` 
 
@@ -52,8 +50,6 @@ export class MeetingSerivce{
     }
 
     public static async DeleteMeeting(meeting: Meeting){
-        TokenAppender.AppendToken()
-        
         try {
             const url = meetingApiUrl + "/delete"
             const response = await RequestFacotry.createDeleteRequest(url, meeting)

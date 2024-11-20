@@ -44,7 +44,7 @@ export default function SignInForm(props: AuthProperties){
                     label="Nickname"
                     placeholder="user48"
                     value={nickname}
-                    changeValue={e => setNickname(nickname)}/>
+                    changeValue={e => setNickname(e.target.value)}/>
             </div>
            
             <div className="pb-3">

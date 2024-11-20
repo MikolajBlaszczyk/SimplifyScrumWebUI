@@ -3,7 +3,7 @@ import { BgColor, IndicatorColor } from "../UtilsIndex";
 
 export const bgColorClasses = {   
     [BgColor.Light]: 's-bg-background',
-    [BgColor.Dark]: 's-bg-dark',
+    [BgColor.Dark]: 'bg-dark',
     [BgColor.DarkForm]: 'bg-dark',
     [BgColor.Transparent]: 's-bg-transparent',
     default: 's-bg-background'

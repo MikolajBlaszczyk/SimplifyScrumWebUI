@@ -9,7 +9,6 @@ export function Planning(){
     const [features, setFeatures] = useState<Feature[]>([])
 
     useEffect(() => {
-        setFeatures(BacklogService.getFeatures())
     }, [])
 
     return (

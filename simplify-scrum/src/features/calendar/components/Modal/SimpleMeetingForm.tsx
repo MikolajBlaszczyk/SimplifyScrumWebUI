@@ -14,10 +14,10 @@ interface properties{
 
 
 export default function SimpleMeetingForm(props: properties){
-    const [leadersOptions, setLeadersOptions] = useState<SelectItem<User>[]>([])
+    const [leadersOptions, setLeadersOptions] = useState<SelectItem[]>([])
     const [selectedLeader, setSelectedLeaeder] = useState<User>(User.default())
 
-    let meetingOptions: SelectItem<MeetingType>[] = []
+    let meetingOptions: SelectItem[] = []
 
     const {initialMeeting, clickedDay} = props
     const {isLoading, setIsLoading} = useLoading()
@@ -28,26 +28,7 @@ export default function SimpleMeetingForm(props: properties){
     )
 
     useEffect(() => {
-        AccountService.getUsers()
-        .then(data => {
-            setLeadersOptions(data.map(user => {
-                const item: SelectItem<User> = {
-                    value: user,
-                    description: user.nickname
-                }
-                return item
-            }))
-        })
-
-        meetingOptions = MeetingEnumService
-            .GetAllMeetingTypes()
-            .map(type => {
-                const item: SelectItem<MeetingType> = { 
-                    value: type as MeetingType,
-                    description: type.toString()
-                }
-                return item
-            }) 
+       
     }, [])
 
     const addMeeting = () => { 
@@ -122,19 +103,11 @@ export default function SimpleMeetingForm(props: properties){
                     label="Description"
                     value={editedMeeting.description}
                     changeValue={(e) => changeDescription(e.target.value)}/>
-                <SimpleSelectionInput 
-                    label="Leader"
-                    selectedValue={selectedLeader} 
-                    onSelectedValueChange={ onLeaderChange }
-                    options={leadersOptions} />
+
                 <SimpleDateInput 
                     value={new Date(editedMeeting.start)} 
                     onValueChange={onMeetingStartChange}/>
-                <SimpleSelectionInput 
-                    label="Meeting Type"
-                    selectedValue={editedMeeting.type} 
-                    onSelectedValueChange={onMeetingTypeChnage} 
-                    options={meetingOptions} />
+
                 <SimpleDurationInput 
                     minValue={0} 
                     maxValue={60} 

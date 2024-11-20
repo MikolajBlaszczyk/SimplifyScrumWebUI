@@ -1,6 +1,7 @@
 .s-board {  
-    background-color: $s-text;
     color: $s-form;
+    height: 90%;
+    width: 90% !important;
 }
 
 .s-board-section {
@@ -8,11 +9,9 @@
 }
 
 .s-board-menu {
-    background-color: $s-text;
     opacity: 100%;
 }
 .s-board-list-group{
-    background: $s-text !important;
     color: $s-background !important;
 }
 

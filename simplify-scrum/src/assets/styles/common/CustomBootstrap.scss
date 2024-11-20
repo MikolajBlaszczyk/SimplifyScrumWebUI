@@ -13,10 +13,10 @@ $orange: #e8961c;
     font-size: 12px
 }
 
-.btn-primary{ 
-    &:hover{ 
-        background-color: darken($s-primary, 10%) !important;
-        border-color: darken($s-primary, 10%) !important;
+button {
+    transition: transform 0.3s ease !important;
+    &:hover{
+        transform: scale(1.15) !important;
     }
 }
 
@@ -35,8 +35,32 @@ $orange: #e8961c;
     }
 }
 
+.btn-outline-dark {
+    transition: transform 0.3s ease !important;
+    &:hover{
+        background-color: transparent !important;
+        transform: scale(1.15);
+    }
+}
+
+.top-75{
+    top: 75%;
+}
+
 .s-input-label{ 
     width: 35%;
 }
+
+.s-text-danger{
+    color: #141414 !important;
+}
+
+.s-text-warning {
+    color: #141414 !important;
+}
+
+
+
+
 
 @import "./Font";

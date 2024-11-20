@@ -62,13 +62,13 @@ export function Board({children, type}: BoardProps){
     })
     
     return (
-        <div id="board" ref={boardRef} className="container-fluid s-board p-5 min-vh-100 justify-content-center align-items-center position-relative">
+        <div id="board" ref={boardRef} className="container-fluid shadow border border-2 rounded s-board p-5 justify-content-center align-items-center position-relative">
             <section className="s-board-section">
                 {
                     renderedContent
                 }
             </section>
-            <menu id="board-menu" className="nav nav-pills nav-fill s-board-menu  rounded position-absolute start-50 translate-middle">
+            <menu id="board-menu" className="w-25 nav nav-pills nav-fill s-board-menu p-3 rounded">
                 <li className="nav-item me-3">
                     <SimpleButton 
                         type={Button.Primary}

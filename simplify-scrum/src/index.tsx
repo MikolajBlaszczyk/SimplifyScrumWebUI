@@ -8,11 +8,14 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/styles/StyleIndex.scss'
 import { UserProvider } from './context/UserContext';
-import { Start, InfoCenter, Settings, Meetings, Backlog, Refinement, Planning, Retrospective } from "./pages/PagesIndex"
+import { Login, InfoCenter, Settings, Meetings, Backlog, Refinement, Planning, Retrospective, Start } from "./pages/PagesIndex"
 import { LoadingProvider } from './context/LoadingContext';
 import { AlertProvider } from './context/AlertContext';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Administration } from './pages/Administration';
+import { ModalProvider } from './context/ModalContext';
+
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -30,7 +33,7 @@ const isAuthenticated = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Start/>,
+    element: <Login/>,
     errorElement: <ErrorBoundary/>,
   }, 
   {
@@ -65,6 +68,14 @@ const router = createBrowserRouter([
           {
             path: "retrospective/",
             element: <Retrospective />
+          }, 
+          {
+            path: "admin/",
+            element: <Administration />
+          },
+          {
+            path: "start/",
+            element: <Start />
           }
         ]
   }
@@ -77,11 +88,13 @@ root.render(
   <React.StrictMode>
     <DndProvider backend={HTML5Backend}>
       <AlertProvider>
-        <LoadingProvider>
-          <UserProvider>
-            <RouterProvider router={router}/>
-          </UserProvider>
-        </LoadingProvider>
+        <ModalProvider>
+          <LoadingProvider>
+            <UserProvider>
+              <RouterProvider router={router}/>
+            </UserProvider>
+          </LoadingProvider>
+        </ModalProvider>
       </AlertProvider>
     </DndProvider>
   </React.StrictMode>

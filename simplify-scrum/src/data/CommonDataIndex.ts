@@ -9,3 +9,5 @@ export * from './schedule/Schedule';
 export * from './user/Role';
 export * from './user/Team';
 export * from './user/User';
+
+export * from './utils/DataLoader';

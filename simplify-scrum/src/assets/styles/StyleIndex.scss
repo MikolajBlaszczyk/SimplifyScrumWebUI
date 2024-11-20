@@ -1,12 +1,12 @@
 @import "./common/Utils";
 @import "./common/Font";
 @import "./App";
-@import "./Modal";
+@import "./ModalForm/Modal";
 @import "./Board";
 @import "./common/Card";
 @import "./common/Sizing";
 @import "./common/Button";
-@import "./start/AuthForm";
+@import "./login/AuthForm";
 @import "./alert/Alert";
 @import "./calendar/SimpleCalendar";
 @import "./notification/NotificationSheet";
@@ -16,7 +16,9 @@
 @import "./settings//Settings";
 @import "./refinement/Refinement";
 @import "./planning/Planning";
-@import "./retro//Retro";
+@import "./retro/Retro";
+@import './common/Animations';
+@import './start/Start';
 
 @import "./common/CustomBootstrap";
 @import "./common/General";

@@ -1,16 +1,17 @@
 import axios, { HttpStatusCode } from 'axios';
-import { createLoginUser, createSignInUser } from '../../../data/CommonDataIndex';
-import { TokenAppender } from '../../../services/auth/TokenAppender';
+import { TokenHandler } from '../../../services/auth/TokenAppender';
+import { User } from '../../../data/CommonDataIndex';
+import { RequestFacotry } from '../../../services/api/RequestFactory';
 
 const loginApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}`
 
 export class LoginService{
     
     public static async login(login: string, password: string){
-        var user = createLoginUser(login, password)
-
         try {
-            const response = await axios.post(loginApiUrl + "/login", user)
+            var user = User.createLoginUser(login, password)
+            var url = loginApiUrl + "/login"
+            const response = await RequestFacotry.createUnauthorizedPostRequest(url, user)
             localStorage.setItem("token", response.data)
 
             return response
@@ -18,15 +19,25 @@ export class LoginService{
             console.log(error)
             throw error
         }
-    
     } 
 
+    public static async isAdminRole(){
+        try{
+            var url = loginApiUrl + "/isadmin"
+            const response = await RequestFacotry.createGetRequest(url)
+
+            return response.status == HttpStatusCode.Ok
+        } catch(error) {
+            throw error
+        }
+       
+    }
+
     public static async signIn(login: string, password: string, email: string, nickname: string, role: number){
-        const user = createSignInUser(login, password, email, nickname, role)
-
         try {
-            const response = await axios.post(loginApiUrl + "/signin", user)
-
+            const user = User.createSignInUser(login, password, email, nickname, role)
+            const url = loginApiUrl + "/signin"
+            const response = await RequestFacotry.createUnauthorizedPostRequest(url, user)
             localStorage.setItem("token", response.data)
 
             return response
@@ -38,13 +49,16 @@ export class LoginService{
 
     public static async logOut() {
         try {
-            const response = await axios.get(loginApiUrl + "/logout")
+            const url = loginApiUrl + "/logout"
+            const response = await RequestFacotry.createGetRequest(url)
 
             if(response.status == HttpStatusCode.Ok){
                 localStorage.removeItem("token")
-                TokenAppender.RemoveToken()
+                TokenHandler.RemoveToken()
                 return
             }
+
+            
 
             throw Error()
         } catch(error) {

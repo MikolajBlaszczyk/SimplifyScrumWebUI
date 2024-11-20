@@ -1,0 +1,79 @@
+
+  
+  // Progress Bar
+  .header-progress-container {
+    padding: 5%;
+    background-color: transparent;
+  }
+  
+  .header-progress-list {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+  }
+  
+  .header-progress-item {
+    position: relative;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    line-height: 3em;
+  
+    //Lines
+    &:after {
+      position: absolute;
+      display: block;
+      z-index: 1;
+      top: -5px;
+      left: -50%;
+      height: 5px;
+      width: 100%;
+      content: "";
+      background-color: $dark;
+      transition: background-color 0.3s linear;
+    }
+  
+    // Bullets/Balls
+    &:before {
+      position: absolute;
+      z-index: 2;
+      top: -10px;
+      left: 50%;
+      height: 15px;
+      width: 15px;
+      border-radius: 1.6em;
+      border: none;
+      line-height: 1.2em;
+      content: " ";
+      background-color: $dark;
+    }
+  
+    &:first-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+  
+  .header-progress-item.done {
+    color: #A4A4A4;
+  }
+  
+  .header-progress-item.todo {
+    color: #DDDADD;
+  
+    //Lines
+    &:after {
+      background: #F1F1F1;
+    }
+  
+    // Bullets/Balls
+    &:before {
+      background-color: #DADADA;
+    }
+  }
+
+  .mb-10 {
+    padding-bottom: 50px !important;
+  }
+  

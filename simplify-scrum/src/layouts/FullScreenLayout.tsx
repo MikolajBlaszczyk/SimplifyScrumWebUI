@@ -1,6 +1,7 @@
-import { ReactNode, useContext } from "react"
+import { ReactNode, useContext, useEffect } from "react"
 import { AlertContext, AlertingState } from "../context/ContextsIndex"
 import { BgColor, bgColorClasses } from "../utils/UtilsIndex"
+import { useModalForm, useSettings } from "../hooks/useContexts"
 
 
 
@@ -10,16 +11,33 @@ import { BgColor, bgColorClasses } from "../utils/UtilsIndex"
 interface Props {
     color?: BgColor
     child: ReactNode
+    showNavbar?: boolean
 }
 
 
-export function FullScreenLayout({color, child}: Props){
+export function FullScreenLayout({color, child, showNavbar}: Props){
     const {alerting} = useContext(AlertContext) as AlertingState
+    const {settings, setSettings} = useSettings()
+    const {modal} = useModalForm()
+
+    useEffect(() => {
+
+        if(showNavbar != undefined)
+            setSettings({...settings, showNavbar:showNavbar})
+
+        return() => {
+            if(settings.showNavbar == false){
+                setSettings({...settings, showNavbar:true})
+            }
+        }
+
+    }, [])
 
     return (
         <>
             {alerting.showAlert && (alerting.alertComponent)}
-            <main className={`d-fle p-5 min-vh-100 min-vw-100 justify-content-center ${bgColorClasses[color!] ?? bgColorClasses.default }`}>
+            {modal.showModal && (modal.modalComponent)}
+            <main className={`d-flex h-100 w-100 justify-content-center ${bgColorClasses[color!] ?? bgColorClasses.default }`}>
                 {child}
             </main>
         </>

@@ -7,6 +7,7 @@ export enum Destination{
     Backlog,
     Refinement,
     Planning,
-    Retrospective
+    Retrospective,
+    Admin
 }
 

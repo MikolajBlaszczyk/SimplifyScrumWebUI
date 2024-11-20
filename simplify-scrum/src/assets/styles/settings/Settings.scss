@@ -10,13 +10,11 @@
         width: 100%;
     }
 
-    i{
-        font-size: $s-h5 !important;
-    }
 
     .s-settings-editable{
         transition: transform 0.1s ease;
-        &:hover{
+        &:not(:has(select)):hover{
+
             transform: translateX(15px) ;
         }
     }

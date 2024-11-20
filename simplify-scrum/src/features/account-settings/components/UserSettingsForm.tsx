@@ -5,7 +5,7 @@ import { User, UserInfo } from "../../../data/CommonDataIndex";
 import { SimpleTextInput, SimpleSwitch } from "../../../components/ComponentsIndex";
 import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertType } from "../../alerting/components/Alert";
-import { UserEditableSettings } from "./UserEditableSettings";
+import { UserEditableSettings, UserCheckboxSetting } from './UserEditableSettings';
 
 
 
@@ -42,7 +42,7 @@ export default function UserSettingsForm(){
                 <UserInformation user={user}/>
 
                 <section className="mb-5 bg-dark s-settings-section"> 
-                    <h4>
+                    <h4 className="mb-2">
                         Personal
                     </h4>
 
@@ -67,26 +67,16 @@ export default function UserSettingsForm(){
                 </section>
 
                 <section className="mb-5 bg-dark s-settings-section">
-                    <h4>
+                    <h4 className="mb-2">
                         App
                     </h4>
                     
-                    <div className="d-flex align-items-center mb-1 mt-2">
-                        <i className={`bi bi-moon-fill s-h5`}></i>
-                        <div className="ms-2 d-flex justify-content-between w-100 align-items-center border-bottom s-settings-editable" onClick={() => setDarkMode(prev => !prev)}>
-                            <h6 className="m-0">
-                                    Dark theme
-                            </h6> 
-                            <SimpleSwitch 
-                                isChecked={darkMode} 
-                                onValueChange={ e => {
-                                    setDarkMode(e.target.checked)
-                                } } />
-                        </div>
-                    </div>
-                 
+                    <UserCheckboxSetting 
+                        label={"Dark theme"}
+                        icon={"bi-moon-fill"}
+                        onChange={(newValue) => setDarkMode(newValue) } 
+                        value={darkMode} />
                 </section>
             </form>
-       
     )
 }

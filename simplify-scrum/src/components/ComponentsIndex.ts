@@ -8,3 +8,6 @@ export * from "./common/SimpleButton"
 export * from './form/SimpleMultiLineTextInput'
 export * from "./form/SimpleSwitch"
 export * from './common/SimpleControlPannel'
+export * from './form/SimpleEditableForm'
+export * from './common/Placeholder'
+export * from './common/SimpleIcon'
