@@ -2,36 +2,42 @@ import { ExtendedStatus } from "./DataIndex"
 
 export class Feature extends Object{
     guid: string
-    title: string
+    name: string
     description: string
     state: ExtendedStatus
     points: number
     projectGuid: string
-    creator: string
-    lastUpdate: string
+    createdBy: string
+    createdOn: Date
+    lastUpdatedBy: string
+    lastUpdatedOn: Date
 
     constructor(
             guid: string,
-            title: string,
+            name: string,
             description: string,
             state: ExtendedStatus,
             points: number,
             projectGuid: string,
-            creator: string,
-            lastUpdate: string){
+            createdBy: string,
+            createdOn: Date,
+            lastUpdatedBy: string,
+            lastUpdatedOn: Date){
         super()
         this.guid = guid
-        this.title = title
+        this.name = name
         this.description = description
         this.state = state
         this.points = points
         this.projectGuid = projectGuid
-        this.creator = creator 
-        this.lastUpdate = lastUpdate
+        this.createdBy = createdBy
+        this.createdOn = createdOn
+        this.lastUpdatedBy = lastUpdatedBy
+        this.lastUpdatedOn = lastUpdatedOn
     }
 
     static default() { 
-        return new Feature('', '', '', ExtendedStatus.New, 1, '', '', '')
+        return new Feature('', '', '', ExtendedStatus.New, 1, '', '', new Date(), '', new Date())
     }
     
     toString() {

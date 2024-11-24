@@ -13,12 +13,12 @@ export function RefinementItem({feature}: Props){
         <div className="row w-100 h-100 border-bottom mb-2 mt-1 s-refinement-item  shadow-sm">
             <div className="col-3 d-flex align-items-center justify-content-start ps-3">
                 <small className="m-0 ">
-                    {feature.title}
+                    {feature.name}
                 </small>
             </div>
             <div className="col-3 d-flex align-items-center justify-content-start ps-3">
                 <small className="m-0 ">
-                    {feature.creator}
+                    {feature.createdBy}
                 </small>
             </div>
             <div className="col-3 d-flex  align-items-center justify-content-start ps-3">

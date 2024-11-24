@@ -39,13 +39,13 @@ export class EnumService {
 
     //#region State enums
     static convertSimpleStatusToString = (state: SimpleStatus) => {
-        return GenericEnumService.getEnumNames(StandardStatus)[state]
+        return simpleStateString[state]
     }
 
     static convertStringToSimpleStatus = (stringValue: string) => {
-        const keys = Object.keys(simpleStateString) as Array<keyof typeof SimpleStatus>
+        const keys = GenericEnumService.getEnumDictionary(SimpleStatus) 
 
-        return keys.find(key => simpleStateString[(key as unknown as SimpleStatus)] == stringValue)![0] as unknown as SimpleStatus
+        return keys[stringValue] as SimpleStatus
     }
 
     static convertStandardStatusToString = (state: StandardStatus) => {
@@ -63,9 +63,9 @@ export class EnumService {
     }
 
     static convertStringToExtendedStatus = (stringValue: string) => {
-        const keys = Object.keys(simpleStateString) as Array<keyof typeof ExtendedStatus>
+        const keys = GenericEnumService.getEnumDictionary(ExtendedStatus) 
 
-        return keys.find(key => extendadStateString[(key as unknown as ExtendedStatus)] == stringValue)![0] as unknown as ExtendedStatus
+        return keys[stringValue]  as ExtendedStatus
     }
     //#endregion
 

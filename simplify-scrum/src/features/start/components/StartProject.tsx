@@ -3,7 +3,7 @@ import { useAlert, useModal } from "../../../hooks/HooksIndex";
 import { useModalForm } from "../../../hooks/useContexts";
 import { Fonts } from "../../../utils/UtilsIndex";
 import { AlertType } from "../../alerting/components/Alert";
-import ProjectForm from "../../backlog/components/form/ProjectForm";
+import ProjectEdit from "../../backlog/components/Items/Project/Edit/ProjectEdit";
 
 export function StartProject(){
     const showModal = useModal()
@@ -11,7 +11,7 @@ export function StartProject(){
 
     const createNewProject = () => {
         showModal( 
-            (<ProjectForm />),
+            (<ProjectEdit />),
             "Project"
         )
     }

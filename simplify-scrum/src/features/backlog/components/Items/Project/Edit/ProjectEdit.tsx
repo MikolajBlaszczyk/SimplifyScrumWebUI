@@ -1,21 +1,23 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react"
-import { StandardStatus } from '../../data/State';
-import { Team } from "../../../../data/CommonDataIndex";
-import { Button, SelectItem, SimpleButton, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex";
-import { BacklogService } from '../../../../services/CommonServicesIndex';
-import { EnumService } from '../../../../services/enum/StateEnumService';
-import { UserEditableSettings } from "../../../account-settings/components/UserEditableSettings";
-import { GenericEnumService } from "../../../../services/enum/GenericEnumService";
-import { AccountService } from "../../../account-settings/service/AccountService";
-import { Fonts } from "../../../../utils/UtilsIndex";
+import { StandardStatus } from '../../../../data/State';
+import { Team } from "../../../../../../data/CommonDataIndex";
+import { Button, Color, SelectItem, SimpleButton, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../../../components/ComponentsIndex";
+import { BacklogService, ValidationService } from '../../../../../../services/CommonServicesIndex';
+import { EnumService } from '../../../../../../services/enum/StateEnumService';
+import { UserEditableSettings } from "../../../../../account-settings/components/UserEditableSettings";
+import { GenericEnumService } from "../../../../../../services/enum/GenericEnumService";
+import { AccountService } from "../../../../../account-settings/service/AccountService";
+import { BgColor, FontColor, Fonts } from "../../../../../../utils/UtilsIndex";
 import { create } from "domain";
-import { Project } from "../../data/DataIndex";
-import { useAlert } from "../../../../hooks/HooksIndex";
-import { AlertType } from "../../../alerting/components/Alert";
+import { Project } from "../../../../data/DataIndex";
+import { useAlert } from "../../../../../../hooks/HooksIndex";
+import { AlertType } from "../../../../../alerting/components/Alert";
 
+interface Props {
+    guid?: String
+}
 
-
-export default function ProjectForm() {
+export default function ProjectEdit({guid}: Props) {
     const showAlert = useAlert()
     const [name, setName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
@@ -23,7 +25,22 @@ export default function ProjectForm() {
     const [team, setTeam] = useState<Team>(Team.default())
     const [teams, setTeams] = useState<Team[]>([])
 
- 
+    const fetchData = async () => {
+        if(guid != undefined) {
+            const project = await BacklogService.getProject(guid)
+            setName(project.name)
+            setState(project.state)
+
+            if(project.description != undefined)
+                setDescription(project.description)
+
+            const currentTeam = teams.filter(team => team.guid == project.teamGuid)
+            if(currentTeam.length == 1)
+                setTeam(currentTeam[0])
+        }
+    }
+
+
 
     let stateOptions: SelectItem[] = useMemo(() => {
         return GenericEnumService
@@ -61,6 +78,8 @@ export default function ProjectForm() {
                 const team =teams.filter(dataTeam => dataTeam.managerGuid == info.id)[0];
                 setTeam(Team.default())
             })
+
+        fetchData()
     }, [])
 
     
@@ -73,7 +92,10 @@ export default function ProjectForm() {
     }
 
 
+
     const createProjectAsync = async () => {
+
+
         const userInfo = await AccountService.getInfo()
         const project = new Project("", name, state, userInfo.teamGuid, userInfo.id,  new Date(), userInfo.id, new Date(), description)
 
@@ -87,37 +109,53 @@ export default function ProjectForm() {
 
 
     return (
-        <section className="bg-dark s-settings-section">
-            <UserEditableSettings
-                icon={"bi-alphabet"} 
-                label={"Name"} 
-                value={name} 
-                onChange={(e) => {setName(e.target.value)}} />
-            <SimpleMultiLineTextInput
-                label="Description"
-                icon="bi-card-text"
-                value={description} 
-                onChange={(e) => {setDescription(e.target.value)}} />
+        <section className="bg-dark p-0 s-settings-section">
+            <SimpleTextInput 
+                value={name}
+                label="Name"
+                changeValue={(e) => {setName(e.target.value)}}
+                color={BgColor.Transparent}
+                fontcolor={FontColor.Dark}
+                icon="bi-alphabet"/> 
+            <div className="mt-1"></div>
             <SimpleSelectionInput 
                 label="State"
                 icon="bi-check-all"
                 selectedValue={EnumService.convertStandardStatusToString(state)}
                 onSelectedValueChange={e => {setNewState(e)}}
                 options={stateOptions} /> 
+            <div className="mt-1"></div>
             <SimpleSelectionInput 
                 label="Team"
                 icon="bi-people-fill"
                 selectedValue={team.guid}
                 onSelectedValueChange={e => {setNewTeam(e)}}
                 options={teamOptions} /> 
+            <div className="mt-1 mb-1"></div>
+            <SimpleMultiLineTextInput
+                label="Description"
+                icon="bi-card-text"
+                value={description} 
+                onChange={(e) => {setDescription(e.target.value)}} />
+         
 
-            <div className="mt-4 d-flex justify-content-end">
+        <div className="mt-4 d-flex p-2 justify-content-end">
                 <SimpleButton 
                     type={Button.Primary}
-                    title={"Save"} 
+                    title={guid == undefined ? "Save" : "Update"} 
+                    fontColor={Color.Light}
                     font={Fonts.H5}
                     onClick={() => {createProject()}} />
-            </div>
+
+                <div className="ms-3"></div>
+
+                <SimpleButton 
+                    type={Button.Danger}
+                    title={guid == undefined ? "Abort" : "Delete"} 
+                    fontColor={Color.Light}
+                    font={Fonts.H5}
+                    onClick={() => {showAlert(AlertType.Warning, "Not implemented yet")}} />
+        </div>
         </section>
     )
 }

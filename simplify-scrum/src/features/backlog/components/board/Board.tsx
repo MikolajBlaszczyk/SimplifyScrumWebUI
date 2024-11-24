@@ -1,34 +1,42 @@
 import React, { useEffect, useRef } from "react"
 import "../../../../assets/styles/StyleIndex.scss"
-import { SimpleButton, Button } from "../../../../components/ComponentsIndex";
+import { SimpleButton, Button, Color } from "../../../../components/ComponentsIndex";
 import NoteBoard from './NoteBoard';
 import { ListBoard } from "./ListBoard";
-
+import { v4 } from 'uuid';
+import { useModal } from "../../../../hooks/HooksIndex";
+import { randomInt, randomUUID } from "crypto";
 export enum BoardType { 
     Notes,
     Lines,
     Details
 } 
 
+export enum ItemType {
+    Project,
+}
 
 interface BoardProps {
     children: React.ReactNode,
-    type: BoardType
+    boardType: BoardType,
+    title: String
 }
 
-export function Board({children, type}: BoardProps){
-    const boardRef = useRef<HTMLDivElement>(null)
+
+
+export function Board({title, children, boardType: type}: BoardProps){
+ 
     let renderedContent;
 
     if(type == BoardType.Notes){
         renderedContent = (
-            <NoteBoard>
+            <NoteBoard key={v4()}>
                 {children}
             </NoteBoard>
             )
     } else if (type == BoardType.Lines) {
         renderedContent = (
-            <ListBoard>
+            <ListBoard key={v4()}>
                 {children}
             </ListBoard>
         )
@@ -37,53 +45,20 @@ export function Board({children, type}: BoardProps){
     }
 
 
-    useEffect(() => {
-        if(!boardRef) 
-            return
-        
-        const boardResizeObserver = new ResizeObserver((entries) => {
-            console.log(entries)
-            const boardEntry = entries.find((entry) => entry.target.id == 'board')
-            
-            if(boardEntry){
-                const menu = document.getElementById('board-menu')!
-                menu.style.top = `${(boardEntry.contentRect.height) + menu.offsetHeight - 30 }px`
-            }
-           
-        })
-
-        boardResizeObserver.observe(boardRef.current!)
-
-        return () => {
-            if(boardRef.current){ 
-                boardResizeObserver.unobserve(boardRef.current!)
-            }
-        }
-    })
     
     return (
-        <div id="board" ref={boardRef} className="container-fluid shadow border border-2 rounded s-board p-5 justify-content-center align-items-center position-relative">
+        <div key={v4()} className="container-fluid bg-dark mt-2 shadow border border-2 rounded s-board p-5 justify-content-center align-items-center position-relative">
+            <div className=" user-select-none mb-5">
+                <h2>
+                    {title}
+                </h2>
+            </div>
+            
             <section className="s-board-section">
                 {
                     renderedContent
                 }
             </section>
-            <menu id="board-menu" className="w-25 nav nav-pills nav-fill s-board-menu p-3 rounded">
-                <li className="nav-item me-3">
-                    <SimpleButton 
-                        type={Button.Primary}
-                        title="Add"
-                        onClick={e => {}}
-                        minWidth="6em"/>
-                </li>
-                <li className="nav-item ms-3">
-                    <SimpleButton 
-                        type={Button.Danger}
-                        title="Remove"
-                        onClick={e => {}}
-                        minWidth="6em"/>
-                </li>
-            </menu>
         </div>
     )
 }

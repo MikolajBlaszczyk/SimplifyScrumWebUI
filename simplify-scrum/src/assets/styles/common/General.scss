@@ -5,7 +5,7 @@ body {
 .s-simple-side-menu {
     position: absolute;
     top: 10px;
-    left: 90%;
+    left: 85%;
     top: 0;
     width: 20%;
     justify-content: center;
@@ -15,9 +15,13 @@ body {
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
     opacity: 0% !important;
 }
+.s-simple-side-menu-animate-back {
+    transform: translateX(-30%) translateY(50%);
+    opacity: 0% !important;
+}
 
 .s-simple-side-menu-animate {
-    transform: translateX(4vw) translateY(0%); /* Move beyond the card width */
+    transform: translateX(4.2vw) translateY(0%); 
     opacity: 100% !important;
 }
 
@@ -29,7 +33,6 @@ body {
     transition: transform 0.2s ease-in;
     &:focus{
         outline: none;
-        transform: scale(1.02);
     }
 }
 
@@ -43,4 +46,8 @@ body {
     &:hover{
         background-color: lighten($dark, 10%);
     }
+}
+
+.s-spinner{
+    z-index: 1001;
 }

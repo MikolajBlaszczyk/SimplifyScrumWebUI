@@ -41,6 +41,19 @@ export class AccountService{
         }
     }
 
+    static async getTeamMembers(){
+        try {
+            const url = apiUrl + "/user/team/members"
+            const response = await RequestFactory.createGetRequest(url)
+
+            return response.data as User[]
+
+        } catch(error) {
+            console.log(error)
+            throw error
+        }
+    }
+
     static async updateUser(user: User): Promise<User>{
         try {
             const url = apiUrl + "/user/update"

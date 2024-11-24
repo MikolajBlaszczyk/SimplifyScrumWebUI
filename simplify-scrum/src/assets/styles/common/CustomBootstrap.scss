@@ -21,6 +21,11 @@ button {
 }
 
 .s-input {
+    transition: transform 0.1s ease;
+    &:not(:has(select)):hover{
+
+        background-color: lighten($dark, 10%) !important;
+    }
     &:focus{
         outline: none !important;
         box-shadow:none !important;
@@ -35,13 +40,7 @@ button {
     }
 }
 
-.btn-outline-dark {
-    transition: transform 0.3s ease !important;
-    &:hover{
-        background-color: transparent !important;
-        transform: scale(1.15);
-    }
-}
+
 
 .top-75{
     top: 75%;

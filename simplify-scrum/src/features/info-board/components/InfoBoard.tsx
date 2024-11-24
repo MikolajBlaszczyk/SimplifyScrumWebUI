@@ -11,28 +11,29 @@ export function InfoBoard(){
     const [meetingsLoader, setMeetingsLoader] = useState<DataLoader>(DataLoader.default())
     const [sprintLoader, setSprintLoader] = useState<DataLoader>(DataLoader.default())
 
-    useEffect(() => {
-        InfoCenterService
-            .getTodaysMeetings()
-            .then(meetings => {
-                if(meetings.length == 0)
-                    setMeetingsLoader(prev => DataLoader.dataFinishedLoading(prev, meetings, true))
-                else
-                    setMeetingsLoader(prev => DataLoader.dataFinishedLoading(prev, meetings, false))
-            })
+
+    const fetchData = async () => {
+        const meetings = await InfoCenterService.getTodaysMeetings()
+        if(meetings.length == 0)
+            setMeetingsLoader(prev => DataLoader.dataFinishedLoading(prev, meetings, true))
+        else
+            setMeetingsLoader(prev => DataLoader.dataFinishedLoading(prev, meetings, false))
         
-        BacklogService
-            .getSprintInfo()
-            .then(sprintInfo => {
-                if(sprintInfo == null)
-                    setSprintLoader(prev => DataLoader.dataFinishedLoading(prev, sprintInfo, true))
-                else 
-                    setSprintLoader(prev => DataLoader.dataFinishedLoading(prev, sprintInfo, false))
-            })
+
+        const sprintInfo = await BacklogService.getSprintInfo()
+        if(sprintInfo == null)
+            setSprintLoader(prev => DataLoader.dataFinishedLoading(prev, sprintInfo, true))
+        else 
+            setSprintLoader(prev => DataLoader.dataFinishedLoading(prev, sprintInfo, false))
+    }
+
+    useEffect(() => {
+       fetchData()
+
     }, [])
 
     return (
-    <div className="row">
+    <div className="row d-flex w-100">
         <div className="col-8">
             <MeetingsBlock
                 isEmpty={meetingsLoader.isEmpty}

@@ -12,10 +12,12 @@ export class DataLoader {
         return new DataLoader()
     }
 
+
     static dataFinishedLoading<T>(loader: DataLoader, data: T, isEmpty: boolean): DataLoader{
-        loader.placeholder = false
-        loader.isEmpty = isEmpty
-        loader.data = data
-        return loader
+        const copy = new DataLoader()
+        copy.placeholder = false
+        copy.isEmpty = isEmpty
+        copy.data = data
+        return copy
     }
 } 

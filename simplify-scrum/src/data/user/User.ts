@@ -32,7 +32,7 @@ export class User extends Object implements UserInfo {
     }   
 
     static default(): User {
-        return new User('', '', '', 'Test')
+        return new User('', '', '', '')
     }
 
     static createLoginUser = (login: string, password: string) => {

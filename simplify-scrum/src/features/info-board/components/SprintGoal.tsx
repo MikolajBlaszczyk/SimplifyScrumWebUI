@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function SprintGoal({isPlaceholder, isEmpty, sprint}: Props){
-    if(isPlaceholder){
+    if(isPlaceholder == true){
         return (
             <div className="s-bg-daily shadow  s-info-goal-sprint justify-content-center align-items-center d-flex opacity-50">
                 <Placeholder />
@@ -17,8 +17,8 @@ export function SprintGoal({isPlaceholder, isEmpty, sprint}: Props){
     }
 
     return(
-        <div className="s-bg-daily shadow  s-info-goal-sprint ">
-            <h4>
+        <div className={`${isEmpty == true && ' justify-content-center align-items-center d-flex justify '} s-bg-daily shadow  s-info-goal-sprint `}>
+            <h4 className={isEmpty == true ? 'text-center s-h3' : ''}>
                 {
                     isEmpty == false ? 
                     `Goal of the sprint is - ${sprint?.goal}`

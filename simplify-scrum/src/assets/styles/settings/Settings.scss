@@ -11,13 +11,6 @@
     }
 
 
-    .s-settings-editable{
-        transition: transform 0.1s ease;
-        &:not(:has(select)):hover{
-
-            transform: translateX(15px) ;
-        }
-    }
 }
 
 .s-settings-card{

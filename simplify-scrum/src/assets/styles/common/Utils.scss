@@ -102,6 +102,18 @@ $common-heading-fs: 28.43px;
 
 .s-border-placeholder {
     border-style: dashed !important;
-    border-color: black;
+    border-color: #495058;
     border-width: 1px;
+}
+
+.w-fit-content {
+    width: fit-content !important;
+}
+
+.s-min-w-80{
+    min-width: 80% !important;
+}
+
+.s-w-20{
+    width: 20% !important;
 }

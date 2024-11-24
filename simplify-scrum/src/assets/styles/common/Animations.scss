@@ -11,5 +11,51 @@
     text-align: center;
     padding: 20px;
 }
-  
 
+
+
+.swipeable-row {
+    position: relative;
+    transition: transform 0.3s ease;
+    min-width: 100% !important;
+    &.swiping {
+      transform: translateX(var(--swipe-amount, 0));
+    }
+  
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+  
+    &::before {
+      content: 'Delete';
+      left: -100px;
+      background-color: $red;
+    }
+  
+    &::after {
+      content: 'Edit';
+      right: -100px;
+      background-color: $green;
+    }
+  
+    &.swiping::before {
+      opacity: calc(1 - (var(--swipe-amount, 0) / -100));
+    }
+  
+    &.swiping::after {
+      opacity: calc(var(--swipe-amount, 0) / 100);
+    }
+  }
+  

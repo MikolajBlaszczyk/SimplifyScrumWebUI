@@ -8,9 +8,9 @@ interface Props {
 }
 
 export function SprintEnd({isPlaceholder, isEmpty, sprint}: Props){
-    if(isPlaceholder){
+    if(isPlaceholder == true){
         return(
-        <div className="s-bg-critical shadow s-info-end-sprint d-flex justify-content-center align-items-center opacity-50">
+        <div className="s-bg-critical shadow s-info-end-sprint d-flex  justify-content-center align-items-center opacity-50">
             <Placeholder />
         </div>
         )
@@ -29,8 +29,9 @@ export function SprintEnd({isPlaceholder, isEmpty, sprint}: Props){
 
 
     return(
-        <div className="s-bg-critical shadow s-info-end-sprint">
-            <h4>
+        
+        <div className={`${isEmpty == true && ' justify-content-center align-items-center d-flex justify '} s-bg-critical shadow  s-info-end-sprint`}>
+            <h4 className={isEmpty == true ? 'text-center s-h3' : ''}>
                 {
                     isEmpty == false ? 
                     `Sprint ends in ${sprintEnd()}`

@@ -30,7 +30,7 @@ export function DragableFeature({feature, setFeatures}: Props){
         <div ref={drag} className="card ">
             <div className="card-body s-card-body">
                 <h4 className="card-title common-header">
-                    {feature.title}
+                    {feature.name}
                 </h4>
                 <p className="card-text mt-1">
                     {feature.description}

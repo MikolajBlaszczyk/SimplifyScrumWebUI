@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AlertContext, AlertingState, LoadingContext, UserContext } from "../context/ContextsIndex"
+import { AlertContext, AlertingState, BacklogContext, LoadingContext, UserContext } from "../context/ContextsIndex"
 import { ModalContext } from "../context/ModalContext";
 
 export function useLoading(){
@@ -16,4 +16,8 @@ export function useAlerting(){
 
 export function useModalForm(){
     return useContext(ModalContext)
+}
+
+export function useBacklog(){
+    return useContext(BacklogContext)
 }

@@ -9,17 +9,20 @@ import { GenericEnumService } from "../enum/GenericEnumService";
 const apiUrl = `${process.env.REACT_APP_SIMPLIFY_API}` 
 
 export class BacklogService{
-    
+
     static async getSprintInfo(): Promise<Sprint>{
         const url = apiUrl + '/sprint/info'
         const response = await RequestFacotry.createGetRequest(url)
 
         if(response.status == HttpStatusCode.Ok){
             response.data = DataMapper.mapDayDate(response.data)
+        } else if (response.status == HttpStatusCode.NoContent){
+            return null as unknown as Sprint
         }
         
         return response.data
     }
+    
 
     static getTeams(): Team[] {
         return []
@@ -31,6 +34,13 @@ export class BacklogService{
 
     static async getFeaturesForProject(projectGUID: string): Promise<Feature[]>{
         const url = apiUrl + `/project/features?projectGUID=${projectGUID}`
+        const response = await RequestFacotry.createGetRequest(url)
+        
+        return response.data
+    }
+
+    static async getFeature(featureGUID: string): Promise<Feature>{
+        const url = apiUrl + `/feature?featureGUID=${featureGUID}`
         const response = await RequestFacotry.createGetRequest(url)
         
         return response.data
@@ -51,11 +61,19 @@ export class BacklogService{
     }
 
     static async getTasksForFeature(featureGUID: string): Promise<Task[]>{
-        const url = apiUrl + `/feature/tasks?featureGUID=${featureGUID}`
+        const url = apiUrl + `/features/tasks?featureGUID=${featureGUID}`
         const response = await RequestFacotry.createGetRequest(url)
 
         return response.data
     }
+
+    static async getTask(id: number): Promise<Task> {
+        const url = apiUrl + `/task?taskID=${id}`
+        const response = await RequestFacotry.createGetRequest(url);
+
+        return response.data
+    }
+  
 
     static async addTask(task: Task): Promise<boolean> {
         const url = apiUrl + "/task/add"
@@ -72,10 +90,28 @@ export class BacklogService{
     }
 
     static async getProjects(): Promise<Project[]> {
-        const url = apiUrl + '/projects'
-        const response = await RequestFacotry.createGetRequest(url)
+        try {
+            const url = apiUrl + '/projects'
+            const response = await RequestFacotry.createGetRequest(url)
+          
+            return response.data.map((project: Project) => DataMapper.mapDayDateBacklogItems(project)) 
+        } catch(err){
+            console.log(err)
+            return null as unknown as Project[]
+        }
+      
+    }
 
-        return response.data 
+    static async getProject(guid: String): Promise<Project> {
+        try {
+            const url = apiUrl + `/project?projectGUID=${guid}`
+            const response = await RequestFacotry.createGetRequest(url)
+
+            return DataMapper.mapDayDateBacklogItems(response.data)
+        } catch(err) {
+            console.log(err)
+            return null as unknown as Project
+        }
     }
 
     static async addProject(project: Project): Promise<boolean> {
@@ -119,5 +155,13 @@ class DataMapper {
             ...sprint,
             date: new Date(sprint.end)
         })
+    }
+
+    static mapDayDateBacklogItems = (item: any) => {
+        return ({
+            ...item,
+            createdOn: new Date(item.createdOn),
+            lastUpdatedOn: new Date(item.lastUpdatedOn)
+        }) 
     }
 }

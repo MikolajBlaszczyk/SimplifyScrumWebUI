@@ -9,6 +9,7 @@ export enum Button{
     Info,
     Transparent,
     Borderless,
+    Bordered,
     Underlined,
     Dark
 }
@@ -43,6 +44,7 @@ const typeClasses = {
     [Button.Info]: "btn-info",
     [Button.Transparent]: "btn-outline-dark",
     [Button.Borderless]: "btn-outline-dark border-0",
+    [Button.Bordered]: "btn-outline-dark",
     [Button.Dark]: 's-bg-text',
     [Button.Underlined]: 's-button-underlined'
     
@@ -66,7 +68,7 @@ export function SimpleButton({title, icon, iconOnTheRight, onClick, type, font, 
     return(
         <button
             type="button"
-            className={`btn m-0 ${typeClasses[type]} ${colorClasses[fontColor!] ?? 's-color'} ${fontClasses[font!] ?? 'h6'} s-button`} 
+            className={`btn  m-0 ${typeClasses[type]} ${colorClasses[fontColor!] ?? 's-color'} ${fontClasses[font!] ?? 'h6'} s-button`} 
             onClick={onClick}
             style={{minWidth: minWidth ?? ''}}>
             {!iconOnTheRight && icon != null && (<i className={`bi ${icon} me-2`}></i>)}

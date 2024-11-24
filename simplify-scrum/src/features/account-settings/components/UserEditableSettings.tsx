@@ -18,14 +18,13 @@ export function UserEditableSettings({icon, label, value, onChange, placeholder 
         <SimpleIcon 
             icon={icon} 
             font={Fonts.H5} />
-        <div className="ms-2 d-flex justify-content-between w-100 align-items-center border-bottom s-settings-editable">
+        <div className="ms-2 ps-1 d-flex justify-content-between w-100 align-items-center  rounded s-settings-editable">
             <h6 className="m-0 user-select-none">
                     {label}
             </h6> 
             <SimpleTextInput 
                 value={value}
                 alignment={Alignment.End}
-                placeholder={placeholder}
                 changeValue={onChange}
                 color={BgColor.Transparent}
                 fontcolor={FontColor.Dark}/> 
