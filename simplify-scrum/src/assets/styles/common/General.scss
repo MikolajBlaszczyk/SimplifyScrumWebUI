@@ -216,10 +216,26 @@ input[type="range"]::-moz-range-thumb {
     min-width: 80% !important;
 }
 
+.s-w-80{
+    width: 80% !important;
+}
+
 .s-w-20 {
     width: 20% !important;
 }
 
 .s-w-5 {
     width: 20% !important;
+}
+
+input {
+    &:focus {
+        outline: none !important;
+    }
+}
+input[type="password"] {
+    text-align: center;
+    &::placeholder {
+        line-height: normal;
+    }
 }

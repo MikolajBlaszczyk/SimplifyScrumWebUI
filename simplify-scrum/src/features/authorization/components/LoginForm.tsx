@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import SecureLogin from "../../../assets/img/secure_login.svg"
 import { Link, useNavigate } from 'react-router-dom';
 import { Global, UserContext } from "../../../context/ContextsIndex";
-import { Destination, destinationPaths, Fonts } from "../../../utils/UtilsIndex";
+import { BgColor, Destination, destinationPaths, FontColor, Fonts } from "../../../utils/UtilsIndex";
 import { LoginService } from "../services/LoginService"
 import { AuthProperties } from "../data/Index"
 import { Button, Color,  SimpleButton, SimpleTextInput, TextType } from "../../../components/ComponentsIndex";
@@ -40,19 +40,25 @@ export default function LoginForm(props: AuthProperties){
     }
 
     return (
-        <form onSubmit={e => {e.preventDefault()}} className="d-flex flex-column w-100 h-100  ps-2 pe-2  s-form-transition" style={{padding: 50}}>
-            <div className="pb-3">
+        <form onSubmit={e => {e.preventDefault()}} className="d-flex flex-column w-100 h-100  justify-content-center align-items-center ps-2 pe-2  s-form-transition" style={{padding: 50}}>
+            <div className="pb-3 s-w-80">
                 <SimpleTextInput 
                     label="Login"
                     placeholder="username"
+                    color={BgColor.Dark}
+                    fontcolor={FontColor.Dark}
+                    icon="bi-person"
                     value={login} 
                     changeValue={e => {setLogin(e.target.value)}} />
             </div>
 
-            <div className="pb-3 pt-1">
+            <div className="pb-3 pt-1 s-w-80">
                 <SimpleTextInput 
                     label="Password"
                     type={TextType.Password}
+                    color={BgColor.Dark}
+                    fontcolor={FontColor.Dark}
+                    icon="bi-eye"
                     placeholder="**********"
                     value={password}
                     changeValue={e => {setPassword(e.target.value)}}
@@ -63,7 +69,7 @@ export default function LoginForm(props: AuthProperties){
                 <SimpleButton
                     type={Button.Dark}
                     fontColor={Color.Light}
-                    font={Fonts.P}
+                    font={Fonts.H6}
                     title={"Login"}
                     icon="bi-arrow-right"
                     iconOnTheRight={true}
@@ -74,7 +80,7 @@ export default function LoginForm(props: AuthProperties){
                 <SimpleButton 
                     type={Button.Underlined}
                     title="Create account"
-                    font={Fonts.Small}
+                    font={Fonts.P}
                     onClick={(e => {props.setDisplayLogin(false)})}/>
             </div>
         </form>

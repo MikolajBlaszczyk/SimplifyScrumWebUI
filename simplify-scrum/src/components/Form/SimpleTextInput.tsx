@@ -25,7 +25,7 @@ const textTypes = {
 const alignmentClasses = {
     [Alignment.Start]: 'text-start',
     [Alignment.End]: 'text-end',
-    default: 'text-start'
+    default: 'text-end'
 }
 
 interface Props {
