@@ -18,9 +18,8 @@ interface Props {
 export function SimpleSelectionInput({label, icon, selectedValue, onSelectedValueChange, options}: Props){
 
 
-
     return(
-        <div className="d-flex align-items-center  mb-1">
+        <div className="d-flex align-items-center border rounded ps-1 pe-2 mb-2">
             {icon && <SimpleIcon 
                 icon={icon} 
                 font={Fonts.H5} /> }
@@ -28,7 +27,7 @@ export function SimpleSelectionInput({label, icon, selectedValue, onSelectedValu
                 <h6 className="m-0 mt-2 mb-2 user-select-none me-2">
                         {label}
                 </h6> 
-                <select  className="s-select border rounded" value={(selectedValue)} onChange={(e) =>{ onSelectedValueChange(e.target.value)}}>
+                <select  className=" border-0" value={(selectedValue)} onChange={(e) =>{ onSelectedValueChange(e.target.value)}}>
                 <option disabled selected>Choose</option>
                 {
                     options.map(option =>{

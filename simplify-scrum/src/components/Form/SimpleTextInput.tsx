@@ -44,31 +44,32 @@ interface Props {
 
 export function SimpleTextInput({icon, label, placeholder, value, changeValue, disabled, readonly, type, color, fontcolor, alignment}: Props){
 
+    let bgColor = bgColorClasses[color!] ?? bgColorClasses.default
+    let bgInputColor = bgColorClasses[color == BgColor.Dark ? BgColor.DarkSubtle : color!] ?? bgColorClasses.default
+    let fontColor = fontColorClasses[fontcolor!] ?? fontColorClasses.default
+    let alignmentStyle = alignmentClasses[alignment!] ?? alignmentClasses.default
+
 
     return(
-        <div className={`d-flex justify-content-between w-100 mb-1  ${bgColorClasses[color!] ?? bgColorClasses.default}`}>
-                
-
-            <SimpleIcon 
-                icon={`bi ${icon}`} 
-                font={Fonts.H5} />
-                
-                <div className="ms-2 d-flex  justify-content-between w-100 align-items-start">
-                    <h6 className="m-0 mt-1  mb-2 user-select-none me-2">
-                            {label}
-                    </h6> 
-                    <input 
-                        type={textTypes[type!] ?? textTypes.default}
-                        className={`border rounded s-input  p-1  d-flex s-min-w-80 ${bgColorClasses[color!] ?? bgColorClasses.default} ${fontColorClasses[fontcolor!] ?? fontColorClasses.default} ${alignmentClasses[alignment!] ?? alignmentClasses.default}`}
-                        value={value} 
-                        onChange={e => {changeValue(e)}}
-                        placeholder={placeholder || undefined}
-                        disabled={disabled || undefined}
-                        readOnly={readonly || undefined}/>
-         
-                </div>
-               
-           
+        <div className={`d-flex ps-1 pe-2 border h-100 rounded overflow-hidden align-items-center justify-content-between w-100 ${bgColor}`}>
+            {icon && (
+                <SimpleIcon 
+                    icon={`bi ${icon}`} 
+                    font={Fonts.H5} 
+                />
+            )}
+            <h6 className="m-0 user-select-none me-2 h-100 d-flex align-items-center">
+                {label}
+            </h6> 
+            <input 
+                type={textTypes[type!] ?? textTypes.default}
+                className={`border-0 d-flex w-100 h-100 ${bgInputColor} ${fontColor} ${alignmentStyle}`}
+                value={value} 
+                onChange={e => {changeValue(e)}}
+                placeholder={placeholder || undefined}
+                disabled={disabled || undefined}
+                readOnly={readonly || undefined}
+            />
         </div>
     )
 }

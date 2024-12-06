@@ -6,7 +6,7 @@ import { Type } from "typescript"
 import { PutHandler } from './handlers/PutHandler';
 import { DeleteHandler } from "./handlers/DeleteHandler"
 
-export class RequestFacotry {
+export class RequestFactory {
     static async createUnauthorizedGetRequest(url: string) {
         const get = new GetHandler()
 
@@ -62,8 +62,8 @@ export class RequestFacotry {
     }
 
     static async createDeleteRequest(url: string, data: any) {
-         const deleteH = new DeleteHandler()
-         const addToken = new TokenHandler(deleteH)
+         const deleteHandler = new DeleteHandler()
+         const addToken = new TokenHandler(deleteHandler)
 
          return await addToken.handle({
             instance: axios.create(),

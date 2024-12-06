@@ -1,124 +1,189 @@
 import { useEffect, useState } from "react"
-import { MeetingFactory, Meeting, MeetingType, User } from "../../../../data/CommonDataIndex"
-import { MeetingEnumService, MeetingSerivce } from "../../../../services/CommonServicesIndex"
-import { useLoading } from "../../../../hooks/HooksIndex"
+import { MeetingFactory, Meeting, MeetingType, User, DayModel } from "../../../../data/CommonDataIndex"
+import { EnumService, MeetingEnumService, MeetingSerivce } from "../../../../services/CommonServicesIndex"
+import { useAlert, useLoading, useModal } from "../../../../hooks/HooksIndex"
 import { AccountService } from "../../../account-settings/service/AccountService"
-import { SelectItem, SimpleDateInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
+import { Color, SelectItem, SimpleDateInput, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
 import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
 import { DateConverter } from '../../../../utils/utility-services/DateSerivces';
+import { BgColor, FontColor } from "../../../../utils/UtilsIndex"
+import { GenericEnumService } from "../../../../services/enum/GenericEnumService"
+import { AlertType } from "../../../alerting/components/Alert"
+
+
+enum Action {
+    Add,
+    Update
+}
 
 interface properties{
-    initialMeeting: Meeting | null
+    meetingGuid?: string,
     clickedDay: Date
 }
 
 
-export default function SimpleMeetingForm(props: properties){
+interface State {
+    guid?: string,
+    name: string,
+    description: string,
+    type: MeetingType,
+    leaderGuid: string,
+    start: Date,
+    duration: number
+}
+
+
+export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties){
+    const showAlert = useAlert()
+    const {shouldReload: isLoading, setShouldReload: setIsLoading} = useLoading()
+
     const [leadersOptions, setLeadersOptions] = useState<SelectItem[]>([])
-    const [selectedLeader, setSelectedLeaeder] = useState<User>(User.default())
+    const [meetingOptions, setMeetingOptions] = useState<SelectItem[]>([])
 
-    let meetingOptions: SelectItem[] = []
+    const [action, setAction] = useState<Action>(meetingGuid == undefined ? Action.Add : Action.Update)
+    const [form, setForm] = useState<State>({
+        name: '',
+        description: '',
+        type: MeetingType.custom,
+        leaderGuid: '',
+        start: clickedDay,
+        duration: 0
+     } as State)
 
-    const {initialMeeting, clickedDay} = props
-    const {isLoading, setIsLoading} = useLoading()
-    const [isNew, setIsNew] = useState(initialMeeting == null)
    
-    const [editedMeeting, setEditedMeeting] = useState<Meeting>(
-        MeetingFactory.copy(initialMeeting ?? {...MeetingFactory.default, start: clickedDay})
-    )
+    
+   
+    const save = async () => {
+        const {name, description, type, leaderGuid, start, duration, guid} = form
+        if(name == '' || leaderGuid == ''){
+            showAlert(AlertType.Danger, 'Please fill all fields', "Error")
+            return
+        }
+        
+        let meeting = MeetingFactory.createMeeting(name, description, type, leaderGuid, start, DateConverter.convertDateToTimeString(new Date(0,0,0,0,duration)), [])
+        meeting.guid = guid ?? ""   
+         await MeetingSerivce.AddOrUpdate(meeting)
+        setIsLoading(isLoading + 1)
+    }
+
+   
+
+    const fetchMeeting = async () => {
+        if(meetingGuid == undefined)
+            return
+        
+
+        const meeting = await MeetingSerivce.getMeeting(meetingGuid!)
+        setForm(prev => ({
+            ...prev,
+            name: meeting.name,
+            description: meeting.description,
+            type: meeting.type,
+            leaderGuid: meeting.leaderGuid,
+            start: meeting.start,
+            duration: DateConverter.convertTimeStringtoDate(meeting.duration).getMinutes(),
+        }))
+    }
+
+    const fetchData = async () => {
+        const users = await AccountService.getUsers();
+        
+        setLeadersOptions(users.map(user => {
+            const item: SelectItem = {
+                value: user.id,
+                description: user.nickname
+            }
+            return item
+        }))
+
+        const types = GenericEnumService.getEnumNames(MeetingType)
+
+        setMeetingOptions(types.map(type => {
+            const enumValue = MeetingType[type as keyof typeof MeetingType];
+            const item: SelectItem = {
+                value: enumValue.toString(),
+                description: type
+            }
+            return item
+        }))
+
+        await fetchMeeting()
+    }
 
     useEffect(() => {
-       
-    }, [])
+        if(meetingGuid != undefined){
+            setAction(Action.Update)
+        }
 
-    const addMeeting = () => { 
-        AccountService.getInfo()
-            .then(data => {
-                const newValue =  {...editedMeeting, userIdentifiers: [...editedMeeting.userIdentifiers, data.id ]}
-
-                if(isNew) {
-                    MeetingSerivce
-                        .Add(newValue)
-                        .then(data => {setIsLoading(isLoading + 1)})
-                    return
-                }
+        fetchData()
         
-                MeetingSerivce
-                    .UpdateMeeting(editedMeeting)
-                    .then(data => {
-                        setIsLoading(isLoading + 1)
-                        setEditedMeeting(editedMeeting)
-                    })
-                
+        if(meetingGuid != undefined){
+            setForm(prev => ({...prev, guid: meetingGuid}))
+        }
 
-            })
-    }
+    }, [meetingGuid])
 
-    const removeMeeting = () => {
-        MeetingSerivce
-            .DeleteMeeting(editedMeeting)
-            .then(data => {setIsLoading(isLoading + 1)})
-
-    }
-
-    //#region inputs
-    
-    const changeName = (newValue: string) => {
-        setEditedMeeting(prev => ({...prev, name: newValue}))
-    }
-
-    const changeDescription = (newValue: string) => {
-        setEditedMeeting(prev => ({...prev, description: newValue}))
-    }
 
     const onLeaderChange = (newValue: string) => {
-        setEditedMeeting(prev => ({...prev, leaderId: newValue}))
+        setForm(prev => ({...prev, leaderGuid: newValue}))
     }
 
-    const onMeetingStartChange = (newValue: string) => {
-        setEditedMeeting(prev => ({...prev, start: new Date(newValue)}))
+    const onMeetingTypeChange = (newValue: string) => {
+        const meetingTypeValue = newValue as keyof typeof MeetingType;
+        const meeting = MeetingType[meetingTypeValue];
+        setForm(prev => ({...prev, type: meeting}))
     }
-
-    const onMeetingTypeChnage = (newValue: string) => {
-        const newType = MeetingType[newValue as keyof typeof MeetingType]
-        setEditedMeeting(prev => ({...prev, type: newType}))
-    }
-
-    const onDurationChange = (newValue: number) => {
-        const newDuration = DateConverter.convertDateToTimeString(new Date(0, 0, 0,0, newValue))
-        setEditedMeeting(prev => ({...prev, duration: newDuration }))
-    } 
-
-    //#endregion inputs
-    
   
 
     return (
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column p">
                 <SimpleTextInput 
+                    icon="bi-alphabet"
                     label="Name"
-                    value={editedMeeting.name}
-                    changeValue={(e) => changeName(e.target.value)}/>
-                <SimpleTextInput 
+                    value={form.name}
+                    fontcolor={FontColor.Dark}
+                    color={BgColor.Transparent}
+                    changeValue={(e) => setForm(prev =>  ({...prev, name: e.target.value}))}/>
+                <div className="mt-1 mb-2"></div>
+                <SimpleMultiLineTextInput 
+                    icon="bi-card-text"
                     label="Description"
-                    value={editedMeeting.description}
-                    changeValue={(e) => changeDescription(e.target.value)}/>
+                    value={form.description}
+                    onChange={e => setForm(prev => ({...prev, description: e.target.value}))}/>
+
+                <SimpleSelectionInput
+                    icon="bi-calendar-event"
+                    label="Type"
+                    selectedValue={MeetingType[form.type]} 
+                    onSelectedValueChange={e => onMeetingTypeChange(e)} 
+                    options={[...meetingOptions]} />
+
+                <SimpleSelectionInput
+                    icon="bi-person-fill"
+                    label="Leader"
+                    selectedValue={form.leaderGuid ?? ""} 
+                    onSelectedValueChange={e => onLeaderChange(e)} 
+                    options={[...leadersOptions]} />
 
                 <SimpleDateInput 
-                    value={new Date(editedMeeting.start)} 
-                    onValueChange={onMeetingStartChange}/>
+                    label="Date"
+                    icon=""
+                    value={new Date(form.start)} 
+                    onValueChange={e =>  setForm(prev => ({...prev, start: new Date(e)}))}/>
 
                 <SimpleDurationInput 
+                    label="Duration"
+                    icon="bi-clock"
                     minValue={0} 
                     maxValue={60} 
-                    value={DateConverter.convertTimeStringtoDate(editedMeeting.duration).getMinutes()} 
-                    onValueChange={ onDurationChange }/>
+                    value={form.duration} 
+                    onValueChange={e => setForm(prev => ({...prev, duration: e}))}/>
 
                 {/* We should have a picker for type here */}
                 <div className="mt-2 d-flex justify-content-end">
                         <button 
-                            onClick={addMeeting} 
-                            className="btn">Save</button>
+                            onClick={() => save()} 
+                            className="btn">{action == Action.Add ? "Save" : "Update"}</button>
                 </div>
                 
         </div>

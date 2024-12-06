@@ -1,6 +1,7 @@
 export enum BgColor {
     Light, 
     Dark,
+    DarkSubtle,
     DarkForm,
     Transparent
 }

@@ -8,6 +8,7 @@ export class PostHandler implements RequestHandler {
     }
 
     handle({instance, url, data}: SimpleRequest){
+   
         return instance.post(url, data)
     }
 }

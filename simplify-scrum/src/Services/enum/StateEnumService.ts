@@ -1,6 +1,7 @@
-import { Role } from "../../data/CommonDataIndex"
+import { MeetingType, Role } from "../../data/CommonDataIndex"
 import { ExtendedStatus, SimpleStatus, StandardStatus } from "../../features/backlog/data/State"
 import { GenericEnumService } from "./GenericEnumService"
+import { Refinement } from '../../pages/Refinement';
 
 const simpleStateString = {
     [SimpleStatus.Doing]: 'Doing',
@@ -35,6 +36,14 @@ const roleString = {
     [Role.ProjectOwner]: "Project owner"    
 }
 
+const meetingEnumDescriptions = { 
+    [MeetingType.custom]: "Custom",
+    [MeetingType.daily]: "Daily",
+    [MeetingType.refinement]: "Refinement",
+    [MeetingType.retrospective]: "Retrospective",
+    [MeetingType.planning]: "Planning"
+}
+
 export class EnumService {
 
     //#region State enums
@@ -47,6 +56,7 @@ export class EnumService {
 
         return keys[stringValue] as SimpleStatus
     }
+
 
     static convertStandardStatusToString = (state: StandardStatus) => {
         return standardStateString[state]
@@ -67,6 +77,7 @@ export class EnumService {
 
         return keys[stringValue]  as ExtendedStatus
     }
+
     //#endregion
 
     //#region Role enum 
@@ -83,4 +94,18 @@ export class EnumService {
 
     //#endregion
 
+    //#region MeetingType enum
+
+    static convertMeetingToString = (meetingType: MeetingType) => {
+        return meetingEnumDescriptions[meetingType]
+    }
+
+    static convertStringToMeeting = (meetingTypeAsString: string) => {
+        const keys = GenericEnumService.getEnumDictionary(MeetingType) 
+
+        return keys[meetingTypeAsString] as MeetingType
+    }
+
+
+    //#endregion
 }

@@ -19,7 +19,7 @@ export function SimpleMultiLineTextInput({value, onChange, label, icon}: Props){
                         {label}
                 </h6> 
             </div>
-            <textarea className="s-textarea mb-1 border-0" style={{minWidth: "40vw", minHeight: "30vh"}} value={value} onChange={onChange}/>
+            <textarea className="s-textarea mb-1 border-0" style={{ minHeight: "30vh"}} value={value} onChange={onChange}/>
         </div>
     )
 }

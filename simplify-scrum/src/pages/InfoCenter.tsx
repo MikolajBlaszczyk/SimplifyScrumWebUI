@@ -12,18 +12,11 @@ import { ComponentSize } from "../utils/UtilsIndex";
 export function InfoCenter(){
     const today = new Date()
     const {settings, setSettings} = useSettings()
-    const {isLoading, setIsLoading} =  useLoading();
-    const [schedule, setSchedule] = useState<ScheduleModel>({
-        month: (today.getMonth()) as Month,
-        days: DayFactory.createDaysForCurrentMonth(today)
-    })
+    const {shouldReload: isLoading, setShouldReload: setIsLoading} =  useLoading();
+
 
     useEffect(() => {
         setSettings({...settings, showNavbar:true})
-
-        MeetingSerivce.GetMeetings()
-        .then(data => setSchedule(data))
-        .catch(error => console.log(error))
 
         
     }, [isLoading])
@@ -33,7 +26,7 @@ export function InfoCenter(){
             [
             <InfoBoard/>,
             <SideBySideLayout 
-                rightSide={<SimpleCalendar initialDate={today} schedule={schedule} size={ComponentSize.Fit}/>} 
+                rightSide={<SimpleCalendar initialDate={today} />} 
                 leftSide={<NotificationSheet />} 
                 alignment={Alignment.SideItemLeft} />
         ]} />

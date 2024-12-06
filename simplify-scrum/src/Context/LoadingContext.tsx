@@ -1,13 +1,13 @@
 import React, { createContext, useMemo, useState } from "react";
 
 interface Loading{
-    isLoading: number
-    setIsLoading: (value: number)=> void
+    shouldReload: number
+    setShouldReload: (value: number)=> void
 }
 
 export const LoadingContext = createContext<Loading>({
-    isLoading: 0,
-    setIsLoading: () => null
+    shouldReload: 0,
+    setShouldReload: () => null
 })
 
 export const LoadingProvider = ( {children}: React.PropsWithChildren<{}>) => {
@@ -17,7 +17,7 @@ export const LoadingProvider = ( {children}: React.PropsWithChildren<{}>) => {
         setReload(value)
     }
 
-    const cachedValue = useMemo<Loading>(() => ({isLoading: reload, setIsLoading: setReloadValue}), [reload])
+    const cachedValue = useMemo<Loading>(() => ({shouldReload: reload, setShouldReload: setReloadValue}), [reload])
 
     return <LoadingContext.Provider value={cachedValue}>
         {children}

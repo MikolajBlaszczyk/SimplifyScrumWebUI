@@ -7,7 +7,7 @@ interface Props {
 
 export function SimpleIcon({icon, font}: Props){
     return( 
-        <div className="d-flex s-icon">
+        <div className="d-flex justify-start s-icon m-1">
             <i className={`bi ${icon} ${fontClasses[font]}`}></i>
         </div>
     )

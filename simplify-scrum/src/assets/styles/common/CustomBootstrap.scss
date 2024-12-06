@@ -1,9 +1,9 @@
+$green: #187d18 !important;
+$blue: #2c2c8b !important;
+$purple: #3f176f !important;
+$white: #f4e9e9 !important;
+$orange: #e8961c !important;
 
-$green: #187d18;
-$blue: #2c2c8b;
-$purple: #3f176f;
-$white: #f4e9e9;
-$orange: #e8961c;
 
 .bg-dark-darker{
     background-color: var(--bs-dark-darker);
@@ -13,14 +13,12 @@ $orange: #e8961c;
     font-size: 12px
 }
 
-button {
-    transition: transform 0.3s ease !important;
-    &:hover{
-        transform: scale(1.15) !important;
-    }
-}
+
+
 
 .s-input {
+    display: flex;
+    height: 100%;
     transition: transform 0.1s ease;
     &:not(:has(select)):hover{
 

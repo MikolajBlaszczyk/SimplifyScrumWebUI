@@ -1,3 +1,6 @@
+$s-dark: #343a40;
+$s-dark-darker: darken($s-dark, 10%);
+
 
 $s-text: #0a0717;
 $s-background: #fafafa;
@@ -14,6 +17,9 @@ $info: #1BE7FF;
 $warning: #FE9920; 
 $danger: #feb0b5;
 
+
+$accent-color: #e8961c !important;
+$hover-color: #495057 !important;
 
 
 $linearPrimarySecondary: linear-gradient(#00ff8c, #cafe76);
@@ -60,6 +66,11 @@ $common-heading-fs: 28.43px;
     background-color: #110c27 !important;
   
 }
+
+.s-bg-dark-subtle{
+    background-color: $s-dark-darker  !important;
+}
+
 
 .s-bg-form {
     background-color: $s-form !important;
@@ -115,5 +126,9 @@ $common-heading-fs: 28.43px;
 }
 
 .s-w-20{
+    width: 20% !important;
+}
+
+.s-w-5{
     width: 20% !important;
 }

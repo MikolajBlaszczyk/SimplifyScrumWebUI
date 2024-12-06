@@ -1,5 +1,5 @@
 import { Team, User} from "../../../data/CommonDataIndex"
-import { RequestFacotry as RequestFactory } from "../../../services/api/RequestFactory"
+import { RequestFactory as RequestFactory } from "../../../services/api/RequestFactory"
 
 const apiUrl = `${process.env.REACT_APP_SIMPLIFY_API}` 
 

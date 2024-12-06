@@ -1,4 +1,6 @@
+import { SimpleIcon } from "../../../../components/ComponentsIndex"
 import { DayModel } from "../../../../data/CommonDataIndex"
+import { Fonts } from "../../../../utils/UtilsIndex"
 
 
 interface SimpleModalProps{
@@ -14,7 +16,8 @@ export default function SimpleModal(props: SimpleModalProps){
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title ">{props.day.date.toDateString()}</h5>
+                        <SimpleIcon icon={"bi-calendar-date-fill"} font={Fonts.H4}  />
+                        <h5 className="modal-title ms-2 ">{props.day.date.toDateString()}</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={props.onClose}></button>
                     </div>
 

@@ -1,4 +1,6 @@
+import { Meeting } from "../../../data/CommonDataIndex";
 import { RequestHandler, SimpleRequest } from "../ApiRequests";
+import { RequestFactory } from '../RequestFactory';
 
 export class DeleteHandler implements RequestHandler {
     next: RequestHandler;
@@ -8,6 +10,12 @@ export class DeleteHandler implements RequestHandler {
     }
 
     handle({instance, url, data}: SimpleRequest){
-        return instance.delete(url, data)
+       
+        return instance.delete(url, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        })
     }
 }

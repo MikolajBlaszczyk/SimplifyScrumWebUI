@@ -5,7 +5,7 @@ import { defaultSettings, UserContext } from "../context/UserContext"
 
 export function useCleanup(){
     const {setAlerting} = useContext(AlertContext)
-    const {isLoading, setIsLoading} = useContext(LoadingContext)
+    const {shouldReload: isLoading, setShouldReload: setIsLoading} = useContext(LoadingContext)
     const { setSettings} = useContext(UserContext)
 
     const cleanup = () => {

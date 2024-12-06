@@ -1,6 +1,6 @@
 import { HttpStatusCode } from "axios";
-import { DayModel, Meeting, ScheduleModel } from '../../data/CommonDataIndex';
-import { RequestFacotry } from "../api/RequestFactory";
+import { DayModel, Meeting, MeetingType, Schedule, ScheduleModel } from '../../data/CommonDataIndex';
+import { RequestFactory } from "../api/RequestFactory";
 
 const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings` 
 
@@ -9,51 +9,47 @@ const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings`
 export class MeetingSerivce{
 
     public static async GetMeetings(): Promise<ScheduleModel>{
-    
-        const url = meetingApiUrl + "/current"
-        const response = await RequestFacotry.createGetRequest(url)
-        
-        if(response.status == HttpStatusCode.Ok) {
+        try {
+            const url = meetingApiUrl + "/current"
+            const response = await RequestFactory.createGetRequest(url)
+            
             response.data.days = response.data.days.map((day:DayModel) => DataMapper.mapDayDate(day))
-
+            
             return response.data as ScheduleModel
-        } 
-       
-        throw new Error()
+        } catch(error) {
+            console.log(error)
+            return Schedule.empty()
+        }
     }
 
-    
-
-    public static async Add(meeting: Meeting){
+    static async getMeeting(guid: string): Promise<Meeting> {
         try {
-            const url = meetingApiUrl + "/add"
-            const data = DataMapper.createMeetingData(meeting)
-            const response = await RequestFacotry.createPostRequest(url,data )
+            const url = meetingApiUrl + `/meeting?meetingGuid=${guid}`
+            const response = await RequestFactory.createGetRequest(url)
+            return response.data as Meeting
+        } catch(error) {
+            console.log(error)
+            return {}  as Meeting
+        }
+    }
 
-            return response.status == HttpStatusCode.Ok
+    static async AddOrUpdate(meeting: Meeting){
+        try {
+            const url = meetingApiUrl + "/add" 
+            const meetingData = DataMapper.createMeetingData(meeting)
+            const response = await RequestFactory.createPostRequest(url, meetingData) 
+
+            return response.data
 
         } catch(error) {
             console.log(error)
         }
     }
 
-    public static async UpdateMeeting(meeting: Meeting){
+    public static async DeleteMeeting(guid: string){
         try {
-            const url = meetingApiUrl + "/update"
-            const data = DataMapper.createMeetingData(meeting)
-            const response = await RequestFacotry.createPostRequest(url, data)
-
-            return response.status == HttpStatusCode.Ok
-        } catch(error) {
-            console.log(error)
-        }
-    }
-
-    public static async DeleteMeeting(meeting: Meeting){
-        try {
-            const url = meetingApiUrl + "/delete"
-            const response = await RequestFacotry.createDeleteRequest(url, meeting)
-
+            const url = meetingApiUrl + "/delete?guid=" + guid
+            const response = await RequestFactory.createDeleteRequest(url, null)
             return response.status == HttpStatusCode.Ok
         } catch(error) { 
             console.log(error)
@@ -63,16 +59,16 @@ export class MeetingSerivce{
 
 class DataMapper {
     static createMeetingData(meeting: Meeting) {
-        return ({
-            Identifier: meeting.id,
+        return {
+            GUID: meeting.guid,
             Name: meeting.name,
             Description: meeting.description,
-            LeaderIdentifier: meeting.leaderId,
-            Start: meeting.start.toJSON(),
+            LeaderGuid: meeting.leaderGuid,
+            Start: meeting.start, 
             Duration: meeting.duration,
             Type: meeting.type,
-            UserGuids: meeting.userIdentifiers
-        })
+            UserGuids: meeting.userGuids
+        };
     }
 
     static mapDayDate = (day: DayModel) => {
@@ -82,3 +78,4 @@ class DataMapper {
         })
     }
 }
+

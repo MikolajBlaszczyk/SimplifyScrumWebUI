@@ -9,26 +9,27 @@ interface properties {
     clickedDay: Date
 }
 
-export default function SimpleDayInfo(props: properties){
+export default function DayInfo({meetings, clickedDay}: properties){
     const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null) 
-    const {isLoading, setIsLoading} = useLoading()
+    const {shouldReload: isLoading, setShouldReload: setIsLoading} = useLoading()
 
     const deleteMeeting = (meeting: Meeting) => {
+
         MeetingSerivce
-            .DeleteMeeting(meeting)
+            .DeleteMeeting(meeting.guid)
             .then(data => {
                 setIsLoading(isLoading + 1)
-                setSelectedMeeting(props.meetings.at(0) ?? null)
+                setSelectedMeeting(meetings.at(0) ?? null)
             })
     }
     
     return (
     <div className="container">
         <div className="row">
-            <div className="col border-secondary border-end border-opacity-50">
+            <div className="col-6 border-secondary border-end border-opacity-50">
                 <ul className="list-group">
                     { 
-                        props.meetings?.map(meeting => {
+                        meetings?.map(meeting => {
                             return (
                             <li onClick={() => setSelectedMeeting(meeting)} className=" d-flex flex-row justify-content-between list-group-item list-group-item-info">
                                 {meeting.name}
@@ -38,8 +39,8 @@ export default function SimpleDayInfo(props: properties){
                     }
                 </ul>
             </div>
-            <div className="col">
-                    <SimpleMeetingForm initialMeeting={selectedMeeting} clickedDay={props.clickedDay}/>
+            <div className="col-6">
+                    <SimpleMeetingForm meetingGuid={selectedMeeting?.guid} clickedDay={clickedDay}/>
             </div>
         </div>
     </div>
