@@ -4,6 +4,7 @@ import { DragableFeatureBoard } from "../features/planning-dashboard/components/
 import { PlannedBoard } from "../features/planning-dashboard/components/PlannedBoard";
 import { Alignment, CentralLayout, SideBySideLayout } from "../layouts/LayoutIndex";
 import { Feature } from "../features/backlog/data/DataIndex";
+import { PlanningInfo } from "../features/planning-dashboard/components/PlanningInfo";
 
 export function Planning(){
     const [features, setFeatures] = useState<Feature[]>([])
@@ -16,7 +17,8 @@ export function Planning(){
             centralComponent={ 
                 <SideBySideLayout
                     rightSide={<PlannedBoard features={features} />}
-                    leftSide={<DragableFeatureBoard intialFeatures={features} />} 
+                    leftSide={<PlanningInfo />}
+                    // leftSide={<DragableFeatureBoard intialFeatures={features} />} 
                     alignment={Alignment.Equal}/>
                 }
         />

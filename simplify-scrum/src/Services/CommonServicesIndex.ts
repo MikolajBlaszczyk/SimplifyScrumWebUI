@@ -1,3 +1,4 @@
+export * from './auth/PermissionService'
 export * from './auth/TokenAppender'
 
 export * from './backlog/BacklogService'

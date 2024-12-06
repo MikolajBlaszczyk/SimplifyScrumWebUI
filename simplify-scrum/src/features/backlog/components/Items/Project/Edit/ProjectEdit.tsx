@@ -1,10 +1,10 @@
-import { ChangeEvent, useEffect, useMemo, useState } from "react"
+import { act, ChangeEvent, useEffect, useMemo, useState } from "react"
 import { StandardStatus } from '../../../../data/State';
 import { Team } from "../../../../../../data/CommonDataIndex";
-import { Button, Color, SelectItem, SimpleButton, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../../../components/ComponentsIndex";
-import { BacklogService, ValidationService } from '../../../../../../services/CommonServicesIndex';
+import { Button, Color, SelectItem, SimpleButton, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleSwitch, SimpleTextInput } from "../../../../../../components/ComponentsIndex";
+import { BacklogService, PermissionService, ValidationService } from '../../../../../../services/CommonServicesIndex';
 import { EnumService } from '../../../../../../services/enum/StateEnumService';
-import { UserEditableSettings } from "../../../../../account-settings/components/UserEditableSettings";
+import { UserEditableSettings, UserCheckboxSetting } from '../../../../../account-settings/components/UserEditableSettings';
 import { GenericEnumService } from "../../../../../../services/enum/GenericEnumService";
 import { AccountService } from "../../../../../account-settings/service/AccountService";
 import { BgColor, FontColor, Fonts } from "../../../../../../utils/UtilsIndex";
@@ -19,9 +19,12 @@ interface Props {
 
 export default function ProjectEdit({guid}: Props) {
     const showAlert = useAlert()
+    const [isProjectOwner, setIsProjectOwner] = useState<boolean>(false)
+
     const [name, setName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [state, setState] = useState<StandardStatus>(StandardStatus.New)
+    const [active, setActive] = useState<boolean>(true)
     const [team, setTeam] = useState<Team>(Team.default())
     const [teams, setTeams] = useState<Team[]>([])
 
@@ -38,6 +41,11 @@ export default function ProjectEdit({guid}: Props) {
             if(currentTeam.length == 1)
                 setTeam(currentTeam[0])
         }
+    }
+
+    const checkProjectOwner = async () => {
+        const isPo = await PermissionService.isProjectOwner();
+        setIsProjectOwner(isPo)
     }
 
 
@@ -80,6 +88,7 @@ export default function ProjectEdit({guid}: Props) {
             })
 
         fetchData()
+        checkProjectOwner()
     }, [])
 
     
@@ -117,20 +126,28 @@ export default function ProjectEdit({guid}: Props) {
                 color={BgColor.Transparent}
                 fontcolor={FontColor.Dark}
                 icon="bi-alphabet"/> 
-            <div className="mt-1"></div>
+            <div className="mt-2"></div>
             <SimpleSelectionInput 
                 label="State"
                 icon="bi-check-all"
                 selectedValue={EnumService.convertStandardStatusToString(state)}
                 onSelectedValueChange={e => {setNewState(e)}}
                 options={stateOptions} /> 
-            <div className="mt-1"></div>
+            <div className="mt-2"></div>
             <SimpleSelectionInput 
                 label="Team"
                 icon="bi-people-fill"
                 selectedValue={team.guid}
                 onSelectedValueChange={e => {setNewTeam(e)}}
                 options={teamOptions} /> 
+            <div className="mt-2"></div>
+            <SimpleSwitch 
+                icon="bi-check2"    
+                label="Active project"
+                disabled={isProjectOwner == false}
+                isChecked={active}
+                onValueChange={e => {setActive(e.target.checked)}} />
+
             <div className="mt-1 mb-1"></div>
             <SimpleMultiLineTextInput
                 label="Description"
@@ -139,22 +156,21 @@ export default function ProjectEdit({guid}: Props) {
                 onChange={(e) => {setDescription(e.target.value)}} />
          
 
-        <div className="mt-4 d-flex p-2 justify-content-end">
-                <SimpleButton 
-                    type={Button.Primary}
-                    title={guid == undefined ? "Save" : "Update"} 
-                    fontColor={Color.Light}
-                    font={Fonts.H5}
-                    onClick={() => {createProject()}} />
-
-                <div className="ms-3"></div>
-
+        <div className="mt-4 d-flex  justify-content-between">
                 <SimpleButton 
                     type={Button.Danger}
                     title={guid == undefined ? "Abort" : "Delete"} 
                     fontColor={Color.Light}
                     font={Fonts.H5}
-                    onClick={() => {showAlert(AlertType.Warning, "Not implemented yet")}} />
+                    onClick={() => {showAlert(AlertType.Warning, "Not implemented yet")}} /> 
+
+
+                <SimpleButton 
+                    type={Button.Success}
+                    title={guid == undefined ? "Save" : "Update"} 
+                    fontColor={Color.Light}
+                    font={Fonts.H5}
+                    onClick={() => {createProject()}} />
         </div>
         </section>
     )

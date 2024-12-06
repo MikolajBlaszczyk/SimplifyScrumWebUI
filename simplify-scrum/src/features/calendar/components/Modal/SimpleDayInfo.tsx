@@ -14,7 +14,6 @@ export default function DayInfo({meetings, clickedDay}: properties){
     const {shouldReload: isLoading, setShouldReload: setIsLoading} = useLoading()
 
     const deleteMeeting = (meeting: Meeting) => {
-
         MeetingSerivce
             .DeleteMeeting(meeting.guid)
             .then(data => {
