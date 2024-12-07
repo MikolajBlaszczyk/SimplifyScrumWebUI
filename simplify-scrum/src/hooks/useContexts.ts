@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AlertContext, AlertingState, BacklogContext, LoadingContext, UserContext } from "../context/ContextsIndex"
+import { AlertContext, AlertingState, BacklogContext, LoadingContext, RefinementContext, UserContext } from "../context/ContextsIndex"
 import { ModalContext } from "../context/ModalContext";
 
 export function useLoading(){
@@ -20,4 +20,8 @@ export function useModalForm(){
 
 export function useBacklog(){
     return useContext(BacklogContext)
+}
+
+export function useRefinement(){
+    return useContext(RefinementContext)
 }

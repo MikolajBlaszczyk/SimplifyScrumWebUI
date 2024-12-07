@@ -32,6 +32,7 @@ interface Props {
     iconOnTheRight?: boolean
     fontColor?: Color
     font?: Fonts,
+    disabled?: boolean,
     onClick: React.MouseEventHandler<HTMLButtonElement>  
 }
 
@@ -58,7 +59,7 @@ const colorClasses = {
 
 
 
-export function SimpleButton({title, icon, iconOnTheRight, onClick, type, font, fontColor, minWidth}: Props){
+export function SimpleButton({title, icon, disabled, iconOnTheRight, onClick, type, font, fontColor, minWidth}: Props){
     if(iconOnTheRight == undefined){
         iconOnTheRight = true
     }
@@ -70,6 +71,7 @@ export function SimpleButton({title, icon, iconOnTheRight, onClick, type, font, 
             type="button"
             className={`btn  m-0 ${typeClasses[type]} ${colorClasses[fontColor!] ?? 's-color'} ${fontClasses[font!] ?? 'h6'} s-button`} 
             onClick={onClick}
+            disabled={disabled}
             style={{minWidth: minWidth ?? ''}}>
             {!iconOnTheRight && icon != null && (<i className={`bi ${icon} me-2`}></i>)}
             {title} 

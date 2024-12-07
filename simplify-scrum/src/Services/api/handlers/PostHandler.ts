@@ -8,7 +8,7 @@ export class PostHandler implements RequestHandler {
     }
 
     handle({instance, url, data}: SimpleRequest){
-   
+         instance.defaults.headers.post['Content-Type'] = 'application/json';
         return instance.post(url, data)
     }
 }

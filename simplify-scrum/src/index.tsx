@@ -16,6 +16,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Administration } from './pages/Administration';
 import { ModalProvider } from './context/ModalContext';
 import { BacklogStateProvider } from './context/ContextsIndex';
+import { RefinementState, RefinementStateProvider } from './context/RefinementContext';
 
 
 function ErrorBoundary() {
@@ -93,7 +94,9 @@ root.render(
           <LoadingProvider>
             <UserProvider>
               <BacklogStateProvider>
-                <RouterProvider router={router}/>
+                <RefinementStateProvider>
+                  <RouterProvider router={router}/>
+                </RefinementStateProvider>
               </BacklogStateProvider>
             </UserProvider>
           </LoadingProvider>
