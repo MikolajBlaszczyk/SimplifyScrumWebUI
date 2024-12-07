@@ -10,7 +10,7 @@ export function ListBoard({ children}: Props){
 
 
     return (
-        <div className="flex-column  bg-dark shadow border border-2 rounded  ">
+        <div className="d-flex w-100 h-100 flex-column  bg-dark shadowrounded  ">
             {childrens}
         </div>
     )

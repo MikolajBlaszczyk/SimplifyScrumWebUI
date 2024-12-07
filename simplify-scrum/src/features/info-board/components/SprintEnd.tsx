@@ -18,11 +18,11 @@ export function SprintEnd({isPlaceholder, isEmpty, sprint}: Props){
     
     const sprintEnd = ()=>{
         const today = new Date()
-        if(sprint.end.getMonth() == today.getMonth()) {
-            return sprint.end.getDate() - today.getDate()
+        if(new Date(sprint.end).getMonth() == today.getMonth()) {
+            return new Date(sprint.end).getDate() - today.getDate()
         }
         else  {
-            const lastMonthDays = new Date(sprint.end.getFullYear(), sprint.end.getMonth(), 0).getDate() - today.getDate()
+            const lastMonthDays = new Date(new Date(sprint.end).getFullYear(), sprint.end.getMonth(), 0).getDate() - today.getDate()
             return sprint.end.getDate() - lastMonthDays
         }
     } 

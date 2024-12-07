@@ -51,7 +51,7 @@ export function SimpleTextInput({icon, label, placeholder, value, changeValue, d
 
 
     return(
-        <div className={`d-flex ps-1 pe-2 border h-100 rounded overflow-hidden align-items-center justify-content-between w-100 ${bgColor}`}>
+        <div className={`d-flex s-text-inpt ps-1 pe-2 border h-100 rounded overflow-hidden align-items-center justify-content-between w-100 ${bgColor}`}>
             {icon && (
                 <SimpleIcon 
                     icon={`bi ${icon}`} 

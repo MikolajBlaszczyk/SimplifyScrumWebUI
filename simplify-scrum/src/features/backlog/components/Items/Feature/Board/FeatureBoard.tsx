@@ -43,7 +43,7 @@ export function FeatureBoard({isEmpty, placeholder, features}: Props){
                 </thead>
                 <tbody  style={{width: '100% !important'}}>   
                     {
-                        features.map(feature => (<FeatureListItem key={v4()} index={features.indexOf(feature)} feature={feature}/>))
+                        isEmpty == false && features.map(feature => (<FeatureListItem key={v4()} index={features.indexOf(feature)} feature={feature}/>))
                     }
                 </tbody>
             </table>
@@ -53,7 +53,7 @@ export function FeatureBoard({isEmpty, placeholder, features}: Props){
                         type={Button.Borderless}
                         title=""
                         fontColor={Color.Light}
-                        font={Fonts.H6}
+                        font={Fonts.H5}
                         icon="bi-plus-lg" 
                         onClick={() =>{addFeature()}}/>
             </div>

@@ -83,7 +83,7 @@ export default function FeatureEdit({guid, projectGuid}: Props) {
     }, [])
 
     return (
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={e => e.preventDefault()} className="d-flex flex-column">
             <SimpleTextInput
                 label="Name"
                 icon="bi-alphabet"
@@ -114,22 +114,22 @@ export default function FeatureEdit({guid, projectGuid}: Props) {
                 value={description} 
                 onChange={e => setDescription(e.target.value)} />
 
-            <div className="mt-4 d-flex p-2  justify-content-end">
+            <div className="mt-4 d-flex  justify-content-between">
+
                 <SimpleButton 
-                    type={Button.Primary}
+                        type={Button.Danger}
+                        title={guid == undefined ? "Abort" : "Delete"} 
+                        fontColor={Color.Light}
+                        font={Fonts.H5}
+                        onClick={() => {showAlert(AlertType.Warning, "Not implemented yet")}} />
+
+
+                <SimpleButton 
+                    type={Button.Success}
                     title={guid == undefined ? "Save" : "Update"} 
                     fontColor={Color.Light}
                     font={Fonts.H5}
                     onClick={() => {addNewFeature()}} />
-
-                <div className="ms-3"></div>
-
-                <SimpleButton 
-                    type={Button.Danger}
-                    title={guid == undefined ? "Abort" : "Delete"} 
-                    fontColor={Color.Light}
-                    font={Fonts.H5}
-                    onClick={() => {showAlert(AlertType.Warning, "Not implemented yet")}} />
             </div> 
         </form>
     )

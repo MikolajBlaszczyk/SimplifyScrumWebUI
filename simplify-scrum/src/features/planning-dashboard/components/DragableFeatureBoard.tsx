@@ -5,29 +5,34 @@ import { DragableFeature, DragableTypes } from "./DragableFeature";
 import { useDrop } from "react-dnd";
 
 interface Props {
-    intialFeatures: Feature[]
+    features: Feature[]
+    plannedItems: Feature[];
+    onDropFeature: (feature: Feature) => void;
+    onRemoveFeature: (feature: Feature) => void;
 }
 
-export function DragableFeatureBoard({intialFeatures}: Props){
-    const [features, setFeatures] = useState(intialFeatures) 
-
-    useEffect(() => {
-      setFeatures(intialFeatures)
-    }, [intialFeatures])
+export function DragableFeatureBoard({features, plannedItems, onDropFeature, onRemoveFeature}: Props){
+  
 
     const [{ isOver }, drop] = useDrop({
         accept: DragableTypes.Feature,
-        drop: (item: { id: string }) => {setFeatures(prev => [...prev, ...intialFeatures.filter(f => f.guid == item.id)])},
+        drop: (item: { id: string }) => {
+          const feature = plannedItems.find(f => f.guid === item.id);
+          if (feature) {
+              onRemoveFeature(feature);
+          }
+        },
         collect: (monitor) => ({
           isOver: !!monitor.isOver(),
+          canDrop: !!monitor.canDrop(),
         }),
       });
 
 
     return (
-    <div ref={drop} className="d-flex w-100 h-75 bg-dark">
+    <div ref={drop} className="d-flex w-100 h-100 bg-dark">
         <ListBoard >
-        {features.map(feature => <DragableFeature feature={feature} setFeatures={setFeatures} />)}
+        {features.map(feature => <DragableFeature feature={feature} setFeatures={onDropFeature} />)}
         </ListBoard>
     </div>
     )
