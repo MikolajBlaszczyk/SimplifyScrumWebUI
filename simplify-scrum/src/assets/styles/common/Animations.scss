@@ -13,7 +13,7 @@
 }
 
 .swipeable-row,
-.swipeable-row-refinement {
+.swipeable-row-refinement{
   position: relative;
   transition: transform 0.3s ease;
   min-width: 100% !important;
@@ -72,5 +72,47 @@
     content: 'Edit';
     right: -100px;
     background-color: $green;
+  }
+}
+
+
+.swipeable-row-retro-card {
+  position: relative;
+  transition: transform 0.3s ease;
+
+  &.swiping {
+    transform: translateX(var(--swipe-amount, 0));
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  &.swiping::before {
+    opacity: calc(1 - (var(--swipe-amount, 0) / -100));
+  }
+
+  &.swiping::after {
+    opacity: calc(var(--swipe-amount, 0) / 100);
+  }
+}
+.swipeable-row-retro-card {
+  &::before {
+    content: 'Delete';
+    padding: 20px;
+    left: -125px; 
+    background-color: transparent;
   }
 }

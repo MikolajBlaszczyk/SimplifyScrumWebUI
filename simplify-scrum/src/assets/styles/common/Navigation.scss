@@ -10,6 +10,8 @@
         border: none;
         font-size: $s-h6;
         color: $s-background !important; 
+
+        border-radius: 8px;
         outline: none;
         cursor: pointer;
         transition: transform 0.1s ease;
@@ -30,7 +32,6 @@
             font-size: $s-h5;
             color: $s-background !important;
             margin-bottom: 15px;
-
 
             &:hover{
                 transform: scale(1.05) !important;

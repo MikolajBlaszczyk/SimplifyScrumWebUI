@@ -16,7 +16,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Administration } from './pages/Administration';
 import { ModalProvider } from './context/ModalContext';
 import { BacklogStateProvider } from './context/ContextsIndex';
-import { RefinementState, RefinementStateProvider } from './context/RefinementContext';
+import {RefinementStateProvider } from './context/RefinementContext';
+import { RetroProvider } from './context/RetroContext';
 
 
 function ErrorBoundary() {
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
           }, 
           {
             path: "retrospective/",
-            element: <Retrospective />
+            element: <Retrospective />      
           }, 
           {
             path: "admin/",
@@ -95,7 +96,9 @@ root.render(
             <UserProvider>
               <BacklogStateProvider>
                 <RefinementStateProvider>
-                  <RouterProvider router={router}/>
+                  <RetroProvider>
+                    <RouterProvider router={router}/>
+                  </RetroProvider>
                 </RefinementStateProvider>
               </BacklogStateProvider>
             </UserProvider>
