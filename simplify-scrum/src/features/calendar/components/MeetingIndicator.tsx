@@ -1,5 +1,4 @@
 import { MeetingType, Meeting } from "../../../data/CommonDataIndex";
-import '../../../assets/styles/StyleIndex.scss'
 
 
 interface MeetingIndicatorProps {

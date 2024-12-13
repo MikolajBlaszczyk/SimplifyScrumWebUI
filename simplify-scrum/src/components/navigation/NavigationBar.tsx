@@ -1,4 +1,3 @@
-import "../../assets/styles/StyleIndex.scss";
 import { NavigationButton } from "./NavigationButton";
 import { Offcanvas } from "./Offcanvas";
 

@@ -6,7 +6,7 @@ import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './assets/styles/StyleIndex.scss'
+import './assets/styles/STYLEINDEX.scss'
 import { UserProvider } from './context/UserContext';
 import { Login, InfoCenter, Settings, Meetings, Backlog, Refinement, Planning, Retrospective, Start, Daily } from "./pages/PagesIndex"
 import { LoadingProvider } from './context/LoadingContext';

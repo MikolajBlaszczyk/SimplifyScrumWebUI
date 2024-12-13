@@ -26,44 +26,43 @@ button, input, optgroup, select, textarea {
 }
 
 
+$s-h1: 72.93px;
+$s-h2: 54.71px;
+$s-h3: 41.05px;
+$s-h4: 30.79px;
+$s-h5: 23.1px;
+$s-h6: 17.33px;
+$s-p: 13px;
+$s-small: 9.75px;
 
 h1, .s-h1 {
-    font-size: 61.71px !important;
+    font-size: $s-h1 !important;
 }
 
 h2, .s-h2 {
-    font-size: 46.3px !important;
+    font-size: $s-h2 !important;
 }
 
 h3, .s-h3 {
-    font-size: 34.73px !important;
+    font-size: $s-h3 !important;
 }
 
 h4, .s-h4 {
-    font-size: 26.05px!important;
+    font-size: $s-h4 !important;
 }
 
 h5, .s-h5 {
-    font-size: 19.55px !important;
+    font-size: $s-h5 !important;
 }
 
 h6, .s-h6 {
-    font-size: 14.66px !important;
+    font-size: $s-h6 !important;
 }
 
 p, .s-p {
-    font-size: 11px !important;
+    font-size: $s-p !important;
 }
 
-small, .s-small{
-    font-size: 8.25px !important;
+small, .s-small {
+    font-size: $s-small !important;
 }
-
-$s-h1: 89.76px;
-$s-h2: 67.34px;
-$s-h3: 50.52px;
-$s-h4: 37.9px;
-$s-h5: 28.43px;
-$s-h6: 21.33px;
-$s-p: 16px;
-$s-small: 12px;

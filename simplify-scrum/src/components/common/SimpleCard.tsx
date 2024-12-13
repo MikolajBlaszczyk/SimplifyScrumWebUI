@@ -1,6 +1,3 @@
-import { useState } from "react"
-import "../../assets/styles/StyleIndex.scss"
-import { SimpleSideMenu } from "../../features/backlog/components/utils/SimpleSideMenu"
 
 interface Props {
     title: string
