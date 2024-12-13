@@ -7,3 +7,4 @@ export * from './Retrospective';
 export * from './Settings';
 export * from './Login';
 export * from './Start'
+export * from './Daily'

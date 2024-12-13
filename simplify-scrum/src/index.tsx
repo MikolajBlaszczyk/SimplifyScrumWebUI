@@ -8,7 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/styles/StyleIndex.scss'
 import { UserProvider } from './context/UserContext';
-import { Login, InfoCenter, Settings, Meetings, Backlog, Refinement, Planning, Retrospective, Start } from "./pages/PagesIndex"
+import { Login, InfoCenter, Settings, Meetings, Backlog, Refinement, Planning, Retrospective, Start, Daily } from "./pages/PagesIndex"
 import { LoadingProvider } from './context/LoadingContext';
 import { AlertProvider } from './context/AlertContext';
 import { DndProvider } from 'react-dnd';
@@ -79,6 +79,10 @@ const router = createBrowserRouter([
           {
             path: "start/",
             element: <Start />
+          },
+          {
+            path: "daily/",
+            element: <Daily />
           }
         ]
   }

@@ -8,6 +8,7 @@ export enum Destination{
     Refinement,
     Planning,
     Retrospective,
+    Daily,
     Admin
 }
 

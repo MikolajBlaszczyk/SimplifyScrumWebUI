@@ -9,6 +9,7 @@ export const destinationPaths = {
     [Destination.Refinement]: '/main/refinement',
     [Destination.Planning]: '/main/planning',
     [Destination.Retrospective]: '/main/retrospective',
+    [Destination.Daily]: '/main/daily',
     [Destination.Admin]: '/main/admin',
     default: () => ""
 }
