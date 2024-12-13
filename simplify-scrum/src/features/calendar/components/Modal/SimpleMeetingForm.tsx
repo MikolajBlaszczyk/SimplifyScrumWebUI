@@ -3,7 +3,7 @@ import { MeetingFactory, Meeting, MeetingType, User, DayModel } from "../../../.
 import { EnumService, MeetingEnumService, MeetingSerivce } from "../../../../services/CommonServicesIndex"
 import { useAlert, useLoading, useModal } from "../../../../hooks/HooksIndex"
 import { AccountService } from "../../../account-settings/service/AccountService"
-import { Color, SelectItem, SimpleDateInput, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../components/ComponentsIndex"
+import { Color, MultiSelectDropdown, SelectItem, SimpleDateInput, SimpleMultiLineTextInput,  SimpleSelectionInput, SimpleTextInput, Option } from "../../../../components/ComponentsIndex"
 import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
 import { DateConverter } from '../../../../utils/utility-services/DateSerivces';
 import { BgColor, FontColor } from "../../../../utils/UtilsIndex"
@@ -37,6 +37,8 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
     const showAlert = useAlert()
     const {shouldReload: isLoading, setShouldReload: setIsLoading} = useLoading()
 
+    const [allOptions, setAllOptions] = useState<Option[]>([])
+    const [selectedUsers, setselectedUsers] = useState<Option[]>([])
     const [leadersOptions, setLeadersOptions] = useState<SelectItem[]>([])
     const [meetingOptions, setMeetingOptions] = useState<SelectItem[]>([])
 
@@ -62,7 +64,9 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
         
         let meeting = MeetingFactory.createMeeting(name, description, type, leaderGuid, start, DateConverter.convertDateToTimeString(new Date(0,0,0,0,duration)), [])
         meeting.guid = guid ?? ""   
-         await MeetingSerivce.AddOrUpdate(meeting)
+        meeting.userGuids = selectedUsers.map(user => user.value)
+
+        action == Action.Add ? await MeetingSerivce.add(meeting) :  await MeetingSerivce.update(meeting)
         setIsLoading(isLoading + 1)
     }
 
@@ -83,6 +87,10 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
             start: meeting.start,
             duration: DateConverter.convertTimeStringtoDate(meeting.duration).getMinutes(),
         }))
+        setselectedUsers(meeting.userGuids.map(userGuid => {
+            const user = allOptions.find(option => option.value == userGuid)
+            return user ?? {value: "", label: ""}
+        }))
     }
 
     const fetchData = async () => {
@@ -95,6 +103,8 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
             }
             return item
         }))
+
+        setAllOptions(users.map(user => { return {value: user.id, label: user.nickname} }))
 
         const types = GenericEnumService.getEnumNames(MeetingType)
 
@@ -178,6 +188,14 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
                     maxValue={60} 
                     value={form.duration} 
                     onValueChange={e => setForm(prev => ({...prev, duration: e}))}/>
+
+                <MultiSelectDropdown 
+                    label="Users"
+                    icon="bi-person-fill"
+                    options={allOptions} 
+                    selectedOptions={selectedUsers} 
+                    onChange={(selected) => setselectedUsers(selected)} />
+
 
                 {/* We should have a picker for type here */}
                 <div className="mt-2 d-flex justify-content-end">

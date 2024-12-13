@@ -33,9 +33,23 @@ export class MeetingSerivce{
         }
     }
 
-    static async AddOrUpdate(meeting: Meeting){
+    static async add(meeting: Meeting){
         try {
             const url = meetingApiUrl + "/add" 
+            const meetingData = DataMapper.createMeetingData(meeting)
+            const response = await RequestFactory.createPostRequest(url, meetingData) 
+
+            return response.data
+
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+
+    static async update(meeting: Meeting){
+        try {
+            const url = meetingApiUrl + "/update" 
             const meetingData = DataMapper.createMeetingData(meeting)
             const response = await RequestFactory.createPostRequest(url, meetingData) 
 
@@ -66,7 +80,7 @@ class DataMapper {
             LeaderGuid: meeting.leaderGuid,
             Start: meeting.start, 
             Duration: meeting.duration,
-            Type: meeting.type,
+            Type: MeetingType[meeting.type],
             UserGuids: meeting.userGuids
         };
     }

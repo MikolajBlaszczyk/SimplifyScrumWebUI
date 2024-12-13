@@ -226,3 +226,37 @@ input[type="password"] {
         line-height: normal;
     }
 }
+
+.multi-select-dropdown {
+    .dropdown-header {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #444;
+    }
+
+    .selected-option {
+        background-color: #555;
+        color: #fff;
+    }
+
+    .placeholder {
+        color: #aaa;
+    }
+
+    .dropdown-list {
+        background-color: #333;
+        border: 1px solid #444;
+    }
+
+    .dropdown-list-item {
+        color: #fff;
+
+        &:hover {
+            background-color: #444;
+        }
+    }
+
+    .dropdown-list-item input {
+        accent-color: #fff;
+    }
+}
