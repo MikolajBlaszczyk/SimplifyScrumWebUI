@@ -1,11 +1,11 @@
-import { Button, Color, SimpleButton, SimpleIcon } from "../../../components/ComponentsIndex";
+import { Button, SimpleIcon } from "../../../components/ComponentsIndex";
 import { useAlert, useModal } from "../../../hooks/HooksIndex";
 import { Fonts } from "../../../utils/UtilsIndex";
 import { JoruneyComponentProps } from "./StartJourney";
 import { TeamCreator } from "./TeamCreator";
 import { JourneyStep } from '../data/JourneyStep';
 import { SetStateAction, useEffect, useState } from "react";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { Team } from "../../../data/CommonDataIndex";
 
@@ -39,7 +39,7 @@ export function TeamChoice({joruneyState, setJourneyState}: JoruneyComponentProp
     }
 
     const askTeamLeaderToJoin = () => {
-        showAlert(AlertType.Warning, "Not available yet")
+        showAlert(AlertStyle.Warning, "Not available yet")
     }
 
     const  fetchData = async () => {
@@ -69,12 +69,12 @@ export function TeamChoice({joruneyState, setJourneyState}: JoruneyComponentProp
                     
                     <div className="mb-3"></div>
 
-                    <SimpleButton 
+                    {/* <SimpleButton 
                         type={Button.Transparent}
                         fontColor={Color.Light}
                         title={"Create my team"}
                         font={Fonts.H5}
-                        onClick={() => {createTeam()}} />
+                        onClick={() => {createTeam()}} /> */}
 
                     
                 </div>
@@ -87,12 +87,12 @@ export function TeamChoice({joruneyState, setJourneyState}: JoruneyComponentProp
 
                     <div className="mb-3"></div>
 
-                    <SimpleButton 
+                    {/* <SimpleButton 
                             type={Button.Borderless}
                             fontColor={Color.Light}
                             font={Fonts.H5}
                             title={"Ask team leader to join"}
-                            onClick={() => {askTeamLeaderToJoin()}} />
+                            onClick={() => {askTeamLeaderToJoin()}} /> */}
                 </div>
             </div>
         </section>

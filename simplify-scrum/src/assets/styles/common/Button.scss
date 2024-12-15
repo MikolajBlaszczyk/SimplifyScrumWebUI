@@ -2,31 +2,92 @@
 @import "../../../../node_modules/bootstrap/scss/functions";
 @import "../../../../node_modules/bootstrap/scss/variables";
 @import "../../../../node_modules/bootstrap/scss/variables-dark";
+@import "./Variables";
 
 
-.s-button-underlined{
-    color: lighten($s-text, 10%) !important;
-    text-decoration: underline !important;
+.s-button{ 
+    min-width: 20px !important;
+    min-height: 20px !important;
+    i + span {
+        margin-left: 8px;
+    }
+  
 }
 
+//
 
-button {
-    background-color: $s-dark;
-    color: #ffffff;
-    border: 1px solid $s-dark;
-    transition: all 0.3s ease;
+.s-filled, .s-outlined, .s-borderless {
+    border-radius: $s-radius !important;
+    padding: $s-padding-vertical $s-padding-horizontal !important;
+}
 
-    &:hover {
-        background-color: $hover-color; // Jaśniejszy odcień ciemnego tła
-        color: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.s-filled {
+    border: none;
+}
+
+.s-outlined {
+    background-color: transparent !important;
+    border: 2px solid !important;
+}
+
+.s-borderless {
+    background-color: transparent !important; 
+    border: none;
+}
+
+.s-circle {
+    aspect-ratio: 1 / 1 !important;
+    padding: 0 !important;
+    border-radius: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+//
+
+.s-normal {
+    opacity: 75%;
+    background-color: $input-background;
+    border-color: $input-background !important;
+    &.s-outlined {
+        color: $input-background !important;
     }
+    &.s-borderless {
+        color: $input-background !important;
+    }
+}
 
-    &.accent {
-        &:hover {
-            background-color: $accent-color; // Kolor akcentujący
-            color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+.s-primary {
+    background-color: $primary;
+    border-color: $primary-complementary !important;
+    &.s-outlined {
+        color: $primary-complementary !important;
+    }
+    &.s-borderless {
+        color: $primary-complementary !important;
+    }
+}
+
+.s-cancel {
+    background-color: $secondary;
+    border-color: $secondary-complementary !important;
+    &.s-outlined {
+        color: $secondary-complementary !important;
+    }
+    &.s-borderless {
+        color: $secondary-complementary !important;
+    }
+}
+
+.s-destructive {
+    background-color: $warning;
+    border-color: $warning-complementary !important;
+    &.s-outlined {
+        color: $warning-complementary !important;
+    }
+    &.s-borderless {
+        color: $warning-complementary !important;
     }
 }

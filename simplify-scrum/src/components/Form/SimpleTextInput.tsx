@@ -4,7 +4,7 @@ import exp from "constants"
 import { SimpleIcon } from "../ComponentsIndex"
 
 
-export enum TextType{
+export enum TextTypes{
     Text,
     Password,
     Email
@@ -16,9 +16,9 @@ export enum Alignment {
 }
 
 const textTypes = {
-    [TextType.Text]: 'text',
-    [TextType.Email]: 'email',
-    [TextType.Password]: 'password',
+    [TextTypes.Text]: 'text',
+    [TextTypes.Email]: 'email',
+    [TextTypes.Password]: 'password',
     default: 'text'
 }
 
@@ -32,7 +32,7 @@ interface Props {
     label?: string
     disabled?: boolean
     readonly? :boolean
-    type?: TextType
+    type?: TextTypes
     color?: BgColor
     fontcolor?: FontColor
     alignment?: Alignment
@@ -73,3 +73,4 @@ export function SimpleTextInput({icon, label, placeholder, value, changeValue, d
         </div>
     )
 }
+

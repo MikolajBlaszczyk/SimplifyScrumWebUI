@@ -2,7 +2,7 @@ import { MouseEvent, useEffect, useMemo, useState } from "react"
 import { SimpleStatus } from "../../../data/State"
 import { Feature } from "../../../data/Feature"
 import { User } from "../../../../../data/CommonDataIndex"
-import { Button, Color, SelectItem, SimpleButton, SimpleSelectionInput, SimpleTextInput } from "../../../../../components/ComponentsIndex"
+import { Button, SelectItem, SimpleSelectionInput, SimpleTextInput } from "../../../../../components/ComponentsIndex"
 import { BacklogService, EnumService } from "../../../../../services/CommonServicesIndex"
 import { BgColor, FontColor } from "../../../../../utils/UtilsIndex"
 import { GenericEnumService } from "../../../../../services/enum/GenericEnumService"
@@ -117,11 +117,11 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
 
 
             <div className="d-flex w-100 justify-content-center mt-3">
-                <SimpleButton 
+                {/* <SimpleButton 
                     type={Button.Borderless} 
                     fontColor={Color.Light}
                     title={taskID == undefined ? "Save" : "Update"} 
-                    onClick={() => { saveTask()}}/>
+                    onClick={() => { saveTask()}}/> */}
             </div>
            
         </div>

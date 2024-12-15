@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode } from "react";
-import { Button, Color,   SimpleButton } from "../../../../components/ComponentsIndex";
+import { Button } from "../../../../components/ComponentsIndex";
 import { Fonts } from "../../../../utils/UtilsIndex";
 import { ProjectPlaceholder } from "../Items/Project/Board/ProjectPlaceholder";
 

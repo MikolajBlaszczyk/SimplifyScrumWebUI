@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from "react"
-import { Button, SimpleButton } from "../../../../components/ComponentsIndex";
+import { Button } from "../../../../components/ComponentsIndex";
 
 interface Props {
     children: ReactNode

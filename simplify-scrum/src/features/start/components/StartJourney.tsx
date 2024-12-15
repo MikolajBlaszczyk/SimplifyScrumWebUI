@@ -3,12 +3,12 @@ import { JourneyStep } from "../data/JourneyStep"
 import { WelcomeView } from "./WelcomeView";
 import { StartSettings } from "./StartSettings";
 import { Progress } from "./Progress";
-import { Button, SimpleButton } from "../../../components/ComponentsIndex";
+import { Button } from "../../../components/ComponentsIndex";
 import { TeamChoice } from "./TeamChoice";
 import { Destination, Fonts } from "../../../utils/UtilsIndex";
 import { StartProject } from "./StartProject";
 import { useAlert, useNavigateTo } from "../../../hooks/HooksIndex";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 import { useNavigate } from "react-router-dom";
 
 interface JourneyState {
@@ -41,7 +41,7 @@ export function StartJourney(){
                 if(actual.done == true) {
                     return {done: false, step: (actual.step + 1)}
                 } else {
-                    showAlert(AlertType.Danger, "You need to provide all necessary informations")
+                    showAlert(AlertStyle.Danger, "You need to provide all necessary informations")
                     return {...actual}
                 }
 
@@ -74,7 +74,7 @@ export function StartJourney(){
                     journeyState.step != JourneyStep.UserSettings && 
                     (
                         <div className=" position-absolute start-0 top-0 ">
-                            <SimpleButton font={Fonts.H4} type={Button.Borderless} title={""} icon="bi-arrow-left" onClick={() => moveBack()} />
+                            {/* <SimpleButton font={Fonts.H4} type={Button.Borderless} title={""} icon="bi-arrow-left" onClick={() => moveBack()} /> */}
                         </div>
                     )
                 }
@@ -88,11 +88,11 @@ export function StartJourney(){
                         <Progress step={journeyState.step} />
                         <div className="d-flex w-100 justify-content-center">
 
-                            <SimpleButton 
+                            {/* <SimpleButton 
                                 font={Fonts.H6}
                                 type={Button.Primary}
                                 title={journeyState.step == JourneyStep.Project ? "Finish" : "Click to go next"} 
-                                onClick={() => moveNext()} />
+                                onClick={() => moveNext()} /> */}
                         </div>
                     </div>
                 </div>

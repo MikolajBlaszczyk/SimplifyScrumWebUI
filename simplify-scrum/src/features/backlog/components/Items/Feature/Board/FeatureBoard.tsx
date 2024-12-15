@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { Button, Color, Placeholder, SimpleButton } from "../../../../../../components/ComponentsIndex";
+import { Button,  Placeholder } from "../../../../../../components/ComponentsIndex";
 import { BacklogAction } from "../../../../../../context/BacklogContext";
 import { useBacklog } from "../../../../../../hooks/useContexts";
 import { Fonts } from "../../../../../../utils/UtilsIndex";
@@ -49,13 +49,13 @@ export function FeatureBoard({isEmpty, placeholder, features}: Props){
             </table>
             <div className="swipeable-row  d-flex justify-content-end w-100
              pe-2 bg-dark-subtle">
-                <SimpleButton
+                {/* <SimpleButton
                         type={Button.Borderless}
                         title=""
                         fontColor={Color.Light}
                         font={Fonts.H5}
                         icon="bi-plus-lg" 
-                        onClick={() =>{addFeature()}}/>
+                        onClick={() =>{addFeature()}}/> */}
             </div>
         </Board>
     )

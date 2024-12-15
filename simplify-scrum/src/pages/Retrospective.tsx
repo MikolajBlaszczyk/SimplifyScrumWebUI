@@ -1,5 +1,5 @@
 import { MouseEvent, useEffect, useMemo, useState } from "react";
-import { Button, SimpleButton, SimpleControlPannel } from "../components/ComponentsIndex";
+import { Button, SimpleControlPannel } from "../components/ComponentsIndex";
 import { RetroBoard } from "../features/retrospective-dashboard/components/Comment/RetroBoard";
 import { CentralLayout } from "../layouts/CentralLayout";
 import { Alignment, SideBySideLayout } from "../layouts/SideBySideLayout";
@@ -68,11 +68,11 @@ export function Retrospective() {
                                 />
                             </div>
                             <div className="w-100 d-flex justify-content-end">
-                                <SimpleButton
+                                {/* <SimpleButton
                                     type={Button.Success}
                                     title={'Submit'}
                                     onClick={() => { submitRetro() }}
-                                />
+                                /> */}
                             </div>
                         </div>,
                     ]} />}

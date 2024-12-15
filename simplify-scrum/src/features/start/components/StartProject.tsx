@@ -1,8 +1,8 @@
-import { Button, Color, SimpleButton, SimpleIcon } from "../../../components/ComponentsIndex";
+import { Button, SimpleIcon } from "../../../components/ComponentsIndex";
 import { useAlert, useModal } from "../../../hooks/HooksIndex";
 import { useModalForm } from "../../../hooks/useContexts";
 import { Fonts } from "../../../utils/UtilsIndex";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 import ProjectEdit from "../../backlog/components/Items/Project/Edit/ProjectEdit";
 
 export function StartProject(){
@@ -17,7 +17,7 @@ export function StartProject(){
     }
 
     const askToJoinToProject = () => {
-        showAlert(AlertType.Warning, "Not yet available")
+        showAlert(AlertStyle.Warning, "Not yet available")
     }
 
     return (
@@ -30,12 +30,12 @@ export function StartProject(){
                     
                     <div className="mb-3"></div>
 
-                    <SimpleButton 
+                    {/* <SimpleButton 
                         type={Button.Transparent}
                         fontColor={Color.Light}
                         title={"Create new project"}
                         font={Fonts.H5}
-                        onClick={() => {createNewProject()}} />
+                        onClick={() => {createNewProject()}} /> */}
                 </div>
                 <div className="col-6 d-flex flex-column align-items-center justify-content-center">
                     
@@ -46,12 +46,12 @@ export function StartProject(){
 
                     <div className="mb-3"></div>
 
-                    <SimpleButton 
+                    {/* <SimpleButton 
                             type={Button.Borderless}
                             fontColor={Color.Light}
                             font={Fonts.H5}
                             title={"Start without project"}
-                            onClick={() => {askToJoinToProject()}} />
+                            onClick={() => {askToJoinToProject()}} /> */}
                 </div>
             </div>
         </section>

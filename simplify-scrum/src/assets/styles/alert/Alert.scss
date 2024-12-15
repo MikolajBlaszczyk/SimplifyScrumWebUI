@@ -1,3 +1,5 @@
+@import "../common/Variables";
+
 .backdrop {
     position: fixed;
     top: 0;
@@ -6,16 +8,60 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 3002;
-  }
+}
 
 .s-alert{
     position: fixed !important;
-    width: 40%;
-    background-color: $danger;
-    top: 2%;
+    width: 20%;
+    left: 40%;
+    top: 20%;
+    background-color: $input-background;
+    color: $light;
     z-index: 3003;
-    left: calc(60% / 2);
-    &::backdrop {
-        background-color: rgba(0, 0, 0, 0.123) !important;
+    opacity: 95%;
+
+
+
+    &.s-alert-warning{
+    }
+    &.s-alert-danger{
+        
+       
+       .s-alert-button{
+        background-color: $danger-complementary;
+       }
+    }
+    &.s-alert-info{
+    }
+    &.s-alert-success{
+    }
+    &.s-alert-primary{
+        
+    }
+
+    .s-alert-button-allow{
+        background-color: $primary;
+    }
+    .s-alert-button-deny{
+        background-color: $secondary-complementary;
+    }
+}
+
+
+
+.s-alert-header{
+    &.s-alert-warning{
+        background-color: $warning;
+    }
+    &.s-alert-danger{
+    }
+    &.s-alert-info{
+        background-color: $info;
+    }
+    &.s-alert-success{
+        background-color: $success;
+    }
+    &.s-alert-primary{
+        background-color: $primary;
     }
 }

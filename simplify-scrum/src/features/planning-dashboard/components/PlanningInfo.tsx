@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react"
 import { Project } from "../../backlog/data/Project";
-import { Button, Placeholder, SimpleButton } from "../../../components/ComponentsIndex";
+import { Button, Placeholder } from "../../../components/ComponentsIndex";
 import { DragableFeatureBoard } from "./DragableFeatureBoard";
 import { Feature } from "../../backlog/data/DataIndex";
 

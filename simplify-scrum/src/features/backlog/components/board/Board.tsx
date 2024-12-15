@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import { SimpleButton, Button, Color } from "../../../../components/ComponentsIndex";
+import { Button } from "../../../../components/ComponentsIndex";
 import NoteBoard from './NoteBoard';
 import { ListBoard } from "./ListBoard";
 import { v4 } from 'uuid';

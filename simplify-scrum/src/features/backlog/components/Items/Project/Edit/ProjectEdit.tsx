@@ -1,7 +1,7 @@
 import { act, ChangeEvent, useEffect, useMemo, useState } from "react"
 import { StandardStatus } from '../../../../data/State';
 import { Team } from "../../../../../../data/CommonDataIndex";
-import { Button, Color, SelectItem, SimpleButton, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleSwitch, SimpleTextInput } from "../../../../../../components/ComponentsIndex";
+import { Button, SelectItem, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleSwitch, SimpleTextInput } from "../../../../../../components/ComponentsIndex";
 import { BacklogService, PermissionService, ValidationService } from '../../../../../../services/CommonServicesIndex';
 import { EnumService } from '../../../../../../services/enum/StateEnumService';
 import { UserEditableSettings, UserCheckboxSetting } from '../../../../../account-settings/components/UserEditableSettings';
@@ -11,7 +11,7 @@ import { BgColor, FontColor, Fonts } from "../../../../../../utils/UtilsIndex";
 import { create } from "domain";
 import { Project } from "../../../../data/DataIndex";
 import { useAlert } from "../../../../../../hooks/HooksIndex";
-import { AlertType } from "../../../../../alerting/components/Alert";
+import { AlertStyle } from "../../../../../alerting/components/Alert";
 
 interface Props {
     guid?: String
@@ -109,8 +109,8 @@ export default function ProjectEdit({guid}: Props) {
         const project = new Project("", name, state, userInfo.teamGuid, userInfo.id,  new Date(), userInfo.id, new Date(), description)
 
        BacklogService.addProject(project)
-            .then(() => showAlert(AlertType.Info, "Successfuly added a project", "Success"))
-            .catch(err => showAlert(AlertType.Danger, "Error", "Error"))
+            .then(() => showAlert(AlertStyle.Info, "Successfuly added a project", "Success"))
+            .catch(err => showAlert(AlertStyle.Danger, "Error", "Error"))
     
     }
 
@@ -157,7 +157,7 @@ export default function ProjectEdit({guid}: Props) {
          
 
         <div className="mt-4 d-flex  justify-content-between">
-                <SimpleButton 
+                {/* <SimpleButton 
                     type={Button.Danger}
                     title={guid == undefined ? "Abort" : "Delete"} 
                     fontColor={Color.Light}
@@ -170,7 +170,7 @@ export default function ProjectEdit({guid}: Props) {
                     title={guid == undefined ? "Save" : "Update"} 
                     fontColor={Color.Light}
                     font={Fonts.H5}
-                    onClick={() => {createProject()}} />
+                    onClick={() => {createProject()}} /> */}
         </div>
         </section>
     )

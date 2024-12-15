@@ -2,7 +2,7 @@ import { MouseEvent, useState } from "react"
 import { Feature } from "../../backlog/data/DataIndex"
 import { DragableFeature, DragableTypes } from "./DragableFeature";
 import { useDrop } from "react-dnd";
-import { Button, SimpleButton } from "../../../components/ComponentsIndex";
+import { Button } from "../../../components/ComponentsIndex";
 import { Fonts } from "../../../utils/UtilsIndex";
 import { SprintEdit } from "./SprintEdit";
 import { Plan, SprintModel } from "../../../data/CommonDataIndex";
@@ -84,7 +84,7 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
                         {plannedItems.map(feature => <DragableFeature feature={feature} setFeatures={onRemoveFeature} /> )}
                     </div>
                     <div className="d-flex justify-content-between mb-5 w-75 ">
-                    <SimpleButton 
+                    {/* <SimpleButton 
                             type={Button.Danger}
                             font={Fonts.H5}
                             title={"Reset"}
@@ -94,7 +94,7 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
                             type={Button.Success}
                             font={Fonts.H5}
                             title={"Save"}
-                            onClick={e => {plan()}}/>
+                            onClick={e => {plan()}}/> */}
                     </div>
                 </>
                

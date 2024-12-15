@@ -7,7 +7,7 @@ import DayInfo from "./Modal/SimpleDayInfo";
 import { useLoading } from '../../../hooks/HooksIndex';
 import { MeetingSerivce } from "../../../services/CommonServicesIndex";
 import { useAlert } from "../../../hooks/HooksIndex";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 import { componentSize, ComponentSize } from "../../../utils/UtilsIndex";
 
 interface SimpleCalendarProps {
@@ -67,7 +67,7 @@ export default function SimpleCalendar({initialDate}: SimpleCalendarProps) {
         MeetingSerivce
             .GetMeetings()
             .then(data => dayClickedInfoChanged(clickProps.date, data.days))
-            .catch(error => showAlert(AlertType.Danger, error.message))
+            .catch(error => showAlert(AlertStyle.Danger, error.message))
     },[shouldReload])
 
     const onDayClick = (date: Date, event: React.MouseEvent<HTMLButtonElement>) => {

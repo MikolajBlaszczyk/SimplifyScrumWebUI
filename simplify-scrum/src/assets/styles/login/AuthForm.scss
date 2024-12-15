@@ -1,21 +1,5 @@
-.s-auth-form{
-    border-start-start-radius: 8px !important;
-    border-end-start-radius: 8px !important;
-    background-color: #D9D9D9 !important;
-    button{
-        border-radius: 30px !important;
-    }
-
-    
-}
-
-.s-auth-image{
-    background-color: $s-text;
-    border-end-end-radius: 8px !important;
-    border-start-end-radius: 8px !important;
-}
 
 .s-central-form { 
-    width: 44%;
-    aspect-ratio: 16 / 8 ; 
+    min-height: 428px;
+    min-width: 700px;
 }

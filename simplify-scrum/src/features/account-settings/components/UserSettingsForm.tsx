@@ -4,7 +4,7 @@ import UserInformation from "./UserInfo";
 import { User, UserInfo } from "../../../data/CommonDataIndex";
 import { SimpleTextInput, SimpleSwitch } from "../../../components/ComponentsIndex";
 import { useAlert } from "../../../hooks/HooksIndex";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 import { UserEditableSettings, UserCheckboxSetting } from './UserEditableSettings';
 
 
@@ -18,7 +18,7 @@ export default function UserSettingsForm(){
         AccountService
             .getInfo()
             .then(data => setUser(data))
-            .catch(err => { showAlert(AlertType.Danger, err.message)})
+            .catch(err => { showAlert(AlertStyle.Danger, err.message)})
         
     }, [])
 

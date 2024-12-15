@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useMemo, useState } from "react"
 import { BacklogService, PlanningService } from "../../../../services/CommonServicesIndex"
 import { RefinementItem } from "./RefinementItem"
-import { Button, Color, SelectItem, SimpleButton } from "../../../../components/ComponentsIndex";
+import { Button, SelectItem } from "../../../../components/ComponentsIndex";
 import { Fonts } from "../../../../utils/UtilsIndex";
 import { v4 } from "uuid";
 import { ExtendedStatus } from "../../../backlog/data/DataIndex";
@@ -46,13 +46,13 @@ export function RefinementDashboard(){
             </table>
             <div className="swipeable-row  d-flex justify-content-end w-100
              pe-2 bg-dark-subtle">
-                <SimpleButton
+                {/* <SimpleButton
                         type={Button.Borderless}
                         title="Info"
                         fontColor={Color.Light}
                         font={Fonts.H5}
                         icon="bi-plus-lg" 
-                        onClick={() =>{}}/>
+                        onClick={() =>{}}/> */}
             </div>            
         </div>
     )

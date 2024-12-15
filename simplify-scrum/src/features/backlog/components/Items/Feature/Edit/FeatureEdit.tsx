@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react"
 import { ExtendedStatus, Feature, Project } from "../../../../data/DataIndex"
-import { Button, Color, SelectItem, SimpleButton, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../../../components/ComponentsIndex"
+import { Button,  SelectItem, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput } from "../../../../../../components/ComponentsIndex"
 import { BacklogService, EnumService } from "../../../../../../services/CommonServicesIndex"
 import { BgColor, FontColor, Fonts } from "../../../../../../utils/UtilsIndex"
 import { useAlert } from "../../../../../../hooks/HooksIndex"
-import { AlertType } from "../../../../../alerting/components/Alert"
+import { AlertStyle } from "../../../../../alerting/components/Alert"
 import { GenericEnumService } from "../../../../../../services/enum/GenericEnumService"
 import { stat } from "fs"
 
@@ -116,7 +116,7 @@ export default function FeatureEdit({guid, projectGuid}: Props) {
 
             <div className="mt-4 d-flex  justify-content-between">
 
-                <SimpleButton 
+                {/* <SimpleButton 
                         type={Button.Danger}
                         title={guid == undefined ? "Abort" : "Delete"} 
                         fontColor={Color.Light}
@@ -129,7 +129,7 @@ export default function FeatureEdit({guid, projectGuid}: Props) {
                     title={guid == undefined ? "Save" : "Update"} 
                     fontColor={Color.Light}
                     font={Fonts.H5}
-                    onClick={() => {addNewFeature()}} />
+                    onClick={() => {addNewFeature()}} /> */}
             </div> 
         </form>
     )

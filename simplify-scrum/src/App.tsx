@@ -2,15 +2,16 @@ import NavigationBar from './components/navigation/NavigationBar';
 import { Navigate, Outlet } from 'react-router-dom'
 import { useSettings } from './hooks/useContexts';
 import { useMeetingHubConnect } from './hooks/HooksIndex';
-
+import { useEffect } from 'react';
 
 
 function App() {
   const meetingHubConnection = useMeetingHubConnect()
-
   meetingHubConnection.on("IncomingMeeting", (message) => {
     console.log("IncomingMeeting", message)
   })
+
+
 
   const {settings} = useSettings()
   const token = localStorage.getItem("token");

@@ -1,6 +1,6 @@
 import { Note } from "../../data/Note";
 import { NoteItem } from "./NoteItem";
-import { Button, SimpleButton } from "../../../../components/ComponentsIndex";
+import { Button } from "../../../../components/ComponentsIndex";
 import { NoteTypeEnum } from "../../data/NoteTypeEnum";
 import { useRetro } from "../../../../hooks/useContexts";
 import { useEffect, useState } from "react";
@@ -37,12 +37,12 @@ export function RetroBoard() {
                         <NoteItem key={index} note={note} />
                     ))}
                     <div className="w-100 mt-1 d-flex justify-content-center">
-                        <SimpleButton
+                        {/* <SimpleButton
                             type={Button.Borderless}
                             title={"Add"}
                             icon="bi-plus-lg"
                             onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Good))}
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>
@@ -56,12 +56,12 @@ export function RetroBoard() {
                         <NoteItem key={index}  note={note} />
                     ))}
                     <div className="w-100 mt-1 d-flex justify-content-center">
-                        <SimpleButton
+                        {/* <SimpleButton
                             type={Button.Borderless}
                             title={"Add"}
                             icon="bi-plus-lg"
-                            onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Bad))}
-                        />
+                            onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Bad))} */}
+                        {/* /> */}
                     </div>
                 </div>
             </div>
@@ -75,12 +75,12 @@ export function RetroBoard() {
                         <NoteItem key={index}  note={note} />
                     ))}
                     <div className="w-100 mt-1 d-flex justify-content-center">
-                        <SimpleButton
+                        {/* <SimpleButton
                             type={Button.Borderless}
                             title={"Add"}
                             icon="bi-plus-lg"
-                            onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Conclusions))}
-                        />
+                            onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Conclusions))} */}
+                        {/* /> */}
                     </div>
                 </div>
             </div>

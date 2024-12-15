@@ -4,7 +4,7 @@ export * from "./form/SimpleTextInput"
 export * from "./form/SimpleSelectionInput"
 export * from "./form/SimpleDateInput"
 export * from "./common/SimpleCard"
-export * from "./common/SimpleButton"
+export * from "./common/button/Button"
 export * from './form/SimpleMultiLineTextInput'
 export * from "./form/SimpleSwitch"
 export * from './common/SimpleControlPannel'
@@ -13,3 +13,5 @@ export * from './common/Placeholder'
 export * from './common/SimpleIcon'
 export * from './form/SimpleNumberInput'
 export * from './form/SimpleMultipleSelection'
+export * from './form/text-input/TextInput'
+export * from './form/text-input/TextInputProps'

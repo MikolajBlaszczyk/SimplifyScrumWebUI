@@ -2,7 +2,7 @@ import { MouseEvent, useEffect, useMemo, useState } from "react"
 import { BacklogService } from "../../../../services/CommonServicesIndex"
 import { DataLoader } from "../../../../data/CommonDataIndex"
 import { Feature } from "../../../backlog/data/DataIndex"
-import { Button, Placeholder, SelectItem, SimpleButton, SimpleSelectionInput, SimpleSwitch } from "../../../../components/ComponentsIndex"
+import { Button, Placeholder, SelectItem, SimpleSelectionInput, SimpleSwitch } from "../../../../components/ComponentsIndex"
 import { set } from 'date-fns';
 import { Alignment } from '../../../../components/form/SimpleTextInput';
 import { Refinement } from "../../../../pages/Refinement"
@@ -128,7 +128,7 @@ export function RefinementFeatureInfo({guid}: Props){
                             </div>
                             
                             <div className="d-flex w-100 justify-content-between">
-                                <SimpleButton
+                                {/* <SimpleButton
                                     type={Button.Danger} 
                                     title={"Split"}
                                     onClick={() => {split()}} />
@@ -144,7 +144,7 @@ export function RefinementFeatureInfo({guid}: Props){
                                     disabled={!canSubmit}
                                     type={Button.Success} 
                                     title={"Refined"}
-                                    onClick={() =>{refined()}} />
+                                    onClick={() =>{refined()}} /> */}
                             </div>
                         </div>
                     </div>

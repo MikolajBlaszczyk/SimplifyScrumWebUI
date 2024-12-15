@@ -1,5 +1,5 @@
 import { MouseEvent, useEffect, useRef, useState } from "react"
-import { Button, Color, SimpleButton } from "../../../../components/ComponentsIndex"
+import { Button } from "../../../../components/ComponentsIndex"
 import { Feature } from "../../../backlog/data/Feature"
 import { useSwipeable } from "react-swipeable"
 import { EnumService } from "../../../../services/CommonServicesIndex"

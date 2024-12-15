@@ -1,6 +1,6 @@
 import { useState } from "react"
 import LoginForm from "./LoginForm"
-import SecureLogin from "../../../assets/img/secure_login.svg"
+import SecureLogin from "../../../assets/img/Logo.png"
 import SignInForm from "./SignInForm"
 
 export function AuthForm(){
@@ -9,12 +9,12 @@ export function AuthForm(){
     const form = displayLogin == true ? <LoginForm  setDisplayLogin={setDisplayLogin} /> : <SignInForm setDisplayLogin={setDisplayLogin}/>
 
     return(
-        <div className="s-central-form row ">
-            <section className="col s-auth-form shadow">
+        <div className="d-flex  s-central-form w-50  shadow rounded overflow-hidden rounded">
+            <section className="col  s-backgroud-primary s-background-dark-complementary ">
                 {form}
             </section>
-            <section className="col s-auth-image d-flex justify-content-center shadow">
-                <img src={SecureLogin} className=" img-fluid ms-2 me-2"/>
+            <section className="col s-background-dark  d-flex justify-content-center ">
+                <img src={SecureLogin} className="img-fluid ms-2 me-2"/>
             </section>
         </div>
     )

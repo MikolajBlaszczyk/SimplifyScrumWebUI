@@ -3,7 +3,7 @@ import { User, Team, Role, UserInfo } from "../../../data/CommonDataIndex"
 import { EnumService } from "../../../services/CommonServicesIndex"
 import { AccountService } from '../service/AccountService';
 import { useAlert } from "../../../hooks/HooksIndex";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 import { UserTextSetting } from "./UserSettings";
 
 interface Props {
@@ -24,7 +24,7 @@ export default function UserInformation({user}: Props) {
                 .getTeam(user.teamGuid).then(data => setTeam(data))
             setRole(user.role) 
         } catch(error) { 
-            showAlert(AlertType.Danger, '')
+            showAlert(AlertStyle.Danger, '')
         }
         
     }, [])

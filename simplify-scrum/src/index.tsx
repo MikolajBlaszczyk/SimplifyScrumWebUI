@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider, useRouteError } from 'react-router
 import './index.css';
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/styles/STYLEINDEX.scss'
 import { UserProvider } from './context/UserContext';
@@ -18,7 +17,6 @@ import { ModalProvider } from './context/ModalContext';
 import { BacklogStateProvider } from './context/ContextsIndex';
 import {RefinementStateProvider } from './context/RefinementContext';
 import { RetroProvider } from './context/RetroContext';
-
 
 function ErrorBoundary() {
   let error = useRouteError();

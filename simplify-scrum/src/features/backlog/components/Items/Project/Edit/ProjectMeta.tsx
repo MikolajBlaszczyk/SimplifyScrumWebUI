@@ -2,8 +2,8 @@ import { MouseEvent, useEffect, useState } from "react"
 import { BacklogService } from "../../../../../../services/CommonServicesIndex"
 import { Feature } from "../../../../data/Feature"
 import { useAlert } from "../../../../../../hooks/HooksIndex"
-import { AlertType } from "../../../../../alerting/components/Alert"
-import { Button, Color, SimpleButton, SimpleIcon } from "../../../../../../components/ComponentsIndex"
+import { AlertStyle } from "../../../../../alerting/components/Alert"
+import { Button,  SimpleIcon } from "../../../../../../components/ComponentsIndex"
 import { Fonts } from "../../../../../../utils/UtilsIndex"
 import { features } from 'process';
 
@@ -23,7 +23,7 @@ export function ProjectMeta({guid}: Props){
             const featureList =  await BacklogService.getFeaturesForProject(guid)
             setFeatures(featureList)
         } catch(err) {
-            showAlert(AlertType.Danger, "Features were not retrieved", "Error")
+            showAlert(AlertStyle.Danger, "Features were not retrieved", "Error")
         }
     }
 

@@ -1,0 +1,25 @@
+@import "./Variables";
+
+
+.s-input {
+    position: relative;
+    border-radius: $s-radius;
+    padding: $s-padding-vertical $s-padding-vertical;
+    background-color: $input-background;
+    i {
+        padding: 0 4px;
+    }
+
+    input[type="text"], input[type="password"], input[type="email"]  {
+        border: none;
+        background-color: transparent;
+        text-align: start;
+    }
+
+    .s-validation-message{
+        overflow: hidden;
+        transition: height 0.3s ease-in-out;
+    }
+
+}
+

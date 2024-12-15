@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useAlert, useModal } from "../../../../../../hooks/HooksIndex"
 import { BacklogService } from "../../../../../../services/CommonServicesIndex"
-import { AlertType } from "../../../../../alerting/components/Alert"
+import { AlertStyle } from "../../../../../alerting/components/Alert"
 import { Task } from "../../../../data/DataIndex"
-import { Button, Color, SimpleButton } from "../../../../../../components/ComponentsIndex"
+import { Button } from "../../../../../../components/ComponentsIndex"
 import { Fonts } from "../../../../../../utils/UtilsIndex"
 import TaskEdit from "../../Task/TaskEdit"
 import { TaskListItem } from "../../Task/TaskListItem"
@@ -30,7 +30,7 @@ export function FeatureMeta({guid}: Props){
             setTasks(featureList)
         } catch(err) {
             console.log(err)
-            showAlert(AlertType.Danger, "Task were not retrieved", "Error")
+            showAlert(AlertStyle.Danger, "Task were not retrieved", "Error")
         }
     }
 
@@ -65,13 +65,13 @@ export function FeatureMeta({guid}: Props){
                 </div>
                 
                 <div className="p-1 d-flex w-100 justify-content-center">
-                    <SimpleButton
+                    {/* <SimpleButton
                             type={Button.Borderless}
                             title=""
                             fontColor={Color.Light}
                             font={Fonts.H6}
                             icon="bi-plus-lg" 
-                            onClick={() =>{addTask()}}/>
+                            onClick={() =>{addTask()}}/> */}
                 </div>
                
             </section>

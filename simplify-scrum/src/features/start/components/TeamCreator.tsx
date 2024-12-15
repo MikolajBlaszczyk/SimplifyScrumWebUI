@@ -1,11 +1,11 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { UserEditableSettings, UserSelectionSetting } from "../../account-settings/components/UserEditableSettings";
-import { Button, SelectItem, SimpleButton, SimpleSelectionInput } from "../../../components/ComponentsIndex";
+import { Button, SelectItem, SimpleSelectionInput } from "../../../components/ComponentsIndex";
 import { Fonts } from "../../../utils/UtilsIndex";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { Team, User } from "../../../data/CommonDataIndex";
 import { useAlert, useHideModal } from "../../../hooks/HooksIndex";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 import { JoruneyComponentProps } from "./StartJourney";
 
 interface Props {
@@ -22,11 +22,11 @@ export function TeamCreator({journeyProps, team}: Props) {
 
     const createTeam = () => {
         if(name.length == 0) {
-            showAlert(AlertType.Danger, "You need to provide name")
+            showAlert(AlertStyle.Danger, "You need to provide name")
             return
         } 
         if(teamLeader == null){
-            showAlert(AlertType.Danger, "You need to select team leader")
+            showAlert(AlertStyle.Danger, "You need to select team leader")
             return
         } 
 
@@ -36,11 +36,11 @@ export function TeamCreator({journeyProps, team}: Props) {
             .addTeam(team)
             .then(date => {
                 hideModal()
-                showAlert(AlertType.Info, "Successfully added team")    
+                showAlert(AlertStyle.Info, "Successfully added team")    
                 journeyProps.setJourneyState(prev => ({...prev, done: true}))
             })
             .catch(err => {
-                showAlert(AlertType.Danger, err)
+                showAlert(AlertStyle.Danger, err)
             })
     }   
 
@@ -53,7 +53,7 @@ export function TeamCreator({journeyProps, team}: Props) {
                 setTeamLeader(data)
             })
             .catch(err => {
-                showAlert(AlertType.Danger, err, "Error")
+                showAlert(AlertStyle.Danger, err, "Error")
             })
 
        
@@ -84,11 +84,11 @@ export function TeamCreator({journeyProps, team}: Props) {
                     options={users.map(user => ({value: user.teamGuid, description: user.nickname}) )} />
                 
                 <div className="mt-4 d-flex justify-content-center">
-                    <SimpleButton 
+                    {/* <SimpleButton 
                         type={Button.Primary}
                         title={"Save"} 
                         font={Fonts.H6}
-                        onClick={() => {createTeam()}} />
+                        onClick={() => {createTeam()}} /> */}
                 </div>
                
             </section>

@@ -1,5 +1,5 @@
 import { MouseEvent, ReactElement, useEffect, useState } from "react";
-import { Button, SimpleButton } from "../../../../components/common/SimpleButton";
+import { Button } from "../../../../components/common/button/Button";
 
 interface AdditionalButton {
     onClick: () => void

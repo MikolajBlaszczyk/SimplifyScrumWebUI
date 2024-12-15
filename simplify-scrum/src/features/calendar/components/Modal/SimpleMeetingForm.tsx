@@ -3,12 +3,12 @@ import { MeetingFactory, Meeting, MeetingType, User, DayModel } from "../../../.
 import { EnumService, MeetingEnumService, MeetingSerivce } from "../../../../services/CommonServicesIndex"
 import { useAlert, useLoading, useModal } from "../../../../hooks/HooksIndex"
 import { AccountService } from "../../../account-settings/service/AccountService"
-import { Color, MultiSelectDropdown, SelectItem, SimpleDateInput, SimpleMultiLineTextInput,  SimpleSelectionInput, SimpleTextInput, Option } from "../../../../components/ComponentsIndex"
+import { MultiSelectDropdown, SelectItem, SimpleDateInput, SimpleMultiLineTextInput,  SimpleSelectionInput, SimpleTextInput, Option } from "../../../../components/ComponentsIndex"
 import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
 import { DateConverter } from '../../../../utils/utility-services/DateSerivces';
 import { BgColor, FontColor } from "../../../../utils/UtilsIndex"
 import { GenericEnumService } from "../../../../services/enum/GenericEnumService"
-import { AlertType } from "../../../alerting/components/Alert"
+import { AlertStyle } from "../../../alerting/components/Alert"
 
 
 enum Action {
@@ -58,7 +58,7 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
     const save = async () => {
         const {name, description, type, leaderGuid, start, duration, guid} = form
         if(name == '' || leaderGuid == ''){
-            showAlert(AlertType.Danger, 'Please fill all fields', "Error")
+            showAlert(AlertStyle.Danger, 'Please fill all fields', "Error")
             return
         }
         

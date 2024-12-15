@@ -1,12 +1,12 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { UserCheckboxSetting, UserEditableSettings, UserSelectionSetting } from "../../account-settings/components/UserEditableSettings";
-import { Button, SimpleButton } from "../../../components/ComponentsIndex";
+import { Button } from "../../../components/ComponentsIndex";
 import { User } from "../../../data/CommonDataIndex";
 import { BacklogService } from "../../../services/CommonServicesIndex";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { JoruneyComponentProps } from "./StartJourney";
 import { useAlert } from "../../../hooks/HooksIndex";
-import { AlertType } from "../../alerting/components/Alert";
+import { AlertStyle } from "../../alerting/components/Alert";
 
 
 
@@ -32,11 +32,11 @@ export function StartSettings({setJourneyState}: JoruneyComponentProps) {
     const saveSettings = () => {
         let validationAlert = false
         if(nickname.length == 0){ 
-            showAlert(AlertType.Danger, "You need to specify NICKNAME")
+            showAlert(AlertStyle.Danger, "You need to specify NICKNAME")
             validationAlert = true
         } 
         if(email.length == 0){
-            showAlert(AlertType.Danger, "You need to specify EMAIL")
+            showAlert(AlertStyle.Danger, "You need to specify EMAIL")
             validationAlert = true
         }
         if(validationAlert)
@@ -50,11 +50,11 @@ export function StartSettings({setJourneyState}: JoruneyComponentProps) {
         AccountService
             .updateUser(user)
             .then(data => {
-                showAlert(AlertType.Info, "Initial information were saved.", "Success")
+                showAlert(AlertStyle.Info, "Initial information were saved.", "Success")
                 setJourneyState(prev => ({...prev, done: true}))
             })
             .catch(error => {
-                showAlert(AlertType.Danger, error)
+                showAlert(AlertStyle.Danger, error)
             })
     } 
 
@@ -88,10 +88,10 @@ export function StartSettings({setJourneyState}: JoruneyComponentProps) {
             
 
                 <div className="w-100 mt-4 d-flex justify-content-center ">
-                    <SimpleButton 
+                    {/* <SimpleButton 
                         type={Button.Secondary}
                         title={"Update"}
-                        onClick={e => {saveSettings()}} />
+                        onClick={e => {saveSettings()}} /> */}
                 </div>
             </div>
         </section>

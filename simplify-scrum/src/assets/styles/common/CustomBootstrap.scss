@@ -1,3 +1,5 @@
+@import "./Variables";
+
 $green: #187d18 !important;
 $blue: #2c2c8b !important;
 $purple: #3f176f !important;
@@ -14,22 +16,6 @@ $orange: #e8961c !important;
 }
 
 
-
-
-.s-input {
-    display: flex;
-    height: 100%;
-    transition: transform 0.1s ease;
-    &:not(:has(select)):hover{
-
-        background-color: lighten($dark, 10%) !important;
-    }
-    &:focus{
-        outline: none !important;
-        box-shadow:none !important;
-    }
-}
-
 .s-checkbox{
     border-width: 2px !important;
     &:focus{
@@ -39,13 +25,25 @@ $orange: #e8961c !important;
 }
 
 
+.s-tooltip {
+    font-size: $s-p;
+    .tooltip-inner {
+        color: $light !important;
+    }
+
+    .tooltip-arrow{
+        &::before {
+            border-left-color: $secondary-complementary !important;
+        }
+    }
+    .tooltip-inner {
+
+        background-color: $secondary-complementary !important;
+    }
+}
 
 .top-75{
     top: 75%;
-}
-
-.s-input-label{ 
-    width: 35%;
 }
 
 .s-text-danger{
@@ -119,4 +117,4 @@ $orange: #e8961c !important;
 }
 
 
-@import "../font/Font";
+@import "../common/font/Font";

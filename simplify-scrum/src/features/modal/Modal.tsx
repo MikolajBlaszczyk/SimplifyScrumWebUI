@@ -1,7 +1,6 @@
 import { MouseEvent, ReactElement } from "react"
 import { useModalForm } from "../../hooks/useContexts"
-import { Button, SimpleButton } from "../../components/ComponentsIndex"
-import { Color } from '../../components/common/SimpleButton';
+import { Button } from "../../components/ComponentsIndex"
 import { Fonts } from "../../utils/UtilsIndex";
 
 interface Props {
@@ -23,13 +22,13 @@ export function Modal({innerComponent, title}: Props) {
 
                     <div className="mb-2">
 
-                        <SimpleButton 
+                        {/* <SimpleButton 
                             type={Button.Borderless} 
                             title=""
                             icon="bi-x-lg"
                             font={Fonts.H5}
                             fontColor={Color.Light} 
-                            onClick={() => {setModal({showModal: false, modalComponent: <></>})}}/>
+                            onClick={() => {setModal({showModal: false, modalComponent: <></>})}}/> */}
                     </div>
                 </div>
                 <div className="d-flex w-100 h-100">
