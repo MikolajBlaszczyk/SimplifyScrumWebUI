@@ -1,40 +1,36 @@
+@import "../../../assets/styles/common/Variables.scss";
 
 .s-navbar{
     user-select: none;
-
+    color: $dark ;
+    z-index: 1000;
+    background-color: $light;
     h5{
         margin-bottom: 0px;
     }
-    button{
-        background-color: transparent;
-        border: none;
-        font-size: $s-h6;
-        color: $s-background !important; 
-
-        border-radius: 8px;
-        outline: none;
-        cursor: pointer;
-        transition: transform 0.1s ease;
-        &:hover{
-            transform: scale(1.2) !important;
-        }
-    }
+    
+    .breadcrumb > .breadcrumb-item {
+        color: $dark ;
+    } 
+    
     .offcanvas-header{
         background-color: darken($s-text, 10%);
     }
 
     .offcanvas-body{
-        background-color: $dark;
+        background-color: $light;
+
         button{
             width: 100%;
             display: flex;
+            transition: all 0.1s ease-in-out; 
             justify-content: space-between;
             font-size: $s-h5;
             color: $s-background !important;
             margin-bottom: 15px;
-
+            color: $light !important;
             &:hover{
-                transform: scale(1.05) !important;
+                transform: scale(1.03) !important;
                 background-color: $dark-bg-subtle-dark;
                 border-radius: $border-radius;
             }
@@ -42,10 +38,10 @@
 
         .s-offcanvas-logout{
             button{
+                background-color: $secondary;
                 padding-right: 0;
                 justify-content: end;
                 width: fit-content;
-                color: $danger !important;
             }
         }
     }

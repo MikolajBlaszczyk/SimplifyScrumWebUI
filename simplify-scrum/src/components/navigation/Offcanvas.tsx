@@ -7,7 +7,11 @@ import { UserContext } from "../../context/ContextsIndex";
 import { useCleanup } from "../../hooks/useCleanup"
 import { useNavigateTo } from "../../hooks/HooksIndex"
 
-export function Offcanvas(){
+interface OffcanvasProps {
+    breadcrumbChange: (destination: Destination) => void
+}
+
+export function Offcanvas({breadcrumbChange}: OffcanvasProps){
     const {settings, setSettings} = useContext(UserContext)
     const cleanup = useCleanup()
     const navigate = useNavigate()
@@ -25,49 +29,80 @@ export function Offcanvas(){
 
 
     return (
-    <div className="offcanvas offcanvas-end  s-bg-text" tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div className="offcanvas offcanvas-end " tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div className="offcanvas-body d-flex flex-column justify-content-between">
             <div className="d-flex flex-column align-items-center">
                     <NavigationButton
                         icon={"bi-person"} 
                         title="Settings"
-                        onClick={() => navigateTo(Destination.UserSettings)}/>
+                        onClick={() =>{
+                                breadcrumbChange(Destination.UserSettings)
+                                navigateTo(Destination.UserSettings)
+                            }
+                        }/>
 
                     <NavigationButton
                         icon={"bi-info-circle"} 
                         title="Info Center"
-                        onClick={() => navigateTo(Destination.Main)}/>   
+                        onClick={() => {
+                                breadcrumbChange(Destination.Main)
+                                navigateTo(Destination.Main)
+                            }
+                        }/>   
 
                     <NavigationButton
                         icon={"bi-calendar-date"} 
                         title="Meetings"
-                        onClick={() => navigateTo(Destination.Meetings)}/>
+                        onClick={() => {
+                                breadcrumbChange(Destination.Meetings)
+                                navigateTo(Destination.Meetings)
+                            }
+                        }/>
 
                     <NavigationButton
                         icon={"bi-list-columns-reverse"} 
                         title="Backlog"
-                        onClick={() => navigateTo(Destination.Backlog)}/>          
+                        onClick={() => {
+                                breadcrumbChange(Destination.Backlog)
+                                navigateTo(Destination.Backlog)
+                            }
+                        }/>          
 
                     <NavigationButton
-                        icon={"bi-suit-heart-fill"} 
+                        icon={"bi-suit-club"} 
                         title="Refinement"
-                        onClick={() => navigateTo(Destination.Refinement)}/>
+                        onClick={() => {
+                                breadcrumbChange(Destination.Refinement)
+                                navigateTo(Destination.Refinement)
+                            }
+                        }/>
 
                     <NavigationButton
                         icon={"bi-download"} 
                         title="Planning"
-                        onClick={() => navigateTo(Destination.Planning)}/>
+                        onClick={() => {
+                                breadcrumbChange(Destination.Planning)
+                                navigateTo(Destination.Planning)
+                            }
+                        }/>
 
                     <NavigationButton
                         icon={"bi-puzzle"} 
                         title="Daily"
-                        onClick={() => navigateTo(Destination.Daily)}/>
-
+                        onClick={() => {
+                                breadcrumbChange(Destination.Daily)
+                                navigateTo(Destination.Daily)
+                            }
+                        }/>
 
                     <NavigationButton
                         icon={"bi-repeat"} 
                         title="Retrospective"
-                        onClick={() => navigateTo(Destination.Retrospective)}/>
+                        onClick={() => {
+                                breadcrumbChange(Destination.Retrospective)
+                                navigateTo(Destination.Retrospective)
+                            }
+                        }/>
 
                     {
                         settings.isAdmin == true &&
@@ -75,7 +110,11 @@ export function Offcanvas(){
                         <NavigationButton 
                             icon={"bi-battery-charging"} 
                             title="Admin"
-                            onClick={() => navigateTo(Destination.Admin)}/>
+                            onClick={() => {
+                                    breadcrumbChange(Destination.Admin)
+                                    navigateTo(Destination.Admin)
+                                }
+                            }/>
                         )
                     }
 
