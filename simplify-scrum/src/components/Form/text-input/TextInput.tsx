@@ -4,6 +4,7 @@ import { TextInputProps, textTypes, TextType } from "./TextInputProps"
 import { Role, Size, Style } from "../../common/button/ButtonProps"
 import {Tooltip } from 'bootstrap';
 
+//TODO: known issue: when the input validation message is too long validation message needs to open on two clicks
 export function TextInput({icon, placeholder, disabled, readonly, textType, value, changeValue, tooltipContent, validation}: TextInputProps){
     const wrapperRef = useRef<HTMLDivElement>(null);
     const initialHeight = useRef(0);
@@ -44,7 +45,7 @@ export function TextInput({icon, placeholder, disabled, readonly, textType, valu
 
     return(
         <div className="s-input opacity-75 w-100 d-flex flex-column align-items-center ">
-            <div ref={wrapperRef}  className={` ${isExpanded ? 'text-danger border-bottom  mb-1 w-100 ps-3 pb-1' : ''}  s-validation-message  `}>{validation?.isValid == false && validation!.message}</div>
+            <div ref={wrapperRef}  className={` ${isExpanded ? 'text-danger border-bottom  mb-1 w-100 ps-3 pb-1 s-p' : ''}  s-validation-message  `}>{validation?.isValid == false && validation!.message}</div>
             <div className="d-flex w-100">
                 <i  className={`bi ${icon} s-h6`}  data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title={`${tooltipContent ?? ''}`}></i>
                 <input 

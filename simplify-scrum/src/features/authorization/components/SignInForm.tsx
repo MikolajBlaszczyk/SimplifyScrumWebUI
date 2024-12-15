@@ -48,18 +48,26 @@ export default function SignInForm(props: AuthProperties){
         if(loginState.login.length == 0){
             setLoginState(prev => ({...prev, validationResult: {isValid: false, message: "You need to provide a login."}}))
             isValid = false
+        } else{
+            setLoginState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         }
         if(passwordState.password.length == 0){
             setPasswordState(prev => ({...prev, validationResult: {isValid: false, message: "You need to provide a password."}}))
             isValid = false
+        } else{ 
+            setPasswordState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         }
         if(emailState.email.length == 0){
             setEmailState(prev => ({...prev, validationResult: {isValid: false, message: "You need to provide an email."}}))
             isValid = false
+        } else {
+            setEmailState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         }
         if(nicknameState.nickname.length == 0){
             setNicknameState(prev => ({...prev, validationResult: {isValid: false, message: "You need to provide a nickname."}}))
             isValid = false
+        } else {    
+            setNicknameState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         }
 
         return isValid
