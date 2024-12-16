@@ -1,25 +1,28 @@
-$paddingAndBorderRadius: 15px;
+@import "../common/Variables";
 
-.s-info-end-sprint{ 
-    padding: $paddingAndBorderRadius 30px;
-    border-radius: $paddingAndBorderRadius;
+
+.s-info-end-sprint{
+    background-color:  $accent;
+    padding: $s-padding-vertical $s-padding-horizontal;
+    border-radius: $s-radius;
     color: $s-text;
-    height: 44%;
+    height: 24%;
     opacity: 80%;
 }
 
 .s-info-goal-sprint{
-    margin-top: 20px;
-    height: calc(56% - 20px);
-    padding: $paddingAndBorderRadius 30px;
-    border-radius: $paddingAndBorderRadius;
+    padding: $s-padding-vertical $s-padding-horizontal;
+    background-color: $secondary;
+    margin-bottom: 20px;
+    height: calc(76% - 20px);
+    border-radius: $s-radius;
     color: $s-text;
     opacity: 80%;
 }
 
 .s-info-incoming-meetings{
-    padding: $paddingAndBorderRadius 30px;
-    border-radius: $paddingAndBorderRadius;
+    background-color: $primary;
+    border-radius: $s-radius;
     color: $s-text;
     opacity: 80%;
 }

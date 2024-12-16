@@ -33,7 +33,7 @@ export function InfoBoard(){
     }, [])
 
     return (
-    <div className="row d-flex w-100">
+    <div className="row d-flex w-100  ">
         <div className="col-8">
             <MeetingsBlock
                 isEmpty={meetingsLoader.isEmpty}
@@ -41,15 +41,17 @@ export function InfoBoard(){
                 meetings={meetingsLoader.data} />
         </div>
         <div className="col-4 flex-column justify-content-between">
+            <SprintGoal
+                    isPlaceholder={sprintLoader.placeholder}
+                    isEmpty={sprintLoader.isEmpty}
+                    sprint={sprintLoader.data} />
+
             <SprintEnd 
                 isPlaceholder={sprintLoader.placeholder}
                 isEmpty={sprintLoader.isEmpty}
                 sprint={sprintLoader.data} />
 
-            <SprintGoal
-                isPlaceholder={sprintLoader.placeholder}
-                isEmpty={sprintLoader.isEmpty}
-                sprint={sprintLoader.data} />
+           
         </div>
     </div>
     )

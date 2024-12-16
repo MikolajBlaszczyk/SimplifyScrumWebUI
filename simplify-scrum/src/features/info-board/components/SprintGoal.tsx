@@ -17,11 +17,11 @@ export function SprintGoal({isPlaceholder, isEmpty, sprint}: Props){
     }
 
     return(
-        <div className={`${isEmpty == true && ' justify-content-center align-items-center d-flex justify '} s-bg-daily shadow  s-info-goal-sprint `}>
+        <div className={`${isEmpty == true && ' justify-content-center align-items-center d-flex '} s-bg-daily shadow  s-info-goal-sprint `}>
             <h4 className={isEmpty == true ? 'text-center s-h3' : ''}>
                 {
                     isEmpty == false ? 
-                    `Goal of the sprint is - ${sprint?.goal}`
+                    `Goal for this sprint: \n ${sprint?.goal}`
                     :
                     "You are not in any Sprint."
                 }

@@ -16,7 +16,7 @@ export default function NavigationBar(){
     }
 
     return(
-        <nav className="navbar s-navbar shadow-sm  position-sticky top-0  z-index-sticky">
+        <nav className="navbar s-navbar  position-sticky top-0  z-index-sticky">
             <div className="s-logo-div d-flex  align-items-center ms-2">
                 <img className=" img-fluid" style={{width: '40px'}} src={icon} alt="Simplify icon"/>
 
@@ -29,7 +29,7 @@ export default function NavigationBar(){
 
 
             <NavigationButton 
-                className="me-2"
+                className="me-2 navbar-button"
                 icon="bi-list"
                 offcanvas={true}
                 onClick={() => {}} />      

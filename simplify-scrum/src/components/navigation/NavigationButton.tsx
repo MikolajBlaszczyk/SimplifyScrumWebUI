@@ -10,7 +10,7 @@ interface Props {
 
 export function NavigationButton({offcanvas, icon, title, onClick, className}: Props){
     return (
-        <button type="button" className={"s-button s-filled s-normal d-flex mt-1 shadow  align-items-center" + " " + className} onClick={onClick} data-bs-toggle={(offcanvas && ('offcanvas')) ?? undefined} data-bs-target={(offcanvas && ('#offcanvasNavbar')) ?? undefined}>
+        <button type="button" className={"s-normal s-button mt-1 me-3 s-filled d-flex align-items-center" + " " + className} onClick={onClick} data-bs-toggle={(offcanvas && ('offcanvas')) ?? undefined} data-bs-target={(offcanvas && ('#offcanvasNavbar')) ?? undefined}>
              {title &&  (<p className="me-2 mb-0">{title}</p>)}
             <i className={`bi ${icon}`}></i>
         </button>

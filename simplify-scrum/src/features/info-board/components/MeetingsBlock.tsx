@@ -11,18 +11,17 @@ interface Props {
 export function MeetingsBlock({isEmpty, isPlaceholder, meetings}: Props){ 
     if(isPlaceholder == true){
         return (
-            <div className="s-bg-form d-flex w-100 h-100 me-3 shadow s-info-incoming-meetings justify-content-center align-items-center opacity-50">
+            <div className="d-flex w-100 h-100 me-3 shadow s-info-incoming-meetings justify-content-center align-items-center opacity-50">
                 <Placeholder />
             </div>
         )
     }
 
     return (
-        <div className="s-bg-form d-flex w-100 h-100 me-3 shadow s-info-incoming-meetings">
+        <div className=" d-flex w-100 h-100 me-3 shadow s-info-incoming-meetings">
             {
                 isEmpty ? 
                 (
-                    
                     <div className="d-flex w-100 h-100 flex-column align-items-center mt-5" >
                         <h3 className=" mb-5">There are no incoming meetings</h3>
                         <img src={Omega} className=" img-fluid w-50 z-2 align-self-center mt-5 s-info-image"/>

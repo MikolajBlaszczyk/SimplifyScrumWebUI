@@ -2,48 +2,71 @@
 
 .s-navbar{
     user-select: none;
-    color: $dark ;
+    color: $light;
     z-index: 1000;
-    background-color: $light;
+    background-color: $dark;
+    opacity: $s-opacity;
     h5{
         margin-bottom: 0px;
     }
     
+    .navbar-button{
+        background-color: $primary !important;
+        color: $light !important;
+        &:hover{
+            background-color: darken($primary, 10%) !important;
+        }
+    }
     .breadcrumb > .breadcrumb-item {
-        color: $dark ;
+        color: $light ;
     } 
     
-    .offcanvas-header{
-        background-color: darken($s-text, 10%);
-    }
-
-    .offcanvas-body{
-        background-color: $light;
-
-        button{
-            width: 100%;
-            display: flex;
-            transition: all 0.1s ease-in-out; 
-            justify-content: space-between;
-            font-size: $s-h5;
-            color: $s-background !important;
-            margin-bottom: 15px;
-            color: $light !important;
-            &:hover{
-                transform: scale(1.03) !important;
-                background-color: $dark-bg-subtle-dark;
-                border-radius: $border-radius;
-            }
+    .offcanvas{
+        padding: $s-padding-horizontal 0 $s-padding-horizontal $s-padding-vertical;
+        align-self: center;
+        overflow: hidden;
+        width: 20%;
+        height: 100%;
+        opacity: $s-opacity;
+        background-color: $dark;
+        .offcanvas-header{
+            background: transparent !important;
+            color: $light;
         }
+    
+        .offcanvas-body{
+            .navigation-label{
+                color: $light;
+                margin-bottom: 0;
+                width: 84%;
+                
+            }
 
-        .s-offcanvas-logout{
             button{
-                background-color: $secondary;
-                padding-right: 0;
-                justify-content: end;
-                width: fit-content;
+                width: 90%;
+                display: flex;
+                transition: all 0.1s ease-in-out; 
+                justify-content: space-between;
+                font-size: $s-h5;
+                background-color: transparent !important;
+                color: $dark !important;
+                color: $light !important;
+                &:hover{
+                    transform: scale(1.03);
+                    background-color: $primary !important;
+                }
+            }
+    
+            .s-offcanvas-logout{
+                button{
+                    background-color: $secondary;
+                    padding-right: 0;
+                    justify-content: end;
+                    width: fit-content;
+                }
             }
         }
     }
+   
 }
 

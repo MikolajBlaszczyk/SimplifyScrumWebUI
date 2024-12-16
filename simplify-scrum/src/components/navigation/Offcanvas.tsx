@@ -2,10 +2,14 @@ import { useNavigate } from "react-router-dom"
 import { Destination, destinationPaths } from "../../utils/UtilsIndex"
 import { LoginService } from "../../features/authorization/services/LoginService"
 import { NavigationButton } from "./NavigationButton"
-import { useContext } from "react"
+import { MouseEvent, useContext } from "react"
 import { UserContext } from "../../context/ContextsIndex";
 import { useCleanup } from "../../hooks/useCleanup"
 import { useNavigateTo } from "../../hooks/HooksIndex"
+import logo from '../../assets/img/Logo.png'
+import { Button } from "../ComponentsIndex"
+import { Role, Size, Style } from "../common/button/ButtonProps"
+import { NavigationLabel } from "./NavigationLabel"
 
 interface OffcanvasProps {
     breadcrumbChange: (destination: Destination) => void
@@ -29,44 +33,14 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
 
 
     return (
-    <div className="offcanvas offcanvas-end " tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div className="offcanvas-body d-flex flex-column justify-content-between">
-            <div className="d-flex flex-column align-items-center">
-                    <NavigationButton
-                        icon={"bi-person"} 
-                        title="Settings"
-                        onClick={() =>{
-                                breadcrumbChange(Destination.UserSettings)
-                                navigateTo(Destination.UserSettings)
-                            }
-                        }/>
-
-                    <NavigationButton
-                        icon={"bi-info-circle"} 
-                        title="Info Center"
-                        onClick={() => {
-                                breadcrumbChange(Destination.Main)
-                                navigateTo(Destination.Main)
-                            }
-                        }/>   
-
-                    <NavigationButton
-                        icon={"bi-calendar-date"} 
-                        title="Meetings"
-                        onClick={() => {
-                                breadcrumbChange(Destination.Meetings)
-                                navigateTo(Destination.Meetings)
-                            }
-                        }/>
-
-                    <NavigationButton
-                        icon={"bi-list-columns-reverse"} 
-                        title="Backlog"
-                        onClick={() => {
-                                breadcrumbChange(Destination.Backlog)
-                                navigateTo(Destination.Backlog)
-                            }
-                        }/>          
+    <div className="offcanvas offcanvas-end" tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div className="offcanvas-header w-100 align-items-center justify-content-start d-flex ">
+            <h4 className="mb-0">Navigation</h4>
+        </div>
+        <div className="offcanvas-body d-flex flex-column align-items-end justify-content-between">
+            <div className="d-flex flex-column align-items-center w-100 ">
+                  
+                    <NavigationLabel title="Scrum meetings" />
 
                     <NavigationButton
                         icon={"bi-suit-club"} 
@@ -104,6 +78,56 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                             }
                         }/>
 
+
+
+                    <div className="mt-4"></div>
+                    <NavigationLabel title="Project managemenet" />
+                    
+                    <NavigationButton
+                        icon={"bi-info-circle"} 
+                        title="Info Center"
+                        onClick={() => {
+                                breadcrumbChange(Destination.Main)
+                                navigateTo(Destination.Main)
+                            }
+                        }/>   
+
+                    <NavigationButton
+                        icon={"bi-list-columns-reverse"} 
+                        title="Backlog"
+                        onClick={() => {
+                                breadcrumbChange(Destination.Backlog)
+                                navigateTo(Destination.Backlog)
+                            }
+                        }/>        
+                   
+
+                    <NavigationButton
+                        icon={"bi-calendar-date"} 
+                        title="Meetings"
+                        onClick={() => {
+                                breadcrumbChange(Destination.Meetings)
+                                navigateTo(Destination.Meetings)
+                            }
+                        }/>
+
+
+
+
+
+
+                    <div className="mt-4"></div>
+                    <NavigationLabel title="User settings" />
+
+                    <NavigationButton
+                        icon={"bi-person"} 
+                        title="Settings"
+                        onClick={() =>{
+                                breadcrumbChange(Destination.UserSettings)
+                                navigateTo(Destination.UserSettings)
+                            }
+                        }/>
+
                     {
                         settings.isAdmin == true &&
                         (
@@ -118,13 +142,19 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                         )
                     }
 
-            </div>
-            <div className="d-flex flex-column align-items-end s-offcanvas-logout">
-                <NavigationButton
-                    icon={"bi-exclamation-lg"} 
-                    title="Log out"
-                    onClick={() => logOut()}/>
-            </div>
+                </div>
+                <div className="d-flex mt-2 justify-content-end align-items-end s-offcanvas-logout w-100">
+
+
+                    <Button 
+                        style={Style.Borderless}
+                        role={Role.Cancel}
+                        size={Size.XLarge}
+                        icon="bi-power"
+                        onClick={() => logOut()} />
+
+                    
+                </div>
         </div>
     </div>
     )
