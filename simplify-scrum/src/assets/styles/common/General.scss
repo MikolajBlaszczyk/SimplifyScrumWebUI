@@ -1,3 +1,5 @@
+@import "./Variables";
+
 $s-dark: #343a40;
 $s-dark-darker: darken($s-dark, 10%);
 $s-text: #0a0717;
@@ -8,8 +10,6 @@ $s-secondary: #cafe76;
 $s-accent: #c40e3e;
 $s-note: #FFC700;
 
-$primary: $s-primary;
-$secondary: $s-secondary;
 $success: #376E37;   
 $info: #1BE7FF;
 $warning: #FE9920; 
@@ -132,8 +132,25 @@ input[type="range"]::-moz-range-thumb {
     background-color: $primary !important;
 }
 
+.s-bg-primary-complementary {
+    background-color: $primary-complementary !important;
+}
+
+
 .s-bg-secondary {
-    background-color: $s-secondary !important;
+    background-color: $secondary !important;
+}
+
+.s-bg-secondary-complementary {
+    background-color: $secondary-complementary !important;
+}
+
+.s-bg-accent {
+    background-color: $accent !important;
+}
+
+.s-bg-accent-complementary {
+    background-color: $accent-complementary !important;
 }
 
 .s-bg-success {

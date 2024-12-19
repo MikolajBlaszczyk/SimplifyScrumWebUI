@@ -1,37 +1,93 @@
-@import "./Utils";
-
+@import './Variables';
 
 .s-card {
-    border-top-left-radius: 5%;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    width: 90%;
-    aspect-ratio: 2 / 2;
+    position: relative;
+    border-radius: $s-radius;
+    border-end-end-radius: 0px !important;
+    min-height: 500px;
+    min-width: 225px;
     transition: transform 0.15s ease-in-out;
+    border: none !important;
+    overflow: hidden;
+    color: $light; 
+    
+    .card-icon-div{
+        border-color: $light !important;
+        padding-bottom: 0.5rem !important;
+        width: 72%;
+    }
 
-}   
+    h4{
+        font-size: $s-h5 !important;
+        padding: 1rem 0;
+        width: 70%;
+        display: flex; 
+        justify-content: center;
+        border-radius: $s-radius;
+    }
 
-.s-card-placeholder {
-    border-top-left-radius: 5%;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    width: 90% !important; 
-    background-color: $s-background;
-    aspect-ratio: 2 / 2;
-    border-radius: 0px !important;
-    width: 20vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} 
+    &.s-bg-primary {
 
-.s-card-body {
-    width: 20vw;
-    font-size: $text-fs;
-}
+        h4{
+            background-color: $primary-complementary; 
+        }
 
-.s-card-addon {
-    font-size: $small-fs !important;
+        &::before {
+            background-color: $primary-complementary; 
+        }
+    }
+
+    &.s-bg-secondary {
+        
+        h4{
+            background-color: $secondary-complementary; 
+        }
+
+        &::before {
+            background-color: $secondary-complementary; 
+        }
+    }
+
+    &.s-bg-accent {
+
+        h4{
+            background-color: $accent-complementary; 
+        }
+
+
+        &::before {
+            background-color: $accent-complementary; 
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        
+        border: none !important;
+        bottom: 0;
+        right: 0;
+        width: 50px; 
+        height: 50px;
+
+       
+
+
+        clip-path: polygon(0 0, 100% 0, 0% 100%);
+        z-index: 1;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        border-color: $dark;
+        right: -1px;
+        width: 52px; 
+        height: 52px; 
+        background-color: $dark; 
+        clip-path: polygon(0 100%, 100% 100%, 100% 0);
+        border: none !important;
+        z-index: 2;
+    }
 }

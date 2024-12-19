@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { InfoCenterService } from "../services/InfoCenterService"
 import { DataLoader, Meeting, Sprint, SprintModel } from "../../../data/CommonDataIndex"
 import { BacklogService } from "../../../services/CommonServicesIndex"
-import { Placeholder } from "../../../components/ComponentsIndex"
+import { Card, Placeholder } from "../../../components/ComponentsIndex"
 import { SprintEnd } from "./SprintEnd"
 import { SprintGoal } from "./SprintGoal"
 import { MeetingsBlock } from "./MeetingsBlock"
@@ -33,25 +33,23 @@ export function InfoBoard(){
     }, [])
 
     return (
-    <div className="row d-flex w-100  ">
-        <div className="col-8">
-            <MeetingsBlock
-                isEmpty={meetingsLoader.isEmpty}
-                isPlaceholder={meetingsLoader.placeholder}
-                meetings={meetingsLoader.data} />
+    <div className="d-flex flex-column h-100 s-info-center overflow-hidden">
+        <div className="d-flex w-100 s-info-center-header pt-3 pb-2 justify-content-center border-bottom">
+            <h2>Informations</h2>
         </div>
-        <div className="col-4 flex-column justify-content-between">
+        <div className="d-flex justify-content-evenly pt-5 pb-5 h-100">
             <SprintGoal
                     isPlaceholder={sprintLoader.placeholder}
                     isEmpty={sprintLoader.isEmpty}
                     sprint={sprintLoader.data} />
-
+            <MeetingsBlock
+                isEmpty={meetingsLoader.isEmpty}
+                isPlaceholder={meetingsLoader.placeholder}
+                meetings={meetingsLoader.data} />
             <SprintEnd 
                 isPlaceholder={sprintLoader.placeholder}
                 isEmpty={sprintLoader.isEmpty}
                 sprint={sprintLoader.data} />
-
-           
         </div>
     </div>
     )

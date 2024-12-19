@@ -1,6 +1,8 @@
+import { useEffect } from "react"
 import Omega from "../../../assets/img/omega.svg"
-import { Placeholder } from "../../../components/ComponentsIndex"
+import { Card, CardColor, Placeholder } from "../../../components/ComponentsIndex"
 import { Meeting } from "../../../data/CommonDataIndex"
+import { Tooltip } from "bootstrap"
 
 interface Props {
     isEmpty: boolean
@@ -9,49 +11,45 @@ interface Props {
 }
 
 export function MeetingsBlock({isEmpty, isPlaceholder, meetings}: Props){ 
-    if(isPlaceholder == true){
-        return (
-            <div className="d-flex w-100 h-100 me-3 shadow s-info-incoming-meetings justify-content-center align-items-center opacity-50">
-                <Placeholder />
-            </div>
-        )
+    let list 
+
+      useEffect(() => {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
+
+    
+            return () => {
+                tooltipList.map(t => t.dispose())
+                }
+          }, [meetings]);
+
+    if(meetings == null || meetings == undefined || meetings.length == 0){ 
+        list = <div className="w-75 text-center">No Incoming Meetings</div>
+    } else {
+        list = (
+            <ul style={{width: '70%'}} className="mt-2 d-flex justify-content-start align-items-center   s-info-meetings-list user-select-none  list-group " data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title="Maximum of 5 next meetings. Having too much meetings can reduce productivity.">
+                {
+                    meetings?.slice(0, 5).map((meeting, index) => {
+                        return (
+                            <li className="list-group-item " key={index}>
+                               {meeting.name}
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        )  
+        
+     
     }
 
-    return (
-        <div className=" d-flex w-100 h-100 me-3 shadow s-info-incoming-meetings">
-            {
-                isEmpty ? 
-                (
-                    <div className="d-flex w-100 h-100 flex-column align-items-center mt-5" >
-                        <h3 className=" mb-5">There are no incoming meetings</h3>
-                        <img src={Omega} className=" img-fluid w-50 z-2 align-self-center mt-5 s-info-image"/>
-                    </div>
-                )
-                :
-                (
-                    <>
-                        <h3>
-                            Incoming meetings for this sprint
-                        </h3>
 
-                        <ul className="list-group list-group-flush mt-5">
-                            {
-                                meetings.map(meeting => {
-                                    return(
-                                        <li className="list-group-item bg-transparent text-black">
-                                            <h5>
-                                                {meeting.name}
-                                            </h5>
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
-                        <img src={Omega} className=" img-fluid w-50 position-relative s-info-image"/>
-                    </>
-                )
-            }
-            
-        </div>
+    return (
+         <Card 
+            icon="bi-calendar-date"
+            title={"Meetings"}
+            color={CardColor.Primary}
+            placeholder={isPlaceholder} 
+            content={list}/>
     )
 }

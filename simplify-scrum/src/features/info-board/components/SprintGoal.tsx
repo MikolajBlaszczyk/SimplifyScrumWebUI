@@ -1,4 +1,4 @@
-import { Placeholder } from "../../../components/ComponentsIndex"
+import { Card, CardColor, Placeholder } from "../../../components/ComponentsIndex"
 import { Sprint } from "../../../data/CommonDataIndex"
 
 interface Props {
@@ -8,24 +8,13 @@ interface Props {
 }
 
 export function SprintGoal({isPlaceholder, isEmpty, sprint}: Props){
-    if(isPlaceholder == true){
-        return (
-            <div className="s-bg-daily shadow  s-info-goal-sprint justify-content-center align-items-center d-flex opacity-50">
-                <Placeholder />
-            </div>
-        )
-    }
 
     return(
-        <div className={`${isEmpty == true && ' justify-content-center align-items-center d-flex '} s-bg-daily shadow  s-info-goal-sprint `}>
-            <h4 className={isEmpty == true ? 'text-center s-h3' : ''}>
-                {
-                    isEmpty == false ? 
-                    `Goal for this sprint: \n ${sprint?.goal}`
-                    :
-                    "You are not in any Sprint."
-                }
-            </h4>
-        </div>
+            <Card 
+                placeholder={isPlaceholder}
+                icon="bi-bullseye"
+                title={"Goal"}
+                color={CardColor.Secondary}
+                content={<div style={{width: '70%'}} className="mt-2  rounded h-auto d-flex justify-content-center align-items-start pt-4 pb-4 "><h6>{sprint?.goal}</h6></div>}/>
     )
 }

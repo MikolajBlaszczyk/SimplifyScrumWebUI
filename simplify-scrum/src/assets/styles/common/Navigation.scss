@@ -11,7 +11,7 @@
     }
     
     .navbar-button{
-        background-color: $primary !important;
+        background-color: transparent !important;
         color: $light !important;
         &:hover{
             background-color: darken($primary, 10%) !important;
