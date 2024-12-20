@@ -1,15 +1,18 @@
 import React, { createContext, useMemo, useState } from "react";
+import { Notification } from '../data/notifications/Notification';
 
 export const defaultSettings: SimplifySettings = {
     isInStartupScreen: false,
     isAdmin: false,
-    showNavbar: true
+    showNavbar: true,
+    notifications: []
 }
 
 export type SimplifySettings = {
     isInStartupScreen: boolean
     isAdmin: boolean
     showNavbar: boolean
+    notifications: Notification[]
 }
 
 export interface Global{

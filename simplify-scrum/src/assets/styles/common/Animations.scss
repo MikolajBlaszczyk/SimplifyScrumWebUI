@@ -116,3 +116,40 @@
     background-color: transparent;
   }
 }
+
+
+
+.s-notification-indicator {
+  position: relative;
+  transition: transform 0.3s ease;
+
+  &.swiping {
+      transform: translateX(var(--swipe-amount, 0));
+  }
+
+  .remove-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+  }
+
+  &.swiping .remove-icon {
+      opacity: 1;
+  }
+}
+
+.swipe-indicator p {
+  animation: swipeLeft 25s ease-in-out infinite;
+}
+
+@keyframes swipeLeft {
+  0%, 4%, 100% {
+    transform: translateX(0);
+  }
+  2% {
+    transform: translateX(-10px);
+  }
+}

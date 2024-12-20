@@ -1,23 +1,24 @@
+@import '../common/Variables';
 
 $dailyMeeting: #55BBF6;
 $criticalMeeting: #9B89DC;
 $optionalMeeting: #DCEDB9;
 
 .s-bg-daily {
-    background-color: $dailyMeeting;
+    background-color: $primary;
 }
 
 .s-bg-critical{ 
-    background-color: $criticalMeeting;
+    background-color: $primary;
 
 }
 
 .s-bg-optional {
-    background-color: $optionalMeeting;
+    background-color: $primary;
 }
 
 .s-notification-sheet{
-    background-color: lighten($dark, 15%) !important; 
+    background-color: $dark !important; 
     aspect-ratio: 1 / 2;
     padding: 10px;
     border-radius: 10px;
@@ -29,16 +30,9 @@ $optionalMeeting: #DCEDB9;
 }
 
 .s-notification-indicator {
-    color: $s-text;
+    color: $light;
+    border-radius: $s-radius;
     display: flex;
-    position: relative;
-    left: -25px;
     width: 80%;
-    padding: 5px 4px;
-    border-end-end-radius: 20px;
-    border-start-end-radius: 20px;
-    transition: transform 0.1s ease-in-out;
-    &:hover{
-        transform: scale(1.05);
-    }
+    padding: $s-padding-vertical $s-padding-horizontal;
 }

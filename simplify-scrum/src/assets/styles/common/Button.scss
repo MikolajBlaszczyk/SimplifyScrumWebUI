@@ -73,12 +73,12 @@
 
 .s-cancel {
     background-color: $secondary;
-    border-color: $secondary-complementary !important;
+    border-color: $dark-complementary !important;
     &.s-outlined {
-        color: $secondary-complementary !important;
+        color: lighten($dark, 30%) !important;
     }
     &.s-borderless {
-        color: $secondary-complementary !important;
+        color: lighten($dark, 30%) !important;
     }
 }
 

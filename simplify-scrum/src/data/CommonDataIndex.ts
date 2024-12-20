@@ -1,3 +1,5 @@
+export * from './notifications/Notification'
+
 export * from './backlog/Sprint'
 export * from './backlog/Plan'
 

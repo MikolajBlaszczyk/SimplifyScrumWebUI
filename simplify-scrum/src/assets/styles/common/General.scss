@@ -277,3 +277,33 @@ input[type="password"] {
         accent-color: #fff;
     }
 }
+
+.toast-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+
+.fade-in-toast {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.toast .btn-close {
+    outline: none;
+    box-shadow: none;
+}
