@@ -23,3 +23,77 @@
 
 }
 
+
+.s-input-multiline{
+    textarea{
+        background-color: transparent !important;
+        outline: none !important;
+        padding: 0 $s-padding-vertical;
+    }
+}
+
+.s-input-select{
+    select{
+        border: none;    
+        background-color: transparent;
+        outline: none;
+    }
+}
+
+.s-input-calendar{
+    input[type="date"]{
+    }
+}
+
+
+
+.s-input-datetime{
+    padding: 0 $s-padding-horizontal;
+    margin: 0 $s-padding-horizontal !important;
+    border-radius: $s-radius;
+    user-select: none !important;
+    &:hover{
+        background-color: $dark;
+    }
+    input {
+        padding: 0;
+        color: $light !important;
+        user-select: none !important;
+    }
+    fieldset{
+
+        user-select: none !important;
+        border: none;
+    }
+}
+
+.s-input-range-div{
+    //
+    .s-input-range{
+        //
+    }
+}
+
+.s-input-multiselect{
+    padding: 0 $s-padding-horizontal;
+    margin: 0 $s-padding-horizontal !important;
+
+    user-select: none !important;
+    &:hover{
+        border-radius: $s-radius;
+        background-color: $dark;
+    }
+    svg{
+        color: $light;
+    }
+    color: $light !important;
+    div {
+        padding: 0 !important; 
+        user-select: none !important;
+    }
+    fieldset{
+
+        user-select: none !important;
+        border: none;
+    }
+}

@@ -14,8 +14,10 @@ export function CentralLayout({centralComponent}: CentralLayoutProps){
         <>
             {alerting.showAlert && (alerting.alertComponent)}
             {modal.showModal && (modal.modalComponent)}
-            <main className="d-flex w-100 h-100 justify-content-center align-items-center">
+            <main className="d-flex w-100  h-100 justify-content-center align-items-center">
+                <div className="s-central-layout d-flex justify-content-center align-items-center"> 
                     {centralComponent}
+                </div>
             </main>
         </>
        

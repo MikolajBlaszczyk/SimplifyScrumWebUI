@@ -9,7 +9,7 @@ export class DateConverter{
         return `${hr}:${min}:${sec}`
     }
 
-    public static convertTimeStringtoDate(timeStr: string){
+    public static convertTimeStringToDate(timeStr: string){
         if(timeStr.length != 8)
             throw Error("Incorrect time string format")
 

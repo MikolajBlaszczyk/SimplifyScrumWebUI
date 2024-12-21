@@ -1,4 +1,5 @@
 import { MeetingType, Meeting } from "../../../data/CommonDataIndex";
+import { useTooltip } from "../../../hooks/HooksIndex";
 
 
 interface MeetingIndicatorProps {
@@ -15,13 +16,14 @@ const MeetingColor = {
     default: ""
 }
 
-export default function MeetingIndicator(props: MeetingIndicatorProps){
-    
+export default function MeetingIndicator({meetings}: MeetingIndicatorProps){
     return(
-    
-        <div className="d-flex w-100 justify-content-center align-items-center mb-2 fs-12">
+        meetings == null || meetings.length == 0 ? 
+        <div className=" d-none"></div>
+        :
+        <div className="d-flex position-absolute bottom-0 start-50 pb-2 translate-middle-x w-100 justify-content-center align-items-center  fs-12">
             {
-                props.meetings?.map(m => {
+                meetings?.slice(0,3).map(m => {
                     const indication = MeetingColor[m.type] || MeetingColor.default
 
                     return <span className={`s-dot ${indication} ms-1 me-1`}></span>

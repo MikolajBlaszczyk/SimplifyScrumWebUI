@@ -8,10 +8,12 @@ import { useLoading } from '../../../hooks/HooksIndex';
 import { MeetingSerivce } from "../../../services/CommonServicesIndex";
 import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
-import { componentSize, ComponentSize } from "../../../utils/UtilsIndex";
+import { Size } from "../../../components/common/button/ButtonProps";
+import { useModal } from '../../../hooks/useModal';
 
 interface SimpleCalendarProps {
     initialDate: Date 
+    className?: string
 }
 
 interface DayClickedEventProps {
@@ -20,9 +22,13 @@ interface DayClickedEventProps {
     showModal: boolean
 }
 
-export default function SimpleCalendar({initialDate}: SimpleCalendarProps) {
+
+
+export default function SimpleCalendar({initialDate, className}: SimpleCalendarProps) {
+
     const {shouldReload} = useLoading()
     const showAlert = useAlert()
+    const today = new Date()
     const calendarRef = useRef<HTMLDivElement>(null)
 
     const [schedule, setSchedule] = useState<ScheduleModel>({ month: initialDate.getMonth(), days: [] })
@@ -49,7 +55,8 @@ export default function SimpleCalendar({initialDate}: SimpleCalendarProps) {
         setClickProps(prev => ({
                 ...prev,
                 selectedDay: selectedDay,
-                date: clickedDate
+                date: clickedDate,
+                showModal: true
             })
         )
     }
@@ -64,9 +71,12 @@ export default function SimpleCalendar({initialDate}: SimpleCalendarProps) {
     },[shouldReload])
     
     useEffect(() => {    
+        if(clickProps.showModal == true)
         MeetingSerivce
             .GetMeetings()
-            .then(data => dayClickedInfoChanged(clickProps.date, data.days))
+            .then(data => {
+                dayClickedInfoChanged(clickProps.date, data.days)
+            })
             .catch(error => showAlert(AlertStyle.Danger, error.message))
     },[shouldReload])
 
@@ -77,7 +87,6 @@ export default function SimpleCalendar({initialDate}: SimpleCalendarProps) {
         }
         
         dayClickedInfoChanged(date)
-        setClickProps(prev => ({...prev, showModal: true}))
 
         if (calendarRef.current) {
             calendarRef.current.classList.add('animate-height')
@@ -109,33 +118,36 @@ export default function SimpleCalendar({initialDate}: SimpleCalendarProps) {
             return (<></>)
 
         return (
-                <MeetingIndicator meetings={currentDay!.meetings}/>
+                <MeetingIndicator  meetings={currentDay!.meetings}/>
         )
     }
 
     return (
-        <div className="s-calendar-size overflow-hidden"  ref={calendarRef}>
-            <Calendar
-            minDetail="month"
-            nextLabel={(<h5 className="me-1"><i className="bi bi-box-arrow-in-right"></i></h5>)}
-            prevLabel={(<h5 className="ms-1"><i className="bi bi-box-arrow-in-left"></i></h5>)}
-            showNeighboringMonth={false}
-            onChange={(newValue) => setCalendarDate(newValue as Date)} 
-            value={initialDate ?? new Date()}
-            tileContent={(args) => renderDescription(args.date, calendarDate.getMonth())}
-            onClickDay={onDayClick}
-            className="justify-content-center align-items-center"/>
-            
-            {
-                clickProps.showModal &&
-                <div>
-                    <SimpleModal 
-                    body={<DayInfo meetings={clickProps.selectedDay!.meetings} clickedDay={clickProps.date}/>} 
-                    day={clickProps.selectedDay!} 
-                    onClose={closeDayEdit}/>
-                    <div className="modal-backdrop fade show"/> 
-                </div> 
-            }
+        <div className={className}>
+            <div className="s-calendar-size overflow-hidden"  ref={calendarRef}>
+                <Calendar
+                minDetail="month"
+                nextLabel={(<i className="bi bi-box-arrow-in-right s-h4"></i>)}
+                prevLabel={(<i className="bi bi-box-arrow-in-left s-h4"></i>)}
+                showNeighboringMonth={false}
+                onChange={(newValue) => setCalendarDate(newValue as Date)} 
+                value={initialDate ?? new Date()}
+                tileContent={(args) => renderDescription(args.date, calendarDate.getMonth())}
+                onClickDay={onDayClick}
+                className="justify-content-center align-items-center"/>
+                
+                {
+                    clickProps.showModal &&
+                    <div>
+                        <SimpleModal 
+                        body={<DayInfo meetings={clickProps.selectedDay?.meetings ?? []} clickedDay={clickProps.date}/>} 
+                        day={clickProps.selectedDay!} 
+                        onClose={closeDayEdit}/>
+                        <div className="modal-backdrop fade show"/> 
+                    </div> 
+                }
+            </div>
         </div>
+       
     )
 }

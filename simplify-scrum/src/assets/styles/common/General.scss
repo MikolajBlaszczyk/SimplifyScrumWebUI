@@ -278,6 +278,13 @@ input[type="password"] {
     }
 }
 
+.focus-none{
+    &:focus{
+        outline: none !important;
+
+    }
+}
+
 .toast-container {
     position: fixed;
     bottom: 0;

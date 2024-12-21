@@ -30,3 +30,47 @@
 .s-w-45{
     width: 45% !important;
 }
+
+.s-side-by-side-layout{
+    @media (max-width: $screen-sm) {
+        width: 95% !important; 
+    }
+
+    @media (min-width: $screen-sm) {
+        width: 90% !important; 
+    }
+
+    @media (min-width: $screen-md) {
+        width: 85% !important; 
+    }
+
+    @media (min-width: $screen-l) {
+        width: 80% !important; 
+    }
+
+    @media (min-width: $screen-xl) {
+        width: 75% !important; 
+    }
+}
+
+.s-central-layout{
+    @media (max-width: $screen-sm) {
+        width: 90% !important; 
+    }
+
+    @media (min-width: $screen-sm) {
+        width: 85% !important; 
+    }
+
+    @media (min-width: $screen-md) {
+        width: 80% !important; 
+    }
+
+    @media (min-width: $screen-l) {
+        width: 75% !important; 
+    }
+
+    @media (min-width: $screen-xl) {
+        width: 70% !important; 
+    }
+}

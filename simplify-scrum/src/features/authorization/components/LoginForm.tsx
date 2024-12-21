@@ -10,8 +10,8 @@ import {useAlert} from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
 import { TextInput } from "../../../components/form/text-input/TextInput";
-import { ValidationResult } from '../../../components/form/text-input/TextInputProps';
 import { AxiosError } from "axios";
+import { ValidationResult } from "../../../components/form/shared/SharedProps";
 
 
 interface LoginNameState {
@@ -23,6 +23,7 @@ interface PasswordState {
     password: string,
     validationResult: ValidationResult
 }
+
 
  
 export default function LoginForm(props: AuthProperties){

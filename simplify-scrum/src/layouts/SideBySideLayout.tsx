@@ -38,7 +38,7 @@ export function SideBySideLayout({rightSide, leftSide, alignment}: SideBySideLay
         <>
             {alerting.showAlert && (alerting.alertComponent)}
             {modal.showModal && (modal.modalComponent)}
-            <div className="row d-flex w-100 mt-5 mb-5">
+            <div className="row d-flex  mt-5 mb-5 s-side-by-side-layout">
                 <div className={alignmentLeftClasses[alignment]}>
                     {leftSide}
                 </div>

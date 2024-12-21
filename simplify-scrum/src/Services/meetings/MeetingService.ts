@@ -29,7 +29,7 @@ export class MeetingSerivce{
             return response.data as Meeting
         } catch(error) {
             console.log(error)
-            return {}  as Meeting
+            return null as unknown as Meeting
         }
     }
 
@@ -43,6 +43,7 @@ export class MeetingSerivce{
 
         } catch(error) {
             console.log(error)
+            return null as unknown as Meeting
         }
     }
 
@@ -50,8 +51,7 @@ export class MeetingSerivce{
     static async update(meeting: Meeting){
         try {
             const url = meetingApiUrl + "/update" 
-            const meetingData = DataMapper.createMeetingData(meeting)
-            const response = await RequestFactory.createPostRequest(url, meetingData) 
+            const response = await RequestFactory.createPostRequest(url, meeting) 
 
             return response.data
 
@@ -67,6 +67,7 @@ export class MeetingSerivce{
             return response.status == HttpStatusCode.Ok
         } catch(error) { 
             console.log(error)
+            return false
         }
     }
 } 
@@ -80,7 +81,7 @@ class DataMapper {
             LeaderGuid: meeting.leaderGuid,
             Start: meeting.start, 
             Duration: meeting.duration,
-            Type: MeetingType[meeting.type],
+            Type: MeetingType[meeting.type] ,
             UserGuids: meeting.userGuids
         };
     }

@@ -1,18 +1,28 @@
 @import '../common/Variables';
+@import '../common//Button.scss';
 
 $button-width: 75px;
 
-$sizes: (
-    small: (35px, $s-p),
-    medium: (40px, $s-h6)
-);
+
 
 .react-calendar__tile--now {
-    background-color: $s-accent !important;
-    color: $s-background !important;
+   
+    abbr{
+        aspect-ratio: 1 / 1 !important;
+        width: 35px;
+        @extend .s-circle;
+        @extend .shadow;
+        background-color: darken($dark, 5%) !important;
+        border: 1px solid $primary !important;
+        color: $light !important;
+
+    }
+      
+   
 }
 
 .s-calendar-size {
+    height: 100%;
     border-radius: $s-radius !important;
     padding: calc($s-padding-horizontal * 1.2) !important;
     width: 100%;
@@ -33,7 +43,7 @@ $sizes: (
 .react-calendar__navigation {
     display: flex;
     align-items: center !important;
-    width: 100%;
+    width: 90%;
     justify-content: space-between;
     padding-top: 10px !important;
     button{
@@ -49,41 +59,29 @@ $sizes: (
     }
 
     .react-calendar__navigation__label {
-        position: relative;
-        color: $s-background;
+        color: darken($light, 15%);
         display: flex;
-        text-align: start;
+        text-align: center;
+        justify-content: center;
         font-size: $s-h4;
         user-select: none;
-        &:hover{ 
-            background-color:$dark !important;
-            box-shadow: none;
-        }
     }
 
-    .react-calendar__navigation__prev-button{
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100px;
-        background-color: darken($dark-bg-subtle-dark, 3%);
-        transition: transform ease 0.2s;
-     
-    }
-
+ 
+    .react-calendar__navigation__prev-button
     .react-calendar__navigation__next-button {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100px;
-        padding: 0px;
-        margin: 0px;
-        background-color: darken($dark-bg-subtle-dark, 3%);
-        transition: transform ease 0.2s;
+        @extend .s-normal;
+        @extend .s-borderless;
+
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; 
+        align-items: center !important;
+        i{
+            font-size: $s-h4 !important; 
+        }
+        color: $light !important;
        
-      
     }
 }
 
@@ -107,6 +105,7 @@ $sizes: (
             color: $s-background;
             abbr{
                 cursor: auto !important;
+                font-weight: 500 !important;
                 text-decoration: none !important;
             }
         }
@@ -114,12 +113,16 @@ $sizes: (
 
     .react-calendar__month-view__days{
         button{ 
+            display: flex;
+            position: relative;
+            @extend .s-normal;
+            @extend .s-filled;
             margin: 0px !important;
             background-color: transparent;
-            color: $s-background !important;
-            border: none;
-            transition: font-size ease-in-out 0.1s;
-          
+            color: darken($light, 25%);
+            &:hover{
+                background-color: darken($dark, 5%) !important;
+            }
         }
     }
 }
@@ -163,3 +166,15 @@ $sizes: (
     align-items: center;
 }
 
+
+.s-day-custom-modal{
+    border-radius: $s-radius !important;
+    background-color: $dark;
+}
+
+.meeting-item{
+    &:hover{
+        background-color: darken($input-background, 5%) !important;
+    }
+    background-color: $input-background !important;
+}

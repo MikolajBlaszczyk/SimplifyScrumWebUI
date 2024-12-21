@@ -43,6 +43,7 @@ export const sizeClasses = {
 
 
 export interface ButtonProps{
+    autoadvance?: boolean,
     style?: Style,
     role?: Role,
     size?: Size,

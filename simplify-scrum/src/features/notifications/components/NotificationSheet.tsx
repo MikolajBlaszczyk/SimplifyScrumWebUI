@@ -17,7 +17,6 @@ const adjustWidthBasedOnCalendar = () => {
 export function NotificationSheet(){ 
     const {settings, setSettings} = useSettings()
     const [notifications, setNotifications] = useState<Notification[]>([])
-    const [height, setHeight] = useState(0)
  
     const removeAllNotifications = () => {
         setNotifications([]);
@@ -46,14 +45,13 @@ export function NotificationSheet(){
     }, [notifications]);
 
     useEffect(() => {
-        setHeight(adjustWidthBasedOnCalendar());
         setNotifications(settings.notifications);
     }, [settings.notifications]);
 
    
 
     return (
-    <div className="d-flex flex-column align-items-center w-100 s-notification-sheet" style={{height: `${height}px`}}>
+    <div className="d-flex flex-column align-items-center w-100 h-100 s-notification-sheet" >
         <div className="d-flex mt-4  text-center border-bottom s-notification-sheet-label justify-content-center">
             <h4>
                 Missed

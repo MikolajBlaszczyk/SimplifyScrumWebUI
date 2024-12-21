@@ -2,10 +2,11 @@ import React, {useContext, useEffect, useState} from "react";
 import { Global, UserContext } from "../../../context/ContextsIndex";
 import { AuthProperties } from "../data/Index";
 import { LoginService } from "../services/LoginService"
-import { Button, TextInput, TextType, ValidationResult } from "../../../components/ComponentsIndex";
+import { Button, TextInput, TextType } from "../../../components/ComponentsIndex";
 import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
 import { Alert, AlertStyle, AlertType } from "../../alerting/components/Alert";
 import { useAlert } from "../../../hooks/useAlert";
+import { ValidationResult } from "../../../components/form/shared/SharedProps";
 
 
 interface LoginNameState {
