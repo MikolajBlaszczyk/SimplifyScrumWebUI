@@ -1,7 +1,4 @@
-@import "../../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../../node_modules/bootstrap/scss/functions";
-@import "../../../../node_modules/bootstrap/scss/variables";
-@import "../../../../node_modules/bootstrap/scss/variables-dark";
+@import '../common/Variables';
 
 $button-width: 75px;
 
@@ -15,64 +12,15 @@ $sizes: (
     color: $s-background !important;
 }
 
-@each $size, $values in $sizes {
-    $default-size: nth($values, 1);
-    $font-size: nth($values, 2);
-   
-
-    .s-calendar-size-#{$size} {
-        transition: height 1s ease-in-out !important;
-        padding: 20px !important;
-        background-color: $s-form !important;
-        border-radius: 10px;
-
-        .react-calendar__navigation__label {
-            
-            max-width: 300px !important;
-            left: calc(-50% + 155px);
-            font-size: $font-size;
-            &:hover {
-                background-color: $s-dark !important;
-            }
-        }
-
-        .react-calendar__navigation__prev-button,
-        .react-calendar__navigation__next-button {
-            height: $default-size;
-            width: $default-size;
-
-            h5 {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: 0px;
-                width: $default-size;
-                height: $default-size;
-                text-align: center;
-            }
-        }
-
-        .react-calendar__navigation__prev-button{
-            left: calc(100% - 110px);
-         
-        }
-
-        .react-calendar__navigation__next-button{ 
-            right: calc(20px);
-        }
-
-        .react-calendar__month-view__weekdays__weekday abbr {
-            font-size: $font-size !important;
-        }
-
-        .react-calendar__month-view__days button {
-            font-size: $font-size;
-            font-weight: lighter !important;
-        }
-    }
+.s-calendar-size {
+    border-radius: $s-radius !important;
+    padding: calc($s-padding-horizontal * 1.2) !important;
+    width: 100%;
+    background-color: $dark !important;
 }
 
-.react-calendar{
+
+.react-calendar {
     transition: height 1s ease-in-out !important;
     display: flex;
     width: fit-content;
@@ -80,11 +28,6 @@ $sizes: (
     flex-direction: column;
     background-color: $dark;
     overflow: hidden;
-    box-shadow: 0px 0px 10px 0px $dark-bg-subtle-dark;
-}
-
-.react-calendar.animate-height {
-    transition: height 1s ease-in-out !important;
 }
 
 .react-calendar__navigation {
@@ -150,14 +93,11 @@ $sizes: (
     transition: height 1s ease-in-out !important;
     margin: 0px !important;
     margin-top: 10px !important;
-    border-top: darken($s-form, 30%) solid 1px;
     height: 100%;
     .react-calendar__month-view__weekdays{
         transition: height 1s ease-in-out !important;
         user-select: none;
       
-        background-color: darken($dark-bg-subtle-dark, 3%);
-        border-bottom: darken($s-background, 30%) solid 1px;
         .react-calendar__month-view__weekdays__weekday{
             display: flex;
             justify-content: center;

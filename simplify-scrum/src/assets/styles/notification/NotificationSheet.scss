@@ -19,8 +19,7 @@ $optionalMeeting: #DCEDB9;
 
 .s-notification-sheet{
     background-color: $dark !important; 
-    aspect-ratio: 1 / 2;
-    padding: 10px;
+    width: 100%;
     border-radius: 10px;
     user-select: none !important;
 }
@@ -36,3 +35,4 @@ $optionalMeeting: #DCEDB9;
     width: 80%;
     padding: $s-padding-vertical $s-padding-horizontal;
 }
+

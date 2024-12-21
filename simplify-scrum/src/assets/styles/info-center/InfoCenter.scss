@@ -1,11 +1,17 @@
+
 @import "../common/Variables";
+
+
 
 .s-info-center {
     width: 80%;
     background-color: $dark;
     opacity: $s-opacity;
     border-radius: $s-radius;
+
 }
+
+
 
 .s-info-center-header{
     padding-top: $s-padding-vertical;

@@ -1,7 +1,30 @@
 
+
+
 .s-layout-article{
     min-height: 600px !important;
     margin-top: 300px;
+
+    @media (max-width: $screen-sm) {
+        width: 95% !important; 
+    }
+
+    @media (min-width: $screen-sm) {
+        width: 90% !important; 
+    }
+
+    @media (min-width: $screen-md) {
+        width: 85% !important; 
+    }
+
+    @media (min-width: $screen-l) {
+        width: 80% !important; 
+    }
+
+    @media (min-width: $screen-xl) {
+        width: 75% !important; 
+    }
+
 }
 
 .s-w-45{

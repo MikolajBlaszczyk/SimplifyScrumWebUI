@@ -114,7 +114,7 @@ export default function SimpleCalendar({initialDate}: SimpleCalendarProps) {
     }
 
     return (
-        <div className="s-calendar-size-medium" style={{width: 'min-content'}} ref={calendarRef}>
+        <div className="s-calendar-size overflow-hidden"  ref={calendarRef}>
             <Calendar
             minDetail="month"
             nextLabel={(<h5 className="me-1"><i className="bi bi-box-arrow-in-right"></i></h5>)}

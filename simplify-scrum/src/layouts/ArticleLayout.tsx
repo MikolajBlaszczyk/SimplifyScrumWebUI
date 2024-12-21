@@ -18,7 +18,7 @@ export function ArticleLayout(props: ArticleLayoutProps){
             <main className="d-flex flex-column min-vw-100 min-vh-100 align-items-center">
                 {
                     props.sections.map(section =>(  
-                            <div className={`d-flex justify-content-center w-75 s-layout-article ${props.sections.indexOf(section) == 0 && ('mt-5')}`}>
+                            <div className={`d-flex justify-content-center  s-layout-article ${props.sections.indexOf(section) == 0 && ('mt-5')}`}>
                                 {section}
                             </div>
                             )

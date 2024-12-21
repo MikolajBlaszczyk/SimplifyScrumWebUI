@@ -54,7 +54,7 @@ export function NotificationSheet(){
 
     return (
     <div className="d-flex flex-column align-items-center w-100 s-notification-sheet" style={{height: `${height}px`}}>
-        <div style={{width: '85%'}} className="d-flex mt-4  text-center border-bottom s-notification-sheet-label justify-content-center">
+        <div className="d-flex mt-4  text-center border-bottom s-notification-sheet-label justify-content-center">
             <h4>
                 Missed
                 Notifications

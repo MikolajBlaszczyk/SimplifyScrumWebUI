@@ -25,7 +25,29 @@
         padding: $s-padding-horizontal 0 $s-padding-horizontal $s-padding-vertical;
         align-self: center;
         overflow: hidden;
-        width: 20%;
+
+
+    @media (max-width: $screen-sm) {
+        width: 30% !important;
+    }
+
+    @media (min-width: $screen-sm) {
+        width: 30% !important;
+    }
+
+    @media (min-width: $screen-md) {
+        width: 23% !important; 
+    }
+
+    @media (min-width: $screen-l) {
+        width: 20% !important;
+    }
+
+    @media (min-width: $screen-xl) {
+        width: 20% !important;
+    }
+
+     
         height: 100%;
         opacity: $s-opacity;
         background-color: $dark;

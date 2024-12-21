@@ -33,7 +33,7 @@ export function InfoBoard(){
     }, [])
 
     return (
-    <div className="d-flex flex-column h-100 s-info-center overflow-hidden">
+    <div className="d-flex flex-column  h-100 s-info-center overflow-hidden">
         <div className="d-flex w-100 s-info-center-header pt-3 pb-2 justify-content-center border-bottom">
             <h2>Informations</h2>
         </div>
