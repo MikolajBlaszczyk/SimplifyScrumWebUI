@@ -1,5 +1,4 @@
 import { MouseEvent, ReactElement, useEffect, useState } from "react";
-import { Button } from "../../../../components/common/button/Button";
 
 interface AdditionalButton {
     onClick: () => void
@@ -16,19 +15,10 @@ interface Props {
 
 export function SimpleSideMenu({additionalButtons, isAnimated, setIsAnimated, removeClick, editClick}: Props){
 
-    useEffect(() => {
-        let timer = setTimeout(() => {
-            setIsAnimated(true);
-        }, 100);
-
-        return () => {
-            clearTimeout(timer);
-        } 
-    }, []);
 
     
     return (
-        <div className={`s-simple-side-menu border rounded p-2 w-auto h-auto ${isAnimated ? 's-simple-side-menu-animate' : 's-simple-side-menu-animate-back'}`}>
+        <div className={`s-simple-side-menu  position-absolute  ms-2  d-flex flex-column border rounded p-2 w-auto  ${isAnimated ? 's-simple-side-menu-animate' : 's-simple-side-menu-animate-back'}`}>
             <button className="btn btn-dark s-p" onClick={e => {e.stopPropagation(); removeClick()}}>
                 <i className="bi bi-trash3"></i>
             </button>

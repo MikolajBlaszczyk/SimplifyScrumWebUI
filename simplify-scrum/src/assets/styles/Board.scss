@@ -1,12 +1,33 @@
+@import "./common/Variables";
+
 .s-board {  
-    color: $s-form;
-    height: 90%;
-    width: 90% !important;
+    color: $light;
+    background-color: $dark;
+    min-height: 93%;
+    height: 93%;
+    max-height: 93%;
+    @media (max-width: $screen-sm) {
+        width: 98% !important; 
+    }
+
+    @media (min-width: $screen-sm) {
+        width: 96% !important; 
+    }
+
+    @media (min-width: $screen-md) {
+        width: 85% !important; 
+    }
+
+    @media (min-width: $screen-l) {
+        width: 80% !important; 
+    }
+
+    @media (min-width: $screen-xl) {
+        width: 80% !important; 
+    }
+    
 }
 
-.s-board-section {
-    margin-bottom: 12%;
-}
 
 .s-board-menu {
     opacity: 100%;

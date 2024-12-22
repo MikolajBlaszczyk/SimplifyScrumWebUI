@@ -46,14 +46,14 @@ export function Board({title, children, boardType: type}: BoardProps){
 
     
     return (
-        <div key={v4()} className="container-fluid bg-dark mt-2 shadow border border-2 rounded s-board p-5 justify-content-center align-items-center position-relative">
-            <div className=" user-select-none mb-5">
+        <div key={v4()} className="  mt-4 shadow border border-2 rounded s-board  justify-content-center align-items-center position-relative">
+            <div className=" user-select-none d-flex p-3 justify-content-center border-bottom">
                 <h2>
                     {title}
                 </h2>
             </div>
             
-            <section className="s-board-section">
+            <section className="mb-3 p-3 pb-5 ps-5 pe-5 mt-3 overflow-auto  ">
                 {
                     renderedContent
                 }

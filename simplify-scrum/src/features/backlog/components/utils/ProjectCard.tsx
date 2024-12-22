@@ -41,38 +41,39 @@ export function ProjectCard({index, project}: Props){
             (
                 <div 
                 ref={cardRef}
-                className="card s-card border border-2 shadow"
-                tabIndex={index}
-                onClick={() => {
-                    if(showMenu != true) {
-                        setShowMenu(true)
-                    } else {
-                        setIsAnimated(false)
-                        setTimeout(() => {setShowMenu(false)}, 150)
-                    }
-                   
+                className="card s-card-project s-bg-dark-input position-relative  overflow-visible"
+                tabIndex={-1}
+                onClick={(e) => {
+                    setTimeout(() => {
+                        if(showMenu != true) {
+                            setIsAnimated(true)
+                            setTimeout(() => { setShowMenu(true) }, 10);
+                        } else {
+                            setIsAnimated(false)
+                            setTimeout(() => {setShowMenu(false)}, 400)
+                        }
+                    }, 100); 
                 }}>
-                <div className="card-body s-card-body d-flex flex-column">
-                    <div className="ps-2 pe-2 pb-1 w-100  d-flex align-items-center">
+                <div className="card-body s-card-body d-flex flex-column user ">
+                    <div className="justify-content-between w-100  d-flex align-items-center">
                        
                         <SimpleIcon 
                                 icon={"bi-box-seam-fill"}
-                                font={Fonts.H4}/>
-    
+                                font={Fonts.H5}/>
+
                        
-                        <div className="ms-4"></div>
                      
-                        <h3 className="card-title common-header mb-0 ">
+                        <h4 className=" text-end justify-content-end ">
                             {project.name}
-                        </h3>
+                        </h4>
                     </div>  
-                    <div className="h-50 s-textarea mt-2">
+                    <div className="h-50 text-start mt-2">
                         <h6 className="card-text mt-1">
                             {project.description}
                         </h6>
                     </div>
-                    <div className="h-25 d-flex justify-content-end align-items-end">
-                        <p className="card-text s-card-addon mt-2 text-info ">
+                    <div className="h-25 d-flex justify-content-start align-items-end">
+                        <p className="card-text s-card-addon mt-2 ">
                             {`Created on ${format(project.createdOn, 'yyyy.MM.dd')}`}
                         </p>
                     </div>

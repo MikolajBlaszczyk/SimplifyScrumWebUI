@@ -2,13 +2,15 @@ import { Placeholder } from '../Placeholder';
 export enum CardColor {
     Primary,
     Secondary,
-    Accent
+    Accent,
+    DarkInput
 }
 
 const cardColors = {
     [CardColor.Primary]: "s-bg-primary",
     [CardColor.Secondary]: "s-bg-secondary",
-    [CardColor.Accent]: "s-bg-accent"
+    [CardColor.Accent]: "s-bg-accent",
+    [CardColor.DarkInput]: "s-bg-dark-input"
 }
 
 interface CardProps {

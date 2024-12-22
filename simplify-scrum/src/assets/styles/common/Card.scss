@@ -1,10 +1,12 @@
 @import './Variables';
 
+$min-card-height: 500px;
+
 .s-card {
     position: relative;
     border-radius: $s-radius;
     border-end-end-radius: 0px !important;
-    min-height: 500px;
+    min-height: $min-card-height;
     min-width: 225px;
     transition: transform 0.15s ease-in-out;
     border: none !important;
@@ -60,6 +62,17 @@
         }
     }
 
+    &.s-bg-dark-input{
+        h4{
+            background-color: $input-background; 
+        }
+
+
+        &::before {
+            background-color: lighten($input-background, 5%); 
+        }
+    }
+
     &::before {
         content: '';
         position: absolute;
@@ -69,13 +82,10 @@
         right: 0;
         width: 50px; 
         height: 50px;
-
-       
-
-
         clip-path: polygon(0 0, 100% 0, 0% 100%);
         z-index: 1;
     }
+
 
     &::after {
         content: '';
@@ -89,5 +99,140 @@
         clip-path: polygon(0 100%, 100% 100%, 100% 0);
         border: none !important;
         z-index: 2;
+    }
+}
+
+.s-card-project{
+    @extend .s-card;
+    user-select: none;
+    position: relative;
+    background-color: $input-background !important;
+    min-height: calc($min-card-height / 2) !important;
+    &:hover{
+        background-color: darken($input-background, 2%) !important;
+        h4{
+            background-color: darken($input-background, 2%) !important;
+        }
+        &::before {
+            background-color: lighten($input-background, 8%); 
+        }
+    }
+
+}
+
+
+
+.s-card-placeholder {
+    @extend .s-card-project;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    height: calc($min-card-height / 2) !important; 
+    background-color: $input-background !important;
+    border-radius: 0px !important;
+    width: 20vw;
+
+    &:hover{
+        background-color: darken($input-background, 2%) !important;
+    }
+     
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+
+    &::before {
+        @extend .border;
+        @extend .border-2;
+        @extend .s-border-placeholder;
+
+        background-color: lighten($input-background, 5%);
+    }
+
+    &::after {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+    }
+} 
+
+.s-card-body {
+    width: 20vw;
+    font-size: $text-fs;
+}
+
+.s-card-addon {
+    font-size: $small-fs !important;
+}
+
+
+//TODO: Fix sliding
+// .s-simple-side-menu {
+//     background-color: $primary;
+//     position: absolute;
+    
+//     animation: fadeIn 1s ease-in-out forwards !important;
+//     width: 20%;
+//     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+// }
+
+// @keyframes fadeIn {
+//     0%{
+//         top: 10%;
+//         left: 0;
+//         opacity: 0%;
+//     }
+//     100%{
+//         top: 0%;
+//         left: 100%;
+//         opacity: 100%
+//     }
+// }
+
+.s-simple-side-menu {
+    background-color: $primary;
+    top: 25%
+}
+.s-simple-side-menu-animate-back {
+    animation: slideOff 0.3s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+}
+
+
+.s-simple-side-menu-animate {
+    animation: slideIn 0.4s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+
+}
+
+@keyframes slideOff {
+    0%{
+        opacity: 100%;
+        top: 10%;
+        left: 100%;
+        
+    }
+    80%{
+        opacity: 5%;
+    }
+    100%{
+        opacity: 0%;
+        top: 25%;
+        left: 50%;
+    }
+}
+
+
+@keyframes slideIn {
+    0%{
+        opacity: 0%;
+        left: 50%;
+    }
+    80%{
+        opacity: 5%;
+    }
+    100%{
+        opacity: 100%;
+        top: 10%;
+        left: 100%;
     }
 }

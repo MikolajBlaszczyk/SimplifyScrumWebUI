@@ -13,10 +13,9 @@ interface Props {
 
 export function ProjectBoard({placeholder, projects}: Props){
 
-
     if(placeholder !== false){
         return (
-            <div className="container-fluid bg-dark mt-5 shadow border border-2 rounded s-board p-5 d-flex justify-content-center align-items-center position-relative" >
+            <div className="  mt-4 shadow border border-2 rounded s-board  justify-content-center align-items-center" >
                 <Placeholder />
             </div>
         )

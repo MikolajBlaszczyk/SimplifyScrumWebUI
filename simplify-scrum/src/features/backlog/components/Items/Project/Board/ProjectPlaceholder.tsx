@@ -1,7 +1,9 @@
+import { MouseEvent } from "react";
 import { Button} from "../../../../../../components/ComponentsIndex";
 import { BacklogAction } from "../../../../../../context/ContextsIndex";
 import { useBacklog } from "../../../../../../hooks/useContexts";
 import { Fonts } from "../../../../../../utils/UtilsIndex";
+import { Role, Size, Style } from "../../../../../../components/common/button/ButtonProps";
 
 
 export function ProjectPlaceholder() {
@@ -12,13 +14,13 @@ export function ProjectPlaceholder() {
     }
 
     return(
-        <div className="s-border-placeholder rounded border-2 bg-dark-subtle shadow bg-dark s-card-placeholder">
-            {/* <SimpleButton 
-                type={Button.Borderless} 
-                title={"Add"}
-                font={Fonts.H3} 
-                fontColor={Color.Light}
-                onClick={() => addNewProject()} /> */}
+        <div className="s-border-placeholder border  border-2 rounded   s-card-placeholder">
+            <Button 
+                style={Style.Borderless}
+                role={Role.Primary}
+                size={Size.Large}
+                title="Add"
+                onClick={() => addNewProject()} />
         </div>
     )
 }
