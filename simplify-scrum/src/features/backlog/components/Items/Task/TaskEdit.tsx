@@ -2,12 +2,15 @@ import { MouseEvent, useEffect, useMemo, useState } from "react"
 import { SimpleStatus } from "../../../data/State"
 import { Feature } from "../../../data/Feature"
 import { User } from "../../../../../data/CommonDataIndex"
-import { Button, SelectItem, SimpleSelectionInput, SimpleTextInput } from "../../../../../components/ComponentsIndex"
+import { Button, SelectionInput, SelectItem, SimpleSelectionInput, SimpleTextInput, TextInput } from "../../../../../components/ComponentsIndex"
 import { BacklogService, EnumService } from "../../../../../services/CommonServicesIndex"
 import { BgColor, FontColor } from "../../../../../utils/UtilsIndex"
 import { GenericEnumService } from "../../../../../services/enum/GenericEnumService"
 import { AccountService } from '../../../../account-settings/service/AccountService';
 import { Task } from "../../../data/Task"
+import { Role, Size, Style } from "../../../../../components/common/button/ButtonProps"
+import { SelectState, TextState } from "../../../../../components/form/shared/SharedProps"
+import { useHideModal, useModal } from '../../../../../hooks/useModal';
 
 interface Props {
     featureGuid?: string
@@ -16,9 +19,11 @@ interface Props {
 }
 
 export default function TaskEdit({taskID, featureGuid, reload}: Props) {
-    const [name, setName] = useState<string>('')
-    const [status, setStatus] = useState<SimpleStatus>(SimpleStatus.ToBeDone)
-    const [assigne, setAssigne] = useState<User>(User.default())
+    const hideModal = useHideModal()
+    const [nameState, setNameState] = useState<TextState>({value: "", validation: {isValid: true, message: ""}})
+    const [statusState, setStatusState] = useState<SelectState>({value: undefined, validation: {isValid: true, message: ""}})
+    const [assigneState, setAssigneState] = useState<SelectState>({value: undefined, validation: {isValid: true, message: ""}})
+
     const [users, setUsers] = useState<User[]>([])
 
     let assigneOptions = useMemo(() => {
@@ -36,28 +41,16 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
     
 
     let statusOptions: SelectItem[] = useMemo(() => {
-        return GenericEnumService.getEnumNames(SimpleStatus)
+        return Object.values(GenericEnumService.getEnumDictionary(SimpleStatus)) 
         .map( state => {
             const item: SelectItem = {
-                value: state,
-                description:state 
+                value: state.toString(),
+                description: EnumService.convertSimpleStatusToString(state) 
             }
 
             return item
         })
     }, [])
-
-    const setNewStatusValue = (stringValue: string) => {
-        const newState = EnumService.convertStringToSimpleStatus(stringValue)
-        setStatus(newState)
-    }
-
-    const setNewAssignee = (guid: string) => {
-        const newAssignee = users.filter(user => user.id == guid)
-        if(newAssignee.length == 1){
-            setAssigne(newAssignee[0])
-        }
-    }
 
     const fetchData = async () => {
         const teamMembers = await AccountService.getTeamMembers()
@@ -67,12 +60,11 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
             return
 
         const task = await BacklogService.getTask(taskID)
-        setName(task.name)
-        setStatus(task.state)
+        setNameState(prev => ({...prev, value: task.name}))
+        setStatusState(prev => ({...prev, value: task.state.toString()}))
         const members = teamMembers.filter(member => member.id == task.assignee)
-        if(members.length == 1)
-        {
-            setAssigne(members[0])
+        if(members.length == 1) {
+            setAssigneState(prev => ({...prev, value: members[0].id}))
         }
         
     }
@@ -81,11 +73,32 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
         if(featureGuid == undefined || featureGuid.length == 0)
             return 
 
-        const task = new Task(-1, name, status, featureGuid!, assigne.id, '', new Date(), '', new Date())
+        const task = new Task(
+            -1,
+            nameState.value,
+            parseInt(statusState.value!),
+            featureGuid!,
+            assigneState.value!,
+            '',
+            new Date(),
+            '',
+            new Date())
         await BacklogService.addTask(task)
 
         reload()
     }
+
+    const updateTask = async () => {
+        const task = await BacklogService.getTask(taskID!)
+
+        task.name = nameState.value
+        task.state = parseInt(statusState.value!)
+        task.assignee = assigneState.value!
+        await BacklogService.updateTask(task)
+
+        reload()
+    }
+
 
     useEffect(() => {
         fetchData()
@@ -93,35 +106,40 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
   
     return(
         <div className="d-flex flex-column w-100 mt-4">
-            <SimpleTextInput 
+            <TextInput 
+                value={nameState.value}
+                validation={nameState.validation}
                 icon="bi-alphabet"
-                label="Name"
-                fontcolor={FontColor.Dark}
-                color={BgColor.Dark}
-                value={name}
-                changeValue={e => setName(e.target.value)} />
-            <div className="mt-2"></div>
-            <SimpleSelectionInput 
-                label="state"
+                placeholder="Name" 
+                changeValue={e => setNameState(prev => ({...prev, value: e})) } />
+
+            <SelectionInput
+                className="mt-3"
                 icon="bi-check-all"
-                selectedValue={EnumService.convertSimpleStatusToString(status)}
-                onSelectedValueChange={e => setNewStatusValue(e)} 
-                options={statusOptions}/>
-            <div className="mt-2"></div>
-            <SimpleSelectionInput 
-                label="asignee"
+                selectedValue={statusState.value} 
+                placeholder="Status"
+                onSelectedValueChange={e => setStatusState(prev => ({...prev, value: e}))} 
+                options={statusOptions} />
+        
+            <SelectionInput 
                 icon="bi-person-fill"
-                selectedValue={assigne.id} 
-                onSelectedValueChange={(guid) => {setNewAssignee(guid)}} 
-                options={assigneOptions}                />
+                className="mt-3"
+                placeholder="Asignee"
+                onSelectedValueChange={(e) => {setAssigneState(prev => ({...prev, value: e}))}}
+                options={assigneOptions} />
+       
 
 
             <div className="d-flex w-100 justify-content-center mt-3">
-                {/* <SimpleButton 
-                    type={Button.Borderless} 
-                    fontColor={Color.Light}
+                <Button 
+                    style={Style.Filled}
+                    role={Role.Primary}
+                    size={Size.Large}
                     title={taskID == undefined ? "Save" : "Update"} 
-                    onClick={() => { saveTask()}}/> */}
+                    onClick={() => {
+                        taskID == undefined ? saveTask() : updateTask()
+                        hideModal()
+                    }} />
             </div>
            
         </div>

@@ -1,15 +1,10 @@
-import { MouseEvent, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { EnumService } from "../../../../../../services/enum/StateEnumService"
-import { Button } from "../../../../../../components/ComponentsIndex"
-import { Feature } from "../../../../data/Feature"
-import { Fonts } from "../../../../../../utils/UtilsIndex"
-import { SwipeableProps, useSwipeable } from "react-swipeable"
-import { useAlert } from "../../../../../../hooks/useAlert"
-import { AlertStyle } from "../../../../../alerting/components/Alert"
-import { Backlog } from "../../../../../../pages/Backlog"
+import { Feature } from '../../../../data/Feature';
+import { useSwipeable } from "react-swipeable"
 import { BacklogService } from "../../../../../../services/CommonServicesIndex"
 import { useBacklog } from "../../../../../../hooks/useContexts"
-import { BacklogAction } from "../../../../../../context/BacklogContext"
+import { BacklogAction, DetailType } from '../../../../../../context/BacklogContext';
 
 interface Props{ 
     feature: Feature
@@ -23,7 +18,10 @@ export function FeatureListItem({index, feature}:Props){
     const rowRef = useRef<HTMLTableRowElement>(null)
 
     const editFeature = () => {
-        setState({...state, action: BacklogAction.EditFeature, guid: feature.guid})
+        setState({...state, action: BacklogAction.EditFeature, parentGuid: feature.projectGuid,  item:{
+            itemGuid: feature.guid, 
+            itemType: DetailType.Feature
+        }})
     };
 
     const deleteFeature = async () => {

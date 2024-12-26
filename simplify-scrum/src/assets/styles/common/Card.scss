@@ -1,13 +1,14 @@
 @import './Variables';
 
 $min-card-height: 500px;
+$min-card-width: 225px;
 
 .s-card {
     position: relative;
     border-radius: $s-radius;
     border-end-end-radius: 0px !important;
     min-height: $min-card-height;
-    min-width: 225px;
+    min-width: $min-card-width;
     transition: transform 0.15s ease-in-out;
     border: none !important;
     overflow: hidden;
@@ -108,16 +109,33 @@ $min-card-height: 500px;
     position: relative;
     background-color: $input-background !important;
     min-height: calc($min-card-height / 2) !important;
+    width: $min-card-width !important;
+    h5{
+        width: 60%;
+        max-height: 1.2em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     &:hover{
         background-color: darken($input-background, 2%) !important;
-        h4{
+        h5{
             background-color: darken($input-background, 2%) !important;
         }
         &::before {
             background-color: lighten($input-background, 8%); 
         }
     }
-
+    .s-card-body{
+        h6{
+            width: 80%;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+        }
+    }
 }
 
 
@@ -152,12 +170,16 @@ $min-card-height: 500px;
 
     &::after {
         position: absolute;
-        bottom: -2px;
-        right: -2px;
+        bottom: -3px;
+        right: -5px;
+        width: 55px; 
+        height: 55px;
     }
 } 
 
 .s-card-body {
+ 
+    text-overflow: ellipsis;
     width: 20vw;
     font-size: $text-fs;
 }
@@ -190,9 +212,15 @@ $min-card-height: 500px;
 //     }
 // }
 
+.s-simple-side-menu-position {
+    top: 25%;
+    z-index: 1000;
+}
+
 .s-simple-side-menu {
-    background-color: $primary;
-    top: 25%
+    top: 0;
+    left: 0;
+    background-color: $input-background;
 }
 .s-simple-side-menu-animate-back {
     animation: slideOff 0.3s cubic-bezier(0.5, 0, 0.5, 1) forwards;
@@ -232,7 +260,7 @@ $min-card-height: 500px;
     }
     100%{
         opacity: 100%;
-        top: 10%;
+        top: 0%;
         left: 100%;
     }
 }

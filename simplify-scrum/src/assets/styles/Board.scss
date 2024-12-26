@@ -1,17 +1,23 @@
 @import "./common/Variables";
+@import "./common/Button";
+
+//TODO: Rename this file to backlog.scss
 
 .s-board {  
+    min-height: 350px !important;
+    transition: height 1s ease ;
+    section{
+        height: var(--height, '350');
+        transition: height 1s ease ;
+    }
     color: $light;
     background-color: $dark;
-    min-height: 93%;
-    height: 93%;
-    max-height: 93%;
     @media (max-width: $screen-sm) {
-        width: 98% !important; 
+        width: 95% !important; 
     }
 
     @media (min-width: $screen-sm) {
-        width: 96% !important; 
+        width: 85% !important; 
     }
 
     @media (min-width: $screen-md) {
@@ -28,6 +34,55 @@
     
 }
 
+.s-board-detail{
+    @extend .s-board;
+    @media (max-width: $screen-sm) {
+        width: 75% !important; 
+    }
+
+    @media (min-width: $screen-sm) {
+        width: 70% !important; 
+    }
+
+    @media (min-width: $screen-md) {
+        width: 70% !important; 
+    }
+
+    @media (min-width: $screen-l) {
+        width: 70% !important; 
+    }
+
+    @media (min-width: $screen-xl) {
+        width: 70% !important; 
+    }
+}
+
+.s-board-list{
+    @extend .s-board;
+    @media (max-width: $screen-sm) {
+        width: 75% !important; 
+    }
+
+    @media (min-width: $screen-sm) {
+        width: 70% !important; 
+    }
+
+    @media (min-width: $screen-md) {
+        width: 70% !important; 
+    }
+
+    @media (min-width: $screen-l) {
+        width: 70% !important; 
+    }
+
+    @media (min-width: $screen-xl) {
+        width: 70% !important; 
+    }
+
+    height: 100%;
+    background-color: transparent;
+}
+
 
 .s-board-menu {
     opacity: 100%;
@@ -36,3 +91,66 @@
     color: $s-background !important;
 }
 
+
+.project-meta{
+
+
+    ul{
+        background-color: $input-background !important;
+        li{
+            background-color: transparent !important;
+        }
+    }
+}
+
+.feature-meta{
+    ul{
+        background-color: $input-background !important;
+        li{
+            background-color: transparent !important;
+        }
+    }
+
+}
+
+.project-edit {
+  
+}
+
+.s-feature-table{
+
+    .s-no-column{
+        color: $secondary !important;
+    }
+
+    .s-status-column{
+        display: flex;
+        span{
+            max-width: 80%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: $s-padding-vertical $s-padding-horizontal !important;
+            border-radius: $s-radius;
+            background-color: $primary !important;
+        }
+    }
+}
+
+
+.s-header-active-button{
+    position: relative;
+    &::after{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $primary;
+    }
+}
+
+.s-task-item-button.s-borderless {
+    padding: 0  !important;
+}

@@ -48,10 +48,10 @@ export function Alert({style, title, content, type}: Props){
             <div className="backdrop"></div>
             <div className={` s-alert  overflow-hidden rounded  ${alertStyle}`}>
                 <div className={`d-flex flex-column`}>
-                    <div className={"d-flex flex-column w-100 align-items-center s-alert-header justify-content-center mt-2 pt-4  " + alertStyle}>
+                    <div className={"d-flex flex-column w-100 h-auto align-items-center s-alert-header justify-content-center pt-2  " + alertStyle}>
 
 
-                        <h4 className="mb-0 text-center">
+                        <h4 className="mb-0 text-center h-100 p-2 ">
                             {title}
                         </h4>
                     </div>

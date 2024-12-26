@@ -1,64 +1,60 @@
-import React, { useEffect, useRef } from "react"
-import { Button } from "../../../../components/ComponentsIndex";
-import NoteBoard from './NoteBoard';
+import React, { useEffect, useRef, useState } from "react";
+import { v4 } from "uuid";
+import { StandardHeader, StandardHeaderProps } from "../../../../components/ComponentsIndex";
+import { NoteBoard } from './NoteBoard';
 import { ListBoard } from "./ListBoard";
-import { v4 } from 'uuid';
-import { useModal } from "../../../../hooks/HooksIndex";
-import { randomInt, randomUUID } from "crypto";
+import { DetailBoard, DetailBoardContent } from "./DetailBoardContent";
+
 export enum BoardType { 
     Notes,
     Lines,
     Details
 } 
 
-export enum ItemType {
-    Project,
-}
-
 interface BoardProps {
-    children: React.ReactNode,
+    headerConfig: StandardHeaderProps
+    children: React.ReactElement,
     boardType: BoardType,
-    title: String
 }
 
+//TODO: Heigh transition
+export function Board({ children, boardType, headerConfig }: BoardProps) {
+    const sectionRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [renderedContent, setRenderedContent] = useState<React.ReactElement>();
 
+    useEffect(() => {
+        const renderContent = () => {
+            switch (boardType) {
+                case BoardType.Notes:
+                    return <NoteBoard ref={contentRef} key="note-board">{children}</NoteBoard>;
+                case BoardType.Lines:
+                    return <ListBoard ref={contentRef} key="list-board">{children}</ListBoard>;
+                case BoardType.Details:
+                    return <DetailBoard ref={contentRef} key="detail-board">{children}</DetailBoard>;
+            }
+        };
 
-export function Board({title, children, boardType: type}: BoardProps){
- 
-    let renderedContent;
+        setRenderedContent(renderContent());
+    }, [boardType, children]);
 
-    if(type == BoardType.Notes){
-        renderedContent = (
-            <NoteBoard key={v4()}>
-                {children}
-            </NoteBoard>
-            )
-    } else if (type == BoardType.Lines) {
-        renderedContent = (
-            <ListBoard key={v4()}>
-                {children}
-            </ListBoard>
-        )
-    } else if (type == BoardType.Details) {
-
-    }
-
-
+    // useEffect(() => {
+       
+    //     if (contentRef.current) {
+    //         sectionRef.current?.style.setProperty("--height", `${contentRef.current?.offsetHeight + 15}px`);
+    //     }
     
+    // }, [contentRef.current]);
+
     return (
-        <div key={v4()} className="  mt-4 shadow border border-2 rounded s-board  justify-content-center align-items-center position-relative">
-            <div className=" user-select-none d-flex p-3 justify-content-center border-bottom">
-                <h2>
-                    {title}
-                </h2>
-            </div>
-            
-            <section className="mb-3 p-3 pb-5 ps-5 pe-5 mt-3 overflow-auto  ">
-                {
-                    renderedContent
-                }
+        <div  key={v4()} className="mt-3 mb-4 h-auto shadow rounded s-board h-auto justify-content-center align-items-center position-relative">
+            <StandardHeader {...headerConfig} />
+            <section
+                ref={sectionRef}
+                className="w-auto"
+                >
+                {renderedContent}
             </section>
         </div>
-    )
+    );
 }
-

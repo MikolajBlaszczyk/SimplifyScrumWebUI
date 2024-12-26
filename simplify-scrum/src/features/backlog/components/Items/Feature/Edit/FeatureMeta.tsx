@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react"
-import { useAlert, useModal } from "../../../../../../hooks/HooksIndex"
+import { MouseEvent, useEffect, useState } from "react"
+import { useAlert, useBacklog, useModal } from "../../../../../../hooks/HooksIndex"
 import { BacklogService } from "../../../../../../services/CommonServicesIndex"
 import { AlertStyle } from "../../../../../alerting/components/Alert"
 import { Task } from "../../../../data/DataIndex"
-import { Button } from "../../../../../../components/ComponentsIndex"
-import { Fonts } from "../../../../../../utils/UtilsIndex"
+import { Button, StandardList, StandardSwipeElement } from "../../../../../../components/ComponentsIndex"
 import TaskEdit from "../../Task/TaskEdit"
-import { TaskListItem } from "../../Task/TaskListItem"
+import { Role, Size, Style } from "../../../../../../components/common/button/ButtonProps"
 
 interface Props {
     guid?: string
@@ -19,6 +18,20 @@ export function FeatureMeta({guid}: Props){
 
     const addTask = () => {
         showModal((<TaskEdit featureGuid={guid} reload={fetchData}/>), "New Task")
+    }
+
+    const deleteTask = async (taskId: number) => {
+        const response = await BacklogService.deleteTask(taskId)
+        if(response){
+            fetchData()
+            showAlert(AlertStyle.Success, "Task was deleted", "Success")
+        } else {
+            showAlert(AlertStyle.Danger, "Task was not deleted", "Error")
+        }
+    }
+
+    const editTask = (taskId: number) => {
+        showModal((<TaskEdit taskID={taskId} featureGuid={guid} reload={fetchData}/>), "Edit Task")
     }
 
     const fetchData = async () => {
@@ -39,40 +52,53 @@ export function FeatureMeta({guid}: Props){
     }, []) 
 
     return (
-        <div className="d-flex w-100 h-100">
-            <section className="d-flex flex-column w-100">
-                <div className="d-flex w-100 justify-content-center mt-2 border-bottom">
-                    <h4>Tasks</h4>
-                </div>
+        <div className="d-flex w-75  mt-3 mb-3 feature-meta rounded">
+            <section className="d-flex flex-column w-100 p-3">
+                 <StandardList
+                    title="Tasks"
+                    content={
+                        tasks.length == 0 ? 
+                        [
+                            <div className="d-flex w-100  ">
+                                No tasks
+                            </div>
+                        ]
+                        :
+                        [...tasks.map(task => {
+                        return (
+                            <div className="w-100 d-flex justify-content-between">
+                                {task.name}
+                                <div>
+                                    <Button 
+                                        className="s-task-item-button me-3"                  
+                                        size={Size.Large}
+                                        role={Role.Primary}
+                                        style={Style.Borderless}
+                                        icon="bi-pen"
+                                        onClick={() => {editTask(task.id)}} />
 
-                <div className="d-flex w-100">
-                    <ul className="d-flex w-100 mt-2 list-group overflow-hidden">
-                        {
-                            tasks.length == 0 ? 
-                            (
-                                <div className="d-flex flex-column w-100 align-items-center mt-4">
-                                    <h5 >No Tasks in project</h5>
+                                    <Button 
+                                        className="s-task-item-button"
+                                        size={Size.Large}
+                                        role={Role.Primary}
+                                        style={Style.Borderless}
+                                        icon="bi-trash"
+                                        onClick={() => {deleteTask(task.id)}} />
                                 </div>
-                            )
-                            :
-                            tasks.map(task => {
-                            return (
-                                <TaskListItem task={task} />
-                            )
-                            })
-                        }
-                    </ul>
-                </div>
-                
-                <div className="p-1 d-flex w-100 justify-content-center">
-                    {/* <SimpleButton
-                            type={Button.Borderless}
-                            title=""
-                            fontColor={Color.Light}
-                            font={Fonts.H6}
-                            icon="bi-plus-lg" 
-                            onClick={() =>{addTask()}}/> */}
-                </div>
+                            </div>     
+                        )
+                        }),
+                        ]
+                    } />
+
+                <Button 
+                                    style={Style.Borderless}
+                                    size={Size.XLarge}
+                                    role={Role.Primary}
+                                    className="mb-4"
+                                    icon="bi-plus-lg" 
+                                    onClick={() =>{addTask()}} />
+              
                
             </section>
         </div>

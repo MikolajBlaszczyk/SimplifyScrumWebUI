@@ -24,7 +24,7 @@ export function MeetingsBlock({isEmpty, isPlaceholder, meetings}: Props){
           }, [meetings]);
 
     if(meetings == null || meetings == undefined || meetings.length == 0){ 
-        list = <div className="w-75 text-center">No Incoming Meetings</div>
+        list = <div className="w-75 text-center mt-4">No Incoming Meetings</div>
     } else {
         list = (
             <ul style={{width: '70%'}} className="mt-2 d-flex justify-content-start align-items-center   s-info-meetings-list user-select-none  list-group " data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title="Maximum of 5 next meetings. Having too much meetings can reduce productivity.">

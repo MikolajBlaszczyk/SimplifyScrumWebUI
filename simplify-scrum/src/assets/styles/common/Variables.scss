@@ -15,10 +15,11 @@ $accent: #226CE0;
 $accent-complementary: #61a2d4;
 
 $dark: #2A2B2A;
+$dark-darker: darken($dark, 7%);
 $dark-complementary:#474252;
 $light: #ffffff;
 
-$warning: #FF7F11;
+$warning: #fda65a;
 $warning-complementary: #ff8e58;
 $danger: #db3069;
 $danger-complementary: #e35b7d;

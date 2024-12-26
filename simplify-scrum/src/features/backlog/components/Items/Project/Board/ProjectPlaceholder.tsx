@@ -15,12 +15,7 @@ export function ProjectPlaceholder() {
 
     return(
         <div className="s-border-placeholder border  border-2 rounded   s-card-placeholder">
-            <Button 
-                style={Style.Borderless}
-                role={Role.Primary}
-                size={Size.Large}
-                title="Add"
-                onClick={() => addNewProject()} />
+  
         </div>
     )
 }

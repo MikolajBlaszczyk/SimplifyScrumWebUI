@@ -143,7 +143,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                     }
 
                 </div>
-                <div className="d-flex mt-2 justify-content-end align-items-end s-offcanvas-logout w-100">
+                <div className="d-flex mt-5 justify-content-end align-items-end s-offcanvas-logout w-100">
 
 
                     <Button 

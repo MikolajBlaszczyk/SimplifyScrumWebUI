@@ -17,6 +17,7 @@
   position: relative;
   transition: transform 0.3s ease;
   min-width: 100% !important;
+  background-color: transparent;
 
   &.swiping {
     transform: translateX(var(--swipe-amount, 0));
@@ -36,6 +37,14 @@
     font-weight: bold;
     transition: opacity 0.3s ease;
     opacity: 0;
+  }
+
+  &::before {
+    left: -150px; 
+  }
+
+  &::after {
+    right: -150px; 
   }
 
   &.swiping::before {
@@ -151,5 +160,53 @@
   }
   2% {
     transform: translateX(-10px);
+  }
+}
+
+
+.swipeable {
+  position: relative;
+  transition: transform 0.3s ease;
+  min-width: 100% !important;
+  background-color: transparent;
+
+  &.swiping {
+    transform: translateX(var(--swipe-amount, 0));
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  &::before {
+    background-color: $secondary;
+    left: -150px; 
+  }
+
+  &::after {
+    background-color: $accent;
+    right: -150px; 
+  }
+
+  &.swiping::before {
+    content: var(--before-content, '');
+    opacity: calc(1 - (var(--swipe-amount, 0) / -100));
+  }
+
+  &.swiping::after {
+    content: var(--after-content, '');
+    opacity: calc(var(--swipe-amount, 0) / 100);
   }
 }

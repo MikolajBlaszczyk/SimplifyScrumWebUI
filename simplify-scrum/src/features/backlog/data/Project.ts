@@ -11,6 +11,7 @@ export class Project {
     createdOn: Date
     lastUpdatedBy: string
     lastUpdatedOn: Date
+    isActive: boolean = true
 
     constructor(
             guid: string,
@@ -21,6 +22,7 @@ export class Project {
             createdOn: Date,
             lastUpdatedBy: string,
             lastUpdatedOn: Date,
+            isActive: boolean,
             description?: string){
         this.guid = guid
         this.name = name
@@ -31,9 +33,10 @@ export class Project {
         this.description = description
         this.lastUpdatedBy = lastUpdatedBy
         this.lastUpdatedOn = lastUpdatedOn
+        this.isActive = isActive
     }
 
     static default() {
-        return new Project('','', StandardStatus.New, '', '', new Date(), '', new Date(), '')
+        return new Project('','', StandardStatus.New, '', '', new Date(), '', new Date(), false, '')
     }
 }

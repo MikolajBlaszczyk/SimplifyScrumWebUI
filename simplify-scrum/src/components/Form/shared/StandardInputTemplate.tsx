@@ -11,7 +11,7 @@ interface StandardInputTemplateProps {
     buttonVisible?: boolean
     tooltipContent?: string
     className?: string
-    clearValue: () => void
+    clearValue?: () => void
 }
 
 //TODO: known issue: when the input validation message is too long validation message needs to open on two clicks
@@ -66,7 +66,7 @@ export function StandardInputTemplate({element, validation, tooltipContent, butt
                                     size={Size.Large}
                                     style={Style.Circle}
                                     role={Role.Cancel}
-                                    onClick={() => { clearValue() }} />
+                                    onClick={() => { clearValue && clearValue() }} />
                                 </div>
                             )
                         }

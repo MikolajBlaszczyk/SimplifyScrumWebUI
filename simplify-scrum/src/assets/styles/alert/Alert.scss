@@ -12,15 +12,14 @@
 
 .s-alert{
     position: fixed !important;
-    width: 20%;
+    width: fit-content;
     left: 40%;
     top: 20%;
     background-color: $input-background;
     color: $light;
     z-index: 3003;
     opacity: $s-opacity;
-
-
+    transition: height 0.3s ease; 
 
     &.s-alert-warning{
     }

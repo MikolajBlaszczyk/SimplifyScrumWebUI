@@ -69,14 +69,14 @@ export class EnumService {
     }
 
     static convertExtendedStatusToString = (state: ExtendedStatus) => {
-        return extendadStateString[state]
+        const strStatus = extendadStateString[state]
+        return strStatus
     }
 
     static convertStringToExtendedStatus = (stringValue: string) => {
         const keys = GenericEnumService.getEnumDictionary(ExtendedStatus) 
 
-        return keys[stringValue]  as ExtendedStatus
-    }
+        return keys[stringValue]    }
 
     //#endregion
 

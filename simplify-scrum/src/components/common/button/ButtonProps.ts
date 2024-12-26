@@ -1,3 +1,5 @@
+import { RefObject } from "react"
+
 export enum Style{
     Filled,
     Outlined,
@@ -43,6 +45,7 @@ export const sizeClasses = {
 
 
 export interface ButtonProps{
+    ref?: RefObject<HTMLButtonElement>
     autoadvance?: boolean,
     style?: Style,
     role?: Role,

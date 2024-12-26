@@ -153,7 +153,11 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .s-bg-dark {
-    background-color: #110c27 !important;
+    background-color: $dark !important;
+}
+
+.s-bg-dark-darker{
+    background-color: $dark-darker !important;
 }
 
 .s-bg-dark-subtle {

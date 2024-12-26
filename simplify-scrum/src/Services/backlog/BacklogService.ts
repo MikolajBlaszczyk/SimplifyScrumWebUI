@@ -1,9 +1,7 @@
 import { ExtendedStatus, Feature, Project, SimpleStatus, StandardStatus, Task } from "../../features/backlog/data/DataIndex";
 import { Sprint, SprintModel, Team, User } from '../../data/CommonDataIndex'
-import { features } from "process";
 import { RequestFactory } from '../api/RequestFactory';
-import { AxiosResponse, HttpStatusCode } from "axios";
-import { stat } from 'fs';
+import { HttpStatusCode } from "axios";
 import { GenericEnumService } from "../enum/GenericEnumService";
 
 const apiUrl = `${process.env.REACT_APP_SIMPLIFY_API}` 
@@ -53,6 +51,13 @@ export class BacklogService{
         return response.status == HttpStatusCode.Ok
     }
 
+    static async updateFeature(feature: Feature): Promise<boolean> {
+        const url = apiUrl + "/feature/update"
+        const response = await RequestFactory.createPostRequest(url, feature)
+
+        return response.status == HttpStatusCode.Ok
+    }
+
     static async deleteFeature(featureGUID: string): Promise<boolean> {
         const url = apiUrl + `/feature/delete?featureGUID=${featureGUID}`
         const response = await RequestFactory.createDeleteRequest(url, null)
@@ -61,7 +66,7 @@ export class BacklogService{
     }
 
     static async getTasksForFeature(featureGUID: string): Promise<Task[]>{
-        const url = apiUrl + `/features/tasks?featureGUID=${featureGUID}`
+        const url = apiUrl + `/feature/tasks?featureGUID=${featureGUID}`
         const response = await RequestFactory.createGetRequest(url)
 
         return response.data
@@ -82,6 +87,14 @@ export class BacklogService{
         return response.status == HttpStatusCode.Ok
     }
 
+    static async updateTask(task: Task): Promise<boolean> {
+        const url = apiUrl + "/task/update"
+        const response = await RequestFactory.createPostRequest(url, task)
+
+        return response.status == HttpStatusCode.Ok
+    }
+
+
     static async deleteTask(taskID: number): Promise<boolean>{
         const url = apiUrl + `/task/delete?taskID=${taskID}`
         const response = await RequestFactory.createDeleteRequest(url, null)
@@ -94,6 +107,10 @@ export class BacklogService{
             const url = apiUrl + '/projects'
             const response = await RequestFactory.createGetRequest(url)
           
+            if(response.status == 204){
+                return [] as unknown as Project[]
+            }
+
             return response.data.map((project: Project) => DataMapper.mapDayDateBacklogItems(project)) 
         } catch(err){
             console.log(err)
@@ -117,6 +134,19 @@ export class BacklogService{
     static async addProject(project: Project): Promise<boolean> {
         try{
             const url = apiUrl + "/project/add"
+            const response = await RequestFactory.createPostRequest(url, project)
+
+            return response.status == HttpStatusCode.Ok
+        } catch(err) {
+            console.log(err)
+            return false
+        }
+        
+    } 
+
+    static async updateProject(project: Project): Promise<boolean> {
+        try{
+            const url = apiUrl + "/project/update"
             const response = await RequestFactory.createPostRequest(url, project)
 
             return response.status == HttpStatusCode.Ok

@@ -11,7 +11,7 @@ export function Meetings(){
         <CentralLayout 
             centralComponent={
                 <SimpleCalendar  
-                    className="w-75 h-50 mt-4 mb-4"
+                    className="w-75 mt-4 mb-4"
                     initialDate={today}/>
                 }/>
     )

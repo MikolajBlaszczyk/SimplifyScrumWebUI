@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SimpleCalendar from "../features/calendar/components/SimpleCalendar";
-import { Alignment, ArticleLayout, SideBySideLayout } from "../layouts/LayoutIndex";
+import { Alignment, ArticleLayout, CentralLayout, SideBySideLayout } from "../layouts/LayoutIndex";
 import { DayFactory, Month, ScheduleModel } from "../data/CommonDataIndex";
 import { MeetingSerivce } from "../services/CommonServicesIndex";
 import { useLoading, useSettings } from "../hooks/HooksIndex";
@@ -25,10 +25,15 @@ export function InfoCenter(){
         <ArticleLayout sections={
             [
             <InfoBoard/>,
-            <SideBySideLayout 
-                rightSide={<SimpleCalendar initialDate={today} />} 
-                leftSide={<NotificationSheet />} 
-                alignment={Alignment.SideItemLeft} />
+            <div className="d-flex mb-5 flex-column rounded s-bg-dark  overflow-hidden  s-w-80" >
+                <div className="d-flex w-100 s-info-center-header pt-3 pb-2 justify-content-center border-2 border-bottom">
+                    <h2>Notifications & Meetings</h2>
+                </div>
+                <div className="d-flex w-100 h">
+                    <NotificationSheet />
+                    <SimpleCalendar initialDate={today} />
+                </div>
+            </div>
         ]} />
     )
 }

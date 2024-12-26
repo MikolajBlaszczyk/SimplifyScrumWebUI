@@ -5,19 +5,34 @@ export enum BacklogAction {
     AddProject,
     EditProject,
     EditFeature,
+    AddFeature,
     ShowFeatures,
+}
+
+export enum DetailType {
+    Project,
+    Feature, 
+    Task
+}
+
+interface BacklogItem {
+    itemGuid?: string
+    itemType: DetailType
 }
 
 const defaultBacklogState: Backlog = {
     action: BacklogAction.ShowProjects,
-    guid: "",
-    parentGuid: ""
+    parentGuid: undefined,
+    item: {
+        itemGuid: undefined,
+        itemType: DetailType.Project
+    }
 }
 
 export interface Backlog {
     action: BacklogAction
-    guid: string
-    parentGuid: string
+    parentGuid?: string,
+    item?: BacklogItem
 }
 
 export interface BacklogState { 

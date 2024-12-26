@@ -6,7 +6,7 @@ import { Placeholder, SimpleIcon } from "../../../../components/ComponentsIndex"
 import { Fonts } from "../../../../utils/UtilsIndex";
 import { BacklogService } from "../../../../services/CommonServicesIndex";
 import { useBacklog, useLoading } from "../../../../hooks/useContexts";
-import { BacklogAction } from "../../../../context/BacklogContext";
+import { BacklogAction, DetailType } from "../../../../context/BacklogContext";
 import { ProjectPlaceholder } from "../Items/Project/Board/ProjectPlaceholder";
 import { v4 } from 'uuid';
 
@@ -30,12 +30,14 @@ export function ProjectCard({index, project}: Props){
     }
 
     const editProject = async () => {
-        setState({...state, action: BacklogAction.EditProject, guid: project.guid})
+        setState({...state, action: BacklogAction.EditProject, item: { itemGuid: project.guid, itemType: DetailType.Project }})
     }
 
     const checkFeatures = async () => {
-        setState({...state, action: BacklogAction.ShowFeatures, guid: project.guid, parentGuid: project.guid})
+        setState({...state, action: BacklogAction.ShowFeatures, parentGuid:  project.guid})
     }
+    
+    
 
     return  wasRemoved == false ? 
             (
@@ -63,12 +65,12 @@ export function ProjectCard({index, project}: Props){
 
                        
                      
-                        <h4 className=" text-end justify-content-end ">
+                        <h5 className=" text-end justify-content-end me-4 overflow-hidden ">
                             {project.name}
-                        </h4>
+                        </h5>
                     </div>  
-                    <div className="h-50 text-start mt-2">
-                        <h6 className="card-text mt-1">
+                    <div className="h-50 overflow-hidden s-card-body text-start mt-2  me-2" >
+                        <h6 className="card-text mt-1  ">
                             {project.description}
                         </h6>
                     </div>

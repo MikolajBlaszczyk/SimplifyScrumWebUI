@@ -1,19 +1,13 @@
-import { ReactElement, useEffect, useMemo, useState } from "react";
-import { Board, BoardType } from "../features/backlog/components/board/Board";
-import { ProjectCard } from "../features/backlog/components/utils/ProjectCard";
-import { Project } from "../features/backlog/data/DataIndex";
+import { useEffect, useState } from "react";
 
 import { CentralLayout } from "../layouts/CentralLayout";
-import { BacklogService } from "../services/CommonServicesIndex";
 import { BacklogProjectCenter } from "../features/backlog/components/Items/Project/Board/BacklogProjectCenter";
 import { useBacklog } from "../hooks/HooksIndex";
-import { BacklogAction, BacklogStateProvider } from '../context/BacklogContext';
-import { DetailBoard, DetailType } from "../features/backlog/components/board/DetailBoard";
+import { BacklogAction } from '../context/BacklogContext';
 import { BacklogFeatureCenter } from "../features/backlog/components/Items/Feature/Board/BacklogFeatureCenter";
 
 export function Backlog(){
     const {state, setState} = useBacklog()
-    
     const [centralComponent, setCentralComponent] = useState(<BacklogProjectCenter />)
     
     useEffect(() => {
@@ -21,20 +15,16 @@ export function Backlog(){
         switch(state.action) { 
 
             case BacklogAction.ShowProjects: 
+            case BacklogAction.AddProject: 
+            case BacklogAction.EditProject: 
                 setCentralComponent(<BacklogProjectCenter />)
                 break;
-            case BacklogAction.AddProject: 
-                setCentralComponent(<DetailBoard title="New Project" type={DetailType.Project} />)
-                break;
-            case BacklogAction.EditProject: 
-                setCentralComponent(<DetailBoard title="Edit Project" type={DetailType.Project} guid={state.guid}/>)
-                break;
             case BacklogAction.ShowFeatures:
+            case BacklogAction.EditFeature:
+            case BacklogAction.AddFeature:
                 setCentralComponent(<BacklogFeatureCenter />)
                 break;
-            case BacklogAction.EditFeature:
-                setCentralComponent(<DetailBoard title="New Feature" type={DetailType.Feature} guid={state.guid} parentGuid={state.parentGuid}/>)
-                break;
+
         }
 
 

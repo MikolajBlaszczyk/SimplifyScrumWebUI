@@ -2,6 +2,7 @@ import { MouseEvent, ReactElement } from "react"
 import { useModalForm } from "../../hooks/useContexts"
 import { Button } from "../../components/ComponentsIndex"
 import { Fonts } from "../../utils/UtilsIndex";
+import { Role, Size, Style } from '../../components/common/button/ButtonProps';
 
 interface Props {
     title: string 
@@ -21,7 +22,13 @@ export function Modal({innerComponent, title}: Props) {
                     </h3>
 
                     <div className="mb-2">
-
+                        <Button 
+                            size={Size.Large}
+                            style={Style.Borderless}
+                            role={Role.Cancel}
+                            icon="bi-x-lg"
+                            onClick={() => {setModal({showModal: false, modalComponent: <></>})} }
+                                />
                         {/* <SimpleButton 
                             type={Button.Borderless} 
                             title=""

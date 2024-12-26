@@ -3,9 +3,8 @@ import { BacklogService } from "../../../../../../services/CommonServicesIndex"
 import { Feature } from "../../../../data/Feature"
 import { useAlert } from "../../../../../../hooks/HooksIndex"
 import { AlertStyle } from "../../../../../alerting/components/Alert"
-import { Button,  SimpleIcon } from "../../../../../../components/ComponentsIndex"
-import { Fonts } from "../../../../../../utils/UtilsIndex"
-import { features } from 'process';
+import { Button,  SimpleIcon, StandardList } from "../../../../../../components/ComponentsIndex"
+import { v4 } from "uuid"
 
 interface Props {
     guid?: string
@@ -16,7 +15,7 @@ export function ProjectMeta({guid}: Props){
     const [features, setFeatures] = useState<Feature[]>([])
 
     const fetchData = async () => {
-        if(guid == undefined)
+        if(guid == undefined || guid == '')
             return 
 
         try{
@@ -32,31 +31,28 @@ export function ProjectMeta({guid}: Props){
     }, []) 
 
     return (
-        <div className="d-flex w-100 h-100">
+        <div className="d-flex w-75  mt-3 mb-3 project-meta rounded" style={{maxHeight: '400px'}}>
             <section className="d-flex flex-column w-100">
-                <div className="d-flex w-100 justify-content-center mt-2 border-bottom">
-                    <h4>Features</h4>
-                </div>
+              
+                <div className="d-flex w-100 p-3">
 
-                <div className="d-flex w-100">
-                    <ul className="d-flex w-100 mt-2 list-group">
-                        {
+                    <StandardList
+                        title="Features"
+                        content={
                             features.length == 0 ? 
-                            (
-                                <div className="d-flex flex-column w-100 align-items-center mt-4">
-                                    <h5 >No features in project</h5>
+                            [
+                                <div className="d-flex flex-column w-100">
+                                   No features in project
                                 </div>
-                            )
+                            ]
                             :
-                            features.map(feature => {
-                            return (
-                                <li className=" list-group-item">
-                                    {feature.name}
-                                </li>
-                            )
-                            })
-                        }
-                    </ul>
+                            features.map(feature => (
+                                <div  key={v4()}>
+                                    {feature?.name}
+                                </div>
+                            ))
+                        } />
+                    
                 </div>
             </section>
         </div>

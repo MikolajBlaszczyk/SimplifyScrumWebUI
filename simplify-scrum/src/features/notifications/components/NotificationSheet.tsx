@@ -31,10 +31,10 @@ export function NotificationSheet(){
 
     const indicators = useMemo(() => {
         return notifications.length === 0 ? (
-            <h6>No notifications</h6>
+            <h5>No notifications</h5>
         ) : (
             <>
-                <div className="d-flex swipe-indicator">
+                <div className="d-flex ps-2 pe-2  text-center swipe-indicator">
                     <p>Swipe left to remove a notification</p>
                 </div>
                 {notifications.map((notification) => (
@@ -51,19 +51,13 @@ export function NotificationSheet(){
    
 
     return (
-    <div className="d-flex flex-column align-items-center w-100 h-100 s-notification-sheet" >
-        <div className="d-flex mt-4  text-center border-bottom s-notification-sheet-label justify-content-center">
-            <h4>
-                Missed
-                Notifications
-            </h4>
-        </div>
-        <div className="d-flex w-100 h-100 mt-4 mb-3 align-items-center overflow-auto justify-content-start flex-column" style={{ maxHeight: '100%'}}>
+    <div className="d-flex flex-column border-end border-2 align-items-center w-100 justify-content-between  s-notification-sheet overflow-hidden" >
+        <div className="d-flex w-100 h-auto mt-4 mb-3 align-items-center overflow-auto justify-content-start flex-column" style={{ maxHeight: '100%'}}>
             { 
                 indicators
             }
         </div>
-        <div className=" mb-3  d-flex justify-content-center align-items-end">
+        <div className="mb-3 d-flex h-auto justify-content-center align-items-end">
             <Button 
                 role={Role.Cancel}
                 size={Size.Large}
