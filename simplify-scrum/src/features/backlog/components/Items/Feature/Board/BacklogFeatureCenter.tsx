@@ -95,9 +95,15 @@ export function BacklogFeatureCenter() {
 
     if(featuresLoader.placeholder !== false){
         return (
-            <div className="container-fluid bg-dark mt-5 shadow border border-2 rounded s-board p-5 d-flex justify-content-center align-items-center position-relative" >
-                <Placeholder />
-            </div>
+            <Board 
+            key={v4()}
+            boardType={BoardType.Empty}
+            headerConfig={headerConfig}>
+                <div className="container-fluid bg-dark mt-5 shadow border border-2 rounded s-board p-5 d-flex justify-content-center align-items-center position-relative" >
+                    <Placeholder />
+                </div>
+            </Board>
+           
         )
     } 
 

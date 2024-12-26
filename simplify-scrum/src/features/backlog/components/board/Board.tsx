@@ -8,7 +8,8 @@ import { DetailBoard, DetailBoardContent } from "./DetailBoardContent";
 export enum BoardType { 
     Notes,
     Lines,
-    Details
+    Details,
+    Empty
 } 
 
 interface BoardProps {
@@ -32,19 +33,14 @@ export function Board({ children, boardType, headerConfig }: BoardProps) {
                     return <ListBoard ref={contentRef} key="list-board">{children}</ListBoard>;
                 case BoardType.Details:
                     return <DetailBoard ref={contentRef} key="detail-board">{children}</DetailBoard>;
+                case BoardType.Empty:
+                    return <div className="w-100 h-100 d-flex"></div>
             }
         };
 
         setRenderedContent(renderContent());
     }, [boardType, children]);
 
-    // useEffect(() => {
-       
-    //     if (contentRef.current) {
-    //         sectionRef.current?.style.setProperty("--height", `${contentRef.current?.offsetHeight + 15}px`);
-    //     }
-    
-    // }, [contentRef.current]);
 
     return (
         <div  key={v4()} className="mt-3 mb-4 h-auto shadow rounded s-board h-auto justify-content-center align-items-center position-relative">

@@ -68,9 +68,13 @@ export function BacklogProjectCenter() {
 
     if(projectsLoader.placeholder !== false){
         return (
-            <div className="  mt-4 shadow border border-2 rounded s-board  justify-content-center align-items-center" >
-                <Placeholder />
-            </div>
+            <Board 
+            boardType={BoardType.Empty}
+            headerConfig={headerConfig}>
+                <div className="shadow border border-2 w-100 h-100 rounded s-board  justify-content-center align-items-center" >
+                    <Placeholder />
+                </div>
+            </Board>
         )
     } 
 

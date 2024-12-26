@@ -1,0 +1,27 @@
+@import './Variables';
+
+.s-table{
+    height: 75%;
+}
+
+.s-table-header{
+    background-color: transparent !important;
+}
+
+
+.s-table-body{
+    background-color:transparent !important;
+}
+
+.s-feature-table-body{
+    min-height: 80% !important; 
+}
+
+.s-feature-table-footer{
+    background-color: transparent !important;
+    button{
+        i{
+            background-color: transparent !important;
+        }
+    }
+}
