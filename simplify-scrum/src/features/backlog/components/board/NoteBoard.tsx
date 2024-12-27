@@ -12,18 +12,18 @@ export const NoteBoard = forwardRef<HTMLDivElement, Props>(({ children }, ref) =
     
     for(let i = 0; i < childrenCount ; i+=3){
         renderedGrid.push(
-            <div className="row p-2  align-items-center mb-3" key={i}>
-                <div className="col d-flex justify-content-center">
+            <div className="w-100 h-100 d-flex justify-content-evenly align-items-center mb-3" key={i}>
+                <div className="">
                     {childrens[i]}
                 </div>
-                <div className="col d-flex justify-content-center">
+                <div className="">
                 {
                     i + 1 < childrenCount ?
                     childrens[i + 1] : 
                     (<ProjectPlaceholder  />)
                 }
                 </div>
-                <div className="col d-flex justify-content-center">
+                <div className="">
                 {
                     i + 2 < childrenCount ?
                     childrens[i + 2] : 
@@ -36,7 +36,7 @@ export const NoteBoard = forwardRef<HTMLDivElement, Props>(({ children }, ref) =
 
     if( childrenCount % 3 == 0){
         renderedGrid.push(
-            <div className="row p-2 align-items-center mb-3" key="placeholder">
+            <div className="w-100 p-2 align-items-center mb-3" key="placeholder">
                 <div className="col d-flex justify-content-center">
                     <ProjectPlaceholder />
                 </div>
@@ -50,5 +50,5 @@ export const NoteBoard = forwardRef<HTMLDivElement, Props>(({ children }, ref) =
         )
     }
 
-    return(<div ref={ref} className="w-100 mt-2 h-auto">{renderedGrid}</div>)
+    return(<div ref={ref} className="w-100 mt-4 h-100 flex-column justify-content-center d-flex ">{renderedGrid}</div>)
 });

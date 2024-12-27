@@ -37,6 +37,13 @@ export class BacklogService{
         return response.data
     }
 
+    static async getRefinementFeaturesForProject(projectGUID: string): Promise<Feature[]>{
+        const url = apiUrl + `/project/features/refinement?projectGUID=${projectGUID}`
+        const response = await RequestFactory.createGetRequest(url)
+        
+        return response.data
+    }
+
     static async getFeature(featureGUID: string): Promise<Feature>{
         const url = apiUrl + `/feature?featureGUID=${featureGUID}`
         const response = await RequestFactory.createGetRequest(url)

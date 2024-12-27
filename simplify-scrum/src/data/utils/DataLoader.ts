@@ -1,4 +1,5 @@
 
+
 export class DataLoader {
     placeholder: boolean = true
     isEmpty: boolean = false
@@ -20,4 +21,8 @@ export class DataLoader {
         copy.data = data
         return copy
     }
+} 
+
+export class ExtendedDataLoader<T> extends DataLoader{
+    data: T | null = null
 } 

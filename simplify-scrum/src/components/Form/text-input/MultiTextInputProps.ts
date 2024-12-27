@@ -7,6 +7,7 @@ export interface MultiTextInputProps{
     tooltipContent?: string  
     className?: string
     validation?: ValidationResult
+    initialRows?: number
     icon?: string 
     disabled?: boolean
     readonly?: boolean

@@ -1,59 +1,88 @@
-import { ReactElement, useEffect, useMemo, useState } from "react"
-import { BacklogService, PlanningService } from "../../../../services/CommonServicesIndex"
-import { RefinementItem } from "./RefinementItem"
-import { Button, SelectItem } from "../../../../components/ComponentsIndex";
+import { MouseEvent, ReactElement, useEffect, useMemo, useState } from "react"
+import { BacklogService, EnumService, PlanningService } from "../../../../services/CommonServicesIndex"
+import { Button, Card, Placeholder, SelectItem, StandardHeader, StandardTable } from "../../../../components/ComponentsIndex";
 import { Fonts } from "../../../../utils/UtilsIndex";
 import { v4 } from "uuid";
-import { ExtendedStatus } from "../../../backlog/data/DataIndex";
+import { ExtendedStatus, Feature } from "../../../backlog/data/DataIndex";
+import { useAlert } from "../../../../hooks/useAlert";
+import { AlertStyle } from "../../../alerting/components/Alert";
+import { DataLoader } from "../../../../data/CommonDataIndex";
+import { useRefinement } from "../../../../hooks/useContexts";
+import { RefinementAction } from "../../../../context/ContextsIndex";
 
 
 export function RefinementDashboard(){
-    const [items, setItems] = useState<ReactElement[]>([])
-    const [state, setState] = useState<ExtendedStatus>(ExtendedStatus.New)
+    const showAlert = useAlert()
+    const { state, setState } = useRefinement()
+    const [center, setCenter] = useState<ReactElement>(<Placeholder />)
+    const [featuresLoader, setFeaturesLoader] = useState<DataLoader>(DataLoader.default())
 
-
-    
 
     const fetchData = async () => {
         const activeProject = await PlanningService.getCurrentProject()
-        const features = await BacklogService.getFeaturesForProject(activeProject.guid)
-        setItems(features.map((feature) => <RefinementItem key={v4()} index={features.indexOf(feature)} feature={feature} />))
+
+        if(activeProject == null){
+            showAlert(AlertStyle.Warning, "Your team is not in the process of developing a project", "No active project")
+            return
+        }
+
+        const features = await BacklogService.getRefinementFeaturesForProject(activeProject.guid)
+        const featuresForRefinement = features.filter(feature => feature.state === ExtendedStatus.ReadyForRefinement)
+        if(featuresForRefinement.length === 0){
+            setFeaturesLoader(DataLoader.dataFinishedLoading(featuresLoader, featuresForRefinement, true))
+        } else if (featuresForRefinement.length !== 0){
+            setFeaturesLoader(DataLoader.dataFinishedLoading(featuresLoader, featuresForRefinement, false))
+        }
+        
     }
+
+    useEffect(() => {
+        if(featuresLoader.placeholder){
+            setCenter(<Placeholder />)
+        
+        } else if(featuresLoader.isEmpty){
+            setCenter(
+            <div className="d-flex justify-content-center pb-4 pt-4">
+                <Card className="s-refinement-card" title={"Unavailable"} icon={"bi-x"} content={<span className="text-center">
+                    There are no features for refinement
+                </span>} />
+            </div>
+            )
+        } else {
+            setCenter(<div className="p-3">
+                <StandardTable 
+                swipeEnabled={true}
+                headers={  ['Number', 'Name', "Status", "Points"] }
+                valuesDefinition={
+                    [
+                        ...featuresLoader.data.map((feature: Feature, index: number) => {
+                            return {
+                                values: 
+                                [
+                                    index.toString(),
+                                    feature.name,
+                                    EnumService.convertExtendedStatusToString(feature.state),
+                                    feature.points.toString()
+                                ],
+                                columnValuesClassNames: [' s-no-column', ' ', ' s-status-column', ' '],
+                                swipeProps: {
+                                    onRightSwipeContent: "Refine",
+                                    onSwipeRight: () =>{
+                                        setState({...state, action: RefinementAction.Refine, itemGuid: feature.guid})
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                } />                
+            </div>)
+        }
+    }, [featuresLoader])
 
     useEffect(() => {
         fetchData()       
     }, [])
+    
 
-    return (
-        <div className="d-flex flex-column justify-content-center align-items-center w-75 bg-dark  shadow rounded p-4">
-            <h3 className="mb-4 align-self-start">
-                To be refined... 
-            </h3>
-            <table className="table mb-0 d-flex flex-column overflow-hidden "> 
-                <thead className="" style={{width: '100% !important'}} >
-                    <tr className="d-flex w-100  "> 
-                        <th className="col bg-dark-subtle">number</th>
-                        <th className="col bg-dark-subtle">Name</th>
-                        <th className="col bg-dark-subtle">Status</th>
-                        <th className="col bg-dark-subtle">Points</th>
-                    </tr>
-                </thead>
-                <tbody  style={{width: '100% !important'}}>   
-                    {
-                        items
-                    }
-                </tbody>
-            </table>
-            <div className="swipeable-row  d-flex justify-content-end w-100
-             pe-2 bg-dark-subtle">
-                {/* <SimpleButton
-                        type={Button.Borderless}
-                        title="Info"
-                        fontColor={Color.Light}
-                        font={Fonts.H5}
-                        icon="bi-plus-lg" 
-                        onClick={() =>{}}/> */}
-            </div>            
-        </div>
-    )
+    return (center)
 }

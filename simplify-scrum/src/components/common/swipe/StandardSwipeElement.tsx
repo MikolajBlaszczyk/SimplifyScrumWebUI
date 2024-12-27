@@ -9,6 +9,13 @@ export function StandardSwipeElement({content, onSwipeRight, onSwipeLeft, onLeft
     const swipeHandlers = useSwipeable({
         onSwiping: (eventData) => {
             const deltaX = eventData.deltaX;
+
+            if(deltaX > 0 && onSwipeLeft == undefined){
+                return
+            } else if(deltaX < 0 && onSwipeRight == undefined){
+                return
+            }
+
             if (deltaX > 150) {
                 setSwipeAmount(150);
             } else if (deltaX < -150) {

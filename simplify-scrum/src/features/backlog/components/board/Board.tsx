@@ -20,19 +20,17 @@ interface BoardProps {
 
 //TODO: Heigh transition
 export function Board({ children, boardType, headerConfig }: BoardProps) {
-    const sectionRef = useRef<HTMLElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
     const [renderedContent, setRenderedContent] = useState<React.ReactElement>();
 
     useEffect(() => {
         const renderContent = () => {
             switch (boardType) {
                 case BoardType.Notes:
-                    return <NoteBoard ref={contentRef} key="note-board">{children}</NoteBoard>;
+                    return <NoteBoard key="note-board">{children}</NoteBoard>;
                 case BoardType.Lines:
-                    return <ListBoard ref={contentRef} key="list-board">{children}</ListBoard>;
+                    return <ListBoard  key="list-board">{children}</ListBoard>;
                 case BoardType.Details:
-                    return <DetailBoard ref={contentRef} key="detail-board">{children}</DetailBoard>;
+                    return <DetailBoard  key="detail-board">{children}</DetailBoard>;
                 case BoardType.Empty:
                     return <div className="w-100 h-100 d-flex"></div>
             }
@@ -43,14 +41,11 @@ export function Board({ children, boardType, headerConfig }: BoardProps) {
 
 
     return (
-        <div  key={v4()} className="mt-3 mb-4 h-auto shadow rounded s-board h-auto justify-content-center align-items-center position-relative">
+        <div  key={v4()} className="mt-3 mb-4 shadow  d-flex flex-column rounded s-board  position-relative">
             <StandardHeader {...headerConfig} />
-            <section
-                ref={sectionRef}
-                className="w-auto"
-                >
+            <div className=" w-100 h-100 d-flex flex-column" >
                 {renderedContent}
-            </section>
+            </div>
         </div>
     );
 }

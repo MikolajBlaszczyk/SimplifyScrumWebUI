@@ -3,7 +3,6 @@ import { createContext, useMemo, useState } from "react"
 export enum RefinementAction {
     ShowItems,
     Refine,
-    EditItem
 }
 
 export interface Refinement {

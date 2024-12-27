@@ -4,7 +4,7 @@ import { Role, Size, Style } from "../../common/button/ButtonProps";
 import { Button } from "../../ComponentsIndex";
 import { MultiTextInputProps } from "./MultiTextInputProps";
 
-export function MultiTextInput({icon, placeholder, disabled, readonly, value, className, changeValue, tooltipContent, validation}: MultiTextInputProps){
+export function MultiTextInput({icon, placeholder, disabled, readonly, value, className, changeValue, tooltipContent, validation, initialRows}: MultiTextInputProps){
     useTooltip([]);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const initialHeight = useRef(0);
@@ -40,6 +40,7 @@ export function MultiTextInput({icon, placeholder, disabled, readonly, value, cl
                 </div>
                 
                 <textarea 
+                    rows={initialRows ?? 3}
                     className="d-flex w-100 border-0"
                     placeholder={placeholder}
                     readOnly={readonly}

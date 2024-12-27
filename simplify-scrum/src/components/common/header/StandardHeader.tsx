@@ -22,7 +22,7 @@ export function StandardHeader({title, buttonConfigs}: StandardHeaderProps){
 
     return (
         <div className=" user-select-none s-bg-dark-darker border-2 d-flex  p-3 align-items-center rounded-top justify-content-between border-bottom">
-            <h3>
+            <h3 className="m-0">
                 {title}
             </h3>
             <div  className="mt-1">

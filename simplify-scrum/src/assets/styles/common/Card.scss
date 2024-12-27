@@ -9,6 +9,7 @@ $min-card-width: 225px;
     border-end-end-radius: 0px !important;
     min-height: $min-card-height;
     min-width: $min-card-width;
+    max-width: $min-card-width;
     transition: transform 0.15s ease-in-out;
     border: none !important;
     overflow: hidden;

@@ -4,7 +4,7 @@
 //TODO: Rename this file to backlog.scss
 
 .s-board {  
-    min-height: 528px !important;
+    min-height: $s-section-min-height !important;
     transition: height 1s ease ;
     section{
         height: var(--height, '350');
@@ -36,6 +36,7 @@
 
 .s-board-detail{
     @extend .s-board;
+    min-height: $s-section-min-height;
     @media (max-width: $screen-sm) {
         width: 75% !important; 
     }
@@ -59,6 +60,7 @@
 
 .s-board-list{
     @extend .s-board;
+    min-height: $s-section-min-height;
     @media (max-width: $screen-sm) {
         width: 75% !important; 
     }
@@ -119,21 +121,23 @@
 
 .s-feature-table{
 
-    .s-no-column{
-        color: $secondary !important;
-    }
+    
+}
 
-    .s-status-column{
-        display: flex;
-        span{
-            max-width: 80%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            padding: $s-padding-vertical $s-padding-horizontal !important;
-            border-radius: $s-radius;
-            background-color: $primary !important;
-        }
+.s-no-column{
+    color: $secondary !important;
+}
+
+.s-status-column{
+    display: flex;
+    span{
+        max-width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: $s-padding-vertical $s-padding-horizontal !important;
+        border-radius: $s-radius;
+        background-color: $primary !important;
     }
 }
 

@@ -10,7 +10,7 @@ export function SwitchInput({icon, placeholder, disabled, readonly, className, i
             buttonVisible={false}
             className={" s-switch-input " + className}
             element={
-            <div className="form-switch d-flex ps-0  w-100 align-items-center justify-content-between s-input-range-div">
+            <div className="form-switch d-flex ps-0  w-100 align-items-center justify-content-between ">
                 <h6 className="m-0 ms-2 w-auto ">{placeholder}</h6>
                 <input 
                 className="form-check-input  s-checkbox" 

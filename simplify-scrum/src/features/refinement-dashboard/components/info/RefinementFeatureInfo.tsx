@@ -1,32 +1,32 @@
-import { MouseEvent, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { BacklogService } from "../../../../services/CommonServicesIndex"
-import { DataLoader } from "../../../../data/CommonDataIndex"
+import { DataLoader, ExtendedDataLoader } from "../../../../data/CommonDataIndex"
 import { Feature } from "../../../backlog/data/DataIndex"
-import { Button, Placeholder, SelectItem, SimpleSelectionInput, SimpleSwitch } from "../../../../components/ComponentsIndex"
-import { set } from 'date-fns';
-import { Alignment } from '../../../../components/form/SimpleTextInput';
-import { Refinement } from "../../../../pages/Refinement"
+import { Button, Placeholder, SelectionInput, SelectItem, SimpleSelectionInput, SimpleSwitch, StandardHeader } from "../../../../components/ComponentsIndex"
 import { RefinementService } from "../../services/RefinementSerivce"
 import { useRefinement } from "../../../../hooks/useContexts"
 import { RefinementAction } from "../../../../context/RefinementContext"
+import { MultiTextInput } from "../../../../components/form/text-input/MultiTextInput"
+import { SwitchInput } from '../../../../components/form/switch-input/SwitchInput';
+import { Role, Size, Style } from '../../../../components/common/button/ButtonProps';
+import { CheckState, SelectState } from "../../../../components/form/shared/SharedProps"
+import { setRef } from "@mui/material"
+import { set } from 'date-fns';
+import { useAlert } from "../../../../hooks/useAlert"
+import { AlertStyle } from "../../../alerting/components/Alert"
 
 interface Props {
     guid: string
 }
 
-interface FormState {
-    isRefined: boolean
-    points: number
-}
-
 export function RefinementFeatureInfo({guid}: Props){
+    const showAlert = useAlert()
     const {state, setState} = useRefinement()
+    
+    const [featureLodaer, setFeatureLodaer] = useState<ExtendedDataLoader<Feature>>(DataLoader.default())
+    const [refinedState, setRefinedState] = useState<CheckState>({checked: false, validation: {isValid: true, message: ""}})
+    const [pointsState, setPointsState] = useState<SelectState>({value: undefined, validation: {isValid: true, message: ""}})
 
-    const [featureLodaer, setFeatureLodaer] = useState<DataLoader>(DataLoader.default())
-    const [formState, setFormState] = useState<FormState>({isRefined: false, points: -1})
-    const [feature, setFeature] = useState<Feature | null>()
-
-    const [canSubmit, setCanSubmit] = useState<boolean>(false)
 
     let pointOptions: SelectItem[] = useMemo(() => {
         return [
@@ -40,116 +40,123 @@ export function RefinementFeatureInfo({guid}: Props){
         ]
     }, [])
 
+    const validateRefineSwitchForFeatureRefine = () => {
+        if(refinedState.checked === false){
+            showAlert(AlertStyle.Warning, "Please set feature as refined.")
+           return false
+        }
+
+        return true
+    }
+
+    const validatePointsForFeatureRefine = () => {
+        if(pointsState.value === undefined){
+            setPointsState(prev => ({...prev, validation: {isValid: false, message: "Please set points to refine feature."}}))
+            return false
+        }
+        return true
+    }
+
     const additionalInfo = async () => {
         await RefinementService.getMoreInfo(guid)
         setState({...state, action: RefinementAction.ShowItems})
     }
 
     const split = async () => {
+
+
         await RefinementService.splitFeature(guid)
         setState({...state, action: RefinementAction.ShowItems})
     }
 
-    const refined = async () => {
-        await RefinementService.refinedFeature(guid, formState.points)
+    const setFeatureAsRefined = async () => {
+        let isValid = true
+        if(validatePointsForFeatureRefine() == false)
+            isValid = false
+        if(validateRefineSwitchForFeatureRefine() == false) 
+            isValid = false
+        if(isValid === false) return
+
+        await RefinementService.refinedFeature(guid, parseInt(pointsState.value!))
         setState({...state, action: RefinementAction.ShowItems})
     }
 
-    const validateSubmit = () => {
-        if( (formState.points == 13 || formState.points == -1) || formState.isRefined == false) {
-            return false
-        } else {
-            return true
-        }
-    }
-
+ 
     const fetchData = async () => {
         const feature = await BacklogService.getFeature(guid)
 
         if(feature != null){
             setFeatureLodaer(DataLoader.dataFinishedLoading(featureLodaer, feature, false))
-            setFeature(feature)
         } else {
             setFeatureLodaer(DataLoader.dataFinishedLoading(featureLodaer, null, true))
         }
     }
 
-    useEffect(() => {
-        setCanSubmit(validateSubmit())
-    }, [formState])
+
 
     useEffect(() => {
         fetchData()
     }, [guid])
 
-    const setNewPoints = (numberAsString: string) => {
-        const points = parseInt(numberAsString)
-        setFormState(prev => ({...prev, isRefined: ((points == 13 || points == -1) ? false : prev.isRefined),  points: points}))
-    }
 
-    return (
-        <div className="d-flex flex-column bg-dark rounded p-3 w-75 ">
-            {
-                featureLodaer.placeholder ? 
+    return (featureLodaer.placeholder 
+                ? 
                 <Placeholder /> 
                 :
-                <>
-                     <div className="d-flex align-items-center w-100 s-h-15 border-bottom border-3">
-                        <h3>{feature!.name}</h3>
+          
+                <div className="d-flex justify-content-between " style={{ minHeight: "500px" }}>
+                    <div className="s-w-60  h-100 p-3">
+                        <MultiTextInput 
+                            initialRows={8}
+                            className="refinement-desc"
+                            icon="bi-card-text"
+                            readonly={true}
+                            value={featureLodaer.getData().description}
+                            changeValue={() => {}} />
                     </div>
-                    <div className="d-flex justify-content-between mt-3" style={{ minHeight: "500px" }}>
-                        <div className="s-w-60  h-100">
-                            <div className=" border overflow-auto  h-50-important" style={{ maxHeight: "350px" }}>
-                                <h6 className="m-0 h-100 p-2 text-justify">{feature!.description}</h6>
-                            </div>
-                    
-
+                    <div className="d-flex flex-column justify-content-between s-w-40 border-start border-2  p-3">
+                        <div className="d-flex flex-column w-100  align-items-center"> 
+              
+                            <SwitchInput 
+                                icon="bi-flag-fill"
+                                placeholder="Feature refined"
+                                isChecked={refinedState.checked} 
+                                validation={refinedState.validation}
+                                changeValue={e => setRefinedState(prev => ({...prev, checked: e}))} />
+                 
+                            <SelectionInput 
+                                className="mt-3"
+                                icon="bi-123"
+                                placeholder="Points"
+                                validation={pointsState.validation}
+                                selectedValue={pointsState.value}
+                                onSelectedValueChange={(e) => setPointsState(prev => ({...prev, value: e}))}
+                                options={pointOptions} />
                         </div>
-                        <div className="d-flex flex-column justify-content-between s-w-30 border p-2">
-                            <div>
-                                <div className="mb-3 mt-3 ms-2 me-2">
-                                    <SimpleSwitch 
-                                        icon="bi-flag-fill"
-                                        label="Refined"
-                                        disabled={(formState.points == 13 || formState.points == -1)}
-                                        isChecked={formState.isRefined}
-                                        onValueChange={e => {
-                                            setFormState(prev => ({...prev, isRefined:e.target.checked }))
-                                        }}/>
-                                </div>
-                                <div className="mb-3 ms-2 me-2">
-                                    <SimpleSelectionInput 
-                                        label="Points"
-                                        icon="bi-123"
-                                        selectedValue={formState.points.toString()} 
-                                        onSelectedValueChange={setNewPoints}
-                                        options={pointOptions}/>
-                                </div>
-                            </div>
-                            
-                            <div className="d-flex w-100 justify-content-between">
-                                {/* <SimpleButton
-                                    type={Button.Danger} 
-                                    title={"Split"}
-                                    onClick={() => {split()}} />
+                        
+                        <div className="d-flex w-100 justify-content-between">
+                            <Button 
+                                style={Style.Filled}
+                                role={Role.Destructive}
+                                size={Size.Medium}
+                                title="Split"
+                                onClick={() => {split()}} />
 
-                                <SimpleButton
-                                    type={Button.Danger} 
-                                    iconOnTheRight={false}
-                                    icon="bi-plus-lg"
-                                    title={"info"}
-                                    onClick={() => {additionalInfo()}} />
+                            <Button 
+                                style={Style.Filled}
+                                size={Size.Medium}
+                                role={Role.Normal}
+                                title="More info"
+                                onClick={() => {additionalInfo()}} />
 
-                                <SimpleButton 
-                                    disabled={!canSubmit}
-                                    type={Button.Success} 
-                                    title={"Refined"}
-                                    onClick={() =>{refined()}} /> */}
-                            </div>
+                            <Button 
+                                style={Style.Filled}
+                                role={Role.Primary}
+                                size={Size.Medium}
+                                title="Refined"
+                                onClick={() => {setFeatureAsRefined()}} />
+                        
                         </div>
                     </div>
-                </>
-            }
-        </div>
-    )
+                </div>)
 }

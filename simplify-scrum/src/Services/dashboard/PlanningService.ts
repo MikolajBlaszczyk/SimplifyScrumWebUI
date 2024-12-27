@@ -11,6 +11,10 @@ export class PlanningService {
             const url = apiUrl + '/project/active'
             const response = await RequestFactory.createGetRequest(url)
 
+            if(response.status === 204){
+                return null as unknown as Project
+            }
+
             return response.data
         } catch(e) {
             console.log(e)

@@ -1,5 +1,23 @@
+@import '../common/Variables';
+
+
+.s-refinement-board{
+    min-height: $s-section-min-height;
+}
+
 .s-refinement-item {
     &:hover{ 
         transform: scale(1.05);
     }
+}
+
+.s-refinement-card {
+    min-height: 350px !important;
+}
+
+.refinement-desc{
+    textarea{
+       
+    }
+ 
 }
