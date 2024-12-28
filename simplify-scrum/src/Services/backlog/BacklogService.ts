@@ -37,6 +37,14 @@ export class BacklogService{
         return response.data
     }
 
+    static async getFeaturesWithStatusForProject(projectGUID: string, status: number): Promise<Feature[]>{
+        const url = apiUrl + `/project/features/status?projectGUID=${projectGUID}&status=${status}`
+        const response = await RequestFactory.createGetRequest(url)
+        
+        return response.data
+    }
+
+    //TODO: Remove this endpoint after changin usage to getFeaturesWithStatusForProject
     static async getRefinementFeaturesForProject(projectGUID: string): Promise<Feature[]>{
         const url = apiUrl + `/project/features/refinement?projectGUID=${projectGUID}`
         const response = await RequestFactory.createGetRequest(url)

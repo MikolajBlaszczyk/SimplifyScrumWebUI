@@ -5,7 +5,7 @@ import { Role, Size, Style } from "../../common/button/ButtonProps"
 import {Tooltip } from 'bootstrap';
 
 
-export function TextInput({icon, placeholder, disabled, readonly, textType, value, changeValue, buttonVisible, tooltipContent, validation}: TextInputProps){
+export function TextInput({icon, placeholder, disabled, readonly, textType, value, changeValue, buttonVisible, tooltipContent, validation, className}: TextInputProps){
     const type = textTypes[textType ?? TextType.Text]
 
     return(
@@ -13,6 +13,7 @@ export function TextInput({icon, placeholder, disabled, readonly, textType, valu
             icon={icon}
             tooltipContent={tooltipContent}
             validation={validation}
+            className={className}
             buttonVisible={buttonVisible}
             element={<input 
                 className="d-flex w-100"

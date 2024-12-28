@@ -11,18 +11,14 @@ interface Props {
 export function SprintEnd({isPlaceholder, isEmpty, sprint}: Props){
     const [sprintEnd, setSprintEnd] = useState<number>(0)  
     const sprintEndsIn = ()=>{
-        const today = new Date()
-        if(new Date(sprint.end).getMonth() == today.getMonth()) {
-            return new Date(sprint.end).getDate() - today.getDate()
-        }
-        else  {
-            const lastMonthDays = new Date(new Date(sprint.end).getFullYear(), sprint.end.getMonth(), 0).getDate() - today.getDate()
-            return sprint.end.getDate() - lastMonthDays
-        }
+        const today = new Date();
+        const sprintEndDate = new Date(sprint.end);
+        const timeDifference = sprintEndDate.getTime() - today.getTime();
+        const dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+        return dayDifference;
     } 
 
     useEffect(() => {
-
         if(sprint == null || sprint.end == null || sprint.end == undefined) 
             return
         setSprintEnd(sprintEndsIn())

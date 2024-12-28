@@ -18,7 +18,7 @@ export function PlanningInfo({project, isLoading, isEmpty, plannedItems, feature
   
     if(isLoading == true){
         return (
-            <div className="d-flex p-3 h-100 w-75 bg-dark rounded justify-content-center align-items-center opacity-75">
+            <div className="d-flex p-3 w-75 bg-dark rounded justify-content-center align-items-center opacity-75">
                 <Placeholder />
             </div>
             )
@@ -26,11 +26,11 @@ export function PlanningInfo({project, isLoading, isEmpty, plannedItems, feature
 
 
     return (
-        <div className="d-flex p-3 h-100 w-75 bg-dark rounded flex-column ">
-            <div className="d-flex mb-4 justify-content-center w-100  border-bottom  border-3">
-                <h3 className="">
-                    {isEmpty ? "User is not in any project.": `Project: ${project.name}`}
-                </h3>
+        <div className="d-flex p-3 scrollbar-left  w-100 bg-dark s-refined-feature-list h-100 flex-column ">
+            <div className="d-flex mt-4 justify-content-center w-100">
+                <h5 className="">
+                    {isEmpty ? "No features ready to plan": `Project: ${project.name}`}
+                </h5>
             </div>
 
             <DragableFeatureBoard features={features}  plannedItems={plannedItems} onDropFeature={onDropFeature} onRemoveFeature={onRemoveFeature} />

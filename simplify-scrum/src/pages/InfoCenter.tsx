@@ -7,6 +7,7 @@ import { useLoading, useSettings } from "../hooks/HooksIndex";
 import { NotificationSheet } from "../features/notifications/NotificationIndex";
 import { InfoBoard } from "../features/info-board/InfoBoardIndex";
 import { ComponentSize } from "../utils/UtilsIndex";
+import { StandardHeader } from '../components/common/header/StandardHeader';
 
 
 export function InfoCenter(){
@@ -26,9 +27,7 @@ export function InfoCenter(){
             [
             <InfoBoard/>,
             <div className="d-flex mb-5 flex-column rounded s-bg-dark  overflow-hidden  s-w-80" >
-                <div className="d-flex w-100 s-info-center-header pt-3 pb-2 justify-content-center border-2 border-bottom">
-                    <h2>Notifications & Meetings</h2>
-                </div>
+                <StandardHeader title="Notifications & Meetings"/>
                 <div className="d-flex w-100 h">
                     <NotificationSheet />
                     <SimpleCalendar initialDate={today} />

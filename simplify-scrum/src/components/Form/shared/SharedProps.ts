@@ -11,6 +11,16 @@ export interface TextState {
     validation: ValidationResult
 }
 
+export interface NumberState {
+    value: number
+    validation: ValidationResult
+}
+
+export interface CalendarState {
+    date: Date,
+    validationResult: ValidationResult
+}
+
 export interface SelectState {
     value?: string
     validation: ValidationResult

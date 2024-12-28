@@ -15,6 +15,7 @@ export interface TextInputProps{
     validation?: ValidationResult
     icon?: string 
     disabled?: boolean
+    className?: string
     readonly?: boolean
     textType?: TextType
     placeholder?: string

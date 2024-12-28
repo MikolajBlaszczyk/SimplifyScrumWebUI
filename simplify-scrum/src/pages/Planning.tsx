@@ -3,9 +3,10 @@ import { BacklogService, PlanningService } from "../services/CommonServicesIndex
 import { DragableFeatureBoard } from "../features/planning-dashboard/components/DragableFeatureBoard";
 import { PlannedBoard } from "../features/planning-dashboard/components/PlannedBoard";
 import { Alignment, CentralLayout, SideBySideLayout } from "../layouts/LayoutIndex";
-import { Feature, Project } from "../features/backlog/data/DataIndex";
+import { ExtendedStatus, Feature, Project } from "../features/backlog/data/DataIndex";
 import { PlanningInfo } from "../features/planning-dashboard/components/PlanningInfo";
 import { DataLoader } from "../data/CommonDataIndex";
+import { SplitLayout } from "../layouts/SplitLayout";
 
 export function Planning(){
     const [projectLoader, setProjectLoader] =   useState<DataLoader>(DataLoader.default())
@@ -16,7 +17,7 @@ export function Planning(){
         const project =  await PlanningService.getCurrentProject()    
         if(project) {
             setProjectLoader(DataLoader.dataFinishedLoading(projectLoader, project, false))
-            const features = await BacklogService.getFeaturesForProject(project.guid);
+            const features = await BacklogService.getFeaturesWithStatusForProject(project.guid, ExtendedStatus.Refined);
             setFeatures(features)
         } else {
             setProjectLoader(DataLoader.dataFinishedLoading(projectLoader, project, true))
@@ -44,22 +45,23 @@ export function Planning(){
     return (
         <CentralLayout 
             centralComponent={ 
-                <SideBySideLayout
-                    rightSide={<PlannedBoard 
-                                    features={features}
-                                    projectGuid={projectLoader.data != null ? (projectLoader.data as Project).guid : ""} 
-                                    plannedItems={plannedItems} 
-                                    onDropFeature={handleDropFeature} 
-                                    onRemoveFeature={handleRemoveFeature} />}
-                    leftSide={<PlanningInfo 
-                                    features={features}
-                                    isEmpty={projectLoader.isEmpty}
-                                    isLoading={projectLoader.placeholder}
-                                    project={projectLoader.data}
-                                    plannedItems={plannedItems} 
-                                    onDropFeature={handleDropFeature} 
-                                    onRemoveFeature={handleRemoveFeature}  />}
-                    alignment={Alignment.Equal}/>
+                <SplitLayout 
+                    title={"Planning"} 
+                    leftContent={<PlanningInfo 
+                        features={features}
+                        isEmpty={projectLoader.isEmpty}
+                        isLoading={projectLoader.placeholder}
+                        project={projectLoader.data}
+                        plannedItems={plannedItems} 
+                        onDropFeature={handleDropFeature} 
+                        onRemoveFeature={handleRemoveFeature}  />}
+                    rightContent={ <PlannedBoard 
+                        features={features}
+                        projectGuid={projectLoader.data != null ? (projectLoader.data as Project).guid : ""} 
+                        plannedItems={plannedItems} 
+                        onDropFeature={handleDropFeature} 
+                        onRemoveFeature={handleRemoveFeature} />}
+                       />
                 }
         />
        

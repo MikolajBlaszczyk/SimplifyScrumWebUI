@@ -40,12 +40,12 @@ export function DragableFeature({feature, setFeatures}: Props){
     }, [])
 
     return (
-        <div className="d-flex w-100 justify-content-center mb-4">
-            <div ref={drag} className="card w-75">
+        <div className="d-flex w-100 justify-content-center  mb-4">
+            <div ref={drag} className="card w-75 s-bg-dark-darker">
                 <div className="card-body s-card-body">
-                    <h4 className="card-title common-header">
+                    <h6 className="card-title common-header">
                         Name: {feature.name}
-                    </h4>
+                    </h6>
                     <p className="card-text mt-1">
                         Points:{feature.points}
                     </p>
