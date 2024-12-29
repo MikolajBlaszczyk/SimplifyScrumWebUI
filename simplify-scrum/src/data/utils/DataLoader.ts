@@ -25,4 +25,9 @@ export class DataLoader {
 
 export class ExtendedDataLoader<T> extends DataLoader{
     data: T | null = null
+
+    getData(){
+        return this.data
+    }
+
 } 

@@ -104,6 +104,26 @@ $min-card-width: 225px;
     }
 }
 
+.s-card-user{
+    background-color: $input-background !important;
+    @extend .s-card;
+
+    &.s-bg-dark-input{
+        h4{
+            background-color: $input-background; 
+        }
+
+        &::after {
+            background-color: $light !important;
+        }
+        &::before {
+            background-color: lighten($input-background, 5%); 
+        }
+    }
+    min-width: calc($min-card-width * 1.2) !important;
+    min-height: calc($min-card-height / 1.1) !important;
+}
+
 .s-card-project{
     @extend .s-card;
     user-select: none;
@@ -190,28 +210,7 @@ $min-card-width: 225px;
 }
 
 
-//TODO: Fix sliding
-// .s-simple-side-menu {
-//     background-color: $primary;
-//     position: absolute;
-    
-//     animation: fadeIn 1s ease-in-out forwards !important;
-//     width: 20%;
-//     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-// }
 
-// @keyframes fadeIn {
-//     0%{
-//         top: 10%;
-//         left: 0;
-//         opacity: 0%;
-//     }
-//     100%{
-//         top: 0%;
-//         left: 100%;
-//         opacity: 100%
-//     }
-// }
 
 .s-simple-side-menu-position {
     top: 25%;

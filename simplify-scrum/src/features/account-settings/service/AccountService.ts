@@ -79,9 +79,6 @@ export class AccountService{
     }
 
 
-    static getManager(): User { 
-        throw Error()
-    }
 
     static async getTeam(guid: String) { 
          try{ 

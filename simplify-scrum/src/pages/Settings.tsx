@@ -10,7 +10,7 @@ export function Settings(){
             color={BgColor.Light}
             child={ 
                 <SideBySideLayout
-                    rightSide={<div className="d-flex s-settings-card mt-5"> 
+                    rightSide={<div className="d-flex  s-settings-card"> 
                         <UserCard />
                     </div>
                     } 

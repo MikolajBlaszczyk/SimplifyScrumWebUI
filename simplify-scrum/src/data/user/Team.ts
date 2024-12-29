@@ -1,12 +1,12 @@
 export class Team { 
     guid: string 
     name: string
-    managerGuid: string
+    managerGUID: string
 
     constructor(guid: string, name: string, managerGuid: string){ 
         this.guid = guid
         this.name = name 
-        this.managerGuid = managerGuid
+        this.managerGUID = managerGuid
     }
 
     static default() { 

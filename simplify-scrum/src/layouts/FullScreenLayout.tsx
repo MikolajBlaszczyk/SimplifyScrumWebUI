@@ -37,7 +37,7 @@ export function FullScreenLayout({color, child, showNavbar}: Props){
         <>
             {alerting.showAlert && (alerting.alertComponent)}
             {modal.showModal && (modal.modalComponent)}
-            <main className={`d-flex h-100 w-100 justify-content-center ${bgColorClasses[color!] ?? bgColorClasses.default }`}>
+            <main className={`d-flex h-100 w-100 justify-content-center  }`}>
                 {child}
             </main>
         </>

@@ -111,7 +111,7 @@ export function RefinementFeatureInfo({guid}: Props){
                             className="refinement-desc"
                             icon="bi-card-text"
                             readonly={true}
-                            value={featureLodaer.getData().description}
+                            value={featureLodaer.getData()!.description}
                             changeValue={() => {}} />
                     </div>
                     <div className="d-flex flex-column justify-content-between s-w-40 border-start border-2  p-3">

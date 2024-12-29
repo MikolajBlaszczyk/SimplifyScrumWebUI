@@ -39,3 +39,18 @@ $screen-md: 1600px;
 $screen-l: 1920px;
 $screen-xl: 2560px;
 
+
+@mixin theme($bg-color, $text-color, $border-color) {
+    background-color: $bg-color !important;
+    color: $text-color !important;
+    border-color: $border-color !important;
+}
+
+.light-theme {
+    @include theme($light, $light, $input-background);
+  }
+  
+.dark-theme {
+    @include theme($dark, $light, $input-background);
+}
+  

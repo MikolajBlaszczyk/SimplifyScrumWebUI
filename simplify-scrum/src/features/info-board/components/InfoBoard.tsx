@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { InfoCenterService } from "../services/InfoCenterService"
 import { DataLoader, Meeting, Sprint, SprintModel } from "../../../data/CommonDataIndex"
 import { BacklogService } from "../../../services/CommonServicesIndex"
-import { Card, Placeholder } from "../../../components/ComponentsIndex"
+import { Card, Placeholder, StandardHeader } from "../../../components/ComponentsIndex"
 import { SprintEnd } from "./SprintEnd"
 import { SprintGoal } from "./SprintGoal"
 import { MeetingsBlock } from "./MeetingsBlock"
@@ -34,9 +34,7 @@ export function InfoBoard(){
 
     return (
     <div className="d-flex flex-column  h-100 s-info-center overflow-hidden">
-        <div className="d-flex w-100 s-info-center-header pt-3 pb-2 justify-content-center border-2 border-bottom">
-            <h2>Informations</h2>
-        </div>
+        <StandardHeader title="Informations"/>
         <div className="d-flex justify-content-evenly pt-5 pb-5 h-100">
             <SprintGoal
                     isPlaceholder={sprintLoader.placeholder}

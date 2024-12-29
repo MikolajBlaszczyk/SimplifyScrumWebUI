@@ -1,82 +1,162 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react"
+import { ChangeEvent, MouseEvent, useContext, useEffect, useState } from "react"
 import { AccountService } from "../service/AccountService"
 import UserInformation from "./UserInfo";
-import { User, UserInfo } from "../../../data/CommonDataIndex";
-import { SimpleTextInput, SimpleSwitch } from "../../../components/ComponentsIndex";
-import { useAlert } from "../../../hooks/HooksIndex";
+import { ExtendedDataLoader, User } from "../../../data/CommonDataIndex";
+import {  Button, TextInput } from "../../../components/ComponentsIndex";
+import { useAlert, useLoading } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
-import { UserEditableSettings, UserCheckboxSetting } from './UserEditableSettings';
+import { UserCheckboxSetting } from './UserEditableSettings';
+import { CheckState, TextState } from "../../../components/form/shared/SharedProps";
+import { SwitchInput } from "../../../components/form/switch-input/SwitchInput";
+import { textTypes } from '../../../components/form/text-input/TextInputProps';
+import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
 
 
 
 export default function UserSettingsForm(){ 
-    const [user, setUser] = useState<UserInfo>(User.default())
-    const [darkMode, setDarkMode] = useState<boolean>(false) //TODO: implement context here
+    const {shouldReload, setShouldReload} =  useLoading();
+    const [userLoader, setUserLoader] = useState<ExtendedDataLoader<User>>(ExtendedDataLoader.default())
+    const [usernameState,setUsernameState] = useState<TextState>({value: '', validation: { isValid: true, message: ''}})
+    const [nicknameState, setNicknameState] = useState<TextState>({value: '', validation: { isValid: true, message: ''}})
+    const [emailState, setEmailState] = useState<TextState>({value: '', validation: { isValid: true, message: ''}})
+    const [darkModeState,  setDarkModeState] = useState<CheckState>({checked: false, validation: {isValid: true, message: ''}})
     const showAlert = useAlert()
 
-    useEffect(() => {
-        AccountService
-            .getInfo()
-            .then(data => setUser(data))
-            .catch(err => { showAlert(AlertStyle.Danger, err.message)})
-        
-    }, [])
+    const fetchData = async () => {
+        try {
+            const data = await AccountService.getInfo()
+            if(data != null){
+                setUserLoader(ExtendedDataLoader.dataFinishedLoading(userLoader, data, false))
+                setUsernameState(prev => ({...prev, value: data.username}))
+                setNicknameState(prev => ({...prev, value: data.nickname}))
+                setEmailState(prev => ({...prev, value: data.email}))
+            } else {
+                setUserLoader(ExtendedDataLoader.dataFinishedLoading(userLoader, null, true))
+            }
+        } catch (error) {
+            showAlert(AlertStyle.Danger, "Could not retrieve user information")
+        }
+    }
 
- 
-    const setNewUsername = (e: ChangeEvent<HTMLInputElement>) => {
-        setUser(prev => ({...prev, username: e.target.value}))
+    useEffect(() => {
+        fetchData()
+    }, [shouldReload])
+
+    const validate = () => {
+        let isValid = true
+        if(nicknameState.value.length < 3){
+            setNicknameState(prev => ({...prev, validation: {isValid: false, message: 'Nickname must be at least 3 characters long'}}))
+            isValid = false
+        } else {
+            setNicknameState(prev => ({...prev, validation: {isValid: true, message: ''}}))
+        }
+        if(usernameState.value.length < 3){
+            setUsernameState(prev => ({...prev, validation: {isValid: false, message: 'Username must be at least 3 characters long'}}))
+            isValid = false
+        } else {
+            setUsernameState(prev => ({...prev, validation: {isValid: true, message: ''}}))
+        }
+        if(!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(emailState.value)){
+            setEmailState(prev => ({...prev, validation: {isValid: false, message: 'Email is not valid'}}))
+            isValid = false
+        } else{
+            setEmailState(prev => ({...prev, validation: {isValid: true, message: ''}}))
+        }
+        
+        return isValid
     }
-    const setNewNickname = (e: ChangeEvent<HTMLInputElement>) => {
-        setUser(prev => ({...prev, nickname: e.target.value}))
+
+    const saveSettings = async () => {
+        if(!validate())
+            return
+
+        const user = await AccountService.getInfo()
+        user.username = usernameState.value 
+        user.nickname = nicknameState.value
+        user.email = emailState.value
+        
+        try{
+            const response = await AccountService.updateUser(user)
+            if(response != null){
+                showAlert(AlertStyle.Success, "User information saved")
+                setShouldReload(shouldReload + 1)
+            } else {
+                showAlert(AlertStyle.Danger, "Could not save user information")
+            }
+        } catch (error) {
+            showAlert(AlertStyle.Danger, "Could not save user information")
+        }
+
+
     }
-    const setNewEmail = (e: ChangeEvent<HTMLInputElement>) => {
-        setUser(prev => ({...prev, email: e.target.value}))
-    }
- 
    
 
-    // dark theme 
+    // dark theme need to be implemented
 
     return(
-            <form className="d-flex flex-column" onSubmit={e => e.preventDefault()}>
-                <UserInformation user={user}/>
+            <div className="s-bg-dark rounded ">
+                <UserInformation />
 
-                <section className="mb-5 bg-dark s-settings-section"> 
-                    <h4 className="mb-2">
+                <section className="mb-2 s-settings-section"> 
+                    <h4 >
                         Personal
                     </h4>
 
-                    <UserEditableSettings 
-                        icon={"bi-file-person-fill"} 
-                        label={"Username"} 
-                        value={user.username}
-                        onChange={setNewUsername}/>
+                    <TextInput 
+                        className="mt-2"
+                        placeholder="Username"
+                        icon="bi-file-person-fill"
+                        validation={usernameState.validation}
+                        value={usernameState.value} 
+                        changeValue={(e) => setUsernameState(prev => ({...prev, value: e}))} />
+      
+                    <TextInput 
+                        className="mt-3"
+                        placeholder="Nickname"
+                        icon="bi-eye"
+                        validation={nicknameState.validation}
+                        value={nicknameState.value} 
+                        changeValue={(e) => setNicknameState(prev => ({...prev, value: e}))} />
+                     <TextInput 
+                        className="mt-3"
+                        placeholder="Email"
+                        icon="bi-at"
+                        validation={emailState.validation}
+                        value={emailState.value} 
+                        changeValue={(e) => setEmailState(prev => ({...prev, value: e}))} />
 
-                    <UserEditableSettings 
-                        icon={"bi-eye"} 
-                        label={"Nickname"} 
-                        value={user.nickname}
-                        onChange={setNewNickname}/>
-                   
-                    <UserEditableSettings 
-                        icon={"bi-at"} 
-                        label={"Email"} 
-                        value={user.email}
-                        onChange={setNewEmail}/>
                  
                 </section>
 
-                <section className="mb-5 bg-dark s-settings-section">
-                    <h4 className="mb-2">
+                <section className="mb-2 s-settings-section">
+                    <h4 >
                         App
                     </h4>
                     
-                    <UserCheckboxSetting 
-                        label={"Dark theme"}
-                        icon={"bi-moon-fill"}
-                        onChange={(newValue) => setDarkMode(newValue) } 
-                        value={darkMode} />
+                    <SwitchInput
+                        className="mt-2"
+                        validation={darkModeState.validation} 
+                        isChecked={darkModeState.checked} 
+                        placeholder="Dark theme"
+                        icon="bi-moon-fill"
+                        changeValue={(isChecked) => { 
+                 
+                            document.body.classList.toggle('dark-theme', isChecked)
+                            document.body.classList.toggle('light-theme', !isChecked)
+                          
+                            setDarkModeState(prev => ({...prev, checked: isChecked}))
+                        }} />
                 </section>
-            </form>
+
+
+                <section className="mb-2 s-settings-section d-flex justify-content-center">
+                    <Button 
+                        size={Size.Large}
+                        style={Style.Filled}
+                        role={Role.Primary}
+                        title="Save"
+                        onClick={() => {saveSettings()}} />
+                </section>
+            </div>
     )
 }
