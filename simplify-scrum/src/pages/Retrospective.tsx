@@ -13,8 +13,16 @@ import { RetroService } from "../features/retrospective-dashboard/services/Retro
 import { SprintNote } from "../features/retrospective-dashboard/data/SprintNote";
 import { AccountService } from "../features/account-settings/service/AccountService";
 import { NoteTypeEnum } from "../features/retrospective-dashboard/data/NoteTypeEnum";
+import { SplitLayout } from "../layouts/SplitLayout";
+import { Role, Size, Style } from "../components/common/button/ButtonProps";
+import { useNavigateTo } from "../hooks/useNavigation";
+import { Destination } from "../utils/UtilsIndex";
+import { useAlert } from "../hooks/useAlert";
+import { AlertStyle } from "../features/alerting/components/Alert";
 
 export function Retrospective() {
+    const navigate = useNavigateTo()
+    const showAlert = useAlert()
     const {state, setState} = useRetro();
 
 
@@ -26,7 +34,12 @@ export function Retrospective() {
         const user = await AccountService.getInfo();
 
         const sprintFinalNote = new SprintNote(state, user.id, sprint!.guid); 
-        const response =  await RetroService.finishSprint(sprintFinalNote);
+        const finishedSprint =  await RetroService.finishSprint(sprintFinalNote);
+        if(finishedSprint != null) {
+            navigate(Destination.Main)
+        } else {
+            showAlert(AlertStyle.Danger, "Could not finish sprint", "Failure")
+        }
     }
 
     const fetchData = async () => {
@@ -43,42 +56,51 @@ export function Retrospective() {
     return (
         <CentralLayout
             centralComponent={
-                <SideBySideLayout
-                    rightSide={ <SimpleControlPannel children={[
-                        <div className="d-flex flex-column w-100 h-100">
-                            <div className="d-flex w-100 mb-3 justify-content-center align-items-center">
-                                <h4 className="text-center">
-                                    {sprint?.name} <br /> Sprint no. {sprint?.iteration}
-                                </h4>
+                <SplitLayout 
+                    className="s-layout-retro"
+                    title={"Retrospective"} 
+                    leftContent={board}
+                    rightContent={<SimpleControlPannel children={[
+                        <div className="d-flex flex-column position-relative w-100 h-100">
+                            <div className="d-flex w-100 justify-content-center align-items-center">
+                                <h5 className="text-center">
+                                    {sprint?.name} <br /> Sprint no
+                                </h5>
                             </div>
-                            <div className="d-flex s-navbar mb-3 flex-column w-100 align-items-center">
-                                <NavigationButton
-                                    icon={"bi-chat"}
-                                    title="Comment Sprint"
+                            <div className="d-flex mb-3 flex-column w-100 align-items-center">
+                                <Button 
+                                    className="w-100"
+                                    style={Style.Filled}
+                                    role={Role.Normal}
+                                    size={Size.Large}
+                                    icon="bi-chat"
+                                    title="Comment"
                                     onClick={() => {
-                                        setBoard(<RetroBoard />);
-                                    }}
-                                />
-                                <NavigationButton
-                                    icon={"bi-star-fill"}
+                                        setBoard(<RetroBoard />)
+                                    }} />
+                           
+                                <Button 
+                                    className="mt-3 w-100"
+                                    style={Style.Filled}
+                                    role={Role.Normal}
+                                    size={Size.Large}
+                                    icon="bi-star-fill"
                                     title="Rate Sprint"
                                     onClick={() => {
-                                        setBoard(<RateBoard />);
-                                    }}
-                                />
+                                        setBoard(<RateBoard />)
+                                    }} />
+
                             </div>
-                            <div className="w-100 d-flex justify-content-end">
-                                {/* <SimpleButton
-                                    type={Button.Success}
+                            <div className="w-100 d-flex justify-content-center bottom-0 start-50 translate-middle-x position-absolute">
+                                <Button
+                                    style={Style.Filled}
+                                    size={Size.Large}
+                                    role={Role.Primary}
                                     title={'Submit'}
-                                    onClick={() => { submitRetro() }}
-                                /> */}
+                                    onClick={() => { submitRetro() }} />
                             </div>
                         </div>,
-                    ]} />}
-                    leftSide={board}
-                    alignment={Alignment.SideItemRight}
-                />
+                    ]} />} />
             }
         />
     );

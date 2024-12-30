@@ -3,7 +3,8 @@ import { NoteItem } from "./NoteItem";
 import { Button } from "../../../../components/ComponentsIndex";
 import { NoteTypeEnum } from "../../data/NoteTypeEnum";
 import { useRetro } from "../../../../hooks/useContexts";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
+import { Role, Size, Style } from "../../../../components/common/button/ButtonProps";
 
 
 
@@ -27,63 +28,66 @@ export function RetroBoard() {
     }, [state.Comments]);
 
     return (
-        <section className="d-flex s-retro-board p-4 w-100 h-100 justify-content-between rounded">
-            <div className="border d-flex flex-column w-25 h-100">
-                <div className="d-flex s-h-10 border justify-content-center align-items-center bg-success">
-                    <h3 className="m-0">Good</h3>
+        <div className="d-flex s-retro-board p-4 w-100  justify-content-around rounded">
+            <div className="border position-relative d-flex flex-column w-25 h-100">
+                <div className="d-flex p-2 border justify-content-center align-items-center bg-success">
+                    <h4 className="m-0">Good</h4>
                 </div>
-                <div className="d-flex flex-column s-h-90 border overflow-auto" style={{ maxHeight: "600px" }}>
+                <div className="d-flex flex-column h-auto  overflow-hidden " >
                     {goodNotes.map((note, index) => (
                         <NoteItem key={index} note={note} />
                     ))}
-                    <div className="w-100 mt-1 d-flex justify-content-center">
-                        {/* <SimpleButton
-                            type={Button.Borderless}
-                            title={"Add"}
+                    <div className="mb-5"/>
+                    <div className="w-100  bottom-0 start-50 translate-middle-x position-absolute overflow-hidden  d-flex justify-content-center">
+                        <Button 
+                            role={Role.Primary}
                             icon="bi-plus-lg"
-                            onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Good))}
-                        /> */}
+                            size={Size.XLarge}
+                            style={Style.Borderless} 
+                            onClick={() => {addNote(new Note("", "", new Date(), NoteTypeEnum.Good))} } />
                     </div>
                 </div>
             </div>
 
-            <div className="border d-flex flex-column w-25 h-100">
-                <div className="d-flex s-h-10 border justify-content-center align-items-center bg-danger">
-                    <h3 className="m-0">Bad</h3>
+            <div className="border position-relative d-flex flex-column w-25 h-100">
+                <div className="d-flex p-2 border justify-content-center align-items-center bg-danger">
+                    <h4 className="m-0">Bad</h4>
                 </div>
-                <div className="d-flex flex-column s-h-90 border overflow-auto" style={{ maxHeight: "600px" }}>
+                <div className="d-flex flex-column h-auto overflow-hidden " >
                     {badNotes.map((note, index) => (
                         <NoteItem key={index}  note={note} />
                     ))}
-                    <div className="w-100 mt-1 d-flex justify-content-center">
-                        {/* <SimpleButton
-                            type={Button.Borderless}
-                            title={"Add"}
+                    <div className="mb-5"/>
+                    <div className="w-100  d-flex justify-content-center  bottom-0 start-50 translate-middle-x position-absolute ">
+                        <Button 
+                            role={Role.Primary}
                             icon="bi-plus-lg"
-                            onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Bad))} */}
-                        {/* /> */}
+                            size={Size.XLarge}
+                            style={Style.Borderless} 
+                            onClick={() => {addNote(new Note("", "", new Date(), NoteTypeEnum.Bad))} } />
                     </div>
                 </div>
             </div>
 
-            <div className="border d-flex flex-column justify-content-start align-items-center w-25 h-100">
-                <div className="d-flex w-100 s-h-10 border justify-content-center align-items-center bg-dark-subtle">
-                    <h3 className="m-0">Notes</h3>
+            <div className="border position-relative d-flex flex-column w-25 h-100">
+                <div className="d-flex w-100 p-2 border justify-content-center align-items-center bg-dark-subtle">
+                    <h4 className="m-0">Notes</h4>
                 </div>
-                <div className="d-flex flex-column s-h-90 border w-100 overflow-auto" style={{ maxHeight: "600px" }}>
+                <div className="d-flex flex-column h-auto   overflow-hidden" >
                     {notes.map((note, index) => (
                         <NoteItem key={index}  note={note} />
                     ))}
-                    <div className="w-100 mt-1 d-flex justify-content-center">
-                        {/* <SimpleButton
-                            type={Button.Borderless}
-                            title={"Add"}
+                    <div className="mb-5"/>
+                    <div className="w-100 d-flex justify-content-center bottom-0 start-50 translate-middle-x position-absolute">
+                        <Button 
+                            role={Role.Primary}
                             icon="bi-plus-lg"
-                            onClick={() => addNote(new Note("", "", new Date(), NoteTypeEnum.Conclusions))} */}
-                        {/* /> */}
+                            size={Size.XLarge}
+                            style={Style.Borderless} 
+                            onClick={() => {addNote(new Note("", "", new Date(), NoteTypeEnum.Conclusions))} } />
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     );
 }

@@ -1,7 +1,6 @@
+@import "../common/Variables";
 .s-retro-board {
-    min-height: 600px;
-    margin-left: 40px;
-    background-color: $s-dark;
+    min-height: calc($s-section-min-height * 1);
 }
 
 .s-retro-control-panel {
@@ -14,17 +13,16 @@
 .rating-categories {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .rating-category {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
 }
 
 .category-title {
-    font-size: 1.2rem; /* Zmniejszenie rozmiaru czcionki */
     margin-bottom: 10px;
 }
 
@@ -36,18 +34,18 @@
 
 .rating-button {
     padding: 10px 20px;
-    border: 1px solid #dee2e6;
-    background-color: #ffffff;
+    border: none; 
+    background-color: $input-background;
+    color: $light;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {
-        background-color: #e9ecef;
+        background-color: $primary-complementary;
     }
 
     &.selected {
-        background-color: #007bff;
-        color: #ffffff;
-        border-color: #007bff;
+        background-color: $primary;
+        color: $light;
     }
 }

@@ -37,7 +37,7 @@ export function RateBoard() {
     }, [ratings]);
 
     return (
-        <section className="d-flex s-retro-board p-4 w-100 h-100 justify-content-center rounded">
+        <section className="d-flex s-retro-board p-4 w-100 h-100 justify-content-start rounded">
             <div className="rating-categories">
                 {Object.keys(state.Rating).map((category) => (
                     <div key={category} className="rating-category">
@@ -46,7 +46,7 @@ export function RateBoard() {
                             {values.map((value) => (
                                 <button
                                     key={value}
-                                    className={`rating-button ${ratings[category] === value ? 'selected' : ''}`}
+                                    className={`rating-button me-1 ${ratings[category] === value ? 'selected' : ''}`}
                                     onClick={() => handleRatingClick(category, value)}
                                     title={valueLabels[value]}
                                 >

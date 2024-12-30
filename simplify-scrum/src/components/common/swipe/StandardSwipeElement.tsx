@@ -49,9 +49,6 @@ export function StandardSwipeElement({content, onSwipeRight, onSwipeLeft, onLeft
             ref={rowRef}
             className={`d-flex w-100 bg-transparent swipeable ${swipeAmount !== 0 ? 'swiping' : ''}`}
             style={{
-                touchAction: 'none',
-                userSelect: 'none',
-                cursor: 'grab',
             }}
         >
             {content}
