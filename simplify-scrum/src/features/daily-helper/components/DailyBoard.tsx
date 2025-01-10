@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { SimpleStatus, Task } from "../../backlog/data/DataIndex";
 import React from "react";
+import { StandardHeader, StandardHeaderProps, TabButtonsConfiguration } from "../../../components/ComponentsIndex";
+import { FeatureBoard } from "./item-boards/FeatureBoard";
+import { useDaily } from "../../../hooks/useContexts";
+import { DailyAction } from "../../../context/DailyContext";
 
 export function DailyBoard(){
+    const {state, setState} = useDaily()
+    const [activeButton, setActiveButton] = useState(0)
     const [tasks, setTasks] = useState<Task[]>([
         new Task(1, 'Task 1', SimpleStatus.ToBeDone, 'feature-1', 'assignee-1', 'creator-1', new Date(), 'updater-1', new Date()),
         new Task(2, 'Task 2', SimpleStatus.Done, 'feature-2', 'assignee-2', 'creator-2', new Date(), 'updater-2', new Date()),
@@ -10,23 +16,39 @@ export function DailyBoard(){
         // Add more tasks as needed
     ]);
 
+    const headerConfig: StandardHeaderProps = useMemo(() => {
+    
+            if(state.action == DailyAction.ShowTaskBoard) setActiveButton(0)
+            if(state.action == DailyAction.EditTask) setActiveButton(1)
+    
+            const buttons: TabButtonsConfiguration[] = [
+                {
+                    icon: "bi-card-list",
+                    onClick: () => {
+                        setActiveButton(0)
+                        setState({...state, action: DailyAction.ShowTaskBoard, guid: undefined})
+                    }
+                },
+                {
+                    icon: "bi-pen",
+                    disabled: activeButton != 1,
+                    onClick: () => {
+                        setActiveButton(1)
+                        setState({...state, action: DailyAction.EditTask})
+                    }
+                },  
+            ]
+    
+            buttons.forEach((button, index) => { if(activeButton == index) button.isActive = true })
+    
+            return ({ title: "Daily", buttonConfigs: buttons})
+        }, [activeButton, state])
+
+
     return (
-        <div className=" bg-dark s-w-95 s-h-95 rounded ps-3 pe-3 pt-1 pb-1">
-            <h1 className="text-white">Daily Board</h1>
-            <div className="grid-container">
-                <div className="grid-header">Tasks</div>
-                <div className="grid-header">To do</div>
-                <div className="grid-header">Done</div>
-                <div className="grid-header">Doing</div>
-                {tasks.map(task => (
-                    <React.Fragment key={task.id}>
-                        <div className="grid-item">{task.name}</div>
-                        <div className="grid-item">{task.state === SimpleStatus.ToBeDone ? task.name : ''}</div>
-                        <div className="grid-item">{task.state === SimpleStatus.Done ? task.name : ''}</div>
-                        <div className="grid-item">{task.state === SimpleStatus.Doing ? task.name : ''}</div>
-                    </React.Fragment>
-                ))}
-            </div>
+        <div className="s-daily-board overflow-auto  position-relative d-flex h-100 flex-column w-100 rounded">
+            <StandardHeader {...headerConfig} className=" position-sticky top-0 start-50 " />
+            <FeatureBoard />
         </div>
     );
 }

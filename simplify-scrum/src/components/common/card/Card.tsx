@@ -6,14 +6,14 @@ export enum CardColor {
     DarkInput
 }
 
-const cardColors = {
+export const cardColors = {
     [CardColor.Primary]: "s-bg-primary",
     [CardColor.Secondary]: "s-bg-secondary",
     [CardColor.Accent]: "s-bg-accent",
     [CardColor.DarkInput]: "s-bg-dark-input"
 }
 
-interface CardProps {
+export interface CardProps {
     title: string
     icon: string
     content: any

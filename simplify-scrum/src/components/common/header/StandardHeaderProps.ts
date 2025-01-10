@@ -8,6 +8,7 @@ export interface TabButtonsConfiguration{
 }
 
 export interface StandardHeaderProps {
+    className?: string
     title: string
     buttonConfigs?: TabButtonsConfiguration[]
 }

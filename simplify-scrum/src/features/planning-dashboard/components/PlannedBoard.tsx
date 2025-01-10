@@ -4,7 +4,7 @@ import { DragableFeature, DragableTypes } from "./DragableFeature";
 import { useDrop } from "react-dnd";
 import { Button, TextInput } from "../../../components/ComponentsIndex";
 import { Plan, SprintModel } from "../../../data/CommonDataIndex";
-import { PlanningService } from "../../../services/CommonServicesIndex";
+import { SprintService } from "../../../services/CommonServicesIndex";
 import { Role, Style } from "../../../components/common/button/ButtonProps";
 import { CalendarInput } from "../../../components/form/calendar/CalendarInput";
 import { NumberInput } from "../../../components/form/number-input/NumberInput";
@@ -111,7 +111,7 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
 
         const sprintPlan: Plan = { sprint: sprint, featureGuids: featureGuids}
 
-        const response = await PlanningService.PlanSprint(sprintPlan)
+        const response = await SprintService.PlanSprint(sprintPlan)
         if(response != null ){
             showAlert(AlertStyle.Success, "Sprint planned", "Sprint has been planned successfully")
             reset()

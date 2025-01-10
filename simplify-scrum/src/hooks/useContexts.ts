@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AlertContext, AlertingState, BacklogContext, LoadingContext, RefinementContext, UserContext } from "../context/ContextsIndex"
+import { AlertContext, AlertingState, BacklogContext, DailyContext, LoadingContext, RefinementContext, UserContext } from "../context/ContextsIndex"
 import { ModalContext } from "../context/ModalContext";
 import { RetroContext } from "../context/RetroContext";
 
@@ -29,4 +29,8 @@ export function useRefinement(){
 
 export function useRetro() {
     return useContext(RetroContext)
+}
+
+export function useDaily() {
+    return useContext(DailyContext)
 }

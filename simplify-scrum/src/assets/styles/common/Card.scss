@@ -9,6 +9,7 @@ $min-card-width: 225px;
     border-end-end-radius: 0px !important;
     min-height: $min-card-height;
     min-width: $min-card-width;
+    
     max-width: $min-card-width;
     transition: transform 0.15s ease-in-out;
     border: none !important;
@@ -102,6 +103,8 @@ $min-card-width: 225px;
         border: none !important;
         z-index: 2;
     }
+
+ 
 }
 
 .s-card-user{
@@ -262,5 +265,42 @@ $min-card-width: 225px;
         opacity: 100%;
         top: 0%;
         left: 100%;
+    }
+}
+
+.s-card-mini{
+    @extend.s-card;
+    min-width: 30px !important;
+    max-width: 60px !important;
+    min-height: 100px !important;
+    height: 100px !important;
+    max-height: 1020px !important;
+
+       
+    .card-icon-div{
+        padding-bottom: 0.1rem !important;
+        width: 72%;
+    }
+
+    h4{
+        font-size: $s-p !important;
+        padding: 0.2rem 0.2rem;
+        width: 78%;
+    }
+
+
+
+
+    &::before {
+      
+        width: 15px; 
+        height: 15px;
+    }
+
+
+    &::after {
+        width: 15px; 
+        height: 15px; 
+        background-color: #333;
     }
 }

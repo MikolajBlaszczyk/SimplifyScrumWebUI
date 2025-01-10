@@ -1,11 +1,11 @@
 import { Sprint, Plan } from "../../data/CommonDataIndex"
-import { Project } from "../../features/backlog/data/DataIndex"
+import { Feature, Project } from "../../features/backlog/data/DataIndex"
 import { RequestFactory } from "../api/RequestFactory"
 
 
 const apiUrl = `${process.env.REACT_APP_SIMPLIFY_API}` 
 
-export class PlanningService {
+export class SprintService {
     static async getCurrentProject(): Promise<Project> {
         try{
             const url = apiUrl + '/project/active'
@@ -32,6 +32,18 @@ export class PlanningService {
         } catch(e){
             console.log(e)
             return null as unknown as Sprint;
+        }
+    }
+
+    static async getSprintActiveItems(): Promise<Feature[]> {
+        try{
+            const url  = apiUrl + "/sprint/items"
+            const response = await RequestFactory.createGetRequest(url)
+
+            return response.data
+        } catch(err) {
+            console.log(err)
+            return []
         }
     }
 }

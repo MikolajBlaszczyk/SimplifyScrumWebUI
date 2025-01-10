@@ -2,7 +2,7 @@ import { useMemo } from "react"
 import { Button, StandardHeaderProps } from "../../ComponentsIndex"
 import { Role, Size, Style } from "../button/ButtonProps"
 
-export function StandardHeader({title, buttonConfigs}: StandardHeaderProps){ 
+export function StandardHeader({title, buttonConfigs, className}: StandardHeaderProps){ 
     const buttons = useMemo(() => {
         return buttonConfigs?.map((config, index) => (
             <Button
@@ -21,7 +21,7 @@ export function StandardHeader({title, buttonConfigs}: StandardHeaderProps){
     }, [buttonConfigs]);
 
     return (
-        <div className=" user-select-none s-bg-dark-darker border-2 d-flex  p-3 align-items-center rounded-top justify-content-between border-bottom">
+        <div className={" user-select-none s-bg-dark-darker border-2 d-flex  p-3 align-items-center rounded-top justify-content-between border-bottom " + className}>
             <h3 className="m-0">
                 {title}
             </h3>

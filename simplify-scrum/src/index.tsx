@@ -14,7 +14,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Administration } from './pages/Administration';
 import { ModalProvider } from './context/ModalContext';
-import { BacklogStateProvider } from './context/ContextsIndex';
+import { BacklogStateProvider, DailyContext, DailyContextProvider } from './context/ContextsIndex';
 import {RefinementStateProvider } from './context/RefinementContext';
 import { RetroProvider } from './context/RetroContext';
 
@@ -98,9 +98,11 @@ root.render(
             <UserProvider>
               <BacklogStateProvider>
                 <RefinementStateProvider>
-                  <RetroProvider>
-                    <RouterProvider router={router}/>
-                  </RetroProvider>
+                  <DailyContextProvider>
+                    <RetroProvider>
+                      <RouterProvider router={router}/>
+                    </RetroProvider>
+                  </DailyContextProvider>
                 </RefinementStateProvider>
               </BacklogStateProvider>
             </UserProvider>

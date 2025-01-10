@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BacklogService, PlanningService } from "../services/CommonServicesIndex";
+import { BacklogService, SprintService } from "../services/CommonServicesIndex";
 import { DragableFeatureBoard } from "../features/planning-dashboard/components/DragableFeatureBoard";
 import { PlannedBoard } from "../features/planning-dashboard/components/PlannedBoard";
 import { Alignment, CentralLayout, SideBySideLayout } from "../layouts/LayoutIndex";
@@ -14,7 +14,7 @@ export function Planning(){
     const [features, setFeatures] = useState<Feature[]>([])
 
     const fetchData = async () => {
-        const project =  await PlanningService.getCurrentProject()    
+        const project =  await SprintService.getCurrentProject()    
         if(project) {
             setProjectLoader(DataLoader.dataFinishedLoading(projectLoader, project, false))
             const features = await BacklogService.getFeaturesWithStatusForProject(project.guid, ExtendedStatus.Refined);

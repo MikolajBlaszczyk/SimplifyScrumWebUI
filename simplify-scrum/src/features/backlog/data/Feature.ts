@@ -1,4 +1,4 @@
-import { ExtendedStatus } from "./DataIndex"
+import { ExtendedStatus, Task } from "./DataIndex"
 
 export class Feature extends Object{
     guid: string
@@ -10,7 +10,8 @@ export class Feature extends Object{
     createdBy: string
     createdOn: Date
     lastUpdatedBy: string
-    lastUpdatedOn: Date
+    lastUpdateOn: Date
+    tasks: Task[]
 
     constructor(
             guid: string,
@@ -33,7 +34,8 @@ export class Feature extends Object{
         this.createdBy = createdBy
         this.createdOn = createdOn
         this.lastUpdatedBy = lastUpdatedBy
-        this.lastUpdatedOn = lastUpdatedOn
+        this.lastUpdateOn = lastUpdatedOn
+        this.tasks = []
     }
 
     static default() { 

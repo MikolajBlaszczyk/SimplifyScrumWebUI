@@ -20,3 +20,21 @@
     background-color: #333;
     border: 1px solid #444;
 }
+
+.s-daily-board{
+    background-color: $dark;
+}
+
+
+.daily-item-card{
+    &:hover{
+        .daily-item-card-header{
+            background-color: darken($dark, 4%) !important;
+        }
+    
+        .daily-item-card-body {
+            background-color: darken(#333, 4%) !important;
+        }
+    }
+}
+

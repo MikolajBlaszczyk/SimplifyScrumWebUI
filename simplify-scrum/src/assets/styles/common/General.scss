@@ -159,6 +159,9 @@ input[type="range"]::-moz-range-thumb {
 .s-bg-dark-darker{
     background-color: $dark-darker !important;
 }
+.s-bg-input{
+    background-color: $input-background !important;
+}
 
 .s-bg-dark-subtle {
     background-color: $s-dark-darker !important;
@@ -208,6 +211,10 @@ input[type="range"]::-moz-range-thumb {
     border-width: 1px;
 }
 
+.s-elipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 
 .s-text-inpt{

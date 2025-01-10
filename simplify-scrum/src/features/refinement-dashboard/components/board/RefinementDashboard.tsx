@@ -1,5 +1,5 @@
 import { MouseEvent, ReactElement, useEffect, useMemo, useState } from "react"
-import { BacklogService, EnumService, PlanningService } from "../../../../services/CommonServicesIndex"
+import { BacklogService, EnumService, SprintService } from "../../../../services/CommonServicesIndex"
 import { Button, Card, Placeholder, SelectItem, StandardHeader, StandardTable } from "../../../../components/ComponentsIndex";
 import { Fonts } from "../../../../utils/UtilsIndex";
 import { v4 } from "uuid";
@@ -19,7 +19,7 @@ export function RefinementDashboard(){
 
 
     const fetchData = async () => {
-        const activeProject = await PlanningService.getCurrentProject()
+        const activeProject = await SprintService.getCurrentProject()
 
         if(activeProject == null){
             showAlert(AlertStyle.Warning, "Your team is not in the process of developing a project", "No active project")

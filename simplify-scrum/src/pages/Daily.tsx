@@ -6,6 +6,7 @@ export function Daily() {
 
     return (
         <CentralLayout 
+            className="s-central-layout-daily"
             centralComponent={<DailyBoard />} />
     )
 }
