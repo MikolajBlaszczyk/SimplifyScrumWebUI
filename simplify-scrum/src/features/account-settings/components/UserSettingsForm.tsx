@@ -98,9 +98,9 @@ export default function UserSettingsForm(){
                 <UserInformation />
 
                 <section className="mb-2 s-settings-section"> 
-                    <h4 >
+                    <h5 >
                         Personal
-                    </h4>
+                    </h5>
 
                     <TextInput 
                         className="mt-2"

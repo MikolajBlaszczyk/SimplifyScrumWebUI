@@ -6,3 +6,10 @@
 .s-list{
    
 }
+
+.s-list-bg-transparent{
+    background-color: transparent;
+    ul > li {
+        background-color: transparent;
+    }
+}

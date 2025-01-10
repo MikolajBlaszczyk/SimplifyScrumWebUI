@@ -1,10 +1,10 @@
 import { StandardListProps } from "./StandardListProps";
 
-export function StandardList({content, title}: StandardListProps){
+export function StandardList({content, title, className}: StandardListProps){
 
     return(
-        <div className="d-flex flex-column w-100 h-100 ">
-            <h6 className="w-100 text-start">{title}</h6>
+        <div className={"d-flex flex-column w-100 h-100 " + className}>
+            <h5 className="w-100 text-start">{title}</h5>
 
             <ul className="s-list list-group w-100 ">
             {
