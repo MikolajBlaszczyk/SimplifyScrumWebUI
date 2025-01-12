@@ -26,42 +26,36 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
     const navigateTo = useNavigateTo()
     
 
-    const checkSprint = async () => {
+ 
+    const checkButtonAvailability = async () => {
+        let userIsInSprint = false
+        let refinementFeaturesPresent = false
+        let featuresReadyForPlanning = false
+
         const sprint = await BacklogService.getSprintInfo()
         if(sprint != null){
-            setSettings({...settings, sprintActive: true})
-        } else {
-            setSettings({...settings, sprintActive: false})
-        }
-    }
+            userIsInSprint = true
+            
+        } 
 
-    const checkRefinement = async () => {
         const project = (await BacklogService.getProjects()).filter(p => p.isActive)
         if(project.length != 0){
             const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.ReadyForRefinement)
             if(backlog.length != 0){
-                setSettings({...settings, refinementActive: true})
-            } else{
-                setSettings({...settings, refinementActive: false})
-            }
-        } else {
-            setSettings({...settings, refinementActive: false})
-        }
-    }
+                refinementFeaturesPresent = true
+            } 
+        } 
 
-    const checkPlanning = async () => {
-        const project = (await BacklogService.getProjects()).filter(p => p.isActive)
         if(project.length != 0){
             const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.Refined)
             if(backlog.length != 0){
-                setSettings({...settings, planningActive: true})
-            } else{
-                setSettings({...settings, planningActive: false})
-            }
-        } else {
-            setSettings({...settings, planningActive: false})
-        }
+                featuresReadyForPlanning = true
+            } 
+        } 
+
+        setSettings({...settings, planningActive: featuresReadyForPlanning, refinementActive: refinementFeaturesPresent, sprintActive: userIsInSprint})
     }
+
 
     useEffect(() => {
         if(settings.isAdmin){
@@ -78,11 +72,19 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
             setTeamLeaderCenterButton(<></>)
         }
 
-        checkRefinement()
-        checkPlanning()
-        checkSprint()
-     
-    }, [shouldReload])
+        checkButtonAvailability()
+        const offcanvasElement = document.getElementById("offcanvasNavbar");
+        const handleShown = () => {
+            checkButtonAvailability()
+        };
+
+        offcanvasElement?.addEventListener("shown.bs.offcanvas", handleShown);
+
+        return () => {
+            offcanvasElement?.removeEventListener("shown.bs.offcanvas", handleShown);
+        };
+
+    }, [])
 
     const logOut = () => {
         const path = destinationPaths[Destination.Auth]
@@ -95,7 +97,8 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
 
 
     return (
-    <div className="offcanvas offcanvas-end" tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div  className="offcanvas offcanvas-end" tabIndex={-1} id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        
         <div className="offcanvas-header w-100 align-items-center justify-content-start d-flex ">
             <h4 className="mb-0">Navigation</h4>
         </div>

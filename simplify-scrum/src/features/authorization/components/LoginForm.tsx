@@ -85,12 +85,27 @@ export default function LoginForm(props: AuthProperties){
               
                 if(sprint != null){
                     setSettings({...settings, sprintActive: true})
+                } else {
+                    setSettings({...settings, sprintActive: false})
                 }
 
                 const project = (await BacklogService.getProjects()).filter(p => p.isActive)
                 if(project.length != 0){
                     const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.ReadyForRefinement)
-                    setSettings({...settings, refinementActive: true})
+                    if(backlog.length != 0){
+                        setSettings({...settings, refinementActive: true})
+                    } else {
+                        setSettings({...settings, refinementActive: false})
+                    }
+                } 
+
+                if(project.length != 0){
+                    const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.Refined)
+                    if(backlog.length != 0){
+                        setSettings({...settings, planningActive: true})
+                    } else {
+                        setSettings({...settings, planningActive: false})
+                    }
                 } 
 
 

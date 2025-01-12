@@ -10,7 +10,6 @@ import { useLoading } from "../../hooks/useContexts";
 
 
 export default function NavigationBar(){
-    const {shouldReload, setShouldReload} = useLoading();
     const [breadcrumbValue, setBreadcrumbValue] = useState('Info Center')
 
     const breadCrumbChange = (destination: Destination) => {
@@ -35,7 +34,7 @@ export default function NavigationBar(){
                 icon="bi-list"
                 offcanvas={true}
                 onClick={() => {
-                    setShouldReload(shouldReload + 1)
+                    
                 }} />      
 
             
