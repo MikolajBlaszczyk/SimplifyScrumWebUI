@@ -51,7 +51,7 @@ export function NotificationSheet(){
    
 
     return (
-    <div className="d-flex flex-column border-end border-2 align-items-center w-100 justify-content-between  s-notification-sheet overflow-hidden" >
+    <div className="d-flex flex-column border-end border-2 align-items-center justify-content-between  s-notification-sheet overflow-hidden" >
         <div className="d-flex w-100 h-auto mt-4 mb-3 align-items-center overflow-auto justify-content-start flex-column" style={{ maxHeight: '100%'}}>
             { 
                 indicators

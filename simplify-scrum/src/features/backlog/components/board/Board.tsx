@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
-import { StandardHeader, StandardHeaderProps } from "../../../../components/ComponentsIndex";
+import { Placeholder, StandardHeader, StandardHeaderProps } from "../../../../components/ComponentsIndex";
 import { NoteBoard } from './NoteBoard';
 import { ListBoard } from "./ListBoard";
 import { DetailBoard, DetailBoardContent } from "./DetailBoardContent";
@@ -32,7 +32,7 @@ export function Board({ children, boardType, headerConfig }: BoardProps) {
                 case BoardType.Details:
                     return <DetailBoard  key="detail-board">{children}</DetailBoard>;
                 case BoardType.Empty:
-                    return <div className="w-100 h-100 d-flex"></div>
+                    return <div className="w-100 h-100 d-flex justify-content-center align-items-center" style={{minHeight: 400}}> <Placeholder /> </div>
             }
         };
 

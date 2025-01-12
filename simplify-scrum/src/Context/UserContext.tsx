@@ -6,11 +6,15 @@ export const defaultSettings: SimplifySettings = {
     isAdmin: false,
     showNavbar: true,
     sprintActive: false,
+    refinementActive: false,
+    planningActive: false,
     notifications: []
 }
 
 export type SimplifySettings = {
     sprintActive: boolean
+    refinementActive: boolean
+    planningActive: boolean
     isInStartupScreen: boolean
     isAdmin: boolean
     showNavbar: boolean

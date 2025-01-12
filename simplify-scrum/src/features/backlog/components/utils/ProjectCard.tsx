@@ -43,7 +43,7 @@ export function ProjectCard({index, project}: Props){
             (
                 <div 
                 ref={cardRef}
-                className="card s-card-project s-bg-dark-input position-relative  overflow-visible"
+                className="card s-card-project s-bg-dark-input position-relative w-100  overflow-visible"
                 tabIndex={-1}
                 onClick={(e) => {
                     setTimeout(() => {
@@ -57,24 +57,22 @@ export function ProjectCard({index, project}: Props){
                     }, 100); 
                 }}>
                 <div className="card-body s-card-body d-flex flex-column user ">
-                    <div className="justify-content-between w-100  d-flex align-items-center">
+                    <div className=" justify-content-between w-100  d-flex align-items-center  overflow-hidden" >
                        
                         <SimpleIcon 
                                 icon={"bi-box-seam-fill"}
                                 font={Fonts.H5}/>
-
-                       
                      
-                        <h5 className=" text-end justify-content-end me-4 overflow-hidden ">
+                        <h5 className="text-end mb-0 w-100 overflow-hidden ">
                             {project.name}
                         </h5>
                     </div>  
-                    <div className="h-50 overflow-hidden s-card-body text-start mt-2  me-2" >
+                    <div className="h-50 overflow-hidden s-card-body text-start mt-2  me-2 " >
                         <h6 className="card-text mt-1  ">
                             {project.description}
                         </h6>
                     </div>
-                    <div className="h-25 d-flex justify-content-start align-items-end">
+                    <div className="h-25 mt-3 d-flex justify-content-start align-items-end">
                         <p className="card-text s-card-addon mt-2 ">
                             {`Created on ${format(project.createdOn, 'yyyy.MM.dd')}`}
                         </p>

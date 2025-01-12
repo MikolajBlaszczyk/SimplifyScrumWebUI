@@ -5,23 +5,64 @@ import { NavigationButton } from "./NavigationButton"
 import { MouseEvent, useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/ContextsIndex";
 import { useCleanup } from "../../hooks/useCleanup"
-import { useNavigateTo } from "../../hooks/HooksIndex"
+import { useLoading, useNavigateTo } from "../../hooks/HooksIndex"
 import logo from '../../assets/img/Logo.png'
 import { Button } from "../ComponentsIndex"
 import { Role, Size, Style } from "../common/button/ButtonProps"
 import { NavigationLabel } from "./NavigationLabel"
+import { BacklogService } from "../../services/CommonServicesIndex"
+import { ExtendedStatus } from "../../features/backlog/data/State"
 
 interface OffcanvasProps {
     breadcrumbChange: (destination: Destination) => void
 }
 
 export function Offcanvas({breadcrumbChange}: OffcanvasProps){
+    const {shouldReload, setShouldReload} = useLoading()
     const {settings, setSettings} = useContext(UserContext)
     const [teamLeaderCenterButton, setTeamLeaderCenterButton] = useState<JSX.Element>(<></>)
     const cleanup = useCleanup()
     const navigate = useNavigate()
     const navigateTo = useNavigateTo()
     
+
+    const checkSprint = async () => {
+        const sprint = await BacklogService.getSprintInfo()
+        if(sprint != null){
+            setSettings({...settings, sprintActive: true})
+        } else {
+            setSettings({...settings, sprintActive: false})
+        }
+    }
+
+    const checkRefinement = async () => {
+        const project = (await BacklogService.getProjects()).filter(p => p.isActive)
+        if(project.length != 0){
+            const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.ReadyForRefinement)
+            if(backlog.length != 0){
+                setSettings({...settings, refinementActive: true})
+            } else{
+                setSettings({...settings, refinementActive: false})
+            }
+        } else {
+            setSettings({...settings, refinementActive: false})
+        }
+    }
+
+    const checkPlanning = async () => {
+        const project = (await BacklogService.getProjects()).filter(p => p.isActive)
+        if(project.length != 0){
+            const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.Refined)
+            if(backlog.length != 0){
+                setSettings({...settings, planningActive: true})
+            } else{
+                setSettings({...settings, planningActive: false})
+            }
+        } else {
+            setSettings({...settings, planningActive: false})
+        }
+    }
+
     useEffect(() => {
         if(settings.isAdmin){
             setTeamLeaderCenterButton(<NavigationButton 
@@ -36,7 +77,12 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
         } else {
             setTeamLeaderCenterButton(<></>)
         }
-    }, [settings.isAdmin])
+
+        checkRefinement()
+        checkPlanning()
+        checkSprint()
+     
+    }, [shouldReload])
 
     const logOut = () => {
         const path = destinationPaths[Destination.Auth]
@@ -59,7 +105,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                     <NavigationLabel title="Scrum meetings" />
 
                     <NavigationButton
-                        disabled={settings.sprintActive == false}
+                        disabled={settings.refinementActive == false}
                         icon={"bi-suit-club"} 
                         title="Refinement"
                         onClick={() => {
@@ -69,7 +115,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                         }/>
 
                     <NavigationButton
-                        disabled={settings.sprintActive == false}
+                        disabled={settings.planningActive == false}
                         icon={"bi-download"} 
                         title="Planning"
                         onClick={() => {

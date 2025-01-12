@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { Destination } from "../../utils/UtilsIndex";
 import { useState } from "react";
 import { breadcrumbValues } from '../../utils/navigation/Destination';
+import { useLoading } from "../../hooks/useContexts";
 
 
 
 export default function NavigationBar(){
+    const {shouldReload, setShouldReload} = useLoading();
     const [breadcrumbValue, setBreadcrumbValue] = useState('Info Center')
 
     const breadCrumbChange = (destination: Destination) => {
@@ -32,7 +34,9 @@ export default function NavigationBar(){
                 className="me-2 navbar-button"
                 icon="bi-list"
                 offcanvas={true}
-                onClick={() => {}} />      
+                onClick={() => {
+                    setShouldReload(shouldReload + 1)
+                }} />      
 
             
             <Offcanvas breadcrumbChange={breadCrumbChange} />

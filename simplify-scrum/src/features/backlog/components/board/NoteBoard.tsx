@@ -13,17 +13,17 @@ export const NoteBoard = forwardRef<HTMLDivElement, Props>(({ children }, ref) =
     for(let i = 0; i < childrenCount ; i+=3){
         renderedGrid.push(
             <div className="w-100 h-100 d-flex justify-content-evenly align-items-center mb-3" key={i}>
-                <div className="">
+                <div >
                     {childrens[i]}
                 </div>
-                <div className="">
+                <div>
                 {
                     i + 1 < childrenCount ?
                     childrens[i + 1] : 
                     (<ProjectPlaceholder  />)
                 }
                 </div>
-                <div className="">
+                <div >
                 {
                     i + 2 < childrenCount ?
                     childrens[i + 2] : 
@@ -36,7 +36,7 @@ export const NoteBoard = forwardRef<HTMLDivElement, Props>(({ children }, ref) =
 
     if( childrenCount % 3 == 0){
         renderedGrid.push(
-            <div className="w-100 p-2 align-items-center mb-3" key="placeholder">
+            <div className="row w-100 p-2 align-items-center mb-3" key="placeholder">
                 <div className="col d-flex justify-content-center">
                     <ProjectPlaceholder />
                 </div>

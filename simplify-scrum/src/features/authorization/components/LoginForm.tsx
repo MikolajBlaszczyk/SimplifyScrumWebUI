@@ -15,6 +15,7 @@ import { ValidationResult } from "../../../components/form/shared/SharedProps";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { Start } from '../../../pages/Start';
 import { BacklogService, SprintService } from "../../../services/CommonServicesIndex";
+import { ExtendedStatus } from "../../backlog/data/State";
 
 
 interface LoginNameState {
@@ -81,10 +82,17 @@ export default function LoginForm(props: AuthProperties){
                 
                 const user = await AccountService.getInfo()
                 const sprint = await BacklogService.getSprintInfo()
-                
+              
                 if(sprint != null){
                     setSettings({...settings, sprintActive: true})
                 }
+
+                const project = (await BacklogService.getProjects()).filter(p => p.isActive)
+                if(project.length != 0){
+                    const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.ReadyForRefinement)
+                    setSettings({...settings, refinementActive: true})
+                } 
+
 
                 if(user.newUser == true){
                     navigate(Destination.Start)
