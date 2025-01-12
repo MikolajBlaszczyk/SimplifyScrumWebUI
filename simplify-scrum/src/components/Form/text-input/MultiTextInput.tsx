@@ -4,7 +4,7 @@ import { Role, Size, Style } from "../../common/button/ButtonProps";
 import { Button } from "../../ComponentsIndex";
 import { MultiTextInputProps } from "./MultiTextInputProps";
 
-export function MultiTextInput({icon, placeholder, disabled, readonly, value, className, changeValue, tooltipContent, validation, initialRows}: MultiTextInputProps){
+export function MultiTextInput({icon, placeholder, disabled, readonly, value, className, changeValue, tooltipContent, validation, initialRows, label}: MultiTextInputProps){
     useTooltip([]);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const initialHeight = useRef(0);
@@ -34,9 +34,11 @@ export function MultiTextInput({icon, placeholder, disabled, readonly, value, cl
             <div ref={wrapperRef}  className={` ${isExpanded ? 'text-danger border-bottom  mb-1 w-100 ps-3 pb-1 s-p' : ''}  s-validation-message  `}>{validation?.isValid == false && validation!.message}</div>
             <div className="d-flex flex-column w-100">
                 <div className="d-flex w-100 justify-content-between mb-2" >
-                    <i  className={`bi ${icon} s-h6`}  data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title={`${tooltipContent ?? ''}`}></i>
+                    <i  className={`bi ${icon} s-h6 `}  data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title={`${tooltipContent ?? ''}`}></i>
                 
-                    
+                    <h6 className="m-0 me-1">
+                        {label}
+                    </h6>
                 </div>
                 
                 <textarea 

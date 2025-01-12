@@ -21,6 +21,14 @@ export enum ExtendedStatus {
     Done = 10
 }
 
+export enum RefinementStatus {
+    NotReady = 1,
+    Ready = 2,
+    Refined = 3,
+    ShouldBeSplitted = 4,
+    MoreInfoNeeded = 5,
+} 
+
 export enum SimpleStatus {
     ToBeDone = 1, 
     Doing = 2,

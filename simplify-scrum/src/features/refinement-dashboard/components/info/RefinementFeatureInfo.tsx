@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react"
-import { BacklogService } from "../../../../services/CommonServicesIndex"
+import { BacklogService, EnumService } from "../../../../services/CommonServicesIndex"
 import { DataLoader, ExtendedDataLoader } from "../../../../data/CommonDataIndex"
 import { Feature } from "../../../backlog/data/DataIndex"
-import { Button, Placeholder, SelectionInput, SelectItem, SimpleSelectionInput, SimpleSwitch, StandardHeader } from "../../../../components/ComponentsIndex"
+import { Button, Placeholder, SelectionInput, SelectItem, SimpleSelectionInput, SimpleSwitch, StandardHeader, TextInput } from "../../../../components/ComponentsIndex"
 import { RefinementService } from "../../services/RefinementSerivce"
 import { useRefinement } from "../../../../hooks/useContexts"
 import { RefinementAction } from "../../../../context/RefinementContext"
@@ -106,9 +106,14 @@ export function RefinementFeatureInfo({guid}: Props){
           
                 <div className="d-flex justify-content-between " style={{ minHeight: "500px" }}>
                     <div className="s-w-60  h-100 p-3">
+                        <TextInput 
+                            value={"Title: " + featureLodaer.getData()!.name}
+                            readonly={true}
+                            changeValue={e => {}} />
                         <MultiTextInput 
                             initialRows={8}
-                            className="refinement-desc"
+                            label="Description"
+                            className="refinement-desc mt-3"
                             icon="bi-card-text"
                             readonly={true}
                             value={featureLodaer.getData()!.description}
@@ -132,6 +137,12 @@ export function RefinementFeatureInfo({guid}: Props){
                                 selectedValue={pointsState.value}
                                 onSelectedValueChange={(e) => setPointsState(prev => ({...prev, value: e}))}
                                 options={pointOptions} />
+                        
+                            <TextInput 
+                                    className="mt-3"
+                                    readonly={true}
+                                    value={EnumService.convertRefinementStatusToString(featureLodaer.getData()!.refinementState)}
+                                    changeValue={() => {} } />
                         </div>
                         
                         <div className="d-flex w-100 justify-content-between">

@@ -1,5 +1,5 @@
 import { MouseEvent, useEffect, useMemo, useState } from "react"
-import { ExtendedStatus, Feature, Project } from "../../../../data/DataIndex"
+import { ExtendedStatus, Feature, Project, RefinementStatus } from "../../../../data/DataIndex"
 import { Button,  SelectionInput,  SelectItem, SimpleMultiLineTextInput, SimpleSelectionInput, SimpleTextInput, TextInput } from "../../../../../../components/ComponentsIndex"
 import { BacklogService, EnumService } from "../../../../../../services/CommonServicesIndex"
 import { BgColor, FontColor, Fonts } from "../../../../../../utils/UtilsIndex"
@@ -61,7 +61,8 @@ export default function FeatureEdit({guid, projectGuid, className, isNotInBacklo
             '',
             new Date(),
             '',
-            new Date())
+            new Date(), 
+            RefinementStatus.NotReady)
         const isSuccess = await BacklogService.addFeature(feature)
         if(isSuccess){
             showAlert(AlertStyle.Success, "Feature added successfully")

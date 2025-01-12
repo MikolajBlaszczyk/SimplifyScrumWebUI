@@ -1,4 +1,6 @@
-import { ExtendedStatus, Task } from "./DataIndex"
+import { RefinementState } from '../../../context/RefinementContext';
+import { Refinement } from "../../../pages/Refinement"
+import { ExtendedStatus, RefinementStatus, Task } from "./DataIndex"
 
 export class Feature extends Object{
     guid: string
@@ -11,6 +13,7 @@ export class Feature extends Object{
     createdOn: Date
     lastUpdatedBy: string
     lastUpdateOn: Date
+    refinementState: RefinementStatus
     tasks: Task[]
 
     constructor(
@@ -23,7 +26,9 @@ export class Feature extends Object{
             createdBy: string,
             createdOn: Date,
             lastUpdatedBy: string,
-            lastUpdatedOn: Date){
+            lastUpdatedOn: Date,
+            refinementState: RefinementStatus
+            ){
         super()
         this.guid = guid
         this.name = name
@@ -35,12 +40,12 @@ export class Feature extends Object{
         this.createdOn = createdOn
         this.lastUpdatedBy = lastUpdatedBy
         this.lastUpdateOn = lastUpdatedOn
+        this.refinementState = refinementState
         this.tasks = []
+        
     }
 
-    static default() { 
-        return new Feature('', '', '', ExtendedStatus.New, 1, '', '', new Date(), '', new Date())
-    }
+  
     
     toString() {
         return this.guid

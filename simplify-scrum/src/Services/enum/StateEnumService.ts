@@ -1,5 +1,5 @@
 import { MeetingType, Role } from "../../data/CommonDataIndex"
-import { ExtendedStatus, SimpleStatus, StandardStatus } from "../../features/backlog/data/State"
+import { ExtendedStatus, RefinementStatus, SimpleStatus, StandardStatus } from "../../features/backlog/data/State"
 import { GenericEnumService } from "./GenericEnumService"
 import { Refinement } from '../../pages/Refinement';
 
@@ -44,6 +44,14 @@ const meetingEnumDescriptions = {
     [MeetingType.planning]: "Planning"
 }
 
+const refinementStatusDescriptions = {
+    [RefinementStatus.NotReady]: "Not ready",
+    [RefinementStatus.Ready]: "Ready",
+    [RefinementStatus.Refined]: "Refined",
+    [RefinementStatus.ShouldBeSplitted]: "Should be splitted",
+    [RefinementStatus.MoreInfoNeeded]: "More info needed"
+}
+
 export class EnumService {
 
     //#region State enums
@@ -77,6 +85,10 @@ export class EnumService {
         const keys = GenericEnumService.getEnumDictionary(ExtendedStatus) 
 
         return keys[stringValue]    
+    }
+
+    static convertRefinementStatusToString = (state: RefinementStatus) => {
+        return refinementStatusDescriptions[state]
     }
 
     //#endregion
