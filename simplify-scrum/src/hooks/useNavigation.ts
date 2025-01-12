@@ -6,6 +6,7 @@ export const useNavigateTo = () => {
     
     const naviagteTo = (destination: Destination) => {
         const path = destinationPaths[destination]
+
         navigate(path)
     }
 

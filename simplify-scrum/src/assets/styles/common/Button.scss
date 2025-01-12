@@ -17,6 +17,10 @@
 
 //
 
+.s-disabled {
+    opacity: 25% !important;
+}
+
 .s-filled, .s-outlined, .s-borderless {
     border-radius: $s-radius !important;
     padding: $s-padding-vertical $s-padding-horizontal !important;

@@ -59,6 +59,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                     <NavigationLabel title="Scrum meetings" />
 
                     <NavigationButton
+                        disabled={settings.sprintActive == false}
                         icon={"bi-suit-club"} 
                         title="Refinement"
                         onClick={() => {
@@ -68,6 +69,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                         }/>
 
                     <NavigationButton
+                        disabled={settings.sprintActive == false}
                         icon={"bi-download"} 
                         title="Planning"
                         onClick={() => {
@@ -77,6 +79,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                         }/>
 
                     <NavigationButton
+                        disabled={settings.sprintActive == false}
                         icon={"bi-puzzle"} 
                         title="Daily"
                         onClick={() => {
@@ -86,6 +89,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                         }/>
 
                     <NavigationButton
+                        disabled={settings.sprintActive == false}
                         icon={"bi-repeat"} 
                         title="Retrospective"
                         onClick={() => {

@@ -6,7 +6,7 @@ import { BgColor, Destination, destinationPaths, FontColor, Fonts } from "../../
 import { LoginService } from "../services/LoginService"
 import { AuthProperties } from "../data/Index"
 import { Button, SimpleTextInput, TextType, TextTypes } from "../../../components/ComponentsIndex";
-import {useAlert} from "../../../hooks/HooksIndex";
+import {useAlert, useNavigateTo} from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
 import { TextInput } from "../../../components/form/text-input/TextInput";
@@ -14,6 +14,7 @@ import { AxiosError } from "axios";
 import { ValidationResult } from "../../../components/form/shared/SharedProps";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { Start } from '../../../pages/Start';
+import { BacklogService, SprintService } from "../../../services/CommonServicesIndex";
 
 
 interface LoginNameState {
@@ -32,7 +33,7 @@ export default function LoginForm(props: AuthProperties){
     const [loginState, setLoginState] = useState<LoginNameState>({login: '', validationResult: {isValid: true, message: ""}})
     const [passwordState, setPasswordState] = useState<PasswordState>({password: '', validationResult: {isValid: true, message: ""}})
     const {settings, setSettings} = useContext(UserContext) as Global 
-    const navigate = useNavigate()
+    const navigate = useNavigateTo()
     const showAlert = useAlert();
     
    
@@ -79,11 +80,16 @@ export default function LoginForm(props: AuthProperties){
                     .catch(() => setSettings({...settings, isAdmin: false}));
                 
                 const user = await AccountService.getInfo()
+                const sprint = await BacklogService.getSprintInfo()
+                
+                if(sprint != null){
+                    setSettings({...settings, sprintActive: true})
+                }
 
                 if(user.newUser == true){
-                    navigate(destinationPaths[Destination.Start])
+                    navigate(Destination.Start)
                 } else {
-                    navigate(destinationPaths[Destination.Main])
+                    navigate(Destination.Main)
                 }
             }
         } catch(error: any) {
