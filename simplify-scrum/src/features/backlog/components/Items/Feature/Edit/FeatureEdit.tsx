@@ -13,11 +13,14 @@ import { Role, Size, Style } from "../../../../../../components/common/button/Bu
 import { BacklogAction } from "../../../../../../context/BacklogContext"
 
 interface Props {
+    className?: string
+    isNotInBacklog?: boolean
+    onClose?: () => void
     guid?: string
     projectGuid: string
 }
 
-export default function FeatureEdit({guid, projectGuid}: Props) {
+export default function FeatureEdit({guid, projectGuid, className, isNotInBacklog, onClose}: Props) {
     const {state, setState} = useBacklog()
     const {shouldReload, setShouldReload} = useLoading()
     const showAlert = useAlert()
@@ -63,6 +66,11 @@ export default function FeatureEdit({guid, projectGuid}: Props) {
         if(isSuccess){
             showAlert(AlertStyle.Success, "Feature added successfully")
             setShouldReload(shouldReload + 1)
+            if(isNotInBacklog){
+                onClose && onClose()
+                return
+            }
+                
             setState({...state, action: BacklogAction.ShowFeatures})
         } else {
             showAlert(AlertStyle.Danger, "Failed to add feature")
@@ -79,6 +87,10 @@ export default function FeatureEdit({guid, projectGuid}: Props) {
         if(isSuccess){
             showAlert(AlertStyle.Success, "Feature updated successfully")
             setShouldReload(shouldReload + 1)
+            if(isNotInBacklog){
+                onClose && onClose()
+                return
+            }
             setState({...state, action: BacklogAction.ShowFeatures})
         } else {
             showAlert(AlertStyle.Danger, "Failed to add feature")
@@ -101,7 +113,7 @@ export default function FeatureEdit({guid, projectGuid}: Props) {
     }, [])
 
     return (
-        <section className=" w-75 p-3 mt-3 mb-5 d-flex flex-column overflow-y-auto justify-content-center s-settings-section feature-edit">
+        <section className={" w-75 p-3 mt-3 mb-5 d-flex flex-column overflow-y-auto justify-content-center s-settings-section feature-edit " + className}>
 
             <TextInput 
                 icon="bi-alphabet"
