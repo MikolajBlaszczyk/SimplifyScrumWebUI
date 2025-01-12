@@ -41,7 +41,9 @@ const meetingEnumDescriptions = {
     [MeetingType.daily]: "Daily",
     [MeetingType.refinement]: "Refinement",
     [MeetingType.retrospective]: "Retrospective",
-    [MeetingType.planning]: "Planning"
+    [MeetingType.planning]: "Planning",
+    [MeetingType.review]: "Review"
+    
 }
 
 const refinementStatusDescriptions = {

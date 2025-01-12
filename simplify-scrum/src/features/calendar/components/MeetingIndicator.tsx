@@ -13,6 +13,7 @@ const MeetingColor = {
     [MeetingType.retrospective]: "bg-success",
     [MeetingType.planning]: "bg-info",
     [MeetingType.custom]: "bg-secondary",
+    [MeetingType.review]: "bg-warning",
     default: ""
 }
 

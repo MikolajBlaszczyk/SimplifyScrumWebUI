@@ -4,5 +4,6 @@ export enum MeetingType {
     refinement = 2,
     retrospective = 3,
     planning = 4,
-    custom = 5
+    custom = 5,
+    review = 6
 }
