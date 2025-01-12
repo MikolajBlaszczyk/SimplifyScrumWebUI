@@ -19,7 +19,6 @@ import { Role, Size, Style } from '../../../../components/common/button/ButtonPr
 import { ValidationResult } from '../../../../components/form/shared/SharedProps';
 import { start } from "repl"
 
-
 enum Action {
     Add,
     Update
@@ -28,8 +27,8 @@ enum Action {
 interface properties{
     meetingGuid?: string,
     clickedDay: Date,
+    onMeetingUpdated: () => void
 }
-
 
 interface nameState {
     name: string,
@@ -61,8 +60,7 @@ interface durationState {
     validationResult: ValidationResult
 }
 
-
-export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties){
+export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpdated} : properties){
     const showAlert = useAlert()
     const [added, setAdded] = useState(false)
     const [action, setAction] = useState<Action>(meetingGuid == undefined ? Action.Add : Action.Update)
@@ -83,26 +81,20 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
     const [leadersOptions, setLeadersOptions] = useState<SelectItem[]>([])
     const [meetingOptions, setMeetingOptions] = useState<SelectItem[]>([])
 
-
-
     const nameIsValid = () => {
-
         if(nameState.name.length == 0){
             setNameState(prev => ({...prev, validationResult: {isValid: false, message: "Name is required"}}))
             return false
         }
-
         setNameState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         return true
     }
 
     const descriptionIsValid = () => {
-
         if(descriptionState.description.length == 0){
             setDescriptionState(prev => ({...prev, validationResult: {isValid: false, message: "Description is required"}}))
             return false
         }
-
         setDescriptionState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         return true
     }
@@ -112,7 +104,6 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
             setTypeState(prev => ({...prev, ValidationResult: {isValid: false, message: "Type is required"}}))
             return false
         }
-
         setTypeState(prev => ({...prev, ValidationResult: {isValid: true, message: ""}}))
         return true
     }
@@ -122,7 +113,6 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
             setLeaderState(prev => ({...prev, validationResult: {isValid: false, message: "Leader is required"}}))
             return false
         }
-
         setLeaderState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         return true
     }
@@ -135,7 +125,6 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
             setStartState(prev => ({...prev, validationResult: {isValid: false, message: "Start date needs to be at least 30 minutes from now"}}));
             return false;
         }
-
         setStartState(prev => ({...prev, validationResult: {isValid: true, message: ""}}))
         return true
     }
@@ -152,11 +141,11 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
    
     const save = async () => {
         let isValid = true
-        isValid = nameIsValid() 
-        isValid = descriptionIsValid()
-        isValid = typeIsSelected()
-        isValid = leaderIsSelected()
-        isValid = startIsValid()
+        isValid = nameIsValid() && isValid
+        isValid = descriptionIsValid() && isValid
+        isValid = typeIsSelected() && isValid
+        isValid = leaderIsSelected() && isValid
+        isValid = startIsValid() && isValid
         if(isValid == false)
             return
         
@@ -176,6 +165,7 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
             return    
         } else {
             setAdded(true)
+            onMeetingUpdated()
         }
         clearInputs()
         setIsLoading(isLoading + 1)
@@ -185,9 +175,7 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
         if(meetingGuid == undefined)
             return
         
-
         const meeting = await MeetingSerivce.getMeeting(meetingGuid!)
-
 
         setNameState(prev => ({...prev, name: meeting.name, validationResult: {isValid: true, message: ""}}))
         setDescriptionState(prev => ({...prev, description: meeting.description, validationResult: {isValid: true, message: ""}}))
@@ -249,94 +237,91 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay} : properties
         setTypeState(prev => ({...prev, type: meeting}))
     }
   
-
     return (
-        <div className="d-flex flex-column p-3 ">
-                <TextInput 
-                    icon="bi-alphabet"
-                    placeholder="Name"
-                    value={nameState.name} 
-                    validation={nameState.validationResult}
-                    tooltipContent="Give your meeting a meaningfull name."
-                    changeValue={(e) => setNameState(prev => ({...prev, name: e}))} 
-                    />
+        <div className="d-flex flex-column p-3">
+            <TextInput 
+                icon="bi-alphabet"
+                placeholder="Name"
+                value={nameState.name} 
+                validation={nameState.validationResult}
+                tooltipContent="Give your meeting a meaningful name."
+                changeValue={(e) => setNameState(prev => ({...prev, name: e}))} 
+            />
           
-                <MultiTextInput 
-                    className="mt-3"
-                    icon="bi-card-text"
-                    placeholder="Description"
-                    tooltipContent="Let know what the meeting is about."
-                    validation={descriptionState.validationResult}
-                    value={descriptionState.description}
-                    changeValue={e => setDescriptionState(prev => ({...prev, description: e}))}/>
+            <MultiTextInput 
+                className="mt-3"
+                icon="bi-card-text"
+                placeholder="Description"
+                tooltipContent="Let know what the meeting is about."
+                validation={descriptionState.validationResult}
+                value={descriptionState.description}
+                changeValue={e => setDescriptionState(prev => ({...prev, description: e}))}
+            />
               
-                <SelectionInput 
-                    className="mt-3 "
-                    icon="bi-calendar-event"
-                    placeholder="Meeting type"
-                    tooltipContent="Select the type of the meeting."
-                    validation={typeState.ValidationResult}
-                    selectedValue={typeState.type ? MeetingType[typeState.type] : undefined} 
-                    onSelectedValueChange={e => onMeetingTypeChange(e)} 
-                    options={[...meetingOptions]}/>
+            <SelectionInput 
+                className="mt-3"
+                icon="bi-calendar-event"
+                placeholder="Meeting type"
+                tooltipContent="Select the type of the meeting."
+                validation={typeState.ValidationResult}
+                selectedValue={typeState.type ? MeetingType[typeState.type] : undefined} 
+                onSelectedValueChange={e => onMeetingTypeChange(e)} 
+                options={[...meetingOptions]}
+            />
 
-                <SelectionInput 
-                    className="mt-3 "
-                    icon="bi-person-fill"
-                    placeholder="Meeting leader"
-                    tooltipContent="Select the leader of the meeting."
-                    validation={leaderState.validationResult}
-                    selectedValue={leaderState.leaderGuid ?? undefined} 
-                    onSelectedValueChange={e => setLeaderState(prev => ({...prev, leaderGuid: e}))} 
-                    options={[...leadersOptions]} />
+            <SelectionInput 
+                className="mt-3"
+                icon="bi-person-fill"
+                placeholder="Meeting leader"
+                tooltipContent="Select the leader of the meeting."
+                validation={leaderState.validationResult}
+                selectedValue={leaderState.leaderGuid ?? undefined} 
+                onSelectedValueChange={e => setLeaderState(prev => ({...prev, leaderGuid: e}))} 
+                options={[...leadersOptions]} 
+            />
 
-                <CalendarInput 
-                    icon="bi-calendar"
-                    placeholder="Date"
-                    className="mt-3 "
-                    tooltipContent="Select the date of the meeting."
-                    validation={startState.validationResult}
-                    value={new Date(startState.start)} 
-                    onValueChange={e =>  setStartState(prev => ({...prev, start: new Date(e)}))} />
+            <CalendarInput 
+                icon="bi-calendar"
+                placeholder="Date"
+                className="mt-3"
+                tooltipContent="Select the date of the meeting."
+                validation={startState.validationResult}
+                value={new Date(startState.start)} 
+                onValueChange={e => setStartState(prev => ({...prev, start: new Date(e)}))}
+            />
 
-                <RangeInput 
-                    icon="bi-clock"
-                    placeholder="Duration"
-                    tooltipContent="Select the duration of the meeting."
-                    minValue={0} 
-                    className="mt-3 "
-                    maxValue={60} 
-                    value={durationState.duration}
-                    onValueChange={e => setDurationState(prev => ({...prev, duration: e}))} />
+            <RangeInput 
+                icon="bi-clock"
+                placeholder="Duration"
+                tooltipContent="Select the duration of the meeting."
+                minValue={0} 
+                className="mt-3"
+                maxValue={60} 
+                value={durationState.duration}
+                onValueChange={e => setDurationState(prev => ({...prev, duration: e}))}
+            />
 
-                <MultiSelectionInput 
-                    icon="bi-person-fill"
-                    className="mt-3"
-                    selectedValues={selectedUsers}
-                    onSelectedValuesChange={(e) => { 
-                        setselectedUsers(e)
-                    }} 
-                    options={allOptions} />
+            <MultiSelectionInput 
+                icon="bi-person-fill"
+                className="mt-3"
+                selectedValues={selectedUsers}
+                onSelectedValuesChange={(e) => setselectedUsers(e)} 
+                options={allOptions} 
+            />
 
-
-
-                <div className="mt-4 d-flex justify-content-between">
-                    <div>
-                    {
-                        added && <h6> Success</h6>
-                    }
-                    </div>
-
-                    <Button 
-                        size={Size.Large}
-                        title={action == Action.Add ? "Save" : "Update"}
-                        style={Style.Filled}
-                        role={Role.Primary}
-                        onClick={() => save()} 
-                        
-                        />
+            <div className="mt-4 d-flex justify-content-between">
+                <div>
+                    {added && <h6>Success</h6>}
                 </div>
-                
+
+                <Button 
+                    size={Size.Large}
+                    title={action == Action.Add ? "Save" : "Update"}
+                    style={Style.Filled}
+                    role={Role.Primary}
+                    onClick={() => save()} 
+                />
+            </div>
         </div>
     )
 }

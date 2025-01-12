@@ -21,6 +21,7 @@ export function BacklogProjectCenter() {
 
         if(state.action == BacklogAction.EditProject) setActiveButton(2)
         if(state.action == BacklogAction.AddProject) setActiveButton(1)
+        if(state.action == BacklogAction.ShowProjects) setActiveButton(0)
 
         const buttons: TabButtonsConfiguration[] = [
             {

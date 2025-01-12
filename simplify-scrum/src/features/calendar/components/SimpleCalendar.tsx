@@ -64,6 +64,7 @@ export default function SimpleCalendar({initialDate, className}: SimpleCalendarP
     const fetchData = async () => {
         const schedule = await MeetingSerivce.GetMeetings()
         setSchedule(schedule)
+       
     }
 
     useEffect(() => {
@@ -140,7 +141,7 @@ export default function SimpleCalendar({initialDate, className}: SimpleCalendarP
                     clickProps.showModal &&
                     <div>
                         <SimpleModal 
-                        body={<DayInfo meetings={clickProps.selectedDay?.meetings ?? []} clickedDay={clickProps.date}/>} 
+                        body={<DayInfo  clickedDay={clickProps.date}/>} 
                         day={clickProps.selectedDay!} 
                         onClose={closeDayEdit}/>
                         <div className="modal-backdrop fade show"/> 

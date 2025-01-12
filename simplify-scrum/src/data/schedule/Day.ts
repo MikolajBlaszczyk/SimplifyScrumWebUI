@@ -1,4 +1,5 @@
 import { Meeting } from "./Meeting";
+import exp from 'constants';
 
 
 export interface DayModel {
@@ -9,6 +10,13 @@ export interface DayModel {
 
 export class DayFactory {
     private constructor() {}
+
+    static empty(date: Date): DayModel{
+        return {
+            date: date,
+            meetings: []
+        }
+    }
 
     static todayWithNoMeetings(): DayModel{
         return {

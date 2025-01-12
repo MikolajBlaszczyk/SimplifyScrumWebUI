@@ -1,6 +1,7 @@
 import { HttpStatusCode } from "axios";
 import { DayModel, Meeting, MeetingType, Schedule, ScheduleModel } from '../../data/CommonDataIndex';
 import { RequestFactory } from "../api/RequestFactory";
+import { DayFactory } from '../../data/schedule/Day';
 
 const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings` 
 
@@ -21,6 +22,20 @@ export class MeetingSerivce{
             return Schedule.empty()
         }
     }
+
+    public static async GetMeetingsByDate(day: string): Promise<DayModel>{
+        try {
+            const url = meetingApiUrl + "/date"
+            const response = await RequestFactory.createPostRequest(url,  day)
+            
+            
+            return DataMapper.mapDayDate(response.data) as DayModel
+        } catch(error) {
+            console.log(error)
+            return DayFactory.empty(new Date(day))
+        }
+    }
+
 
     static async getMeeting(guid: string): Promise<Meeting> {
         try {
@@ -51,7 +66,8 @@ export class MeetingSerivce{
     static async update(meeting: Meeting){
         try {
             const url = meetingApiUrl + "/update" 
-            const response = await RequestFactory.createPostRequest(url, meeting) 
+            const meetingData = DataMapper.createMeetingData(meeting)
+            const response = await RequestFactory.createPostRequest(url, meetingData) 
 
             return response.data
 

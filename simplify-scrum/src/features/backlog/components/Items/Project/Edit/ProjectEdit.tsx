@@ -97,8 +97,8 @@ export default function ProjectEdit({guid, className}: Props) {
 
         if(isSuccess){
             showAlert(AlertStyle.Info, "Successfuly updated a project", "Success")
-            setShouldReload(shouldReload + 1)
             setState({...state, action: BacklogAction.ShowProjects})
+            setShouldReload(shouldReload + 1)
             return
         } else {
             showAlert(AlertStyle.Danger, "Error", "Error")
