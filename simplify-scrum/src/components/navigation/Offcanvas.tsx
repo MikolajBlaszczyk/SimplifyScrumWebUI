@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { Destination, destinationPaths } from "../../utils/UtilsIndex"
 import { LoginService } from "../../features/authorization/services/LoginService"
 import { NavigationButton } from "./NavigationButton"
-import { MouseEvent, useContext } from "react"
+import { MouseEvent, useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/ContextsIndex";
 import { useCleanup } from "../../hooks/useCleanup"
 import { useNavigateTo } from "../../hooks/HooksIndex"
@@ -17,10 +17,26 @@ interface OffcanvasProps {
 
 export function Offcanvas({breadcrumbChange}: OffcanvasProps){
     const {settings, setSettings} = useContext(UserContext)
+    const [teamLeaderCenterButton, setTeamLeaderCenterButton] = useState<JSX.Element>(<></>)
     const cleanup = useCleanup()
     const navigate = useNavigate()
     const navigateTo = useNavigateTo()
     
+    useEffect(() => {
+        if(settings.isAdmin){
+            setTeamLeaderCenterButton(<NavigationButton 
+                icon={"bi-battery-charging"} 
+                title="Admin"
+                onClick={() => {
+                        breadcrumbChange(Destination.Admin)
+                        navigateTo(Destination.Admin)
+                    }
+                }/>
+            )
+        } else {
+            setTeamLeaderCenterButton(<></>)
+        }
+    }, [settings.isAdmin])
 
     const logOut = () => {
         const path = destinationPaths[Destination.Auth]
@@ -129,17 +145,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                         }/>
 
                     {
-                        settings.isAdmin == true &&
-                        (
-                        <NavigationButton 
-                            icon={"bi-battery-charging"} 
-                            title="Admin"
-                            onClick={() => {
-                                    breadcrumbChange(Destination.Admin)
-                                    navigateTo(Destination.Admin)
-                                }
-                            }/>
-                        )
+                        teamLeaderCenterButton
                     }
 
                 </div>

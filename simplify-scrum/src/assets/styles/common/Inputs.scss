@@ -77,8 +77,9 @@
 .s-input-multiselect{
     padding: 0 $s-padding-horizontal;
     margin: 0 $s-padding-horizontal !important;
-
+    max-width: 250px;
     user-select: none !important;
+
     &:hover{
         border-radius: $s-radius;
         background-color: $dark;

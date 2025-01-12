@@ -91,4 +91,19 @@ export class AccountService{
             throw error
         }
     }
+
+    static async updateTeamMembers(membersIds: string[], teamGuid: string) {
+        try{ 
+            const url = apiUrl + `/team/members/update`
+            const response = await RequestFactory.createPostRequest(url, {
+                userIDs: membersIds,
+                teamGUID: teamGuid
+            })
+
+            return response.data as User[]
+        } catch(error) { 
+            console.log(error)
+            throw error
+        }
+    }
 }

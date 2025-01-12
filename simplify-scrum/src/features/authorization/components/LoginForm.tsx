@@ -73,7 +73,8 @@ export default function LoginForm(props: AuthProperties){
             if(response.status == 200){
 
                 LoginService.isAdminRole()
-                    .then(data =>  setSettings({...settings, isAdmin: data}));
+                    .then(() =>  setSettings({...settings, isAdmin: true}))
+                    .catch(() => setSettings({...settings, isAdmin: false}));
                 
                 const path = destinationPaths[Destination.Main]
                 navigate(path)
