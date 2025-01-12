@@ -8,6 +8,7 @@ export interface UserInfo{
     role: Role
     teamGuid: string
     id: string
+    newUser: boolean
 }
 
 export class User extends Object implements UserInfo {
@@ -18,9 +19,10 @@ export class User extends Object implements UserInfo {
     role: Role = Role.DevelopmentTeam;
     teamGuid: string = ""
     id: string = ""
+    newUser: boolean = false
 
 
-    constructor(username: string, password: string, email: string = "", nickname: string = "", role: number = 0, id: string = "", teamGuid: string = "",) {
+    constructor(username: string, password: string, email: string = "", nickname: string = "", role: number = 0, id: string = "", teamGuid: string = "", newUser: boolean = false) {
         super()
         this.username = username
         this.password = password
@@ -29,6 +31,7 @@ export class User extends Object implements UserInfo {
         this.role = role
         this.id = id
         this.teamGuid = teamGuid
+        this.newUser = newUser
     }   
 
     static default(): User {

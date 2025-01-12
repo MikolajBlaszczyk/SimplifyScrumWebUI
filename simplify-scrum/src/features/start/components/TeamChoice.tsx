@@ -4,10 +4,13 @@ import { Fonts } from "../../../utils/UtilsIndex";
 import { JoruneyComponentProps } from "./StartJourney";
 import { TeamCreator } from "./TeamCreator";
 import { JourneyStep } from '../data/JourneyStep';
-import { SetStateAction, useEffect, useState } from "react";
+import { MouseEvent, SetStateAction, useEffect, useState } from "react";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { Team } from "../../../data/CommonDataIndex";
+import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
+import { Select } from "@mui/material";
+import { TeamJoiner } from "./TeamJoiner";
 
 export function TeamChoice({joruneyState, setJourneyState}: JoruneyComponentProps){
     const showModal = useModal()
@@ -39,7 +42,12 @@ export function TeamChoice({joruneyState, setJourneyState}: JoruneyComponentProp
     }
 
     const askTeamLeaderToJoin = () => {
-        showAlert(AlertStyle.Warning, "Not available yet")
+        showModal(
+            (
+                <TeamJoiner />
+            ),
+            "Ask team leader to join"
+        )
     }
 
     const  fetchData = async () => {
@@ -67,16 +75,15 @@ export function TeamChoice({joruneyState, setJourneyState}: JoruneyComponentProp
                         icon={"bi-person-fill"}
                         font={Fonts.H1}/>
                     
-                    <div className="mb-3"></div>
 
-                    {/* <SimpleButton 
-                        type={Button.Transparent}
-                        fontColor={Color.Light}
+                    <Button 
+                        className="mt-3"
                         title={"Create my team"}
-                        font={Fonts.H5}
-                        onClick={() => {createTeam()}} /> */}
+                        role={Role.Primary}
+                        size={Size.Medium}
+                        style={Style.Filled}
+                        onClick={() => {createTeam()}}/>
 
-                    
                 </div>
                 <div className="col-6 d-flex flex-column align-items-center justify-content-center">
                     
@@ -85,14 +92,13 @@ export function TeamChoice({joruneyState, setJourneyState}: JoruneyComponentProp
                             icon={"bi-people-fill"}
                             font={Fonts.H1}/>
 
-                    <div className="mb-3"></div>
-
-                    {/* <SimpleButton 
-                            type={Button.Borderless}
-                            fontColor={Color.Light}
-                            font={Fonts.H5}
-                            title={"Ask team leader to join"}
-                            onClick={() => {askTeamLeaderToJoin()}} /> */}
+                    <Button 
+                        className="mt-3"
+                        title={"Ask team leader to join"}
+                        role={Role.Primary}
+                        size={Size.Medium}
+                        style={Style.Filled}
+                        onClick={() => {askTeamLeaderToJoin()}}/>
                 </div>
             </div>
         </section>

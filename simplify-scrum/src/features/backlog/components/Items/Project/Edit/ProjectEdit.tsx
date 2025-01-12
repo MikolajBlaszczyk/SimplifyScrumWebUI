@@ -17,11 +17,12 @@ import { BacklogAction } from "../../../../../../context/BacklogContext";
 
 interface Props {
     guid?: String
+    className?: String
 }
 
 
 
-export default function ProjectEdit({guid}: Props) {
+export default function ProjectEdit({guid, className}: Props) {
     const {state, setState} = useBacklog()
     const {shouldReload, setShouldReload} = useLoading()
     const showAlert = useAlert()
@@ -134,7 +135,7 @@ export default function ProjectEdit({guid}: Props) {
 
 
     return (
-        <section className=" w-75 p-3 mt-3 mb-5 d-flex flex-column overflow-y-auto justify-content-center s-settings-section project-edit" style={{maxHeight: '400px'}}>
+        <section className={" w-75 p-3 mt-3 mb-5 d-flex flex-column overflow-y-auto justify-content-center s-settings-section project-edit " + className} style={{maxHeight: '400px'}}>
             <TextInput 
                 value={nameState.value} 
                 placeholder="Name"

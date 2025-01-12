@@ -9,7 +9,8 @@ export enum Destination{
     Planning,
     Retrospective,
     Daily,
-    Admin
+    Admin,
+    Start
 }
 
 export const  breadcrumbValues: { [key in Destination]: string } = {
@@ -22,5 +23,6 @@ export const  breadcrumbValues: { [key in Destination]: string } = {
     [Destination.Planning]: 'Planning',
     [Destination.Retrospective]: 'Retrospective',
     [Destination.Daily]: 'Daily',
-    [Destination.Admin]: 'Admin'
+    [Destination.Admin]: 'Admin',
+    [Destination.Start]: 'Start'
 }

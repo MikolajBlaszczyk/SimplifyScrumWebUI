@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { JourneyStep } from "../data/JourneyStep"
 import { WelcomeView } from "./WelcomeView";
 import { StartSettings } from "./StartSettings";
@@ -10,6 +10,9 @@ import { StartProject } from "./StartProject";
 import { useAlert, useNavigateTo } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { useNavigate } from "react-router-dom";
+import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
+import { Section } from '../../../components/form/SimpleEditableForm';
+import { AccountService } from "../../account-settings/service/AccountService";
 
 interface JourneyState {
     done: boolean
@@ -30,8 +33,12 @@ export function StartJourney(){
         step: JourneyStep.Welcome
     });
 
-    const moveNext = () => {
-        if(journeyState.step == JourneyStep.Project && journeyState.done == true){
+    const moveNext = async () => {
+        if(journeyState.step == JourneyStep.Project ){
+            const user = await AccountService.getInfo()
+            user.newUser = false
+            await AccountService.updateUser(user)
+
             navigateTo(Destination.Main)
         }
 
@@ -74,7 +81,13 @@ export function StartJourney(){
                     journeyState.step != JourneyStep.UserSettings && 
                     (
                         <div className=" position-absolute start-0 top-0 ">
-                            {/* <SimpleButton font={Fonts.H4} type={Button.Borderless} title={""} icon="bi-arrow-left" onClick={() => moveBack()} /> */}
+                            <Button 
+                                icon="bi-arrow-left"
+                                role={Role.Normal}
+                                size={Size.XLarge}
+                                style={Style.Borderless}
+                                onClick={() => {moveBack()}}/>
+                            
                         </div>
                     )
                 }
@@ -87,12 +100,11 @@ export function StartJourney(){
 
                         <Progress step={journeyState.step} />
                         <div className="d-flex w-100 justify-content-center">
-
-                            {/* <SimpleButton 
-                                font={Fonts.H6}
-                                type={Button.Primary}
+                            <Button 
+                                size={Size.Large}
+                                
                                 title={journeyState.step == JourneyStep.Project ? "Finish" : "Click to go next"} 
-                                onClick={() => moveNext()} /> */}
+                                onClick={() => moveNext()} />
                         </div>
                     </div>
                 </div>

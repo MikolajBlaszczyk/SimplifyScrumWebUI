@@ -11,5 +11,6 @@ export const destinationPaths = {
     [Destination.Retrospective]: '/main/retrospective',
     [Destination.Daily]: '/main/daily',
     [Destination.Admin]: '/main/admin',
+    [Destination.Start]: '/main/start',
     default: () => ""
 }

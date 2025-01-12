@@ -12,6 +12,8 @@ import { Role, Size, Style } from "../../../components/common/button/ButtonProps
 import { TextInput } from "../../../components/form/text-input/TextInput";
 import { AxiosError } from "axios";
 import { ValidationResult } from "../../../components/form/shared/SharedProps";
+import { AccountService } from "../../account-settings/service/AccountService";
+import { Start } from '../../../pages/Start';
 
 
 interface LoginNameState {
@@ -76,9 +78,13 @@ export default function LoginForm(props: AuthProperties){
                     .then(() =>  setSettings({...settings, isAdmin: true}))
                     .catch(() => setSettings({...settings, isAdmin: false}));
                 
-                const path = destinationPaths[Destination.Main]
-                navigate(path)
-                
+                const user = await AccountService.getInfo()
+
+                if(user.newUser == true){
+                    navigate(destinationPaths[Destination.Start])
+                } else {
+                    navigate(destinationPaths[Destination.Main])
+                }
             }
         } catch(error: any) {
             if (error.isAxiosError) {

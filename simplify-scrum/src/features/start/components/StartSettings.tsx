@@ -1,12 +1,13 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { UserCheckboxSetting, UserEditableSettings, UserSelectionSetting } from "../../account-settings/components/UserEditableSettings";
-import { Button } from "../../../components/ComponentsIndex";
+import { Button, TextInput } from "../../../components/ComponentsIndex";
 import { User } from "../../../data/CommonDataIndex";
 import { BacklogService } from "../../../services/CommonServicesIndex";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { JoruneyComponentProps } from "./StartJourney";
 import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
+import { Role, Size, Style } from '../../../components/common/button/ButtonProps';
 
 
 
@@ -14,7 +15,6 @@ export function StartSettings({setJourneyState}: JoruneyComponentProps) {
     const showAlert = useAlert()
 
     const [nickname, setNickname] = useState<string>('')
-    const [darkMode, setDarkMode] = useState(false)
     const [email, setEmail] = useState('')
 
     useEffect(() => {
@@ -60,38 +60,41 @@ export function StartSettings({setJourneyState}: JoruneyComponentProps) {
 
 
     return ( 
-        <section className="bg-dark s-settings-section d-flex flex-column justify-content-center w-100 align-items-center " style={{height: "45vh"}}> 
+        <section className="bg-dark s-settings-section d-flex flex-column justify-content-center w-100 align-items-center " style={{height: "35vh"}}> 
             <div className="w-100 ">
                 <h3 className="mb-2  align-self-start user-select-none">
                     Initial settings
                 </h3>
 
                 <div className="d-flex mt-3 flex-column w-100">
-                    <UserEditableSettings 
-                        icon={"bi-person-badge"} 
-                        label={"Nickname"} 
+                    <TextInput 
+                        tooltipContent="Name that other user will see"
+                        icon="bi-person-badge"
+                        placeholder="Nickname"
                         value={nickname} 
-                        onChange={e => setNickname(e.target.value)}/>
+                        changeValue={value => setNickname(value)}/>
 
-                    <UserEditableSettings 
-                                icon={"bi-at"} 
-                                label={"Email"} 
-                                value={email}
-                                onChange={(e) =>  setEmail(e.target.value)}/>
+                    <TextInput 
+                    className="mt-3"
+                        tooltipContent="Email"
+                        icon="bi-at"
+                        placeholder="Email"
+                        value={email} 
+                        changeValue={(value) => setEmail(value)}/>
                     
-                    <UserCheckboxSetting 
-                        label={"Dark theme"}
-                        icon={"bi-moon-fill"}
-                        onChange={(newValue) => setDarkMode(newValue) } 
-                        value={darkMode} />
+          
                 </div>
             
 
-                <div className="w-100 mt-4 d-flex justify-content-center ">
-                    {/* <SimpleButton 
-                        type={Button.Secondary}
-                        title={"Update"}
-                        onClick={e => {saveSettings()}} /> */}
+                <div className="w-100 mt-3 d-flex justify-content-center ">
+                    <Button 
+                        role={Role.Primary}
+                        style={Style.Filled}
+                        size={Size.Large}
+                        title="Save"
+                        onClick={() => {
+                            saveSettings()
+                        }}/>
                 </div>
             </div>
         </section>
