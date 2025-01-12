@@ -72,8 +72,8 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
             setTeamLeaderCenterButton(<></>)
         }
 
-        checkButtonAvailability()
         const offcanvasElement = document.getElementById("offcanvasNavbar");
+
         const handleShown = () => {
             checkButtonAvailability()
         };

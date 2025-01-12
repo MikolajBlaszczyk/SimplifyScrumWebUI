@@ -20,6 +20,7 @@ export function FeatureCard({feature}: FeatureCardProps) {
                     <h5 className="mb-0">
                         {feature.name} 
                     </h5>
+                    
                 </div>
     
                 <div className="d-flex flex-column daily-item-card-body  w-100 h-100  position-relative" style={{minHeight: '100px'}}>

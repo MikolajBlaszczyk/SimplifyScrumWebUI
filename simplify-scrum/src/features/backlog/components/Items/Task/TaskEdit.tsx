@@ -93,7 +93,10 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
 
         task.name = nameState.value
         task.state = parseInt(statusState.value!)
-        task.assignee = assigneState.value!
+        if(assigneState.value == "")
+            task.assignee = null
+        else
+            task.assignee = assigneState.value!
         await BacklogService.updateTask(task)
 
         reload()

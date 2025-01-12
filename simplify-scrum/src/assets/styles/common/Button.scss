@@ -12,10 +12,17 @@
     i + span {
         margin-left: 8px;
     }
-  
+
+    &:hover {
+        filter: brightness(1.1);
+    }
 }
 
 //
+
+.s-button-icon{
+    padding: 0px !important;
+}
 
 .s-disabled {
     opacity: 25% !important;
@@ -23,7 +30,7 @@
 
 .s-filled, .s-outlined, .s-borderless {
     border-radius: $s-radius !important;
-    padding: $s-padding-vertical $s-padding-horizontal !important;
+    padding: $s-padding-vertical $s-padding-horizontal ;
 }
 
 .s-filled {
@@ -38,6 +45,9 @@
 .s-borderless {
     background-color: transparent !important; 
     border: none;
+    &:hover{
+        transform: scale(1.2);
+    }
 }
 
 .s-circle {

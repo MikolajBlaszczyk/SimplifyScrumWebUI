@@ -6,7 +6,7 @@ export class Task {
     name: string
     state: SimpleStatus
     featureGuid: string
-    assignee: string
+    assignee: string | null
     createdBy: string
     createdOn: Date
     lastUpdatedBy: string

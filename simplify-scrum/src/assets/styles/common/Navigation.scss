@@ -82,6 +82,7 @@
             .s-offcanvas-logout{
                 button{
                     background-color: $secondary;
+                    padding: $s-padding-vertical $s-padding-horizontal !important;
                     padding-right: 0;
                     justify-content: end;
                     width: fit-content;
