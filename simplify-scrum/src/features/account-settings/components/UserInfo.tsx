@@ -79,6 +79,7 @@ export default function UserInformation() {
             className="mt-2"
             icon="bi-alphabet"
             placeholder="Manager"
+            tooltipContent="Manager"
             value={( managerLoader.placeholder == false ? managerLoader.data?.nickname : "") ?? ""} 
             changeValue={() => {}} />
 
@@ -87,6 +88,7 @@ export default function UserInformation() {
             className="mt-3"
             icon="bi-people-fill"
             placeholder="Team"
+            tooltipContent="Team"
             value={ ( teamLoader.placeholder == false ? teamLoader.data?.name : "") ?? ""}
             changeValue={() => {}} />
 
@@ -95,6 +97,7 @@ export default function UserInformation() {
             className="mt-3"
             icon="bi-person-fill-gear"
             placeholder="Role"
+            tooltipContent="Users role"
             value={( roleLoader.placeholder == false ? (roleLoader.isEmpty ? "" : EnumService.convertRoleToString(roleLoader.data!)) : "")}
             changeValue={() => {}}/>
 

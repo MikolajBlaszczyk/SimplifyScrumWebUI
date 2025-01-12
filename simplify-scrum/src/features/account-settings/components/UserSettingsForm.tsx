@@ -106,6 +106,7 @@ export default function UserSettingsForm(){
                         className="mt-2"
                         placeholder="Username"
                         icon="bi-file-person-fill"
+                        tooltipContent="Username"
                         validation={usernameState.validation}
                         value={usernameState.value} 
                         changeValue={(e) => setUsernameState(prev => ({...prev, value: e}))} />
@@ -114,6 +115,7 @@ export default function UserSettingsForm(){
                         className="mt-3"
                         placeholder="Nickname"
                         icon="bi-eye"
+                        tooltipContent="Nickname seen by others"
                         validation={nicknameState.validation}
                         value={nicknameState.value} 
                         changeValue={(e) => setNicknameState(prev => ({...prev, value: e}))} />
@@ -121,6 +123,7 @@ export default function UserSettingsForm(){
                         className="mt-3"
                         placeholder="Email"
                         icon="bi-at"
+                          tooltipContent="Email"
                         validation={emailState.validation}
                         value={emailState.value} 
                         changeValue={(e) => setEmailState(prev => ({...prev, value: e}))} />
