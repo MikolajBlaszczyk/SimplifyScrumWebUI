@@ -26,7 +26,7 @@ export function PlanningInfo({project, isLoading, isEmpty, plannedItems, feature
 
 
     return (
-        <div className="d-flex p-3 scrollbar-left  w-100 bg-dark s-refined-feature-list h-100 flex-column ">
+        <div className="d-flex p-3 scrollbar-left w-100 bg-dark s-refined-feature-list h-100 flex-column ">
             <div className="d-flex mt-4 justify-content-center w-100">
                 <h5 className="">
                     {isEmpty ? "No features ready to plan": `Project: ${project.name}`}

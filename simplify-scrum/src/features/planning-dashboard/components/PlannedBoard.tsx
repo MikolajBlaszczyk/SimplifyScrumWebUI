@@ -123,7 +123,7 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
 
       
     return (
-        <div ref={drop}  className="s-planned-board h-100    d-flex flex-column w-100 justify-content-between align-items-center">
+        <div ref={drop}  className="s-planned-board h-100  border-start border-2   d-flex flex-column w-100 justify-content-between align-items-center">
            <div className="d-flex w-100 flex-column align-items-center justify-content-center h-100  mt-3 mb-3">
              
 
