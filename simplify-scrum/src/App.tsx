@@ -38,7 +38,7 @@ function App() {
   
   
   return token ? (
-    <div className="d-flex flex-column w-100 h-100 z-0" id='main-div'>
+    <div className="d-flex flex-column w-100 h-100 z-0 position-relative" id='main-div'>
       {settings.showNavbar && <NavigationBar />}
       <Outlet />
       <ToastContainer className="toast-container">
