@@ -76,9 +76,7 @@ export default function LoginForm(props: AuthProperties){
             const response = await LoginService.login(loginState.login, passwordState.password)
             if(response.status == 200){
 
-                LoginService.isAdminRole()
-                    .then(() =>  setSettings({...settings, isAdmin: true}))
-                    .catch(() => setSettings({...settings, isAdmin: false}));
+          
                 
                 const user = await AccountService.getInfo()
                 const sprint = await BacklogService.getSprintInfo()

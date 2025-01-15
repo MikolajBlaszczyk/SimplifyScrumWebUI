@@ -38,7 +38,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
             
         } 
 
-        const project = (await BacklogService.getProjects()).filter(p => p.isActive)
+        const project = (await BacklogService.getProjects())?.filter(p => p.isActive)
         if(project.length != 0){
             const backlog = await BacklogService.getFeaturesWithStatusForProject(project[0].guid, ExtendedStatus.ReadyForRefinement)
             if(backlog.length != 0){
@@ -52,13 +52,24 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
                 featuresReadyForPlanning = true
             } 
         } 
+        let isAdmin: boolean
+        try{
+            isAdmin = await LoginService.isAdminRole()
+        } catch {
+            isAdmin = false
+        }
+       
 
-        setSettings({...settings, planningActive: featuresReadyForPlanning, refinementActive: refinementFeaturesPresent, sprintActive: userIsInSprint})
+        setSettings({...settings, planningActive: featuresReadyForPlanning, refinementActive: refinementFeaturesPresent, sprintActive: userIsInSprint, isAdmin: isAdmin})
     }
 
 
+  
+
     useEffect(() => {
-        if(settings.isAdmin){
+        
+
+        if(settings.isAdmin == true){
             setTeamLeaderCenterButton(<NavigationButton 
                 icon={"bi-battery-charging"} 
                 title="Admin"
@@ -84,7 +95,7 @@ export function Offcanvas({breadcrumbChange}: OffcanvasProps){
             offcanvasElement?.removeEventListener("shown.bs.offcanvas", handleShown);
         };
 
-    }, [])
+    }, [settings])
 
     const logOut = () => {
         const path = destinationPaths[Destination.Auth]

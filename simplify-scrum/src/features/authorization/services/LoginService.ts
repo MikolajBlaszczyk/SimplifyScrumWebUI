@@ -26,7 +26,7 @@ export class LoginService{
             var url = loginApiUrl + "/isadmin"
             const response = await RequestFactory.createGetRequest(url)
 
-            return response.status == HttpStatusCode.Ok
+            return response.status == HttpStatusCode.Ok || response.status == HttpStatusCode.NoContent
         } catch(error) {
             throw error
         }
