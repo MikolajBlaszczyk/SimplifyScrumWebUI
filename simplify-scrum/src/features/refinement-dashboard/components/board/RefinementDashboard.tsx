@@ -62,7 +62,7 @@ export function RefinementDashboard(){
                                     index.toString(),
                                     feature.name,
                                     EnumService.convertExtendedStatusToString(feature.state),
-                                    feature.points.toString()
+                                    feature.points == -1 ? "Not refined" : feature.points.toString()
                                 ],
                                 columnValuesClassNames: [' s-no-column', ' ', ' s-status-column', ' '],
                                 swipeProps: {

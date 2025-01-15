@@ -128,6 +128,7 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
                 icon="bi-person-fill"
                 className="mt-3"
                 placeholder="Asignee"
+                selectedValue={assigneState.value}
                 onSelectedValueChange={(e) => {setAssigneState(prev => ({...prev, value: e}))}}
                 options={assigneOptions} />
        

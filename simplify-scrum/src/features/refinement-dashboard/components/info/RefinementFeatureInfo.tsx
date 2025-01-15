@@ -112,7 +112,6 @@ export function RefinementFeatureInfo({guid}: Props){
                             changeValue={e => {}} />
                         <MultiTextInput 
                             initialRows={8}
-                            label="Description"
                             className="refinement-desc mt-3"
                             icon="bi-card-text"
                             readonly={true}
