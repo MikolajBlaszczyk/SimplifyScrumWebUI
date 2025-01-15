@@ -34,7 +34,7 @@ export function FeatureCard({feature}: FeatureCardProps) {
                                         onClick={() => {
                                             showModal(
                                                 <FeatureEdit isNotInBacklog={true} onClose={() => {hideModal()}} className="w-100"  guid={feature.guid} projectGuid={feature.projectGuid} />,
-                                                "Edit Task"
+                                                "Edit Feature"
                                             )
 
                                         }} />

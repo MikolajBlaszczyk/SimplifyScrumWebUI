@@ -10,7 +10,7 @@ import { AlertStyle } from "../../../alerting/components/Alert"
 import { Placeholder } from "../../../../components/ComponentsIndex"
 import { TaskBoard } from "./TaskBoard"
 
-const headers = ["Features" , ...GenericEnumService.getEnumNames(SimpleStatus)]
+const headers = ["Features" , "To be done", "Doing", "Done"]
 
 export function FeatureBoard(){ 
     const showAlert = useAlert()

@@ -19,7 +19,6 @@ export function DailyBoard(){
     const headerConfig: StandardHeaderProps = useMemo(() => {
     
             if(state.action == DailyAction.ShowTaskBoard) setActiveButton(0)
-            if(state.action == DailyAction.EditTask) setActiveButton(1)
     
             const buttons: TabButtonsConfiguration[] = [
                 {
@@ -29,14 +28,7 @@ export function DailyBoard(){
                         setState({...state, action: DailyAction.ShowTaskBoard, guid: undefined})
                     }
                 },
-                {
-                    icon: "bi-pen",
-                    disabled: activeButton != 1,
-                    onClick: () => {
-                        setActiveButton(1)
-                        setState({...state, action: DailyAction.EditTask})
-                    }
-                },  
+            
             ]
     
             buttons.forEach((button, index) => { if(activeButton == index) button.isActive = true })
