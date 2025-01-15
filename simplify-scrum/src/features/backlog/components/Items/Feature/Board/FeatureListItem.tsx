@@ -67,6 +67,6 @@ export function FeatureListItem({index, feature}:Props){
             <th className="col">{index}</th>
             <td  className="col">{feature.name}</td>
             <td  className="col">{EnumService.convertExtendedStatusToString(feature.state)}</td>
-            <td  className="col">{feature.points}</td>
+            <td  className="col">{feature.points === -1 ? "Not refined" : feature.points}</td>
         </tr>
 }
