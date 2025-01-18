@@ -46,7 +46,7 @@ export function Alert({style, title, content, type}: Props){
     return(
         <>
             <div className="backdrop"></div>
-            <div className={` s-alert position-absolute top-50 start-50 mb-5 translate-middle overflow-hidden rounded  ${alertStyle}`}>
+            <div style={{marginTop: "100px"}} className={` s-alert  position-absolute top-0 start-50 translate-middle-x overflow-hidden rounded  ${alertStyle}`}>
                 <div className={`d-flex flex-column`}>
                     <div className={"d-flex flex-column w-100 h-auto align-items-center s-alert-header justify-content-center pt-2  " + alertStyle}>
 
