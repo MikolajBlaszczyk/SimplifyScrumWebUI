@@ -41,7 +41,7 @@ export function Board({ children, boardType, headerConfig }: BoardProps) {
 
 
     return (
-        <div  key={v4()} className="mt-3 mb-4 shadow  d-flex flex-column rounded s-board  position-relative">
+        <div  key={v4()} className="mt-3 mb-3 shadow  d-flex flex-column rounded s-board  position-relative">
             <StandardHeader {...headerConfig} />
             <div className=" w-100 h-100 d-flex flex-column" >
                 {renderedContent}
