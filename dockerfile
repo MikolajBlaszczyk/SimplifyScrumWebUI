@@ -17,7 +17,6 @@ ENV REACT_APP_SIMPLIFY_API $REACT_APP_SIMPLIFY_API
 RUN npm run build 
 
 
-
 FROM nginx:alpine
 
 COPY --from=build /app/build /usr/share/nginx/html

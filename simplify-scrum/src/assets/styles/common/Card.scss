@@ -174,7 +174,8 @@ $min-card-width: 225px;
     height: calc($min-card-height / 2) !important; 
     background-color: $input-background !important;
     border-radius: 0px !important;
-    width: 20vw;
+    min-height: calc($min-card-height / 2) !important;
+    width: $min-card-width !important;
 
     &:hover{
         background-color: darken($input-background, 2%) !important;
