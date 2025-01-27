@@ -21,11 +21,11 @@
     }
 
     @media (min-width: $screen-md) {
-        width: 85% !important; 
+        width: 75% !important; 
     }
 
     @media (min-width: $screen-l) {
-        width: 80% !important; 
+        width: 70% !important; 
     }
 
     @media (min-width: $screen-xl) {
@@ -125,7 +125,7 @@
 }
 
 .s-no-column{
-    color: $secondary !important;
+    color: $primary !important;
 }
 
 .s-status-column{

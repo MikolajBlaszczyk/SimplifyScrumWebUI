@@ -52,7 +52,7 @@ export function StandardInputTemplate({element, validation, tooltipContent, butt
 
     return (
          <div className={"s-input  opacity-75 w-100 d-flex flex-column align-items-center " + className}>
-                    <div ref={wrapperRef}  className={` ${isExpanded ? 'text-danger border-bottom  mb-1 w-100 ps-3 pb-1 s-p' : ''}  s-validation-message  `}>{validation?.isValid == false && validation!.message}</div>
+                    <div ref={wrapperRef}  className={`text-warning fw-bold  ${isExpanded ? 'border-bottom  mb-1 w-100 ps-3 pb-1 s-p' : ''}  s-validation-message  `}>{validation?.isValid == false && validation!.message}</div>
                     <div className="d-flex w-100 h-100 justify-content-center align-items-center">
                         <i  className={`bi ${icon} s-h6`}  data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title={`${tooltipContent ?? ''}`}></i>
                         {element}

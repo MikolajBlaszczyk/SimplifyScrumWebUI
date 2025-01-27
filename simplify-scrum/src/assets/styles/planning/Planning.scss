@@ -1,6 +1,6 @@
 @import "../common/Variables";
 .s-planned-board {
-    min-height: calc($s-section-min-height * 1.5);
+    min-height: $s-section-min-height ;
 }
 
 .s-planned-board-placeholder {
@@ -10,11 +10,11 @@
     margin-top: 20px !important;
     margin-bottom: 20px !important;
     width: calc(100% - 40px);
-    height: calc($s-section-min-height * 1.5);
+    min-height: $s-section-min-height ;
     justify-content: center;
     align-items: center;
 }
 
 .s-refined-feature-list{
-    min-height:  calc($s-section-min-height * 1.5);
+    min-height:  $s-section-min-height;
 }
