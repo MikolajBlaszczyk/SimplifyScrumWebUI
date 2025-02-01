@@ -11,7 +11,8 @@ interface Props {
 
 export function NoteItem({ note }: Props) {
     const {state, setState} = useRetro();
-
+    const [title, setTitle] = useState(note.title);
+    const [content, setContent] = useState(note.content);
 
     const [swipeAmount, setSwipeAmount] = useState(0);
     const rowRef = useRef<HTMLDivElement>(null);
@@ -21,11 +22,13 @@ export function NoteItem({ note }: Props) {
     }
 
     const changeTitle = (value: string) => {
+        setTitle(value);
         const newComments = state.Comments.map(n => n.uuid === note.uuid ? {...n, title: value} : n)
         setState({...state, Comments: newComments});
     }
 
     const changeContent = (value: string) => {
+        setContent(value);
         const newComments = state.Comments.map(n => n.uuid === note.uuid ? {...n, content: value} : n)
         setState({...state, Comments: newComments});
     }
@@ -43,7 +46,7 @@ export function NoteItem({ note }: Props) {
                         <h6 className="mb-0 me-2">Title</h6>
                         <input
                             type="text"
-                            value={note.title}
+                            value={title}
                             className="w-100 z-3"
                             onChange={e => {changeTitle(e.target.value)}}
                         />
@@ -51,7 +54,7 @@ export function NoteItem({ note }: Props) {
         
                     <div className="d-flex w-100">
                         <textarea
-                            value={note.content}
+                            value={content}
                             onChange={e => {changeContent(e.target.value)}}
                             rows={3}
                             className="w-100 z-3"
