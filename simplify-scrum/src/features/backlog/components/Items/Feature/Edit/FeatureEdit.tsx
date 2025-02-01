@@ -50,7 +50,34 @@ export default function FeatureEdit({guid, projectGuid, className, isNotInBacklo
         ]
     }, [])
 
+    const validate = () => {
+        let isValid = true
+        if(nameState.value.length == 0){
+            setNameState(prev => ({...prev, validation: {isValid: false, message: "Name is required"}}))
+            isValid = false
+        } else {
+            setNameState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        }
+        if(descriptionState.value.length == 0){
+            setDescriptionState(prev => ({...prev, validation: {isValid: false, message: "Description is required"}}))
+            isValid = false
+        } else {
+            setDescriptionState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        }
+        if(statusState.value == undefined){
+            setStatusState(prev => ({...prev, validation: {isValid: false, message: "Status is required"}}))
+            isValid = false
+        } else {
+            setStatusState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        }
+
+        return isValid
+    }
+
     const addFeature = async () => {
+
+        if(validate() == false) return;
+
         const feature = new Feature(
             '',
             nameState.value,
@@ -79,6 +106,8 @@ export default function FeatureEdit({guid, projectGuid, className, isNotInBacklo
     }
 
     const updateFeature = async () => {
+        if(validate() == false) return;
+
         const feature = await BacklogService.getFeature(guid!)
         feature.name = nameState.value
         feature.description = descriptionState.value
@@ -126,6 +155,7 @@ export default function FeatureEdit({guid, projectGuid, className, isNotInBacklo
             <MultiTextInput 
                 icon="bi-card-text"
                 className="mt-3"
+                validation={descriptionState.validation}
                 value={descriptionState.value} 
                 changeValue={e => setDescriptionState(prev => ({...prev, value: e})) } />
             
@@ -133,6 +163,7 @@ export default function FeatureEdit({guid, projectGuid, className, isNotInBacklo
                 className="mt-3"
                 placeholder="Status"
                 icon="bi-check-all"
+                validation={statusState.validation}
                 selectedValue={statusState.value }
                 onSelectedValueChange={e => setStatusState(prev => ({...prev, value: e}))}
                 options={stateOptions} />

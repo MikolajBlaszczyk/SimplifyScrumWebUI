@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTooltip } from '../../../hooks/useTooltip';
-import { Role, Size, Style } from "../../common/button/ButtonProps";
-import { Button } from "../../ComponentsIndex";
 import { MultiTextInputProps } from "./MultiTextInputProps";
+import { TextField, Box } from "@mui/material";
 
 export function MultiTextInput({icon, placeholder, disabled, readonly, value, className, changeValue, tooltipContent, validation, initialRows, label}: MultiTextInputProps){
     useTooltip([]);
@@ -30,28 +29,54 @@ export function MultiTextInput({icon, placeholder, disabled, readonly, value, cl
 
 
     return(
-        <div className={"s-input s-input-multiline opacity-75 w-100 d-flex flex-column align-items-center " + className}>
-            <div ref={wrapperRef}  className={` ${isExpanded ? 'text-warning fw-bold border-bottom  mb-1 w-100 ps-3 pb-1 s-p' : ''}  s-validation-message  `}>{validation?.isValid == false && validation!.message}</div>
-            <div className="d-flex flex-column w-100">
-                <div className="d-flex w-100 justify-content-between mb-2" >
-                    <i  className={`bi ${icon} s-h6 `}  data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title={`${tooltipContent ?? ''}`}></i>
-                
-                    <h6 className="m-0 me-1">
-                        {label}
-                    </h6>
-                </div>
-                
-                <textarea 
-                    rows={initialRows ?? 3}
-                    className="d-flex w-100 border-0"
-                    placeholder={placeholder}
-                    readOnly={readonly}
-                    disabled={disabled} 
-                    required={false}
-                    value={value}
-                    onChange={e => {changeValue(e.target.value)}}/>
-            </div>
-           
+        <div className={"s-input s-input-multiline opacity-75 w-100  d-flex flex-column align-items-center " + className}>
+          <div ref={wrapperRef}  className={` ${isExpanded ? 'text-warning fw-bold border-bottom  mb-1 w-100 ps-3  pb-1 s-p' : ''}  s-validation-message  `}>{validation?.isValid == false && validation!.message}</div>
+          
+          <TextField
+              sx={{
+                  '& .MuiOutlinedInput-notchedOutline': {
+                      border: 'none',
+                  },
+                  '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                      border: 'none',
+                  },
+                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      border: 'none',
+                  },
+                  '& .MuiOutlinedInput-root': {
+                      padding: '0', 
+                  },
+                  '& .MuiOutlinedInput-input': {
+                      padding: '8.5px 0', 
+                  },
+                  '& .MuiInputLabel-root': {
+                    padding: '0 4px',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                      color: '#8EB4AE',
+                  },
+                  '& .MuiInputLabel-formControl': {
+                      transform: 'translate(0, -13px) scale(1)',
+                  },
+                  '& .MuiInputLabel-shrink': {
+                      transform: 'translate(0, -13px) scale(0.75)',
+                  },
+                  width: '100%',
+              }}
+              className="mt-3"
+              label={
+                <>
+                  {label ?? "Description"}
+                  <i className={`bi ${icon} s-h6 ms-1`} data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data-bs-placement="left" title={`${tooltipContent ?? ''}`}></i>
+                </>
+              }
+              multiline
+              minRows={initialRows ?? 3}
+              disabled={disabled}
+              required={false}
+              value={value}
+              onChange={e => { changeValue(e.target.value) }}
+          />
         </div>
     )
 }

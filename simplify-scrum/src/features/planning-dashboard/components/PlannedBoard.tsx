@@ -4,7 +4,7 @@ import { DragableFeature, DragableTypes } from "./DragableFeature";
 import { useDrop } from "react-dnd";
 import { Button, TextInput } from "../../../components/ComponentsIndex";
 import { Plan, SprintModel } from "../../../data/CommonDataIndex";
-import { SprintService } from "../../../services/CommonServicesIndex";
+import { BacklogService, SprintService } from "../../../services/CommonServicesIndex";
 import { Role, Style } from "../../../components/common/button/ButtonProps";
 import { CalendarInput } from "../../../components/form/calendar/CalendarInput";
 import { NumberInput } from "../../../components/form/number-input/NumberInput";
@@ -35,7 +35,7 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
     const [nameState, setNameState] = useState<TextState>({value: "", validation: {isValid: true, message: ""}})
     const [goalState, setGoalState] = useState<TextState>({value: "", validation: {isValid: true, message: ""}})
     const [iterationState, setIterationState] = useState<NumberState>({value: 1, validation: {isValid: true, message: ""}}) 
-    const [endState, setEndState] = useState<CalendarState>({date: new Date(new Date().setDate(new Date().getDate() + 7)), validationResult: {isValid: true, message: ""}})
+    const [endState, setEndState] = useState<CalendarState>({date: new Date(new Date().setDate(new Date().getDate() + 8)), validationResult: {isValid: true, message: ""}})
 
 
     const [{ isOver }, drop] = useDrop({
@@ -100,12 +100,18 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
         setNameState(prev => ({...prev, value: ""}))
         setGoalState(prev => ({...prev, value: ""}))
         setIterationState(prev => ({...prev, value: 0}))
-        setEndState(prev => ({...prev, date: new Date(new Date().setDate(new Date().getDate() + 7))}))
+        setEndState(prev => ({...prev, date: new Date(new Date().setDate(new Date().getDate() + 8))}))
     }
 
     const plan = async () => {
+        if(BacklogService.getSprintInfo() != null){
+            showAlert(AlertStyle.Warning, "You need to finish current sprint before planning new one", "Sprint already planned")
+        }
+
         if(!isValid()) return;
 
+
+      
         const sprint = new SprintModel('', nameState.value, goalState.value, iterationState.value, endState.date, projectGuid)
         const featureGuids = plannedItems.map(feature => feature.guid);
 

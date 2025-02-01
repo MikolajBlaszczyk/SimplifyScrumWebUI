@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { LocalizationProvider, MobileDateTimePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
 import { CalendarInputProps } from "./CalendarInputProps";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { useTooltip } from "../../../hooks/useTooltip";
@@ -17,7 +17,8 @@ export function CalendarInput({icon, placeholder, disabled, value, className, on
                     validation={validation}
                     icon={icon}
                     element={
-                        <MobileDateTimePicker
+                        <MobileDatePicker
+                            format="dd/MM/yyyy"
                             className=" s-input-datetime w-100  d-flex justify-content-center align-items-center "
                             onChange={e => {onValueChange(e?.toString() ?? "")}} 
                             value={value} />

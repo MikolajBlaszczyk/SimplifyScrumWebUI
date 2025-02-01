@@ -86,6 +86,12 @@ export default function ProjectEdit({guid, className}: Props) {
 
 
     const updateProjectAsync = async () => {
+        setNameState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        setDescriptionState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        setStatusState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        setTeamState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        if(validate() == false) return
+
         const project = await BacklogService.getProject(guid!)
         project.name = nameState.value
         project.description = descriptionState.value
@@ -105,9 +111,40 @@ export default function ProjectEdit({guid, className}: Props) {
         }
     }
 
+    const validate = () => {
+        let isValid = true
+        if(nameState.value.length == 0){
+            isValid = false
+            setNameState(prev => ({...prev, validation: {isValid: false, message: "Name cannot be empty."}}))
+        }
+
+        if(descriptionState.value.length == 0 ){
+            isValid = false
+            setDescriptionState(prev => ({...prev, validation: {isValid: false, message: "Description cannot be empty."}}))
+        } 
+        
+        if(statusState.value == undefined ){
+            isValid = false
+            setStatusState(prev => ({...prev, validation: {isValid: false, message: "Status must be selected."}}))
+        }
+
+        if(teamState.value == undefined){
+            isValid = false
+            setTeamState(prev => ({...prev, validation: {isValid: false, message: "Team must be selected."}}))
+        }
+
+        return isValid
+    }
 
     const createProjectAsync = async () => {
         const userInfo = await AccountService.getInfo()
+
+        setNameState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        setDescriptionState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        setStatusState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        setTeamState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        if(validate() == false) return
+
         const project = new Project(
             "",
             nameState.value,
@@ -135,7 +172,7 @@ export default function ProjectEdit({guid, className}: Props) {
 
 
     return (
-        <section className={" w-75 p-3 mt-3 mb-5 d-flex flex-column overflow-y-auto justify-content-center s-settings-section project-edit " + className} style={{maxHeight: '400px'}}>
+        <section className={" w-75 p-3 mt-3 mb-5 d-flex flex-column justify-content-center s-settings-section project-edit " + className} >
             <TextInput 
                 value={nameState.value} 
                 placeholder="Name"
@@ -156,6 +193,7 @@ export default function ProjectEdit({guid, className}: Props) {
                 className="mt-3"
                 placeholder="status"
                 icon="bi-check-all"
+                validation={statusState.validation}
                 selectedValue={statusState.value}
                 onSelectedValueChange={(e) => setStatusState(prev => ({...prev, value: e}))}
                 options={statusOptions} />
@@ -164,6 +202,7 @@ export default function ProjectEdit({guid, className}: Props) {
                 className="mt-3"
                 placeholder="team"
                 icon="bi-people-fill"
+                validation={teamState.validation}
                 selectedValue={teamState.value}
                 onSelectedValueChange={(e) => setTeamState(prev => ({...prev, value: e}))}
                 options={teamOptions} />

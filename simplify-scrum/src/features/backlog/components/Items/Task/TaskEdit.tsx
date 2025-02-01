@@ -69,9 +69,35 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
         
     }
 
+    const validate = () => {
+        let isValid = true
+        if(nameState.value.length == 0){
+            setNameState(prev => ({...prev, validation: {isValid: false, message: "Name is required"}}))
+            isValid = false
+        } else {
+            setNameState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        }
+        if(statusState.value == undefined){
+            setStatusState(prev => ({...prev, validation: {isValid: false, message: "Status is required"}}))
+            isValid = false
+        } else {
+            setStatusState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        }
+        if(assigneState.value == undefined){
+            setAssigneState(prev => ({...prev, validation: {isValid: false, message: "Assignee is required"}}))
+            isValid = false
+        } else {
+            setAssigneState(prev => ({...prev, validation: {isValid: true, message: ""}}))
+        }
+        
+        return isValid
+    }
+
     const saveTask = async () => {
+        if(validate() == false) return false
+
         if(featureGuid == undefined || featureGuid.length == 0)
-            return 
+            return false
 
         const task = new Task(
             -1,
@@ -86,9 +112,13 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
         await BacklogService.addTask(task)
 
         reload()
+
+        return true
     }
 
     const updateTask = async () => {
+        if(validate() == false) return false
+
         const task = await BacklogService.getTask(taskID!)
 
         task.name = nameState.value
@@ -100,6 +130,8 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
         await BacklogService.updateTask(task)
 
         reload()
+
+        return true
     }
 
 
@@ -120,6 +152,7 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
                 className="mt-3"
                 icon="bi-check-all"
                 selectedValue={statusState.value} 
+                validation={statusState.validation}
                 placeholder="Status"
                 onSelectedValueChange={e => setStatusState(prev => ({...prev, value: e}))} 
                 options={statusOptions} />
@@ -128,6 +161,7 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
                 icon="bi-person-fill"
                 className="mt-3"
                 placeholder="Asignee"
+                validation={assigneState.validation}
                 selectedValue={assigneState.value}
                 onSelectedValueChange={(e) => {setAssigneState(prev => ({...prev, value: e}))}}
                 options={assigneOptions} />
@@ -141,8 +175,12 @@ export default function TaskEdit({taskID, featureGuid, reload}: Props) {
                     size={Size.Large}
                     title={taskID == undefined ? "Save" : "Update"} 
                     onClick={() => {
-                        taskID == undefined ? saveTask() : updateTask()
-                        hideModal()
+                        (taskID == undefined ? saveTask() : updateTask()).then(isSuccess => {
+                            if(isSuccess == true) {
+                                hideModal()
+                            }
+                        })
+                        
                     }} />
             </div>
            

@@ -1,23 +1,18 @@
-import { MouseEvent, useEffect, useState } from "react"
-import { MeetingFactory, Meeting, MeetingType, User, DayModel } from "../../../../data/CommonDataIndex"
-import { EnumService, MeetingEnumService, MeetingSerivce } from "../../../../services/CommonServicesIndex"
-import { useAlert, useLoading, useModal } from "../../../../hooks/HooksIndex"
+import { useEffect, useState } from "react"
+import { MeetingFactory, MeetingType, User } from "../../../../data/CommonDataIndex"
+import { MeetingSerivce } from "../../../../services/CommonServicesIndex"
+import { useAlert, useLoading } from "../../../../hooks/HooksIndex"
 import { AccountService } from "../../../account-settings/service/AccountService"
-import { MultiSelectDropdown, SelectItem, SimpleDateInput, SimpleMultiLineTextInput,  SimpleSelectionInput, SimpleTextInput, Option, TextInput, SelectionInput, Button } from "../../../../components/ComponentsIndex"
-import { SimpleDurationInput } from "../../../../components/form/SimpleDurationInput"
+import { SelectItem, TextInput, SelectionInput, Button } from "../../../../components/ComponentsIndex"
 import { DateConverter } from '../../../../utils/utility-services/DateSerivces';
-import { BgColor, FontColor } from "../../../../utils/UtilsIndex"
 import { GenericEnumService } from "../../../../services/enum/GenericEnumService"
 import { Alert, AlertStyle, AlertType } from "../../../alerting/components/Alert"
 import { MultiTextInput } from "../../../../components/form/text-input/MultiTextInput"
 import { CalendarInput } from "../../../../components/form/calendar/CalendarInput"
 import { RangeInput } from "../../../../components/form/range-input/RangeInput"
 import { MultiSelectionInput } from '../../../../components/form/selection-input/MultiSelectionInput';
-import { all } from "axios"
-import { add, set } from "date-fns"
 import { Role, Size, Style } from '../../../../components/common/button/ButtonProps';
 import { ValidationResult } from '../../../../components/form/shared/SharedProps';
-import { start } from "repl"
 
 enum Action {
     Add,
@@ -67,15 +62,16 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
     const {shouldReload: isLoading, setShouldReload: setIsLoading} = useLoading()
     const currentDateTime = new Date()
     const clickedDayWithTime = new Date(clickedDay)
-    clickedDayWithTime.setHours(currentDateTime.getHours(), currentDateTime.getMinutes() + 31, currentDateTime.getSeconds())
+    clickedDayWithTime.setHours(currentDateTime.getHours(), currentDateTime.getMinutes() + 35, currentDateTime.getSeconds())
 
     const [nameState, setNameState] = useState<nameState>({name: '', validationResult: {isValid: true, message: ""}})
     const [descriptionState, setDescriptionState] = useState<descriptionState>({description: '', validationResult: {isValid: true, message: ""}})
     const [typeState, setTypeState] = useState<typeState>({type: undefined, ValidationResult: {isValid: true, message: ""}})
     const [leaderState, setLeaderState] = useState<leaderState>({leaderGuid: undefined, validationResult: {isValid: true, message: ""}})
     const [startState, setStartState] = useState<startState>({start: clickedDayWithTime, validationResult: {isValid: true, message: ""}})
-    const [durationState, setDurationState] = useState<durationState>({duration: 0, validationResult: {isValid: true, message: ""}})
+    const [durationState, setDurationState] = useState<durationState>({duration: 10, validationResult: {isValid: true, message: ""}})
 
+    const [allUsers, setAllUsers] = useState<User[]>([])
     const [allOptions, setAllOptions] = useState<SelectItem[]>([])
     const [selectedUsers, setselectedUsers] = useState<SelectItem[]>([])
     const [leadersOptions, setLeadersOptions] = useState<SelectItem[]>([])
@@ -183,7 +179,9 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
         setLeaderState(prev => ({...prev, leaderGuid: meeting.leaderGuid, validationResult: {isValid: true, message: ""}}))
         setStartState(prev => ({...prev, start: new Date(meeting.start), validationResult: {isValid: true, message: ""}}))
         setDurationState(prev => ({...prev, duration: DateConverter.convertTimeStringToDate(meeting.duration).getMinutes(), validationResult: {isValid: true, message: ""}}))
-        setselectedUsers(meeting.userGuids?.map(userGuid => {
+
+
+        setselectedUsers(meeting.userGuids?.filter(guid => guid != meeting.leaderGuid).map(userGuid => {
             const user = allOptions.find(option => option.value == userGuid)
             return user ?? {value: "", description: ""}
         }) ?? [])
@@ -192,6 +190,7 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
     const fetchData = async () => {
         const users = await AccountService.getUsers();
         
+        setAllUsers(users)
         setLeadersOptions(users.map(user => {
             const item: SelectItem = {
                 value: user.id,
@@ -200,6 +199,8 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
             return item
         }))
 
+
+        
         setAllOptions(users.map(user => { return {value: user.id, description: user.nickname} }))
 
         const types = GenericEnumService.getEnumNames(MeetingType)
@@ -276,7 +277,12 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
                 tooltipContent="Select the leader of the meeting."
                 validation={leaderState.validationResult}
                 selectedValue={leaderState.leaderGuid ?? undefined} 
-                onSelectedValueChange={e => setLeaderState(prev => ({...prev, leaderGuid: e}))} 
+                onSelectedValueChange={e => {
+                    const users = allUsers.filter(u => u.id != e)
+                    setAllOptions(prev => users.map(u => { return {value: u.id, description: u.nickname} }))
+                    setselectedUsers(prev => prev.filter(u => u.value != e))
+                    setLeaderState(prev => ({...prev, leaderGuid: e}))
+                }} 
                 options={[...leadersOptions]} 
             />
 
@@ -294,7 +300,7 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
                 icon="bi-clock"
                 placeholder="Duration"
                 tooltipContent="Select the duration of the meeting."
-                minValue={0} 
+                minValue={10} 
                 className="mt-3"
                 maxValue={60} 
                 value={durationState.duration}

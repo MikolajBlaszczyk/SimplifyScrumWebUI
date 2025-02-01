@@ -42,8 +42,8 @@ export function RefinementFeatureInfo({guid}: Props){
 
     const validateRefineSwitchForFeatureRefine = () => {
         if(refinedState.checked === false){
-            showAlert(AlertStyle.Warning, "Please set feature as refined.")
-           return false
+            setRefinedState(prev => ({...prev, validation: {isValid: false, message: "Please set feature as refined."}}))
+            return false
         }
 
         return true

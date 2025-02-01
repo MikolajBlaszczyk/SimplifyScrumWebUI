@@ -13,25 +13,17 @@ interface Props {
 export function MeetingsBlock({isEmpty, isPlaceholder, meetings}: Props){ 
     let list 
 
-      useEffect(() => {
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
-
-    
-            return () => {
-                tooltipList.map(t => t.dispose())
-                }
-          }, [meetings]);
+ 
 
     if(meetings == null || meetings == undefined || meetings.length == 0){ 
         list = <div className="w-75 text-center mt-4">No Incoming Meetings</div>
     } else {
         list = (
-            <ul style={{width: '70%', textAlign: 'start'}} className="mt-2 d-flex justify-content-start align-items-center s-elipsis  s-info-meetings-list user-select-none  list-group " data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title="Maximum of 5 next meetings. Having too much meetings can reduce productivity.">
+            <ul style={{width: '70%', textAlign: 'start'}} className="mt-2 d-flex justify-content-start  s-elipsis rounded-0  s-info-meetings-list user-select-none  list-group " data-bs-toggle="tooltip" data-bs-custom-class="s-tooltip" data- data-bs-placement="left" title="Maximum of 5 next meetings. Having too much meetings can reduce productivity.">
                 {
                     meetings?.slice(0, 5).map((meeting, index) => {
                         return (
-                            <li className="list-group-item text-start" key={index}>
+                            <li className="list-group-item text-start border-bottom border-0  border-light  " key={index}>
                                {meeting.name}
                             </li>
                         )

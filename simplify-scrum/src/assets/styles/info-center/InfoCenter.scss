@@ -28,9 +28,8 @@
     border-radius: $s-radius;
 
     li{ 
-        
+        padding-left: 0;
         background-color: transparent;
-        border: none !important;
         padding-bottom: $s-padding-vertical;
         color: darken($light, 5%);
     }

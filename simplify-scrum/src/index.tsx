@@ -17,6 +17,13 @@ import { ModalProvider } from './context/ModalContext';
 import { BacklogStateProvider, DailyContext, DailyContextProvider } from './context/ContextsIndex';
 import {RefinementStateProvider } from './context/RefinementContext';
 import { RetroProvider } from './context/RetroContext';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark'
+  },
+});
 
 function ErrorBoundary() {
   let error = useRouteError();
@@ -90,7 +97,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-
+  <ThemeProvider theme={darkTheme}>
     <DndProvider backend={HTML5Backend}>
       <AlertProvider>
         <ModalProvider>
@@ -110,6 +117,6 @@ root.render(
         </ModalProvider>
       </AlertProvider>
     </DndProvider>
-
+  </ThemeProvider>
 );
 

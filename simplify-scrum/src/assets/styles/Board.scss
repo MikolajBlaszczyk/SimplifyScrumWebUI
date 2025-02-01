@@ -4,7 +4,6 @@
 //TODO: Rename this file to backlog.scss
 
 .s-board {  
-    min-height: calc( $s-section-min-height / 1.3 ) !important;
     transition: height 1s ease ;
     section{
         height: var(--height, '350');
