@@ -1,4 +1,4 @@
-import { Sprint, Plan } from "../../data/CommonDataIndex"
+import { Sprint, SprintPlan } from "../../data/CommonDataIndex"
 import { Feature, Project } from "../../features/backlog/data/DataIndex"
 import { RequestFactory } from "../api/RequestFactory"
 
@@ -22,7 +22,7 @@ export class SprintService {
         }
     }
 
-    static async PlanSprint(plan: Plan): Promise<Sprint>{
+    static async PlanSprint(plan: SprintPlan): Promise<Sprint>{
         try{
             const url = apiUrl + '/sprint/plan'
             const response  = await RequestFactory.createPostRequest(url, plan)

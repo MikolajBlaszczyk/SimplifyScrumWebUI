@@ -9,6 +9,7 @@ export interface Sprint {
     createdOn: Date 
     lastUpdateBy: string 
     lastUpdatedOn: Date 
+    isFinished: boolean
 }
 
 export class SprintModel implements Sprint { 
@@ -22,22 +23,24 @@ export class SprintModel implements Sprint {
     createdOn: Date 
     lastUpdateBy: string 
     lastUpdatedOn: Date 
+    isFinished: boolean
 
-    constructor(guid: string, name: string, goal: string, iteration: number, end: Date, projectGuid: string, createdBy?: string, createdOn?: Date, lastUpdatedBy?: string, lastUpdatedOn?: Date) {
+    constructor(guid: string, name: string, goal: string, iteration: number, end: Date, projectGuid: string) {
         this.guid = guid
         this.name = name
         this.goal = goal
         this.iteration = iteration
         this.end = end
         this.projectGuid = projectGuid
-        this.createdBy = createdBy ?? ''
-        this.createdOn = createdOn ?? new Date()
-        this.lastUpdateBy = lastUpdatedBy ?? ''
-        this.lastUpdatedOn = lastUpdatedOn ?? new Date()
+        this.createdBy = '' 
+        this.createdOn = new Date()
+        this.lastUpdateBy =  ''
+        this.lastUpdatedOn = new Date()
+        this.isFinished = false
     }
 
     static default() { 
-        return new SprintModel('', '', '', 0, new Date(),'', '', new Date(), '', new Date())
+        return new SprintModel('', '', '', 0, new Date(),'')
     }
     
     toString() {

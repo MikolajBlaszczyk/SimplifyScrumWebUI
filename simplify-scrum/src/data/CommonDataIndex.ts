@@ -1,7 +1,7 @@
 export * from './notifications/Notification'
 
 export * from './backlog/Sprint'
-export * from './backlog/Plan'
+export * from './backlog/SprintPlan'
 
 export * from './schedule/Day';
 export * from './schedule/Meeting';

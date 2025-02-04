@@ -18,7 +18,6 @@ interface OffcanvasProps {
 }
 
 export function Offcanvas({breadcrumbChange}: OffcanvasProps){
-    const {shouldReload, setShouldReload} = useLoading()
     const {settings, setSettings} = useContext(UserContext)
     const [teamLeaderCenterButton, setTeamLeaderCenterButton] = useState<JSX.Element>(<></>)
     const cleanup = useCleanup()

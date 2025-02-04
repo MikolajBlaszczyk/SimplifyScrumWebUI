@@ -3,7 +3,7 @@ import { Feature } from "../../backlog/data/DataIndex"
 import { DragableFeature, DragableTypes } from "./DragableFeature";
 import { useDrop } from "react-dnd";
 import { Button, TextInput } from "../../../components/ComponentsIndex";
-import { Plan, SprintModel } from "../../../data/CommonDataIndex";
+import { SprintPlan, SprintModel } from "../../../data/CommonDataIndex";
 import { BacklogService, SprintService } from "../../../services/CommonServicesIndex";
 import { Role, Style } from "../../../components/common/button/ButtonProps";
 import { CalendarInput } from "../../../components/form/calendar/CalendarInput";
@@ -106,16 +106,16 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
     const plan = async () => {
         if(BacklogService.getSprintInfo() != null){
             showAlert(AlertStyle.Warning, "You need to finish current sprint before planning new one", "Sprint already planned")
+            return
         }
 
         if(!isValid()) return;
-
 
       
         const sprint = new SprintModel('', nameState.value, goalState.value, iterationState.value, endState.date, projectGuid)
         const featureGuids = plannedItems.map(feature => feature.guid);
 
-        const sprintPlan: Plan = { sprint: sprint, featureGuids: featureGuids}
+        const sprintPlan: SprintPlan = { sprint: sprint, featureGuids: featureGuids}
 
         const response = await SprintService.PlanSprint(sprintPlan)
         if(response != null ){
