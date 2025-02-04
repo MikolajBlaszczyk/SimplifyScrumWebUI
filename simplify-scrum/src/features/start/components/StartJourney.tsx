@@ -11,7 +11,6 @@ import { useAlert, useNavigateTo } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { useNavigate } from "react-router-dom";
 import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
-import { Section } from '../../../components/form/SimpleEditableForm';
 import { AccountService } from "../../account-settings/service/AccountService";
 
 interface JourneyState {

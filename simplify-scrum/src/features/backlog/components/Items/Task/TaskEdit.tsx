@@ -1,16 +1,15 @@
-import { MouseEvent, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { SimpleStatus } from "../../../data/State"
-import { Feature } from "../../../data/Feature"
 import { User } from "../../../../../data/CommonDataIndex"
-import { Button, SelectionInput, SelectItem, SimpleSelectionInput, SimpleTextInput, TextInput } from "../../../../../components/ComponentsIndex"
+import { Button, SelectionInput, TextInput } from "../../../../../components/ComponentsIndex"
 import { BacklogService, EnumService } from "../../../../../services/CommonServicesIndex"
-import { BgColor, FontColor } from "../../../../../utils/UtilsIndex"
 import { GenericEnumService } from "../../../../../services/enum/GenericEnumService"
 import { AccountService } from '../../../../account-settings/service/AccountService';
 import { Task } from "../../../data/Task"
 import { Role, Size, Style } from "../../../../../components/common/button/ButtonProps"
 import { SelectState, TextState } from "../../../../../components/form/shared/SharedProps"
-import { useHideModal, useModal } from '../../../../../hooks/useModal';
+import { useHideModal } from '../../../../../hooks/useModal';
+import { SelectItem } from "../../../../../components/form/selection-input/SelectionInputProps"
 
 interface Props {
     featureGuid?: string

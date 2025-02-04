@@ -3,16 +3,17 @@ import { MeetingFactory, MeetingType, User } from "../../../../data/CommonDataIn
 import { MeetingSerivce } from "../../../../services/CommonServicesIndex"
 import { useAlert, useLoading } from "../../../../hooks/HooksIndex"
 import { AccountService } from "../../../account-settings/service/AccountService"
-import { SelectItem, TextInput, SelectionInput, Button } from "../../../../components/ComponentsIndex"
+import { TextInput, SelectionInput, Button } from "../../../../components/ComponentsIndex"
 import { DateConverter } from '../../../../utils/utility-services/DateSerivces';
 import { GenericEnumService } from "../../../../services/enum/GenericEnumService"
-import { Alert, AlertStyle, AlertType } from "../../../alerting/components/Alert"
+import { AlertStyle, AlertType } from "../../../alerting/components/Alert"
 import { MultiTextInput } from "../../../../components/form/text-input/MultiTextInput"
 import { CalendarInput } from "../../../../components/form/calendar/CalendarInput"
 import { RangeInput } from "../../../../components/form/range-input/RangeInput"
 import { MultiSelectionInput } from '../../../../components/form/selection-input/MultiSelectionInput';
 import { Role, Size, Style } from '../../../../components/common/button/ButtonProps';
 import { ValidationResult } from '../../../../components/form/shared/SharedProps';
+import { SelectItem } from "../../../../components/form/selection-input/SelectionInputProps"
 
 enum Action {
     Add,

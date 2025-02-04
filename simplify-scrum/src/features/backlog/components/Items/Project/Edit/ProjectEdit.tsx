@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { StandardStatus } from '../../../../data/State';
 import { Team } from "../../../../../../data/CommonDataIndex";
-import { Button, SelectionInput, SelectItem, TextInput } from "../../../../../../components/ComponentsIndex";
+import { Button, SelectionInput, TextInput } from "../../../../../../components/ComponentsIndex";
 import { BacklogService, PermissionService } from '../../../../../../services/CommonServicesIndex';
 import { EnumService } from '../../../../../../services/enum/StateEnumService';
 import { GenericEnumService } from "../../../../../../services/enum/GenericEnumService";
@@ -9,11 +9,12 @@ import { AccountService } from "../../../../../account-settings/service/AccountS
 import { Project } from "../../../../data/DataIndex";
 import { useAlert, useBacklog, useLoading } from "../../../../../../hooks/HooksIndex";
 import { AlertStyle, AlertType } from "../../../../../alerting/components/Alert";
-import { CheckState, SelectState, TextState, ValidationResult } from '../../../../../../components/form/shared/SharedProps';
+import { CheckState, SelectState, TextState } from '../../../../../../components/form/shared/SharedProps';
 import { MultiTextInput } from '../../../../../../components/form/text-input/MultiTextInput';
 import { Style, Role } from '../../../../../../components/common/button/ButtonProps';
 import { SwitchInput } from "../../../../../../components/form/switch-input/SwitchInput";
 import { BacklogAction } from "../../../../../../context/BacklogContext";
+import { SelectItem } from "../../../../../../components/form/selection-input/SelectionInputProps";
 
 interface Props {
     guid?: String

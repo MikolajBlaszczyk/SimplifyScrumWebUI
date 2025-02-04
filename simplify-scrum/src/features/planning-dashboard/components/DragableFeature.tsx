@@ -1,6 +1,5 @@
 import { useDrag } from "react-dnd";
 import { Feature } from "../../backlog/data/Feature";
-import { SimpleCard } from "../../../components/ComponentsIndex";
 import { useEffect, useMemo, useState } from "react";
 import { AccountService } from "../../account-settings/service/AccountService";
 

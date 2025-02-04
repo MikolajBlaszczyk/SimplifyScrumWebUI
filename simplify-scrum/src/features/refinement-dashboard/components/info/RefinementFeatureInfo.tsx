@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { BacklogService, EnumService } from "../../../../services/CommonServicesIndex"
 import { DataLoader, ExtendedDataLoader } from "../../../../data/CommonDataIndex"
 import { Feature } from "../../../backlog/data/DataIndex"
-import { Button, Placeholder, SelectionInput, SelectItem, SimpleSelectionInput, SimpleSwitch, StandardHeader, TextInput } from "../../../../components/ComponentsIndex"
+import { Button, Placeholder, SelectionInput, TextInput } from "../../../../components/ComponentsIndex"
 import { RefinementService } from "../../services/RefinementSerivce"
 import { useRefinement } from "../../../../hooks/useContexts"
 import { RefinementAction } from "../../../../context/RefinementContext"
@@ -14,6 +14,7 @@ import { setRef } from "@mui/material"
 import { set } from 'date-fns';
 import { useAlert } from "../../../../hooks/useAlert"
 import { AlertStyle } from "../../../alerting/components/Alert"
+import { SelectItem } from "../../../../components/form/selection-input/SelectionInputProps"
 
 interface Props {
     guid: string

@@ -1,15 +1,11 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-import { UserEditableSettings, UserSelectionSetting } from "../../account-settings/components/UserEditableSettings";
-import { Button, SelectionInput, SimpleSelectionInput, TextInput } from "../../../components/ComponentsIndex";
-import { Fonts } from "../../../utils/UtilsIndex";
+import { useEffect, useState } from "react";
+import { Button, SelectionInput, TextInput } from "../../../components/ComponentsIndex";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { Team, User } from "../../../data/CommonDataIndex";
 import { useAlert, useHideModal } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { JoruneyComponentProps } from "./StartJourney";
-import { SelectItem } from '../../../components/form/selection-input/SelectionInputProps';
 import { SelectState, TextState } from "../../../components/form/shared/SharedProps";
-import { set } from 'date-fns';
 import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
 
 interface Props {

@@ -1,5 +1,6 @@
 import { ValidationResult } from "../shared/SharedProps"
-import { SelectItem } from "../SimpleSelectionInput"
+import { SelectItem } from "./SelectionInputProps"
+
 
 
 export interface MultiSelectionInputProps{

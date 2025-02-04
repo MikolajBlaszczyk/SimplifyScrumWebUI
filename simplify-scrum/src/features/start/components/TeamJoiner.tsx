@@ -1,9 +1,10 @@
 import { MouseEvent, useEffect, useState } from "react";
-import { Button, SelectionInput, SelectItem } from "../../../components/ComponentsIndex";
+import { Button, SelectionInput } from "../../../components/ComponentsIndex";
 import { AccountService } from "../../account-settings/service/AccountService";
 import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { Role, Style } from "../../../components/common/button/ButtonProps";
+import { SelectItem } from "../../../components/form/selection-input/SelectionInputProps";
 
 export function TeamJoiner(){
     const showAlert = useAlert()

@@ -1,14 +1,12 @@
-import { ChangeEvent, MouseEvent, useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { AccountService } from "../service/AccountService"
 import UserInformation from "./UserInfo";
 import { ExtendedDataLoader, User } from "../../../data/CommonDataIndex";
 import {  Button, TextInput } from "../../../components/ComponentsIndex";
 import { useAlert, useLoading } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
-import { UserCheckboxSetting } from './UserEditableSettings';
 import { CheckState, TextState } from "../../../components/form/shared/SharedProps";
 import { SwitchInput } from "../../../components/form/switch-input/SwitchInput";
-import { textTypes } from '../../../components/form/text-input/TextInputProps';
 import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
 
 

@@ -1,5 +1,4 @@
 import { MouseEvent, useEffect, useState } from "react";
-import { UserCheckboxSetting, UserEditableSettings, UserSelectionSetting } from "../../account-settings/components/UserEditableSettings";
 import { Button, TextInput } from "../../../components/ComponentsIndex";
 import { User } from "../../../data/CommonDataIndex";
 import { BacklogService } from "../../../services/CommonServicesIndex";

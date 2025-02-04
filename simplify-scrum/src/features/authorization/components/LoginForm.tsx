@@ -1,20 +1,16 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-import SecureLogin from "../../../assets/img/secure_login.svg"
-import { Link, useNavigate } from 'react-router-dom';
+import {useContext, useEffect, useState} from "react";
 import { Global, UserContext } from "../../../context/ContextsIndex";
-import { BgColor, Destination, destinationPaths, FontColor, Fonts } from "../../../utils/UtilsIndex";
+import {  Destination } from "../../../utils/UtilsIndex";
 import { LoginService } from "../services/LoginService"
 import { AuthProperties } from "../data/Index"
-import { Button, SimpleTextInput, TextType, TextTypes } from "../../../components/ComponentsIndex";
-import {useAlert, useNavigateTo} from "../../../hooks/HooksIndex";
+import { Button, TextType } from "../../../components/ComponentsIndex";
+import { useAlert, useNavigateTo } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
 import { Role, Size, Style } from "../../../components/common/button/ButtonProps";
 import { TextInput } from "../../../components/form/text-input/TextInput";
-import { AxiosError } from "axios";
 import { ValidationResult } from "../../../components/form/shared/SharedProps";
 import { AccountService } from "../../account-settings/service/AccountService";
-import { Start } from '../../../pages/Start';
-import { BacklogService, SprintService } from "../../../services/CommonServicesIndex";
+import { BacklogService } from "../../../services/CommonServicesIndex";
 import { ExtendedStatus } from "../../backlog/data/State";
 
 
