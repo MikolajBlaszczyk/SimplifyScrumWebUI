@@ -23,10 +23,26 @@ export class MeetingSerivce{
         }
     }
 
-    public static async GetMeetingsByDate(day: string): Promise<DayModel>{
+    public static async GetScheduleByDate(date: Date): Promise<ScheduleModel>{
+        try {
+            const url = meetingApiUrl + "/schedule?date=" + date.toDateString()
+            const response = await RequestFactory.createGetRequest(url)
+            
+            response.data.days = response.data.days.map((day:DayModel) => DataMapper.mapDayDate(day))
+            
+            return response.data as ScheduleModel
+        } catch(error) {
+            console.log(error)
+            return Schedule.empty()
+        }
+    }
+
+   
+
+    public static async GetMeetingsByDate(day: Date): Promise<DayModel>{
         try {
             const url = meetingApiUrl + "/date"
-            const response = await RequestFactory.createPostRequest(url,  day)
+            const response = await RequestFactory.createPostRequest(url,  this.formatISOWithTimezone(day))
             
             
             return DataMapper.mapDayDate(response.data) as DayModel
@@ -85,6 +101,22 @@ export class MeetingSerivce{
             console.log(error)
             return false
         }
+    }
+
+    public static formatISOWithTimezone = (date: Date) => {
+        const pad = (num: number) => String(num).padStart(2, '0');
+        const year = date.getFullYear();
+        const month = pad(date.getMonth() + 1);
+        const day = pad(date.getDate());
+        const hours = pad(date.getHours());
+        const minutes = pad(date.getMinutes());
+        const seconds = pad(date.getSeconds());
+        const timezoneOffset = -date.getTimezoneOffset();
+        const sign = timezoneOffset >= 0 ? '+' : '-';
+        const offsetHours = pad(Math.floor(Math.abs(timezoneOffset) / 60));
+        const offsetMinutes = pad(Math.abs(timezoneOffset) % 60);
+
+        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${sign}${offsetHours}:${offsetMinutes}`;
     }
 } 
 

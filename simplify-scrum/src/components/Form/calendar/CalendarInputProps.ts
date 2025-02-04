@@ -6,6 +6,7 @@ export interface CalendarInputProps{
     icon?: string 
     disabled?: boolean
     className?: string
+    time?: boolean
     placeholder?: string
     value: Date
     onValueChange: (newValue: string) => void

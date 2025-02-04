@@ -20,8 +20,7 @@ export default function DayInfo({clickedDay}: properties){
     const [meetingsList, setMeetingsList] = useState<JSX.Element[]>([])
     
     const fetchMeetings = async () => {
-        const formattedDateTime = formatISOWithTimezone(clickedDay);
-        const day = await MeetingSerivce.GetMeetingsByDate(formattedDateTime)
+        const day = await MeetingSerivce.GetMeetingsByDate(clickedDay)
         setMeetingsList(day.meetings.map(meeting => {
             return <li key={meeting.guid}  
             onClick={() => setSelectedMeeting(meeting)} 
@@ -41,21 +40,7 @@ export default function DayInfo({clickedDay}: properties){
         }))
     }
 
-    const formatISOWithTimezone = (date: Date) => {
-        const pad = (num: number) => String(num).padStart(2, '0');
-        const year = date.getFullYear();
-        const month = pad(date.getMonth() + 1);
-        const day = pad(date.getDate());
-        const hours = pad(date.getHours());
-        const minutes = pad(date.getMinutes());
-        const seconds = pad(date.getSeconds());
-        const timezoneOffset = -date.getTimezoneOffset();
-        const sign = timezoneOffset >= 0 ? '+' : '-';
-        const offsetHours = pad(Math.floor(Math.abs(timezoneOffset) / 60));
-        const offsetMinutes = pad(Math.abs(timezoneOffset) % 60);
 
-        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${sign}${offsetHours}:${offsetMinutes}`;
-    }
 
     useEffect(() => {
         fetchMeetings()

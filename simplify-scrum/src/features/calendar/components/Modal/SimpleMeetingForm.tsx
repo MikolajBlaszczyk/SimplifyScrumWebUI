@@ -290,6 +290,7 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
                 icon="bi-calendar"
                 placeholder="Date"
                 className="mt-3"
+                time={true}
                 tooltipContent="Select the date of the meeting."
                 validation={startState.validationResult}
                 value={new Date(startState.start)} 

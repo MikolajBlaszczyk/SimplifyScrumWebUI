@@ -8,8 +8,6 @@ import { useLoading } from '../../../hooks/HooksIndex';
 import { MeetingSerivce } from "../../../services/CommonServicesIndex";
 import { useAlert } from "../../../hooks/HooksIndex";
 import { AlertStyle } from "../../alerting/components/Alert";
-import { Size } from "../../../components/common/button/ButtonProps";
-import { useModal } from '../../../hooks/useModal';
 
 interface SimpleCalendarProps {
     initialDate: Date 
@@ -17,35 +15,40 @@ interface SimpleCalendarProps {
 }
 
 interface DayClickedEventProps {
-    date: Date
-    selectedDay: DayModel | null
+    clickedDay: Date
+    meetings: DayModel | null
     showModal: boolean
 }
 
 
 
 export default function SimpleCalendar({initialDate, className}: SimpleCalendarProps) {
-
     const {shouldReload} = useLoading()
     const showAlert = useAlert()
-    const today = new Date()
-    const calendarRef = useRef<HTMLDivElement>(null)
 
-    const [schedule, setSchedule] = useState<ScheduleModel>({ month: initialDate.getMonth(), days: [] })
-    const [calendarDate, setCalendarDate] = useState(initialDate)
+    const [calendarDate, setCalendarDate] = useState<Date>(initialDate)
+    const [schedule, setSchedule] = useState<ScheduleModel>({ 
+        month: initialDate.getMonth(),
+         days: [] 
+    })
     const [clickProps, setClickProps] = useState<DayClickedEventProps>({
-        date: initialDate ?? new Date(),
-        selectedDay: null,
+        clickedDay: initialDate ?? new Date(),
+        meetings: null,
         showModal: false
     })
     
-    const dayClickedInfoChanged = (clickedDate: Date, days: DayModel[] | null = null) => {
+   
+
+    const dayClickedInfoChanged = async (clickedDate: Date, days: DayModel[] | null = null) => {
         let selectedDay: DayModel;
 
         if(days != null){
             selectedDay = days.find(day => 
                 day.date.getTime() == clickedDate.getTime()
             )! 
+            if(selectedDay == null) {
+                selectedDay =  (await MeetingSerivce.GetMeetingsByDate(clickedDate))
+            }
         } else {
             selectedDay = schedule.days.find(day => 
                 day.date.getTime() == clickedDate.getTime()
@@ -54,68 +57,50 @@ export default function SimpleCalendar({initialDate, className}: SimpleCalendarP
        
         setClickProps(prev => ({
                 ...prev,
-                selectedDay: selectedDay,
-                date: clickedDate,
+                meetings: selectedDay,
+                clickedDay: clickedDate,
                 showModal: true
             })
         )
     }
 
-    const fetchData = async () => {
-        const schedule = await MeetingSerivce.GetMeetings()
+    const fetchSchedule = async (date: Date) => {
+        const schedule = await MeetingSerivce.GetScheduleByDate(calendarDate)
         setSchedule(schedule)
+    }
+
+    const fetchDayMeetings = async (date: Date) => {
+        try {
+            const schedule = await MeetingSerivce.GetScheduleByDate(date)
+            dayClickedInfoChanged(clickProps.clickedDay, schedule.days)
+        } catch {
+            showAlert(AlertStyle.Danger, "error")
+        }
        
     }
 
+
     useEffect(() => {
-        fetchData()
-    },[shouldReload])
-    
-    useEffect(() => {    
-        if(clickProps.showModal == true)
-        MeetingSerivce
-            .GetMeetings()
-            .then(data => {
-                dayClickedInfoChanged(clickProps.date, data.days)
-            })
-            .catch(error => showAlert(AlertStyle.Danger, error.message))
+        fetchSchedule(calendarDate)
+
+        if(clickProps.showModal == true) {
+            fetchDayMeetings(clickProps.clickedDay)
+        }
     },[shouldReload])
 
-    const onDayClick = (date: Date, event: React.MouseEvent<HTMLButtonElement>) => {
-        if(date.getMonth() != initialDate.getMonth()){
-            event.stopPropagation()
-            return
-        }
-        
+    const onDayClick = async (date: Date, event: React.MouseEvent<HTMLButtonElement>) => {
+        await fetchSchedule(date)
         dayClickedInfoChanged(date)
-
-        if (calendarRef.current) {
-            calendarRef.current.classList.add('animate-height')
-            setTimeout(() => {
-                if (calendarRef.current) {
-                    calendarRef.current.classList.remove('animate-height')
-                }
-            }, 1000)
-        }
     }
 
     const closeDayEdit = () => {
-        setClickProps(prev => ({...prev, selectedDay: null, showModal: false}))
+        setClickProps(prev => ({...prev, meetings: null, showModal: false}))
     }
 
-    const renderDescription = (currentDate: Date, month: Number) => {
-        if(currentDate.getMonth() != month)
-            return (<></>)
-
+    const renderDescription = (currentDate: Date) => {
         const currentDay: DayModel | undefined = schedule.days.find(day => day.date.getTime() === currentDate.getTime()) 
 
-        if(currentDate == null)
-            return (<></>)
-
-        if(!currentDay)
-            return (<></>)
-
-        if(!(currentDay!.meetings))
+        if(currentDate == null || !currentDay || !(currentDay!.meetings))
             return (<></>)
 
         return (
@@ -123,26 +108,34 @@ export default function SimpleCalendar({initialDate, className}: SimpleCalendarP
         )
     }
 
+
     return (
         <div className={className}>
-            <div className="s-calendar-size overflow-hidden"  ref={calendarRef}>
+            <div className="s-calendar-size overflow-hidden">
                 <Calendar
                 minDetail="month"
                 nextLabel={(<i className="bi bi-box-arrow-in-right s-h4"></i>)}
                 prevLabel={(<i className="bi bi-box-arrow-in-left s-h4"></i>)}
                 showNeighboringMonth={false}
-                onChange={(newValue) => setCalendarDate(newValue as Date)} 
-                value={initialDate ?? new Date()}
-                tileContent={(args) => renderDescription(args.date, calendarDate.getMonth())}
+                onChange={(newValue) =>  setCalendarDate(newValue as Date)} 
+                value={calendarDate}
+                tileContent={(args) => renderDescription(args.date)}
                 onClickDay={onDayClick}
+                onActiveStartDateChange={async (date) => {
+                    if (date.activeStartDate) {
+                        setCalendarDate(date.activeStartDate)
+                        let schedule = await MeetingSerivce.GetScheduleByDate(date.activeStartDate)
+                        setSchedule(schedule)
+                    }
+                }}
                 className="justify-content-center align-items-center"/>
                 
                 {
                     clickProps.showModal &&
                     <div>
                         <SimpleModal 
-                        body={<DayInfo  clickedDay={clickProps.date}/>} 
-                        day={clickProps.selectedDay!} 
+                        body={<DayInfo  clickedDay={clickProps.clickedDay}/>} 
+                        day={clickProps.meetings!} 
                         onClose={closeDayEdit}/>
                         <div className="modal-backdrop fade show"/> 
                     </div> 
