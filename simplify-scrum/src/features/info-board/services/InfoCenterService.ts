@@ -6,7 +6,7 @@ export class InfoCenterService {
     static async getTodaysMeetings(): Promise<Meeting[]>{
         const today = new Date()
 
-        const schedule = await MeetingSerivce.GetMeetings()
+        const schedule = await MeetingSerivce.GetScheduleByDate(today)
         const day = schedule.days.find(day => DateComparer.areTheSameDay(day.date, today))
         
         return (day?.meetings) ?? []

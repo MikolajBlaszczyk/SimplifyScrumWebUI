@@ -23,7 +23,7 @@ interface DayClickedEventProps {
 
 
 export default function SimpleCalendar({initialDate, className}: SimpleCalendarProps) {
-    const {shouldReload} = useLoading()
+    const {shouldReload, setShouldReload} = useLoading()
     const showAlert = useAlert()
 
     const [calendarDate, setCalendarDate] = useState<Date>(initialDate)

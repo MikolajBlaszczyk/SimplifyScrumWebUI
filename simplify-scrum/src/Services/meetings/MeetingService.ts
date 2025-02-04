@@ -9,19 +9,7 @@ const meetingApiUrl = `${process.env.REACT_APP_SIMPLIFY_API}/meetings`
 
 export class MeetingSerivce{
 
-    public static async GetMeetings(): Promise<ScheduleModel>{
-        try {
-            const url = meetingApiUrl + "/current"
-            const response = await RequestFactory.createGetRequest(url)
-            
-            response.data.days = response.data.days.map((day:DayModel) => DataMapper.mapDayDate(day))
-            
-            return response.data as ScheduleModel
-        } catch(error) {
-            console.log(error)
-            return Schedule.empty()
-        }
-    }
+    
 
     public static async GetScheduleByDate(date: Date): Promise<ScheduleModel>{
         try {
