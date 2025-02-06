@@ -104,8 +104,9 @@ export function PlannedBoard({onDropFeature, onRemoveFeature , plannedItems, fea
     }
 
     const plan = async () => {
-        if(BacklogService.getSprintInfo() != null){
-            showAlert(AlertStyle.Warning, "You need to finish current sprint before planning new one", "Sprint already planned")
+        const currnetSprint = await BacklogService.getSprintInfo()
+        if(currnetSprint){
+            showAlert(AlertStyle.Warning, "You need to finis2h current sprint before planning new one", "Sprint already planned")
             return
         }
 
