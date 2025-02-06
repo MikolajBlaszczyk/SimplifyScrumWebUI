@@ -21,7 +21,7 @@ export function UsersSelection() {
         setTeamGuid(leader.teamGuid)         
         
         const teamMembers = await AccountService.getTeamMembers()
-        const users = await AccountService.getUsers()
+        const users = await (await AccountService.getUsers()).filter(user => !(user.teamGuid) || user.teamGuid == leader.teamGuid)
       
         setOptions(users.map(user => ({value: user.id, description: user.nickname})))
         setSelectedValues(teamMembers.map(user => ({value: user.id, description: user.nickname})))

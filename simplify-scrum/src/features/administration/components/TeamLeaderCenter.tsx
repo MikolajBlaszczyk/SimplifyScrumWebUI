@@ -5,6 +5,7 @@ import { ExtendedDataLoader, User } from "../../../data/CommonDataIndex"
 import { AccountService } from "../../account-settings/service/AccountService"
 import { useLoading, useModal } from "../../../hooks/HooksIndex"
 import { UsersSelection } from "./UsersSelection"
+import { UserRoleSelection } from "./UserRoleSelection"
 
 
 export function TeamLeaderCenter() {
@@ -33,10 +34,9 @@ export function TeamLeaderCenter() {
                     content={teamMembersLoader.placeholder == false ? 
                         [...teamMembersLoader.data!.map(user => <div className="">{user.nickname}</div>)] : []} title={"Team members"}/>
                 
-                <div className="w-100 mt-5   d-flex">
+                <div className="w-100 mt-5  justify-content-around  d-flex">
                    
                     <Button 
-                        className="w-100"
                         role={Role.Primary}
                         size={Size.Medium}
                         style={Style.Filled}
@@ -44,6 +44,18 @@ export function TeamLeaderCenter() {
                         onClick={() => {
                             showModal(
                                 <UsersSelection  />,
+                                "Select"
+                            )
+                        }}/>
+
+                    <Button 
+                        role={Role.Primary}
+                        size={Size.Medium}
+                        style={Style.Filled}
+                        title="Edit roles"
+                        onClick={() => {
+                            showModal(
+                                <UserRoleSelection  />,
                                 "Select"
                             )
                         }}/>
