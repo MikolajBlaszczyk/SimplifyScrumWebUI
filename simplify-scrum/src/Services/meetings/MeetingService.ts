@@ -30,7 +30,7 @@ export class MeetingSerivce{
     public static async GetMeetingsByDate(day: Date): Promise<DayModel>{
         try {
             const url = meetingApiUrl + "/date"
-            const response = await RequestFactory.createPostRequest(url,  this.formatISOWithTimezone(day))
+            const response = await RequestFactory.createPostRequest(url,  day)
             
             
             return DataMapper.mapDayDate(response.data) as DayModel
