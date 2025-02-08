@@ -234,9 +234,9 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
     }, [added])
 
     const onMeetingTypeChange = (newValue: string) => {
-        const meetingTypeValue = newValue as keyof typeof MeetingType;
-        const meeting = MeetingType[meetingTypeValue];
-        setTypeState(prev => ({...prev, type: meeting}))
+        const meetingTypeValue = parseInt(newValue) 
+
+        setTypeState(prev => ({...prev, type: meetingTypeValue as MeetingType}))
     }
   
     return (
@@ -266,7 +266,7 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
                 placeholder="Meeting type"
                 tooltipContent="Select the type of the meeting."
                 validation={typeState.ValidationResult}
-                selectedValue={typeState.type ? MeetingType[typeState.type] : undefined} 
+                selectedValue={typeState.type ? MeetingType[typeState.type].toString() : undefined} 
                 onSelectedValueChange={e => onMeetingTypeChange(e)} 
                 options={[...meetingOptions]}
             />

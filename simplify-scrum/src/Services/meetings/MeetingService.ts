@@ -30,7 +30,7 @@ export class MeetingSerivce{
     public static async GetMeetingsByDate(day: Date): Promise<DayModel>{
         try {
             const url = meetingApiUrl + "/date"
-            const response = await RequestFactory.createPostRequest(url,  this.formatISOWithTimezone(day))
+            const response = await RequestFactory.createPostRequest(url,  formatISOWithTimezone(day))
             
             
             return DataMapper.mapDayDate(response.data) as DayModel
@@ -91,22 +91,23 @@ export class MeetingSerivce{
         }
     }
 
-    public static formatISOWithTimezone = (date: Date) => {
-        const pad = (num: number) => String(num).padStart(2, '0');
-        const year = date.getFullYear();
-        const month = pad(date.getMonth() + 1);
-        const day = pad(date.getDate());
-        const hours = pad(date.getHours());
-        const minutes = pad(date.getMinutes());
-        const seconds = pad(date.getSeconds());
-        const timezoneOffset = -date.getTimezoneOffset();
-        const sign = timezoneOffset >= 0 ? '+' : '-';
-        const offsetHours = pad(Math.floor(Math.abs(timezoneOffset) / 60));
-        const offsetMinutes = pad(Math.abs(timezoneOffset) % 60);
-
-        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${sign}${offsetHours}:${offsetMinutes}`;
-    }
 } 
+
+const formatISOWithTimezone = (date: Date) => {
+    const pad = (num: number) => String(num).padStart(2, '0');
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+    const timezoneOffset = -date.getTimezoneOffset();
+    const sign = timezoneOffset >= 0 ? '+' : '-';
+    const offsetHours = pad(Math.floor(Math.abs(timezoneOffset) / 60));
+    const offsetMinutes = pad(Math.abs(timezoneOffset) % 60);
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${sign}${offsetHours}:${offsetMinutes}`;
+}
 
 class DataMapper {
     static createMeetingData(meeting: Meeting) {
@@ -115,9 +116,9 @@ class DataMapper {
             Name: meeting.name,
             Description: meeting.description,
             LeaderGuid: meeting.leaderGuid,
-            Start: meeting.start, 
+            Start: formatISOWithTimezone(meeting.start), 
             Duration: meeting.duration,
-            Type: MeetingType[meeting.type] ,
+            Type: meeting.type ,
             UserGuids: meeting.userGuids
         };
     }
