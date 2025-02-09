@@ -182,6 +182,8 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
         setDurationState(prev => ({...prev, duration: DateConverter.convertTimeStringToDate(meeting.duration).getMinutes(), validationResult: {isValid: true, message: ""}}))
 
 
+        
+
         setselectedUsers(meeting.userGuids?.filter(guid => guid != meeting.leaderGuid).map(userGuid => {
             const user = allOptions.find(option => option.value == userGuid)
             return user ?? {value: "", description: ""}
@@ -202,7 +204,10 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
 
 
         
-        setAllOptions(users.map(user => { return {value: user.id, description: user.nickname} }))
+        setAllOptions(users.filter(u => u.id != leaderState.leaderGuid).map(user => {  
+            
+            return {value: user.id, description: user.nickname}
+         }))
 
         const types = GenericEnumService.getEnumNames(MeetingType)
 
@@ -280,7 +285,9 @@ export default function SimpleMeetingForm({meetingGuid, clickedDay, onMeetingUpd
                 selectedValue={leaderState.leaderGuid ?? undefined} 
                 onSelectedValueChange={e => {
                     const users = allUsers.filter(u => u.id != e)
-                    setAllOptions(prev => users.map(u => { return {value: u.id, description: u.nickname} }))
+                    setAllOptions(prev => users.filter(u => u.id != leaderState.leaderGuid).map(u => { 
+                        return {value: u.id, description: u.nickname} 
+                    }))
                     setselectedUsers(prev => prev.filter(u => u.value != e))
                     setLeaderState(prev => ({...prev, leaderGuid: e}))
                 }} 
